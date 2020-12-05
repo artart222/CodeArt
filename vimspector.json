@@ -1,0 +1,36 @@
+{
+"configurations": {
+  "Python - Launch": {
+    "adapter": "debugpy",
+    "configuration": {
+      "name": "Python: Launch current file",
+      "type": "python",
+      "request": "launch",
+      "stopOnEntry": true,
+      "stopAtEntry": true,
+      "console": "externalTerminal",
+      "debugOptions": [],
+      "cwd": "${cwd}",
+      "program": "${file}"
+    }
+  }
+  },
+  "C - Launch": {
+    "adapter": "vscode-cpptools",
+    "configuration": {
+      "name": "Cpp: Launch current file",
+      "type": "cppdbg",
+      "request": "launch",
+      "externalConsole": true,
+      "logging": {
+        "engineLogging": true
+      },
+      "stopOnEntry": true,
+      "stopAtEntry": true,
+      "debugOptions": [],
+      "MIMode": "gdb",
+      "cwd": "${cwd}",
+      "program": "${fileDirname}/${fileBasenameNoExtension}"
+    }
+  }
+}
