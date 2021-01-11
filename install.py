@@ -33,4 +33,5 @@ elif os == "Windows":
     windows.install_dependencys()
     windows.install_font()
     windows.install_vundle()
+    windows.copy_vimrc()
     windows.copy_vimspector()
