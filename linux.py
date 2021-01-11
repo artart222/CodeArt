@@ -76,7 +76,7 @@ def install_dependencys(distro_name):
             os.system("sudo apt install ctags -y")
 
 
-def install_needed_font(distro_name):
+def install_needed_font():
     try:
         os.mkdir(home_directory_address + "/.fonts")
     except FileExistsError:
