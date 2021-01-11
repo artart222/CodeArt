@@ -1,4 +1,4 @@
-import os
+import os, shutil, subprocess
 
 
 home_directory_address = os.path.expanduser("~")
@@ -9,8 +9,8 @@ items_in_home_directory = os.listdir(home_directory_address)
 
 #installing scoop(it is package manager for windows)
 def install_scoop():
-    os.system("Set-ExecutionPolicy RemoteSigned -scope CurrentUser")
-    os.system("iwr -useb get.scoop.sh | iex")
+    subprocess.run(["powershell", "-Command", "Set-ExecutionPolicy RemoteSigned -scope CurrentUser -force"], capture_output=True)
+    subprocess.run(["powershell", "-Command", "iwr -useb get.scoop.sh | iex"], capture_output=True)
 
 
 def copy_or_make_vim_vimrc():
@@ -52,7 +52,10 @@ def install_font():
 
 
 def install_vundle():
-    os.system("git clone https://github.com/VundleVim/Vundle.vim.git %".format(home_directory_address + "/.vim/bundle/Vundle.vim"))
+    os.system("git clone https://github.com/VundleVim/Vundle.vim.git {}".format(home_directory_address + "/.vim/bundle/Vundle.vim"))
+
+def copy_vimrc():
+    shutil.copyfile(currect_directory_address + "/vimrc.vim", home_directory_address + "/_vimrc")
 
 
 def copy_vimspector():
