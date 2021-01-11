@@ -18,7 +18,7 @@ def install_homebrew():
     os.system("/bin/bash -c ""$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)""")
 
 
-def install_dependencys(distro_name):
+def install_dependencys():
     #listing installed apps
     list_of_apps = os.listdir("/usr/bin")
 
@@ -44,7 +44,7 @@ def install_dependencys(distro_name):
         os.system("brew install ctags")
 
 
-def install_needed_font(distro_name):
+def install_needed_font():
     print("beginning file download")
     url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/CascadiaCode.zip"
     urllib.request.urlretrieve(url, home_directory_address + "/Desktop/Caskaydia-Cove-Nerd-Font.zip")
