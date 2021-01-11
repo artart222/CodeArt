@@ -18,13 +18,14 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'xolox/vim-colorscheme-switcher'
 Plugin 'xolox/vim-misc'
+Plugin 'alpertuna/vim-header'
 
 "Generic programming support
 Plugin 'vim-scripts/AutoComplPop'
 Plugin 'puremourning/vimspector'
 Plugin 'majutsushi/tagbar'
 Plugin 'gilsondev/searchtasks.vim'
-Plugin 'Raimondi/delimitMate', { 'for': '!python'}
+Plugin 'Raimondi/delimitMate'
 Plugin 'preservim/nerdcommenter'
 
 "Python
@@ -35,6 +36,7 @@ Plugin 'octol/vim-cpp-enhanced-highlight'
 
 "markdown
 Plugin 'iamcco/markdown-preview.vim'
+Plugin 'iamcco/mathjax-support-for-mkdp'
 
 "Git
 Plugin 'tpope/vim-fugitive'
@@ -76,6 +78,13 @@ set splitright
 
 au VimEnter *  NERDTree "Open NERDTree on startup
 
+"Somethimes if you try to delete a character in insert mode with backspace it may not work
+"for fixing this problem you must have this line
+set backspace=indent,eol,start
+
+"terminal Bi-directionality "this allows to write in languages that are from right to left
+set termbidi
+
 "split navigations
 "^Ctrl+J move to the split to below
 nnoremap <C-J> <C-W><C-J>
@@ -87,6 +96,9 @@ nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 "Set leader+r to refresh files showed in NERDTree
 nmap <Leader>r :NERDTreeRefreshRoot<cr> \| R \| <c-w><c-p>
+
+"set viminfo+=n~/.cache/viminfo if you uncomment this viminfo file(history file of vim) will save to cache directory
+"uncomment this only if you have macOs or linux deivce
 "==================================================================================================
 
 
@@ -141,6 +153,22 @@ nmap <C-S> :StripWhitespace<CR>
 
 
 
+"Header settings
+
+map <F12> :AddHeader<CR>
+let g:header_auto_add_header = 0
+
+let g:header_field_author = "your name"
+let g:header_field_author_email = "your email"
+let g:header_field_copyright = "© your copyright"
+let g:header_field_license_id = "your license"
+
+let g:header_max_size = 100
+let g:header_cfg_comment_char = "="
+"==================================================================================================
+
+
+
 "Git settings
 
 let  g:NERDTreeGitStatusIndicatorMapCustom= {
@@ -170,6 +198,8 @@ nmap <leader>l :GitLog<CR>
 
 "Debuger settings
 
+nmap <F6> :! cp ~/.vim/spector-debugger-conf/vimspector.json .; mv vimspector.json .vimspector.json <CR> <Plug>VimspectorContinue <CR> :!rm .vimspector.json<CR>
+
 nmap <F6> <Plug>VimspectorContinue
 nmap <S-F6> <Plug>VimspectorStop
 nmap <C-S-F6> <Plug>VimspectorRestart
@@ -181,6 +211,8 @@ nmap <F10> <Plug> VimspectorStepOver
 nmap <S-F10> <Plug> VimspectorStepInto
 nmap <C-F10> <Plug> VimspectorStepOut
 nmap <F11> <Plug> VimspectorRunToCursor
+
+:autocmd BufWinLeave * !rm .vimspector.json; rm ~/.vimspector.log ;clear
 "==================================================================================================
 
 
@@ -281,6 +313,9 @@ autocmd BufNewFile,BufRead *md nmap <buffer> <F5> :w
 autocmd BufNewFile,BufRead *md nmap <buffer> <S-F5> :w
 autocmd BufNewFile,BufRead *md nmap <buffer> <F5> <Plug>MarkdownPreview
 autocmd BufNewFile,BufRead *md nmap <buffer> <S-F5> <Plug>StopMarkdownPreview
+
+"doc, docx, rtf, odp, odt
+autocmd BufNewFile,BufRead *.doc,*.docx,*.rtf,*.odp,*.odt silent %!pandoc "%" -tplain -o /dev/stdout
 "==================================================================================================
 
 
