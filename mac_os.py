@@ -15,7 +15,7 @@ def copy_or_make_vim_vimrc():
 
 
 def install_homebrew():
-    os.system("/bin/bash -c ""$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)""")
+    os.system("/bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"")
 
 
 def install_dependencys():
