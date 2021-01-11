@@ -5,22 +5,17 @@
 "Required settings
 set nocompatible              " required
 filetype off                  " required
-"set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-"alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-"let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
-"add all your plugins here (note older versions of Vundle
-"used Bundle instead of Plugin)
 
 
 
 "Utility
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'scrooloose/nerdtree'
-Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'xolox/vim-colorscheme-switcher'
 Plugin 'xolox/vim-misc'
 
@@ -29,7 +24,7 @@ Plugin 'vim-scripts/AutoComplPop'
 Plugin 'puremourning/vimspector'
 Plugin 'majutsushi/tagbar'
 Plugin 'gilsondev/searchtasks.vim'
-Plugin 'Raimondi/delimitMate'
+Plugin 'Raimondi/delimitMate', { 'for': '!python'}
 Plugin 'preservim/nerdcommenter'
 
 "Python
@@ -48,11 +43,13 @@ Plugin 'kablamo/vim-git-log'
 
 "Themes / Interface
 Plugin 'joshdick/onedark.vim'
+Plugin 'ryanoasis/vim-devicons'
 
+"Css
+Plugin 'ap/vim-css-color'
 
-
-"All of your Plugins must be added before the following line
-call vundle#end()            " required
+"All of your Plugs must be added before the following line
+call vundle#end()
 filetype plugin indent on    " required
 "==================================================================================================
 
@@ -109,6 +106,8 @@ colorscheme onedark
 nmap <S-F8> :PrevColorScheme<CR>
 "Set Ctrl+F8> key for switching to the random colorscheme
 nmap <C-F8> :RandomColorScheme<CR>
+"Set airline font.
+let g:airline_powerline_fonts = 1
 "==================================================================================================
 
 
@@ -254,6 +253,7 @@ au BufNewFile,BufRead *.cpp
     \ set expandtab |
     \ set autoindent |
     \ set fileformat=unix
+autocmd BufNewFile *.cpp 0r ~/.vim/template/temp.cpp
 autocmd BufNewFile,BufRead *cpp nmap <buffer> <F5> :w <bar>!clear && g++ -o %:r % && ./%:r<CR>
 
 "Html and css
