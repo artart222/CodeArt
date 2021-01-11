@@ -26,4 +26,11 @@ elif os == "Darwin":
     mac_os.copy_vimspector()
 
 elif os == "Windows":
-    pass
+    import windows
+
+    windows.install_scoop()
+    windows.copy_or_make_vim_vimrc()
+    windows.install_dependencys()
+    windows.install_font()
+    windows.install_vundle()
+    windows.copy_vimspector()
