@@ -7,3 +7,4 @@ This code dosen't tested in macOs and it just test in windows and linux and some
 ## TODO
 - [ ] Write different vimrc file for windows
 - [ ] Test installer and vimrc on macOs
+- [ ] Change package manager to chocolatey
