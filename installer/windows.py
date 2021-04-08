@@ -1,4 +1,4 @@
-import os, shutil, subprocess
+import os, shutil
 
 
 home_directory_address = os.path.expanduser("~")
@@ -8,9 +8,8 @@ items_in_home_directory = os.listdir(home_directory_address)
 
 
 #installing scoop(it is package manager for windows)
-def install_scoop():
-    subprocess.run(["powershell", "-Command", "Set-ExecutionPolicy RemoteSigned -scope CurrentUser -force"], capture_output=True)
-    subprocess.run(["powershell", "-Command", "iwr -useb get.scoop.sh | iex"], capture_output=True)
+def install_chocolatey():
+    os.system("python chocolatey-installer.py")
 
 
 def copy_or_make_vim_vimrc():
