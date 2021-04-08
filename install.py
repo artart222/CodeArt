@@ -3,7 +3,7 @@ import platform
 os = platform.system()
 
 if os == "Linux":
-    import linux
+    from installer import linux
 
     distro_name = linux.find_distro_name()
     linux.get_sudo_access()
@@ -15,18 +15,18 @@ if os == "Linux":
     linux.copy_vimspector()
 
 elif os == "Darwin":
-    import mac_os
+    from installer import macOs
 
-    mac_os.copy_or_make_vim_vimrc()
-    mac_os.install_homebrew()
-    mac_os.install_dependencys()
-    mac_os.install_needed_font()
-    mac_os.install_vundle()
-    mac_os.copy_vimrc()
-    mac_os.copy_vimspector()
+    macOs.copy_or_make_vim_vimrc()
+    macOs.install_homebrew()
+    macOs.install_dependencys()
+    macOs.install_needed_font()
+    macOs.install_vundle()
+    macOs.copy_vimrc()
+    macOs.copy_vimspector()
 
 elif os == "Windows":
-    import windows
+    from installer import windows
 
     windows.install_scoop()
     windows.copy_or_make_vim_vimrc()
