@@ -7,7 +7,7 @@ currect_directory_address = os.getcwd()
 items_in_home_directory = os.listdir(home_directory_address)
 
 
-#installing scoop(it is package manager for windows)
+#installing chocolatey(it is package manager for windows)
 def install_chocolatey():
     os.system("python chocolatey-installer.py")
 

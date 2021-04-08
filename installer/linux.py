@@ -1,18 +1,10 @@
-import os, shutil, distro, urllib.request, subprocess, sys
+import os, shutil, distro, urllib.request
 
 
 home_directory_address = os.path.expanduser("~")
 currect_directory_address = os.getcwd()
 
 items_in_home_directory = os.listdir(home_directory_address)
-
-
-def get_sudo_access():
-    if os.geteuid() == 0:
-        pass
-    else:
-        subprocess.call(["sudo", "python3", *sys.argv])
-        sys.exit()
 
 
 def find_distro_name():
