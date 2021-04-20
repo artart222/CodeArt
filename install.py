@@ -6,7 +6,6 @@ if os == "Linux":
     from installer import linux
 
     distro_name = linux.find_distro_name()
-    linux.get_sudo_access()
     linux.copy_or_make_vim_vimrc()
     linux.install_dependencys(distro_name)
     linux.install_needed_font()

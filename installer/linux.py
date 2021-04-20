@@ -32,19 +32,19 @@ def install_dependencys(distro_name):
 
     print("Installing dependencys")
 
-    #installing vim
-    if "vim" in list_of_apps:
-        print("vim is installed. moving to next dependency")
+    #installing neovim
+    if "nvim" in list_of_apps:
+        print("neovim is installed. moving to next dependency")
     else:
-        print("vim is not installed.\ninstalling vim")
+        print("neovim is not installed.\ninstalling neovim")
         if distro_name == "arch":
-            os.system("sudo pacman -Sy vim --noconfirm")
+            os.system("sudo pacman -Sy neovim --noconfirm")
         elif distro_name == "debian":
-            os.system("sudo apt update; sudo apt install vim -y")
+            os.system("sudo apt update; sudo apt install neovim -y")
         elif distro_name == "rhel":
-            os.system("sudo dnf update -y; sudo dnf install vim-enhanced -y")
+            os.system("sudo dnf update -y; sudo dnf neovim python3-neovim -y")
         elif distro_name == "opensuse":
-            os.system("sudo zypper ref; sudo zypper -n vim")
+            os.system("sudo zypper ref; sudo zypper -n neovim")
 
     #installing curl
     if "curl" in list_of_apps:
@@ -87,7 +87,6 @@ def install_dependencys(distro_name):
             os.system("sudo dnf update -y; sudo dnf install unzip -y")
         elif distro_name == "opensuse":
             os.system("sudo zypper ref; sudo zypper -n unzip")
-
 
     #installing ctags
     if "ctags" in list_of_apps:
