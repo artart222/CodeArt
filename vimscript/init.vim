@@ -1,0 +1,13 @@
+source $HOME/.config/nvim/plugins.vim
+source $HOME/.config/nvim/theme-interface.vim
+source $HOME/.config/nvim/airline.vim
+source $HOME/.config/nvim/general.vim
+source $HOME/.config/nvim/generic-programming.vim
+source $HOME/.config/nvim/prog-languages-settings.vim
+source $HOME/.config/nvim/ranger.vim
+source $HOME/.config/nvim/nerdcommenter.vim
+source $HOME/.config/nvim/git.vim
+source $HOME/.config/nvim/markdown.vim
+source $HOME/.config/nvim/debbuger.vim
+source $HOME/.config/nvim/cpp-highlight.vim
+source $HOME/.config/nvim/header.vim
