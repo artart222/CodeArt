@@ -31,4 +31,3 @@ endif
 nmap <leader> <C-m> :make <BAR> copen<CR>
 " Strip bad white space of file with pressing Ctrl + S
 nmap <C-S> :StripWhitespace<CR>
-

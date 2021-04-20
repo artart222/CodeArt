@@ -15,6 +15,8 @@ set cursorline
 
 set mouse=a " Enable mouse usage in all modes
 
+set clipboard+=unnamedplus
+
 set hlsearch " Enable search highlighting
 set incsearch " With incsearch even when you dont press enter vim show the word that match to your search
 nnoremap <CR> :noh<CR><CR>
