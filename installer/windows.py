@@ -1,4 +1,4 @@
-import os, shutil
+import os, shutil, ctypes, sys
 
 
 home_directory_address = os.path.expanduser("~")
@@ -7,9 +7,20 @@ currect_directory_address = os.getcwd()
 items_in_home_directory = os.listdir(home_directory_address)
 
 
+def is_admin():
+    try:
+        return ctypes.windll.shell32.IsUserAnAdmin()
+    except:
+        return False
+
+
 #installing chocolatey(it is package manager for windows)
-def install_chocolatey():
-    os.system("python chocolatey-installer.py")
+if is_admin():
+    # Code of your program here
+    os.system("@\"%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command \"[System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ((New-Object System.Net.WebClient).DownloadString(\'https://chocolatey.org/install.ps1\'))\" && SET \"PATH=%PATH%;%ALLUSERSPROFILE%\\chocolatey\\bin\"")
+else:
+    # Re-run the program with admin rights
+    ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
 
 
 def copy_or_make_vim_vimrc():
