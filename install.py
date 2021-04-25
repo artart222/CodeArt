@@ -9,9 +9,9 @@ if os == "Linux":
     linux.copy_or_make_vim_vimrc()
     linux.install_dependencys(distro_name)
     linux.install_needed_font()
-    linux.install_vundle()
-    linux.copy_vimrc()
-    linux.copy_vimspector()
+    linux.install_vim_plug()
+    linux.copy_configs()
+    linux.install_plugins()
 
 elif os == "Darwin":
     from installer import macOs
