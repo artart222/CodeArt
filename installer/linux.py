@@ -122,17 +122,25 @@ def install_dependencys(distro_name):
         if distro_name == "arch":
             os.system("sudo pacman -Sy ctags --noconfirm")
         elif distro_name == "debian":
-            os.system("sudo apt update; sudo apt install ctags -y")
+            os.system("sudo apt update; sudo apt install universal-ctags -y")
         elif distro_name == "rhel":
             os.system("sudo dnf update -y; sudo dnf install ctags -y")
         elif distro_name == "opensuse":
             os.system("sudo zypper ref; sudo zypper -n ctags")
 
-    # Installing cmake #TODO complete this part
+    # Installing cmake # TODO complete this part
     if "cmake" in list_of_apps:
-        print("cmake is installed. all dependencys now are installed")
+        print("cmake is installed. moving to next dependencys")
     else:
-        pass
+        if distro_name == "debian":
+            os.system("sudo apt update; sudo apt install cmake -y")
+
+    # Installing nodejs # TODO complete this part
+    if "node" in list_of_apps:
+        print("nodejs is installed. all dependencys now are installed")
+    else:
+        if distro_name == "debian":
+            os.system("sudo apt update; sudo apt install nodejs -y")
 
 
 def install_needed_font():
@@ -163,8 +171,7 @@ def copy_configs():
     except FileExistsError:
         pass
 
-    for item in os.listdir("./configs"):
-        print(item)
+    for item in os.listdir(os.path.dirname(__file__) + "/../configs"):
         shutil.copy(os.path.dirname(__file__) + "/../configs/" + item, home_directory_address + "/.config/nvim/" + item)
 
 
