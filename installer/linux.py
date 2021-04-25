@@ -17,13 +17,9 @@ def find_distro_name():
     return distro_name
 
 
+# TODO Complete this function for neovim
 def copy_or_make_vim_vimrc():
-    if ".vimrc" in items_in_home_directory:
-        shutil.move(home_directory_address + "/.vimrc", home_directory_address + "/.vimrc-copy.vim")
-        print("Making backup of your .vimrc")
-    if ".vim" in items_in_home_directory:
-        shutil.move(home_directory_address + "/.vim", home_directory_address + "/.vim-copy/")
-        print("Making backup of your .vim")
+    pass
 
 
 def install_dependencys(distro_name):
@@ -110,7 +106,7 @@ def install_needed_font():
         pass
 
     print("beginning file download")
-    url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/CascadiaCode.zip"
+    url = "https://github-releases.githubusercontent.com/27574418/1ec18580-452f-11ea-8073-041a7cbaca61?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20210425%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210425T103503Z&X-Amz-Expires=300&X-Amz-Signature=590045ddcc5069e5003a7000294b386f5e4b8f4c4467de1609e55c7258918d57&X-Amz-SignedHeaders=host&actor_id=55560437&key_id=0&repo_id=27574418&response-content-disposition=attachment%3B%20filename%3DFiraCode.zip&response-content-type=application%2Foctet-stream"
     urllib.request.urlretrieve(url, home_directory_address + "/.fonts/Caskaydia-Cove-Nerd-Font.zip")
     print("file downloaded")
 
@@ -120,14 +116,11 @@ def install_needed_font():
     os.system("fc-cache -f -v")
 
 
-def install_vundle():
-    os.system("git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim")
+def install_vim_plug():
+    os.system("sh -c \'curl -fLo \"${XDG_DATA_HOME:-$HOME/.local/share}\"/nvim/site/autoload/plug.vim --create-dirs \
+             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim\'")
 
 
-def copy_vimrc():
-    shutil.copyfile(currect_directory_address + "/vimrc.vim", home_directory_address + "/.vimrc")
-
-
-def copy_vimspector():
-    os.mkdir(home_directory_address + "/.vim/spector-debugger-conf")
-    shutil.copyfile(currect_directory_address + "/vimspector.json", home_directory_address + "/.vim/spector-debugger-conf/vimspector.json")
+def copy_configs():
+    os.system("mkdir ~/.config/nvim")
+    os.system("cp ../configs/* ~/.config/nvim")

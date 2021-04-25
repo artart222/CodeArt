@@ -1,0 +1,13 @@
+Linux:
+    unzip
+    neovim
+    cmake
+    curl
+    git
+    ctags
+
+Windows:
+    ;
+
+MacOs:
+    ;
