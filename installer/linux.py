@@ -19,7 +19,37 @@ def find_distro_name():
 
 # TODO Complete this function for neovim
 def copy_or_make_vim_vimrc():
-    pass
+    if not os.path.isdir(home_directory_address + "/.config/nvim"):
+        os.mkdir(home_directory_address + "/.config/nvim")
+    else:
+        try:
+            items_in_nvim_dir = os.listdir(home_directory_address + "./config/nvim")
+            last_backup = "0"
+            new_last_backup = ""
+
+            numbers = "0123456789"
+            for item in items_in_nvim_dir:
+                if "backup" in item:
+                    for char in item:
+                        if char in numbers:
+                            new_last_backup += char
+
+                    try:
+                        if int(new_last_backup) > int(last_backup):
+                            last_backup = new_last_backup
+                    except ValueError:
+                        pass
+
+                    new_last_backup = ""
+
+            new_backup = int(last_backup) + 1
+            os.mkdir(home_directory_address + "/.config/nvim/" + "backup" + str(new_backup))
+
+            for item in items_in_nvim_dir:
+                if not "backup" in item:
+                    shutil.move(home_directory_address + "/.config/nvim/" + item, home_directory_address + "/.config/nvim/backup" + str(new_backup))
+        except FileNotFoundError:
+            pass
 
 
 def install_dependencys(distro_name):
@@ -86,7 +116,7 @@ def install_dependencys(distro_name):
 
     #installing ctags
     if "ctags" in list_of_apps:
-        print("ctags is installed. all dependencys now are installed")
+        print("ctags is installed. moving to next dependency")
     else:
         print("ctags is not installed.\ninstalling ctags")
         if distro_name == "arch":
@@ -98,6 +128,12 @@ def install_dependencys(distro_name):
         elif distro_name == "opensuse":
             os.system("sudo zypper ref; sudo zypper -n ctags")
 
+    # Installing cmake #TODO complete this part
+    if "cmake" in list_of_apps:
+        print("cmake is installed. all dependencys now are installed")
+    else:
+        pass
+
 
 def install_needed_font():
     try:
@@ -106,12 +142,12 @@ def install_needed_font():
         pass
 
     print("beginning file download")
-    url = "https://github-releases.githubusercontent.com/27574418/1ec18580-452f-11ea-8073-041a7cbaca61?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20210425%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20210425T103503Z&X-Amz-Expires=300&X-Amz-Signature=590045ddcc5069e5003a7000294b386f5e4b8f4c4467de1609e55c7258918d57&X-Amz-SignedHeaders=host&actor_id=55560437&key_id=0&repo_id=27574418&response-content-disposition=attachment%3B%20filename%3DFiraCode.zip&response-content-type=application%2Foctet-stream"
-    urllib.request.urlretrieve(url, home_directory_address + "/.fonts/Caskaydia-Cove-Nerd-Font.zip")
+    url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip"
+    urllib.request.urlretrieve(url, home_directory_address + "/.fonts/FiraCode.zip")
     print("file downloaded")
 
     os.chdir(home_directory_address + "/.fonts")
-    os.system("unzip Caskaydia-Cove-Nerd-Font.zip")
+    os.system("unzip FiraCode.zip")
 
     os.system("fc-cache -f -v")
 
@@ -122,5 +158,15 @@ def install_vim_plug():
 
 
 def copy_configs():
-    os.system("mkdir ~/.config/nvim")
-    os.system("cp ../configs/* ~/.config/nvim")
+    try:
+        os.mkdir(home_directory_address + "/.config/nvim")
+    except FileExistsError:
+        pass
+
+    for item in os.listdir("./configs"):
+        print(item)
+        shutil.copy(os.path.dirname(__file__) + "/../configs/" + item, home_directory_address + "/.config/nvim/" + item)
+
+
+def install_plugins():
+    os.system("nvim -c PlugInstall -c qa!")
