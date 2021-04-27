@@ -17,7 +17,6 @@ def find_distro_name():
     return distro_name
 
 
-# TODO Complete this function for neovim
 def copy_or_make_vim_vimrc():
     if not os.path.isdir(home_directory_address + "/.config/nvim"):
         os.mkdir(home_directory_address + "/.config/nvim")
@@ -128,19 +127,73 @@ def install_dependencys(distro_name):
         elif distro_name == "opensuse":
             os.system("sudo zypper ref; sudo zypper -n ctags")
 
-    # Installing cmake # TODO complete this part
     if "cmake" in list_of_apps:
         print("cmake is installed. moving to next dependencys")
     else:
         if distro_name == "debian":
             os.system("sudo apt update; sudo apt install cmake -y")
+        elif distro_name == "arch":
+            os.system("sudo pacman -Sy cmake --noconfirm")
+        elif distro_name == "rhel":
+            os.system("sudo dnf update -y; sudo dnf install cmake -y")
+        elif distro_name == "opensuse":
+            os.system("sudo zypper ref; sudo zypper -n cmake")
 
-    # Installing nodejs # TODO complete this part
     if "node" in list_of_apps:
-        print("nodejs is installed. all dependencys now are installed")
+        print("nodejs is installed. moving to next dependencys")
     else:
         if distro_name == "debian":
             os.system("sudo apt update; sudo apt install nodejs -y")
+        elif distro_name == "arch":
+            os.system("sudo pacman -Sy nodejs --noconfirm")
+        elif distro_name == "rhel":
+            os.system("sudo dnf update -y; sudo dnf install nodejs -y")
+        elif distro_name == "opensuse":
+            os.system("sudo zypper ref; sudo zypper -n nodejs14")
+
+    if "npm" in list_of_apps:
+        print("npm is installed. moving to next dependencys")
+    else:
+        if distro_name == "debian":
+            os.system("sudo apt update; sudo apt install npm -y")
+        elif distro_name == "arch":
+            os.system("sudo pacman -Sy npm --noconfirm")
+        elif distro_name == "rhel":
+            os.system("sudo dnf update -y; sudo dnf install npm -y")
+        elif distro_name == "opensuse":
+            os.system("sudo zypper ref; sudo zypper -n npm14")
+
+    # TODO install omnisharp
+
+    # TODO install pip3
+
+    # TODO install ranger
+
+    # TODO install python2
+
+    # TODO install ueberzug
+
+    # TODO install pynvim
+
+    # TODO install rpc
+
+    # TODO install python2 provider
+
+    # TODO install python3 provider
+
+    # TODO install ruby provider
+
+    if "xclip" in list_of_apps:
+        print("xclip is installed. all dependencys now are installed")
+    else:
+        if distro_name == "arch":
+            os.system("sudo pacman -Sy xclip --noconfirm")
+        elif distro_name == "debian":
+            os.system("sudo apt update; sudo apt install xclip -y")
+        elif distro_name == "rhel":
+            os.system("sudo dnf update -y; sudo dnf install xclip -y")
+        elif distro_name == "opensuse":
+            os.system("sudo zypper ref; sudo zypper -n xclip")
 
 
 def install_needed_font():
@@ -177,3 +230,9 @@ def copy_configs():
 
 def install_plugins():
     os.system("nvim -c PlugInstall -c qa!")
+
+    with open(os.path.dirname(__file__) + "/../coc-config.json", 'r') as installer_json, open(home_directory_address + "/.config/nvim/coc-settings.json",'a') as user_json:
+        for line in installer_json:
+                 user_json.write(line)
+
+    os.system("nvim -c \'CocInstall coc-python coc-html coc-css coc-omnisharp coc-clangd\'")
