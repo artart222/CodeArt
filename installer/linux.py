@@ -166,6 +166,17 @@ def install_dependencys(distro_name):
     # TODO install omnisharp
 
     # TODO install pip3
+    if "pip3" in list_of_apps:
+        print("pip3 is installed. moving to next dependencys")
+    else:
+        if distro_name == "arch":
+            os.system("sudo pacman -Sy python-pip --noconfirm")
+        elif distro_name == "debian":
+            pass
+        elif distro_name == "rhel":
+            pass
+        elif distro_name == "opensuse":
+            pass
 
     # TODO install ranger
 
@@ -182,6 +193,16 @@ def install_dependencys(distro_name):
     # TODO install python3 provider
 
     # TODO install ruby provider
+
+    # TODO Requirments for fzf.vim
+    """
+        fzf 0.23.0 or above
+        For syntax-highlighted preview, install bat
+        If delta is available, GF?, Commits and BCommits will use it to format git diff output.
+        Ag requires The Silver Searcher (ag)
+        Rg requires ripgrep (rg)
+        Tags and Helptags require Perl
+    """
 
     if "xclip" in list_of_apps:
         print("xclip is installed. all dependencys now are installed")
