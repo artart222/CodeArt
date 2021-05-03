@@ -163,9 +163,6 @@ def install_dependencys(distro_name):
         elif distro_name == "opensuse":
             os.system("sudo zypper ref; sudo zypper -n npm14")
 
-    # TODO install omnisharp
-
-    # TODO install pip3
     if "pip3" in list_of_apps:
         print("pip3 is installed. moving to next dependencys")
     else:
@@ -178,21 +175,6 @@ def install_dependencys(distro_name):
         elif distro_name == "opensuse":
             os.system("sudo zypper ref; sudo zypper -n python3-pip")
 
-    # TODO install ranger
-    if "ranger" in list_of_apps:
-        print("ranger is installed. moving to next dependencys")
-    else:
-        if distro_name == "arch":
-            os.system("sudo pacman -Sy ranger --noconfirm")
-        elif distro_name == "debian":
-            os.system("sudo apt update; sudo apt install ranger -y")
-        elif distro_name == "rhel":
-            os.system("sudo dnf update -y; sudo dnf install ranger -y")
-        elif distro_name == "opensuse":
-            # NOTE I am not sure this will install ranger on opensuse
-            os.system("sudo zypper ref; sudo zypper -n ranger")
-
-    # TODO install python2
     if "python2" in list_of_apps:
         print("python2 is installed. moving to next dependencys")
     else:
@@ -206,7 +188,33 @@ def install_dependencys(distro_name):
             # NOTE I am not sure this will install ranger on opensuse
             os.system("sudo zypper ref; sudo zypper -n python")
 
+    if "pip2" in list_of_apps:
+        print("pip2 is installed. moving to next dependencys")
+    else:
+        if distro_name == "arch":
+            os.system("sudo pacman -Sy python2-pip --noconfirm")
+        elif distro_name == "debian":
+            os.system("sudo apt update")
+            os.system("sudo add-apt-repository universe")
+
+    if "ranger" in list_of_apps:
+        print("ranger is installed. moving to next dependencys")
+    else:
+        if distro_name == "arch":
+            os.system("sudo pacman -Sy ranger --noconfirm")
+        elif distro_name == "debian":
+            os.system("sudo apt update; sudo apt install ranger -y")
+        elif distro_name == "rhel":
+            os.system("sudo dnf update -y; sudo dnf install ranger -y")
+        elif distro_name == "opensuse":
+            # NOTE I am not sure this will install ranger on opensuse
+            os.system("sudo zypper ref; sudo zypper -n ranger")
+
     # TODO install ueberzug
+    if "ueberzug" in list_of_apps:
+        print("ueberzug is installed. moving to next dependencys")
+    else:
+        os.system("sudo pip3 install ueberzug")
 
     # TODO install pynvim
 
@@ -217,6 +225,8 @@ def install_dependencys(distro_name):
     # TODO install python3 provider
 
     # TODO install ruby provider
+
+    # TODO install omnisharp
 
     # TODO Requirments for fzf.vim
     """
