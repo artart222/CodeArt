@@ -172,11 +172,11 @@ def install_dependencys(distro_name):
         if distro_name == "arch":
             os.system("sudo pacman -Sy python-pip --noconfirm")
         elif distro_name == "debian":
-            pass
+            os.system("sudo apt update; sudo apt install python3-pip -y")
         elif distro_name == "rhel":
-            pass
+            os.system("sudo dnf update -y; sudo dnf install python3-pip -y")
         elif distro_name == "opensuse":
-            pass
+            os.system("sudo zypper ref; sudo zypper -n python3-pip")
 
     # TODO install ranger
 
