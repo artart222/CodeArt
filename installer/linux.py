@@ -17,7 +17,7 @@ def find_distro_name():
     return distro_name
 
 
-def copy_or_make_vim_vimrc():
+def make_backup_of_config():
     if not os.path.isdir(home_directory_address + "/.config/nvim"):
         os.mkdir(home_directory_address + "/.config/nvim")
     else:
@@ -249,11 +249,11 @@ def copy_configs():
         shutil.copy(os.path.dirname(__file__) + "/../configs/" + item, home_directory_address + "/.config/nvim/" + item)
 
 
-def install_plugins():
+def install_plugins_and_extensions():
     os.system("nvim -c PlugInstall -c qa!")
 
     with open(os.path.dirname(__file__) + "/../coc-config.json", 'r') as installer_json, open(home_directory_address + "/.config/nvim/coc-settings.json",'a') as user_json:
         for line in installer_json:
                  user_json.write(line)
 
-    os.system("nvim -c \'CocInstall coc-python coc-html coc-css coc-omnisharp coc-clangd\'")
+    os.system("nvim -c \'CocInstall coc-python coc-html coc-css coc-omnisharp coc-clangd coc-browser\'")

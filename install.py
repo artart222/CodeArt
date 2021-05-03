@@ -6,12 +6,12 @@ if os == "Linux":
     from installer import linux
 
     distro_name = linux.find_distro_name()
-    linux.copy_or_make_vim_vimrc()
+    linux.make_backup_of_config()
     linux.install_dependencys(distro_name)
     linux.install_needed_font()
     linux.install_vim_plug()
     linux.copy_configs()
-    linux.install_plugins()
+    linux.install_plugins_and_extensions()
 
 elif os == "Darwin":
     from installer import macOs
