@@ -52,7 +52,7 @@ def make_backup_of_config():
 
 
 def install_dependencys(distro_name):
-    #listing installed apps
+    # listing installed apps
     list_of_apps = os.listdir("/bin")
 
     print("Installing dependencys")
@@ -216,13 +216,33 @@ def install_dependencys(distro_name):
     else:
         os.system("sudo pip3 install ueberzug")
 
-    # TODO install pynvim
+    python3_packages_list = []
+    os.system("pip3 list >> pip3.txt")
+    with open("pip3.txt", "r") as pip_file:
+        for line in pip_file:
+            python3_packages_list.append(line.split(" ")[0])
 
-    # TODO install rpc
+    python2_packages_list = []
+    os.system("pip2 list >> pip2.txt")
+    with open("pip2.txt", "r") as pip_file:
+        for line in pip_file:
+            python2_packages_list.append(line.split(" ")[0])
 
-    # TODO install python2 provider
+    if "pynvim" in python3_packages_list:
+        print("pynvim is installed. moving to next dependencys")
+    else:
+        os.system("sudo pip3 install pynvim")
 
-    # TODO install python3 provider
+    if "neovim" in python3_packages_list:
+        print("python3 neovim is installed. moving to next dependencys")
+    else:
+        os.system("sudo pip3 install neovim")
+
+    if "neovim" in python2_packages_list:
+        print("python2 neovim is installed. moving to next dependencys")
+    else:
+        os.system("sudo pip2 install neovim")
+
 
     # TODO install ruby provider
 
