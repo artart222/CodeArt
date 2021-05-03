@@ -179,6 +179,18 @@ def install_dependencys(distro_name):
             os.system("sudo zypper ref; sudo zypper -n python3-pip")
 
     # TODO install ranger
+    if "ranger" in list_of_apps:
+        print("ranger is installed. moving to next dependencys")
+    else:
+        if distro_name == "arch":
+            os.system("sudo pacman -Sy ranger --noconfirm")
+        elif distro_name == "debian":
+            os.system("sudo apt update; sudo apt install ranger -y")
+        elif distro_name == "rhel":
+            os.system("sudo dnf update -y; sudo dnf install ranger -y")
+        elif distro_name == "opensuse":
+            # NOTE I am not sure this will install ranger on opensuse
+            os.system("sudo zypper ref; sudo zypper -n ranger")
 
     # TODO install python2
 
