@@ -5,3 +5,5 @@ You can run command with arguments in nvim with running this command in terminal
 For multiply command you can use syntax like this:
     nvim -c COMMAND1 -c COMMAND2
     Real world example: nvim -c PlugUpdate -c qa!
+
+Find a way to install browser-source-provider extension for browsers
