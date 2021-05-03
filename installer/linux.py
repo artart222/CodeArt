@@ -210,7 +210,6 @@ def install_dependencys(distro_name):
             # NOTE I am not sure this will install ranger on opensuse
             os.system("sudo zypper ref; sudo zypper -n ranger")
 
-    # TODO install ueberzug
     if "ueberzug" in list_of_apps:
         print("ueberzug is installed. moving to next dependencys")
     else:

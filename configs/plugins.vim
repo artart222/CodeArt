@@ -9,9 +9,17 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 
 " Utility
 Plug 'ntpeters/vim-better-whitespace'
+
 Plug 'scrooloose/nerdtree'
+if index(argv(), ".") >= 0
+    edit [NO NAME]
+    bd 1
+    autocmd VimEnter * NERDTree | wincmd w
+endif
 Plug 'PhilRunninger/nerdtree-visual-selection'
 Plug 'jistr/vim-nerdtree-tabs'
+
+Plug 'mhinz/vim-startify'
 Plug 'alpertuna/vim-header'
 Plug 'xolox/vim-colorscheme-switcher'
 Plug 'xolox/vim-misc'
@@ -34,6 +42,7 @@ Plug 'vhdirk/vim-cmake'
 
 " C++
 Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'cdelledonne/vim-cmake'
 
 " Markdown
 Plug 'iamcco/markdown-preview.vim'
