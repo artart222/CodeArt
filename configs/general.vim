@@ -47,4 +47,15 @@ nmap <C-F> :RnvimrToggle <CR>
 
 nmap <C-O> :MaximizerToggle<CR>
 
-let g:nerdtree_tabs_open_on_console_startup=1
+" Disabling the cursorline/columnline in unused windows/buffers
+augroup cursorline
+    autocmd!
+    autocmd WinEnter,BufEnter * set cursorline
+    autocmd WinLeave,BufLeave * set nocursorline
+augroup END
+
+augroup help_config
+    autocmd!
+    autocmd FileType help :set number
+    autocmd FileType help :only
+augroup END
