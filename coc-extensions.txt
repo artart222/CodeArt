@@ -1,5 +1,0 @@
-coc-python
-coc-html
-coc-css
-coc-omnisharp
-coc-clangd
