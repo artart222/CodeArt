@@ -3,9 +3,17 @@ require('nvim-treesitter.configs').setup {
     enable = true,
     additional_vim_regex_highlighting = true,
   },
+  matchup = {
+    enable = true,
+  },
+  indent = {
+    enable = true
+  }
 }
 
---cmd([[
---   set foldmethod=expr
---   set foldexpr=nvim_treesitter#foldexpr()
---]])
+vim.cmd
+[[
+  autocmd BufEnter * set foldmethod=expr
+  autocmd BufEnter * set foldexpr=nvim_treesitter#foldexpr()
+  set foldlevel=99
+]]
