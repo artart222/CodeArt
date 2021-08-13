@@ -18,7 +18,7 @@ opt.clipboard = 'unnamedplus'
 opt.mouse = 'a'
 
 -- Enable cursor line.
-opt.cursorline = true
+opt.cursorline = false
 
 -- With set hidden you’re telling NeoVim that you can
 -- have unsaved worked that’s not displayed on your screen.
