@@ -38,6 +38,9 @@ return require('packer').startup(function()
     end
   }
 
+  use { 'lukas-reineke/indent-blankline.nvim'}
+  vim.cmd('let g:indent_blankline_filetype_exclude = ["dashboard"]')
+
   -- This plugin causes all trailing whitespace characters to be highlighted
   use { 'ntpeters/vim-better-whitespace' }
 
