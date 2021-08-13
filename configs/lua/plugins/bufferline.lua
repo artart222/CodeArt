@@ -12,4 +12,3 @@ require("bufferline").setup {
     }
   }
 }
-
