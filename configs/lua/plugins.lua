@@ -71,10 +71,6 @@ return require('packer').startup(function()
   use { 'onsails/lspkind-nvim' }
   require('plugins/lspkind')
 
-  -- Set discord profile activity
-  use { 'andweeb/presence.nvim' }
-  require('plugins/presence')
-
   -- Startup screen
   use { 'glepnir/dashboard-nvim' }
   require('plugins/dashboard')
