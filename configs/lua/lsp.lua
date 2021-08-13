@@ -17,9 +17,6 @@ require'lspconfig'.pylsp.setup{}
 -- Javascript
 require'lspconfig'.denols.setup {}
 
--- Lua
-require'lspconfig'.sumneko_lua.setup{}
-
 -- Lua-dev
 local luadev = require("lua-dev").setup()
 local lspconfig = require('lspconfig')
