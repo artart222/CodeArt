@@ -10,7 +10,7 @@ end
 vim.g.mapleader = ' '
 
 
--- Set cl for clearing highlights after searching in file.
+-- Set cl for clearing highlights after searching word in file.
 map('n', 'cl', '<cmd>noh<CR>')
 
 
@@ -22,10 +22,15 @@ map('n', '<C-h>', '<C-w><C-h>')
 
 
 -- Buffer resizing.
-map('n', '<S-h>', '<cmd>vertical resize +5<CR>')
-map('n', '<S-l>', '<cmd>vertical resize -5<CR>')
-map('n', '<S-k>', '<cmd>resize -5<CR>')
-map('n', '<S-j>', '<cmd>resize +5<CR>')
+map('n', '<S-h>', '<cmd>vertical resize +2<CR>')
+map('n', '<S-l>', '<cmd>vertical resize -2<CR>')
+map('n', '<S-k>', '<cmd>resize -2<CR>')
+map('n', '<S-j>', '<cmd>resize +2<CR>')
+
+
+-- Buffer switching.
+map('n', '<A-l>', '<cmd>:BufferLineCycleNext<CR>')
+map('n', '<A-h>', '<cmd>:BufferLineCyclePrev<CR>')
 
 
 -- NvimTree toggle
@@ -34,10 +39,10 @@ map('n', 'nt', '<cmd>NvimTreeToggle<CR>')
 
 -- Telescop.
 map("n", "<Leader>fw", ":Telescope live_grep<CR>")
-map("n", "<Leader>gt", ":Telescope git_status <CR>")
-map("n", "<Leader>cm", ":Telescope git_commits <CR>")
-map("n", "<Leader>ff", ":Telescope find_files <CR>")
-map("n", "<Leader>fp", ":Telescope media_files <CR>")
+map("n", "<Leader>gt", ":Telescope git_status<CR>")
+map("n", "<Leader>cm", ":Telescope git_commits<CR>")
+map("n", "<Leader>ff", ":Telescope find_files<CR>")
+map("n", "<Leader>fp", ":lua require('telescope').extensions.media_files.media_files()<CR>")
 map("n", "<Leader>fb", ":Telescope buffers<CR>")
 map("n", "<Leader>fh", ":Telescope help_tags<CR>")
 map("n", "<Leader>fo", ":Telescope oldfiles<CR>")
@@ -120,3 +125,6 @@ inoremap <silent><expr> <C-e>     compe#close('<C-e>')
 inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
 inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 ]]
+
+-- Remove unnecessary white spaces.
+map('n', '<space>cw', '<cmd>:StripWhitespace<CR>')
