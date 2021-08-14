@@ -1,6 +1,8 @@
+-- Defining aliases.
 local cmd = vim.cmd
 local opt = vim.opt
 
+-- Enabling syntax highlighting.
 cmd('syntax on')
 
 -- Number settings.
@@ -18,9 +20,14 @@ opt.clipboard = 'unnamedplus'
 opt.mouse = 'a'
 
 -- Enable cursor line.
-opt.cursorline = false
+opt.cursorline = true
 
--- With set hidden you’re telling NeoVim that you can
+-- Setting colorcolumn. This is set becuse of
+-- this (https://github.com/lukas-reineke/indent-blankline.nvim/issues/59)
+-- indent-blankline bug.
+cmd('set colorcolumn=99999')
+
+-- With set hidden you’re telling Neovim that you can
 -- have unsaved worked that’s not displayed on your screen.
 opt.hidden = true
 
@@ -43,7 +50,7 @@ opt.incsearch = true
 opt.ignorecase = true
 
 -- Set terminal bidirectual.
--- For writing in right to left languages like arabic persian hebrew.
+-- For writing in right to left languages like arabic, persian and hebrew.
 opt.termbidi = true
 
 -- Without this option some times backspace did not work correctly.
@@ -53,14 +60,15 @@ opt.backspace = 'indent,eol,start'
 opt.splitbelow = true
 opt.splitright = true
 
--- Disable Nvim default statusline and ruler.
-opt.ruler = false
-opt.laststatus = 0
+-- Enabling ruler and statusline.
+opt.ruler = true
+opt.laststatus = 2
 
 -- Setting time that Neovim wait after each keystroke.
 opt.ttimeoutlen = 20
 opt.timeoutlen = 1000
 
+-- Setting up autocomplete menu.
 opt.completeopt = "menuone,noselect"
 
 -- Set line number for help files.
