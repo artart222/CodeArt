@@ -32,6 +32,13 @@ map('n', '<S-j>', '<cmd>resize +2<CR>')
 map('n', '<A-l>', '<cmd>:BufferLineCycleNext<CR>')
 map('n', '<A-h>', '<cmd>:BufferLineCyclePrev<CR>')
 
+-- Buffer closing.
+map('n', '<leader>bc', '<cmd>:BufferLinePickClose<CR>')
+
+-- Buffer moving.
+map('n', '<leader>bl', '<cmd>:BufferLineMoveNext<CR>')
+map('n', '<leader>bh', '<cmd>:BufferLineMovePrev<CR>')
+
 
 -- NvimTree toggle
 map('n', 'nt', '<cmd>NvimTreeToggle<CR>')
@@ -127,4 +134,12 @@ inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 ]]
 
 -- Remove unnecessary white spaces.
-map('n', '<space>cw', '<cmd>:StripWhitespace<CR>')
+map('n', '<leader>cw', '<cmd>:StripWhitespace<CR>')
+
+
+-- TrueZen focus mode.
+map('n', '<leader>fs', '<cmd>:TZFocus<CR>')
+
+
+-- Toggle fold.
+map('n', '<leader>ft', 'za')
