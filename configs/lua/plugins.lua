@@ -92,6 +92,7 @@ return require('packer').startup(function()
   -- todo-comments is a lua plugin for Neovim to highlight and search for
   -- todo comments like TODO, HACK, BUG in code base.
   use { 'folke/todo-comments.nvim' }
+  -- NOTE Check code to here
 
   -- WhichKey is a lua plugin that displays a popup with possible
   -- key bindings of the command you started typing.
@@ -108,18 +109,6 @@ return require('packer').startup(function()
   -- Neovim plugin to comment text in and out.
   -- Supports commenting out the current line, a visual selection and a motion.
   use { 'b3nj5m1n/kommentary' }
-
-  -- Easily adds brief author info and license headers.
-  use { 'alpertuna/vim-header' }
-
-  -- Add some features to Neovim for building projects for example add :Make.
-  -- Make is like :make command but it make separate tab for builing projects.
-  use { 'tpope/vim-dispatch' }
-
-  -- The plugin is a capable Vim debugger for multiple languages.
-  -- It's mostly tested for C++, Python and TCL, but in theory supports
-  -- any language that Visual Studio Code supports.
-  use { 'puremourning/vimspector' }
 
   -- match-up is a plugin that lets you highlight, navigate, and operate on sets of matching text.
   use { 'andymass/vim-matchup' }
@@ -146,6 +135,5 @@ return require('packer').startup(function()
   require('plugins/todo-comments')
   require("which-key").setup()
   require('mkdir')
-  require('plugins/header')
   require('plugins/telescope')
 end )
