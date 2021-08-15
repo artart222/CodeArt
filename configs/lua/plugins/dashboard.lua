@@ -7,14 +7,17 @@ g.dashboard_disable_statusline = 1
 g.dashboard_default_executive = "telescope"
 
 g.dashboard_custom_header = {
- "    █████████               █████            █████████              █████",
- "   ███░░░░░███             ░░███            ███░░░░░███            ░░███",
- "  ███     ░░░   ██████   ███████   ██████  ░███    ░███  ████████  ███████",
- " ░███          ███░░███ ███░░███  ███░░███ ░███████████ ░░███░░███░░░███░",
- " ░███         ░███ ░███░███ ░███ ░███████  ░███░░░░░███  ░███ ░░░   ░███",
- " ░░███     ███░███ ░███░███ ░███ ░███░░░   ░███    ░███  ░███       ░███ ███",
- "  ░░█████████ ░░██████ ░░████████░░██████  █████   █████ █████      ░░█████",
- "   ░░░░░░░░░   ░░░░░░   ░░░░░░░░  ░░░░░░  ░░░░░   ░░░░░ ░░░░░        ░░░░░"
+ "                                                                             ",
+ "                                                                             ",
+ "    █████████               █████            █████████              █████    ",
+ "   ███░░░░░███             ░░███            ███░░░░░███            ░░███     ",
+ "  ███     ░░░   ██████   ███████   ██████  ░███    ░███  ████████  ███████   ",
+ " ░███          ███░░███ ███░░███  ███░░███ ░███████████ ░░███░░███░░░███░    ",
+ " ░███         ░███ ░███░███ ░███ ░███████  ░███░░░░░███  ░███ ░░░   ░███     ",
+ " ░░███     ███░███ ░███░███ ░███ ░███░░░   ░███    ░███  ░███       ░███ ███ ",
+ "  ░░█████████ ░░██████ ░░████████░░██████  █████   █████ █████      ░░█████  ",
+ "   ░░░░░░░░░   ░░░░░░   ░░░░░░░░  ░░░░░░  ░░░░░   ░░░░░ ░░░░░        ░░░░░   ",
+ "                                                                             "
 }
 
 g.dashboard_custom_section = {
@@ -27,6 +30,11 @@ g.dashboard_custom_section = {
 }
 
 g.dashboard_custom_footer = {
+    " ",
     "CodeArt Loaded " .. plugins_count .. " plugins!",
     "CodeArt v0.1"
 }
+
+-- Disable bufferline (tabline) and whitespace highlighting on dashboard.
+vim.cmd('autocmd FileType dashboard set showtabline=0 | autocmd BufWinLeave <buffer> set showtabline=2')
+vim.cmd('autocmd FileType dashboard execute "DisableWhitespace" | autocmd BufWinLeave <buffer> execute "EnableWhitespace"')
