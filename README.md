@@ -34,3 +34,6 @@ On windows/mac:
 ```bash
 python3 install.py
 ```
+
+<h2>Screenshots:</h2>
+<img src="./utils/media/Screenshot1.png" alt="Screenshot 1">
