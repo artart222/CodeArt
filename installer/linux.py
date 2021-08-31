@@ -1,12 +1,6 @@
 import os, shutil, distro, urllib.request
 
 
-home_directory_address = os.path.expanduser("~")
-currect_directory_address = os.getcwd()
-
-items_in_home_directory = os.listdir(home_directory_address)
-
-
 def find_distro_name():
     print("Finding which distribution is your os based on")
     distro_name = distro.like()
@@ -17,9 +11,9 @@ def find_distro_name():
     return distro_name
 
 
-def make_backup_of_config():
+def make_backup_of_config(home_directory_address):
     if not os.path.isdir(home_directory_address + "/.config/nvim"):
-        os.mkdir(home_directory_address + "/.config/nvim")
+        pass
     else:
         try:
             items_in_nvim_dir = os.listdir(home_directory_address + "./config/nvim")
@@ -51,226 +45,32 @@ def make_backup_of_config():
             pass
 
 
-def install_dependencys(distro_name):
-    # listing installed apps
-    list_of_apps = os.listdir("/bin")
-
-    print("Installing dependencys")
-
-    #installing neovim
-    if "nvim" in list_of_apps:
-        print("neovim is installed. moving to next dependency")
+def pack_manager_install(distro_name, list_of_apps, pack_name, arch, debian, rhel, opensuse):
+    if pack_name in list_of_apps:
+        print(pack_name, "is installed. moving to next dependency")
     else:
-        print("neovim is not installed.\ninstalling neovim")
+        print(pack_name, "is not installed.\ninstalling", pack_name)
         if distro_name == "arch":
-            os.system("sudo pacman -Sy neovim --noconfirm")
-        elif distro_name == "debian":
-            os.system("sudo apt update; sudo apt install neovim -y")
-        elif distro_name == "rhel":
-            os.system("sudo dnf update -y; sudo dnf neovim python3-neovim -y")
+            os.system("sudo pacman -Sy {} --noconfirm".format(arch))
+        elif distro_name == "debian" or distro_name == "ubuntu" or distro_name == "raspbian":
+            os.system("sudo apt update; sudo apt install {} -y".format(debian))
+        elif distro_name == "rhel" or distro_name == "fedora" or distro_name == "centos":
+            os.system("sudo dnf update -y; sudo dnf install {} -y".format(rhel))
         elif distro_name == "opensuse":
-            os.system("sudo zypper ref; sudo zypper -n neovim")
+            os.system("sudo zypper ref; sudo zypper -n {}".format(opensuse))
 
-    #installing curl
-    if "curl" in list_of_apps:
-        print("curl is not installed. moving to next dependency")
+
+def pip_install(pkgs, pack_name):
+    if pack_name in pkgs:
+        print("{} is installed. moving to next dependencys".format(pack_name))
     else:
-        print("curl is not installed.\ninstalling curl")
-        if distro_name == "arch":
-            os.system("sudo pacman -Sy curl --noconfirm")
-        elif distro_name == "debian":
-            os.system("sudo apt update; sudo apt install curl -y")
-        elif distro_name == "rhel":
-            os.system("sudo dnf update -y; sudo dnf install curl -y")
-        elif distro_name == "opensuse":
-            os.system("sudo zypper ref; sudo zypper -n curl")
+        os.system("sudo pip3 install {}".format(pack_name))
 
-    #installing git
-    if "git" in list_of_apps:
-        print("git is installed. moving to next dependency")
-    else:
-        print("git is not installed.\ninstalling git")
-        if distro_name == "arch":
-            os.system("sudo pacman -Sy git --noconfirm")
-        elif distro_name == "debian":
-            os.system("sudo apt update; sudo apt install git -y")
-        elif distro_name == "rhel":
-            os.system("sudo dnf update -y; sudo dnf install git -y")
-        elif distro_name == "opensuse":
-            os.system("sudo zypper ref; sudo zypper -n git")
-
-    #installing unzip
-    if "unzip" in list_of_apps:
-        print("unzip is installed. moving to next dependency")
-    else:
-        print("unzip is not installed.\ninstalling unzip")
-        if distro_name == "arch":
-            os.system("sudo pacman -Sy unzip --noconfirm")
-        elif distro_name == "debian":
-            os.system("sudo apt update; sudo apt install unzip -y")
-        elif distro_name == "rhel":
-            os.system("sudo dnf update -y; sudo dnf install unzip -y")
-        elif distro_name == "opensuse":
-            os.system("sudo zypper ref; sudo zypper -n unzip")
-
-    #installing ctags
-    if "ctags" in list_of_apps:
-        print("ctags is installed. moving to next dependency")
-    else:
-        print("ctags is not installed.\ninstalling ctags")
-        if distro_name == "arch":
-            os.system("sudo pacman -Sy ctags --noconfirm")
-        elif distro_name == "debian":
-            os.system("sudo apt update; sudo apt install universal-ctags -y")
-        elif distro_name == "rhel":
-            os.system("sudo dnf update -y; sudo dnf install ctags -y")
-        elif distro_name == "opensuse":
-            os.system("sudo zypper ref; sudo zypper -n ctags")
-
-    if "cmake" in list_of_apps:
-        print("cmake is installed. moving to next dependencys")
-    else:
-        if distro_name == "debian":
-            os.system("sudo apt update; sudo apt install cmake -y")
-        elif distro_name == "arch":
-            os.system("sudo pacman -Sy cmake --noconfirm")
-        elif distro_name == "rhel":
-            os.system("sudo dnf update -y; sudo dnf install cmake -y")
-        elif distro_name == "opensuse":
-            os.system("sudo zypper ref; sudo zypper -n cmake")
-
-    if "node" in list_of_apps:
-        print("nodejs is installed. moving to next dependencys")
-    else:
-        if distro_name == "debian":
-            os.system("sudo apt update; sudo apt install nodejs -y")
-        elif distro_name == "arch":
-            os.system("sudo pacman -Sy nodejs --noconfirm")
-        elif distro_name == "rhel":
-            os.system("sudo dnf update -y; sudo dnf install nodejs -y")
-        elif distro_name == "opensuse":
-            os.system("sudo zypper ref; sudo zypper -n nodejs14")
-
-    if "npm" in list_of_apps:
-        print("npm is installed. moving to next dependencys")
-    else:
-        if distro_name == "debian":
-            os.system("sudo apt update; sudo apt install npm -y")
-        elif distro_name == "arch":
-            os.system("sudo pacman -Sy npm --noconfirm")
-        elif distro_name == "rhel":
-            os.system("sudo dnf update -y; sudo dnf install npm -y")
-        elif distro_name == "opensuse":
-            os.system("sudo zypper ref; sudo zypper -n npm14")
-
-    if "pip3" in list_of_apps:
-        print("pip3 is installed. moving to next dependencys")
-    else:
-        if distro_name == "arch":
-            os.system("sudo pacman -Sy python-pip --noconfirm")
-        elif distro_name == "debian":
-            os.system("sudo apt update; sudo apt install python3-pip -y")
-        elif distro_name == "rhel":
-            os.system("sudo dnf update -y; sudo dnf install python3-pip -y")
-        elif distro_name == "opensuse":
-            os.system("sudo zypper ref; sudo zypper -n python3-pip")
-
-    if "python2" in list_of_apps:
-        print("python2 is installed. moving to next dependencys")
-    else:
-        if distro_name == "arch":
-            os.system("sudo pacman -Sy python2 --noconfirm")
-        elif distro_name == "debian":
-            os.system("sudo apt update; sudo apt install python2")
-        elif distro_name == "rhel":
-            os.system("sudo dnf update -y; sudo dnf install python2 -y")
-        elif distro_name == "opensuse":
-            # NOTE I am not sure this will install ranger on opensuse
-            os.system("sudo zypper ref; sudo zypper -n python")
-
-    if "pip2" in list_of_apps:
-        print("pip2 is installed. moving to next dependencys")
-    else:
-        if distro_name == "arch":
-            os.system("sudo pacman -Sy python2-pip --noconfirm")
-        elif distro_name == "debian":
-            os.system("sudo apt update")
-            os.system("sudo add-apt-repository universe")
-
-    if "ranger" in list_of_apps:
-        print("ranger is installed. moving to next dependencys")
-    else:
-        if distro_name == "arch":
-            os.system("sudo pacman -Sy ranger --noconfirm")
-        elif distro_name == "debian":
-            os.system("sudo apt update; sudo apt install ranger -y")
-        elif distro_name == "rhel":
-            os.system("sudo dnf update -y; sudo dnf install ranger -y")
-        elif distro_name == "opensuse":
-            # NOTE I am not sure this will install ranger on opensuse
-            os.system("sudo zypper ref; sudo zypper -n ranger")
-
-    if "ueberzug" in list_of_apps:
-        print("ueberzug is installed. moving to next dependencys")
-    else:
-        os.system("sudo pip3 install ueberzug")
-
-    python3_packages_list = []
-    os.system("pip3 list >> pip3.txt")
-    with open("pip3.txt", "r") as pip_file:
-        for line in pip_file:
-            python3_packages_list.append(line.split(" ")[0])
-
-    python2_packages_list = []
-    os.system("pip2 list >> pip2.txt")
-    with open("pip2.txt", "r") as pip_file:
-        for line in pip_file:
-            python2_packages_list.append(line.split(" ")[0])
-
-    if "pynvim" in python3_packages_list:
-        print("pynvim is installed. moving to next dependencys")
-    else:
-        os.system("sudo pip3 install pynvim")
-
-    if "neovim" in python3_packages_list:
-        print("python3 neovim is installed. moving to next dependencys")
-    else:
-        os.system("sudo pip3 install neovim")
-
-    if "neovim" in python2_packages_list:
-        print("python2 neovim is installed. moving to next dependencys")
-    else:
-        os.system("sudo pip2 install neovim")
+def npm_install(pkgs, pack_name):
+    if pack_name
 
 
-    # TODO install ruby provider
-
-    # TODO install omnisharp
-
-    # TODO Requirments for fzf.vim
-    """
-        fzf 0.23.0 or above
-        For syntax-highlighted preview, install bat
-        If delta is available, GF?, Commits and BCommits will use it to format git diff output.
-        Ag requires The Silver Searcher (ag)
-        Rg requires ripgrep (rg)
-        Tags and Helptags require Perl
-    """
-
-    if "xclip" in list_of_apps:
-        print("xclip is installed. all dependencys now are installed")
-    else:
-        if distro_name == "arch":
-            os.system("sudo pacman -Sy xclip --noconfirm")
-        elif distro_name == "debian":
-            os.system("sudo apt update; sudo apt install xclip -y")
-        elif distro_name == "rhel":
-            os.system("sudo dnf update -y; sudo dnf install xclip -y")
-        elif distro_name == "opensuse":
-            os.system("sudo zypper ref; sudo zypper -n xclip")
-
-
-def install_needed_font():
+def install_needed_font(home_directory_address):
     try:
         os.mkdir(home_directory_address + "/.fonts")
     except FileExistsError:
@@ -287,26 +87,79 @@ def install_needed_font():
     os.system("fc-cache -f -v")
 
 
-def install_vim_plug():
-    os.system("sh -c \'curl -fLo \"${XDG_DATA_HOME:-$HOME/.local/share}\"/nvim/site/autoload/plug.vim --create-dirs \
-             https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim\'")
+def install_packer():
+    os.system("git clone https://github.com/wbthomason/packer.nvim\
+        ~/.local/share/nvim/site/pack/packer/start/packer.nvim")
 
 
-def copy_configs():
+def copy_configs(home_directory_address):
     try:
         os.mkdir(home_directory_address + "/.config/nvim")
     except FileExistsError:
         pass
 
-    for item in os.listdir(os.path.dirname(__file__) + "/../configs"):
-        shutil.copy(os.path.dirname(__file__) + "/../configs/" + item, home_directory_address + "/.config/nvim/" + item)
+    cmd = "cp -r {}".format(os.path.dirname(__file__) + "/../configs/* ") + home_directory_address + "/.config/nvim/"
+    os.system(cmd)
+
+    # print(__file__)
+
+    '''for item in os.listdir(os.path.dirname(__file__) + "/../configs"):
+        shutil.copy(os.path.dirname(__file__) + "/../configs/" + item, home_directory_address + "/.config/nvim/" + item)'''
 
 
-def install_plugins_and_extensions():
-    os.system("nvim -c PlugInstall -c qa!")
+def main():
+    home_directory_address = os.path.expanduser("~")
 
-    with open(os.path.dirname(__file__) + "/../coc-config.json", 'r') as installer_json, open(home_directory_address + "/.config/nvim/coc-settings.json",'a') as user_json:
-        for line in installer_json:
-                 user_json.write(line)
 
-    os.system("nvim -c \'CocInstall coc-python coc-html coc-css coc-omnisharp coc-clangd coc-browser\'")
+    # listing installed apps
+    list_of_apps = os.listdir("/bin")
+
+    distro_name = find_distro_name()
+
+    pack_manager_install(distro_name, list_of_apps, "nvim", "neovim", "neovim", "python3-neovim", "neovim")
+    pack_manager_install(distro_name, list_of_apps, "curl", "curl", "curl", "curl", "curl")
+    pack_manager_install(distro_name, list_of_apps, "git", "git", "git", "git", "git")
+    pack_manager_install(distro_name, list_of_apps, "unzip", "unzip", "unzip", "unzip", "unzip")
+    pack_manager_install(distro_name, list_of_apps, "ctags", "ctags", "universal-ctags", "ctags", "ctags")
+    pack_manager_install(distro_name, list_of_apps, "cmake", "cmake", "cmake", "cmake", "cmake")
+    pack_manager_install(distro_name, list_of_apps, "node", "nodejs", "nodejs", "nodejs", "nodejs14")
+    pack_manager_install(distro_name, list_of_apps, "npm", "npm", "npm", "npm", "npm14")
+    pack_manager_install(distro_name, list_of_apps, "pip3", "python-pip", "python3-pip", "python3-pip", "python3-pip")
+    pack_manager_install(distro_name, list_of_apps, "python2", "python2", "python2", "python2", "python")
+    # TODO install pip2
+    pack_manager_install(distro_name, list_of_apps, "ranger", "ranger", "ranger", "ranger", "ranger")
+    pack_manager_install(distro_name, list_of_apps, "xclip", "xclip", "xclip", "xclip", "xclip")
+
+    py3_pkgs = []
+    os.system("pip3 list >> pip3.txt")
+    with open("pip3.txt", "r") as pip_file:
+        for line in pip_file:
+            py3_pkgs.append(line.split(" ")[0])
+    pip_install(py3_pkgs, "ueberzug")
+    pip_install(py3_pkgs, "pynvim")
+    pip_install(py3_pkgs, "neovim")
+
+    npm_pkgs = []
+    os.system("npm list -g --depth=0 >> npm.txt")
+    with open("npm.txt", "r") as npm_file:
+        for line in npm_file:
+            try:
+                pkg = line.split(" ")[1]
+                pkg = pkg.split("@")[0]
+                npm_pkgs.append(pkg)
+            except:
+                pass
+    npm_install(npm_pkgs, )
+
+    install_needed_font(home_directory_address)
+    install_packer()
+    copy_configs(home_directory_address)
+    os.system("nvim -c \'PackerInstall\' -c \':qa\'")
+    os.system("nvim -c \':TSInstall python cpp javascript html css\' -c \':qa\'")
+    print("instalation proccess finished")
+
+    # TODO install lsp's for diffrente languages.
+    # TODO install treesitter for diffrente languages.
+
+
+main()

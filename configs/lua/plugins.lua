@@ -1,3 +1,4 @@
+local use = require('packer').use
 return require('packer').startup(function()
   use { 'wbthomason/packer.nvim' }
 
@@ -112,6 +113,9 @@ return require('packer').startup(function()
 
   -- match-up is a plugin that lets you highlight, navigate, and operate on sets of matching text.
   use { 'andymass/vim-matchup' }
+
+  -- With this plugin you can resize Neovim buffers easily.
+  use { 'artart222/vim-resize' }
 
   -- Import settings of plugins or start plugins.
   require('plugins/dashboard')

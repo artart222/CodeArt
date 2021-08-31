@@ -31,7 +31,7 @@ g.dashboard_custom_section = {
 
 g.dashboard_custom_footer = {
     " ",
-    "CodeArt Loaded " .. plugins_count .. " plugins!",
+    "CodeArt Loaded " .. plugins_count .. " plugins!  ",
     "CodeArt v0.1"
 }
 

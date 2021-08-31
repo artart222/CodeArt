@@ -1,7 +1,8 @@
 require("bufferline").setup {
   options = {
-    numbers = "buffer_id",
-    number_style = "",
+    numbers = function(opts)
+      return string.format('%s', opts.id)
+    end,
     diagnostics = "nvim_lsp",
     offsets = {
       {
