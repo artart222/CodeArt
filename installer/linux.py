@@ -6,12 +6,13 @@ def find_distro_name():
     distro_name = distro.like()
     if distro_name == "":
         distro_name = distro.id()
-    print("Your distro is " + distro_name + " like")
+    print("Your distro is " + distro_name + " like\n")
 
     return distro_name
 
 
 def make_backup_of_config(home_directory_address):
+    print("Creating backup for your configs")
     if not os.path.isdir(home_directory_address + "/.config/nvim"):
         pass
     else:
@@ -43,6 +44,7 @@ def make_backup_of_config(home_directory_address):
                     shutil.move(home_directory_address + "/.config/nvim/" + item, home_directory_address + "/.config/nvim/backup" + str(new_backup))
         except FileNotFoundError:
             pass
+    print("Backup created\n")
 
 
 def pack_manager_install(distro_name, list_of_apps, pack_name, arch, debian, rhel, opensuse):
@@ -62,37 +64,45 @@ def pack_manager_install(distro_name, list_of_apps, pack_name, arch, debian, rhe
 
 def pip_install(pkgs, pack_name):
     if pack_name in pkgs:
-        print("{} is installed. moving to next dependencys".format(pack_name))
+        print("{} is installed. moving to next dependency".format(pack_name))
     else:
         os.system("sudo pip3 install {}".format(pack_name))
 
+
 def npm_install(pkgs, pack_name):
-    if pack_name
+    if pack_name in pkgs:
+        print("{} is installed. moving to next dependency".format(pack_name))
+    else:
+        os.system("sudo npm -g install {}".format(pack_name))
 
 
 def install_needed_font(home_directory_address):
+    print("Downloading font")
     try:
         os.mkdir(home_directory_address + "/.fonts")
     except FileExistsError:
         pass
 
-    print("beginning file download")
-    url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/FiraCode.zip"
-    urllib.request.urlretrieve(url, home_directory_address + "/.fonts/FiraCode.zip")
+    url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/JetBrainsMono.zip"
+    urllib.request.urlretrieve(url, home_directory_address + "/.fonts/JetBrainsMono.zip")
     print("file downloaded")
 
     os.chdir(home_directory_address + "/.fonts")
     os.system("unzip FiraCode.zip")
 
     os.system("fc-cache -f -v")
+    print("Font downloaded")
 
 
 def install_packer():
+    print("Downloading Neovim package manager")
     os.system("git clone https://github.com/wbthomason/packer.nvim\
         ~/.local/share/nvim/site/pack/packer/start/packer.nvim")
+    print("Neovim package manager downloaded")
 
 
 def copy_configs(home_directory_address):
+    print("Moving configs")
     try:
         os.mkdir(home_directory_address + "/.config/nvim")
     except FileExistsError:
@@ -100,44 +110,20 @@ def copy_configs(home_directory_address):
 
     cmd = "cp -r {}".format(os.path.dirname(__file__) + "/../configs/* ") + home_directory_address + "/.config/nvim/"
     os.system(cmd)
-
-    # print(__file__)
-
-    '''for item in os.listdir(os.path.dirname(__file__) + "/../configs"):
-        shutil.copy(os.path.dirname(__file__) + "/../configs/" + item, home_directory_address + "/.config/nvim/" + item)'''
+    print("Configs moved")
 
 
 def main():
     home_directory_address = os.path.expanduser("~")
 
-
-    # listing installed apps
+    # listing installed apps and packages
     list_of_apps = os.listdir("/bin")
-
-    distro_name = find_distro_name()
-
-    pack_manager_install(distro_name, list_of_apps, "nvim", "neovim", "neovim", "python3-neovim", "neovim")
-    pack_manager_install(distro_name, list_of_apps, "curl", "curl", "curl", "curl", "curl")
-    pack_manager_install(distro_name, list_of_apps, "git", "git", "git", "git", "git")
-    pack_manager_install(distro_name, list_of_apps, "unzip", "unzip", "unzip", "unzip", "unzip")
-    pack_manager_install(distro_name, list_of_apps, "ctags", "ctags", "universal-ctags", "ctags", "ctags")
-    pack_manager_install(distro_name, list_of_apps, "cmake", "cmake", "cmake", "cmake", "cmake")
-    pack_manager_install(distro_name, list_of_apps, "node", "nodejs", "nodejs", "nodejs", "nodejs14")
-    pack_manager_install(distro_name, list_of_apps, "npm", "npm", "npm", "npm", "npm14")
-    pack_manager_install(distro_name, list_of_apps, "pip3", "python-pip", "python3-pip", "python3-pip", "python3-pip")
-    pack_manager_install(distro_name, list_of_apps, "python2", "python2", "python2", "python2", "python")
-    # TODO install pip2
-    pack_manager_install(distro_name, list_of_apps, "ranger", "ranger", "ranger", "ranger", "ranger")
-    pack_manager_install(distro_name, list_of_apps, "xclip", "xclip", "xclip", "xclip", "xclip")
 
     py3_pkgs = []
     os.system("pip3 list >> pip3.txt")
     with open("pip3.txt", "r") as pip_file:
         for line in pip_file:
             py3_pkgs.append(line.split(" ")[0])
-    pip_install(py3_pkgs, "ueberzug")
-    pip_install(py3_pkgs, "pynvim")
-    pip_install(py3_pkgs, "neovim")
 
     npm_pkgs = []
     os.system("npm list -g --depth=0 >> npm.txt")
@@ -149,13 +135,38 @@ def main():
                 npm_pkgs.append(pkg)
             except:
                 pass
-    npm_install(npm_pkgs, )
+
+    distro_name = find_distro_name()
+
+    print("Downloading dependencys")
+    pack_manager_install(distro_name, list_of_apps, "nvim", "neovim", "neovim", "python3-neovim", "neovim")
+    pack_manager_install(distro_name, list_of_apps, "curl", "curl", "curl", "curl", "curl")
+    pack_manager_install(distro_name, list_of_apps, "git", "git", "git", "git", "git")
+    pack_manager_install(distro_name, list_of_apps, "unzip", "unzip", "unzip", "unzip", "unzip")
+    pack_manager_install(distro_name, list_of_apps, "ctags", "ctags", "universal-ctags", "ctags", "ctags")
+    pack_manager_install(distro_name, list_of_apps, "node", "nodejs", "nodejs", "nodejs", "nodejs14")
+    pack_manager_install(distro_name, list_of_apps, "npm", "npm", "npm", "npm", "npm14")
+    pack_manager_install(distro_name, list_of_apps, "pip3", "python-pip", "python3-pip", "python3-pip", "python3-pip")
+    pack_manager_install(distro_name, list_of_apps, "ranger", "ranger", "ranger", "ranger", "ranger")
+    pack_manager_install(distro_name, list_of_apps, "xclip", "xclip", "xclip", "xclip", "xclip")
+    if distro_name == "debian" or distro_name == "ubuntu" or distro_name == "raspbian":
+        pack_manager_install(distro_name, list_of_apps, "libjpeg8-dev")
+        os.system("sudo apt update; sudo apt install libjpeg8-dev zlib1g-dev python-dev python3-dev libxtst-dev -y")
+    elif distro_name == "arch":
+        os.system("sudo pacman -Sy ueberzug --noconfirm")
+    elif distro_name == "rhel" or distro_name == "fedora" or distro_name == "centos":
+        # TODO: Find a way to install ueberzug on fedora
+        pass
+    elif distro_name == "opensuse":
+        # TODO: Find a way to install ueberzug on opensuse
+        pass
+    pip_install(py3_pkgs, "pynvim")
+    npm_install(npm_pkgs, "neovim")
 
     install_needed_font(home_directory_address)
     install_packer()
+    print("Dependencys installed\n")
     copy_configs(home_directory_address)
-    os.system("nvim -c \'PackerInstall\' -c \':qa\'")
-    os.system("nvim -c \':TSInstall python cpp javascript html css\' -c \':qa\'")
     print("instalation proccess finished")
 
     # TODO install lsp's for diffrente languages.
