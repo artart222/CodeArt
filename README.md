@@ -37,3 +37,16 @@ python3 install.py
 
 <h2>Screenshots:</h2>
 <img src="./utils/media/Screenshot1.png" alt="Screenshot 1">
+<h2>Many themes!</h2>
+<img src="./utils/media/Screenshot2.png" alt="Screenshot 2">
+<img src="./utils/media/Screenshot3.png" alt="Screenshot 3">
+<img src="./utils/media/Screenshot4.png" alt="Screenshot 4">
+<img src="./utils/media/Screenshot5.png" alt="Screenshot 5">
+<img src="./utils/media/Screenshot6.png" alt="Screenshot 6">
+<img src="./utils/media/Screenshot7.png" alt="Screenshot 7">
+<img src="./utils/media/Screenshot8.png" alt="Screenshot 8">
+<img src="./utils/media/Screenshot9.png" alt="Screenshot 9">
+<img src="./utils/media/Screenshot10.png" alt="Screenshot 10">
+<img src="./utils/media/Screenshot11.png" alt="Screenshot 11">
+<img src="./utils/media/Screenshot12.png" alt="Screenshot 12">
+<img src="./utils/media/Screenshot13.png" alt="Screenshot 13">
