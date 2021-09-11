@@ -39,6 +39,7 @@ python3 install.py
 
 <h2>Screenshots:</h2>
 <img src="./utils/media/Screenshot1.png" alt="Screenshot 1">
+
 <h2>Many themes!</h2>
 <img src="./utils/media/Screenshot2.png" alt="Screenshot 2">
 <img src="./utils/media/Screenshot3.png" alt="Screenshot 3">
@@ -53,6 +54,9 @@ python3 install.py
 <img src="./utils/media/Screenshot12.png" alt="Screenshot 12">
 <img src="./utils/media/Screenshot13.png" alt="Screenshot 13">
 
+
 <h2>Install lsp and treesitter</h2>
-You can install lsp for a language with :LspInstall <language>
-and you can install treesitter with :TSInstall <language>
+<ul>
+  <li>You can install lsp for a language with <kbd>:LspInstall &ltlanguage&gt</kbd></li>
+  <li>and you can install treesitter with <kbd>:TSInstall &ltlanguage&gt</kbd></li>
+</ul>
