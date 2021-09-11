@@ -8,9 +8,11 @@
 
   <img src="https://img.shields.io/github/repo-size/artart222/CodeArt?style=flat-square" alt="Repo size">
 
+  <!--
   <a href="https://discordapp.com/channels/875388658637754428">
     <img src="https://img.shields.io/discord/875388658637754428?style=flat-square" alt="Discord server">
   </a>
+  -->
 
   <a href="https://github.com/artart222/CodeArt/issues">
     <img src="https://img.shields.io/github/issues/artart222/CodeArt?color=ff0000&style=flat-square" alt="Open issues">
@@ -50,3 +52,7 @@ python3 install.py
 <img src="./utils/media/Screenshot11.png" alt="Screenshot 11">
 <img src="./utils/media/Screenshot12.png" alt="Screenshot 12">
 <img src="./utils/media/Screenshot13.png" alt="Screenshot 13">
+
+<h2>Install lsp and treesitter</h2>
+You can install lsp for a language with :LspInstall <language>
+and you can install treesitter with :TSInstall <language>
