@@ -78,6 +78,7 @@ def npm_install(pkgs, pack_name):
 
 def install_needed_font(home_directory_address):
     print("Downloading font")
+    print("Please wait")
     try:
         os.mkdir(home_directory_address + "/.fonts")
     except FileExistsError:
@@ -149,10 +150,12 @@ def main():
     pack_manager_install(distro_name, list_of_apps, "pip3", "python-pip", "python3-pip", "python3-pip", "python3-pip")
     pack_manager_install(distro_name, list_of_apps, "ranger", "ranger", "ranger", "ranger", "ranger")
     pack_manager_install(distro_name, list_of_apps, "xclip", "xclip", "xclip", "xclip", "xclip")
+    pack_manager_install(distro_name, list_of_apps, "gcc", "gcc", "gcc", "gcc", "gcc")
     if distro_name == "debian" or distro_name == "ubuntu" or distro_name == "raspbian":
-        pack_manager_install(distro_name, list_of_apps, "libjpeg8-dev")
+        print("Installing ueberzug and its requirements if they are not installed")
         os.system("sudo apt update; sudo apt install libjpeg8-dev zlib1g-dev python-dev python3-dev libxtst-dev -y")
     elif distro_name == "arch":
+        print("installing ueberzug and its requirements if thry are not installed")
         os.system("sudo pacman -Sy ueberzug --noconfirm")
     elif distro_name == "rhel" or distro_name == "fedora" or distro_name == "centos":
         # TODO: Find a way to install ueberzug on fedora
