@@ -7,10 +7,11 @@ require'lspconfig'.html.setup { capabilities = capabilities }
 require'lspconfig'.cssls.setup { capabilities = capabilities }
 
 -- C/CPP/Objective-C
-require'lspconfig'.ccls.setup {}
+require'lspconfig'.clangd.setup{}
 
 -- Python
-require'lspconfig'.pylsp.setup {}
+-- require'lspconfig'.pylsp.setup {}
+require'lspconfig'.pyright.setup{}
 
 -- Javascript
 require'lspconfig'.denols.setup {}
