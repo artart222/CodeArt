@@ -1,5 +1,5 @@
 local use = require('packer').use
-return require('packer').startup(function()
+return require('packer').startup({function()
   use { 'wbthomason/packer.nvim' }
 
   -- Color schemes.
@@ -32,7 +32,7 @@ return require('packer').startup(function()
   use { 'hoob3rt/lualine.nvim' }
 
   -- TreeSitter.
-  use { 'nvim-treesitter/nvim-treesitter' }
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
 
   -- Colorizer (for highlighting color codes).
   use { 'norcalli/nvim-colorizer.lua' }
@@ -46,8 +46,9 @@ return require('packer').startup(function()
   use { 'nvim-lua/popup.nvim' }
   use { 'nvim-lua/plenary.nvim' }
 
-  -- LSP and completion.
+  -- LSP, LSP installer and tab completion.
   use { 'neovim/nvim-lspconfig' }
+  use { 'kabouzeid/nvim-lspinstall' }
   use { 'hrsh7th/nvim-compe' }
 
   -- LSP signature.
@@ -133,11 +134,18 @@ return require('packer').startup(function()
   require('gitsigns').setup()
   require('nvim-autopairs').setup()
   require('neoscroll').setup()
-  vim.cmd('highlight ScrollView ctermbg=160 guibg=LightCyan') -- Set scrollbar color to LightCyan
+  require('plugins/nvim-scroll')
   require('plugins/markdown')
   require('plugins/ranger')
   require('plugins/todo-comments')
   require("which-key").setup()
   require('mkdir')
   require('plugins/telescope')
-end )
+end,
+config = {
+  display = {
+    open_fn = function()
+      return require('packer.util').float({ border = 'single' })
+    end
+  }
+}})
