@@ -37,6 +37,8 @@ On windows/mac:
 python3 install.py
 ```
 
+<p>for completing instalation you must run <kbd>:call mkdp#util#install()</kbd> to add markdown preview support</p>
+
 <h2>Screenshots:</h2>
 <img src="./utils/media/Screenshot1.png" alt="Screenshot 1">
 
