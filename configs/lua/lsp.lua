@@ -10,7 +10,6 @@ require'lspconfig'.cssls.setup { capabilities = capabilities }
 require'lspconfig'.clangd.setup{}
 
 -- Python
--- require'lspconfig'.pylsp.setup {}
 require'lspconfig'.pyright.setup{}
 
 -- Javascript
