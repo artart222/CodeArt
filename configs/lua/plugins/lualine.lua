@@ -1,4 +1,4 @@
 require('lualine').setup {
-  options = {theme = 'auto', disabled_filetypes = {'toggleterm', 'NvimTree'}},
+  options = {theme = 'auto', disabled_filetypes = {'toggleterm', 'NvimTree', 'vista'}},
   extensions = {'fugitive'}
 }
