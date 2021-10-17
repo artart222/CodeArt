@@ -8,6 +8,7 @@ return require('packer').startup({function()
   use { 'bluz71/vim-moonfly-colors' }
   use { 'shaunsingh/nord.nvim' }
   use { 'navarasu/onedark.nvim' }
+  use { 'wuelnerdotexe/vim-enfocado' }
 
   -- TrueZen.nvim is a Neovim plugin that aims to provide a cleaner and less cluttered interface
   -- when toggled in either of it's three different modes (Ataraxis, Minimalist and Focus).
@@ -141,6 +142,7 @@ return require('packer').startup({function()
   require("which-key").setup()
   require('mkdir')
   require('plugins/telescope')
+  require('kommentary.config')
 end,
 config = {
   display = {

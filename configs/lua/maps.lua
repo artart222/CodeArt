@@ -150,3 +150,8 @@ map('n', '<leader>fs', '<cmd>:TZFocus<CR>')
 
 -- Toggle fold.
 map('n', '<leader>ft', 'za')
+
+
+-- Kommentary
+vim.api.nvim_set_keymap("n", "ct", "<Plug>kommentary_line_default", {})
+vim.api.nvim_set_keymap("v", "ct", "<Plug>kommentary_visual_default<C-c>", {})
