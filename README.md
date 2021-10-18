@@ -71,10 +71,10 @@ python3 install.py
 
 # TODOS:
 
-- [] Add lsp status to lualine
-- [] Lazy load plugins
-- [] Find a way to install NeoVim 0.5 on debian based operating systems
-- [] Find a way to install ueberzug on rhel based operating systems and opensuse
-- [] Make new install script for windows
+- [ ] Add lsp status to lualine
+- [ ] Lazy load plugins
+- [ ] Find a way to install NeoVim 0.5 on debian based operating systems
+- [ ] Find a way to install ueberzug on rhel based operating systems and opensuse
+- [ ] Make new install script for windows
 - [] Test current MacOS script
 - [] Clean current codebase convert vimscript(I mean vimscript in luafiles) to lua and maybe remove some plugins
