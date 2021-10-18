@@ -37,7 +37,15 @@ On windows/mac:
 python3 install.py
 ```
 
+
+<h2>Install lsp and treesitter</h2>
+<ul>
+  <li>You can install lsp for a language with <kbd>:LspInstall &ltlanguage&gt</kbd></li>
+  <li>and you can install treesitter with <kbd>:TSInstall &ltlanguage&gt</kbd></li>
+</ul>
+
 <p>for completing instalation you must run <kbd>:call mkdp#util#install()</kbd> to add markdown preview support</p>
+
 
 <h2>Screenshots:</h2>
 <img src="./utils/media/Screenshot1.png" alt="Screenshot 1">
@@ -55,10 +63,4 @@ python3 install.py
 <img src="./utils/media/Screenshot11.png" alt="Screenshot 11">
 <img src="./utils/media/Screenshot12.png" alt="Screenshot 12">
 <img src="./utils/media/Screenshot13.png" alt="Screenshot 13">
-
-
-<h2>Install lsp and treesitter</h2>
-<ul>
-  <li>You can install lsp for a language with <kbd>:LspInstall &ltlanguage&gt</kbd></li>
-  <li>and you can install treesitter with <kbd>:TSInstall &ltlanguage&gt</kbd></li>
-</ul>
+<img src="./utils/media/Screenshot14.png" alt="Screenshot 14">
