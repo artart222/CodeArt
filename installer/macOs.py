@@ -1,69 +1,145 @@
 import os, shutil, urllib.request
 
 
-home_directory_address = os.path.expanduser("~")
-currect_directory_address = os.getcwd()
+def make_backup_of_config(home_directory_address):
+    print("Creating backup for your configs")
+    if not os.path.isdir(home_directory_address + "/.config/nvim"):
+        pass
+    else:
+        try:
+            items_in_nvim_dir = os.listdir(home_directory_address + "./config/nvim")
+            last_backup = "0"
+            new_last_backup = ""
 
-items_in_home_directory = os.listdir(home_directory_address)
+            numbers = "0123456789"
+            for item in items_in_nvim_dir:
+                if "backup" in item:
+                    for char in item:
+                        if char in numbers:
+                            new_last_backup += char
 
+                    try:
+                        if int(new_last_backup) > int(last_backup):
+                            last_backup = new_last_backup
+                    except ValueError:
+                        pass
 
-def copy_or_make_vim_vimrc():
-    if ".vimrc" in items_in_home_directory:
-        shutil.move(home_directory_address + "/.vimrc", home_directory_address + "/.vimrc-copy.vim")
-    if ".vim" in items_in_home_directory:
-        shutil.move(home_directory_address + "/.vim", home_directory_address + "/.vim-copy/")
+                    new_last_backup = ""
+
+            new_backup = int(last_backup) + 1
+            os.mkdir(home_directory_address + "/.config/nvim/" + "backup" + str(new_backup))
+
+            for item in items_in_nvim_dir:
+                if not "backup" in item:
+                    shutil.move(home_directory_address + "/.config/nvim/" + item, home_directory_address + "/.config/nvim/backup" + str(new_backup))
+        except FileNotFoundError:
+            pass
+    print("Backup created\n")
 
 
 def install_homebrew():
     os.system("/bin/bash -c \"$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"")
 
 
-def install_dependencys():
-    #listing installed apps
-    list_of_apps = os.listdir("/usr/bin")
-
-    #installing vim
-    if "vim" in list_of_apps:
-        print("vim is installed. moving to next dependency")
+# NOTE: some times name of package in /usr/bin is different from brew name.
+def pack_manager_install(list_of_apps, pack_name, install_name):
+    if pack_name in list_of_apps:
+        print(pack_name, "is installed. moving to next dependency")
     else:
-        print("vim is not installed.\ninstalling vim")
-        os.system("brew install vim")
+        print(pack_name, "is not installed.\ninstalling", pack_name)
+        os.system("brew install {}".format(install_name))
 
-    #installing git
-    if "git" in list_of_apps:
-        print("git is installed. moving to next dependency")
+
+def pip_install(pkgs, pack_name):
+    if pack_name in pkgs:
+        print("{} is installed. moving to next dependency".format(pack_name))
     else:
-        print("git is not installed.\ninstalling git")
-        os.system("brew install git")
+        os.system("sudo pip3 install {}".format(pack_name))
 
-    #installing ctags
-    if "ctags" in list_of_apps:
-        print("ctags is installed. all dependencys now are installed")
+
+def npm_install(pkgs, pack_name):
+    if pack_name in pkgs:
+        print("{} is installed. moving to next dependency".format(pack_name))
     else:
-        print("ctags is not installed.\ninstalling ctags")
-        os.system("brew install ctags")
+        os.system("sudo npm -g install {}".format(pack_name))
 
 
-def install_needed_font():
-    print("beginning file download")
-    url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/CascadiaCode.zip"
-    urllib.request.urlretrieve(url, home_directory_address + "/Desktop/Caskaydia-Cove-Nerd-Font.zip")
+def install_needed_font(home_directory_address):
+    print("Downloading font")
+    print("Please wait")
+
+    url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/JetBrainsMono.zip"
+    urllib.request.urlretrieve(url, home_directory_address + "/Desktop/JetBrainsMono.zip")
     print("file downloaded")
 
     os.chdir(home_directory_address + "/Desktop")
-    os.system("unzip Caskaydia-Cove-Nerd-Font.zip")
+    os.system("unzip JetBrainsMono.zip")
 
-    os.system("mv ~/Desktop/Caskaydia Cove Nerd Font Complete* /Library/Fonts/")
-
-
-def install_vundle():
-    os.system("git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim")
+    os.system("mv ~/Desktop/JetBrains Mono Regular Nerd Font Complete Mono.ttf /Library/Fonts/")
+    print("Font installed")
 
 
-def copy_vimrc():
-    shutil.copyfile(currect_directory_address + "/vimrc.vim", home_directory_address + "/.vimrc")
+def install_packer():
+    print("Downloading Neovim package manager")
+    os.system("git clone https://github.com/wbthomason/packer.nvim\
+        ~/.local/share/nvim/site/pack/packer/start/packer.nvim")
+    print("Neovim package manager downloaded")
 
 
-def copy_vimspector():
-    os.mkdir(home_directory_address + "/.vim/spector-debugger-conf")
-    shutil.copyfile(currect_directory_address + "/vimspector.json", home_directory_address + "/.vim/spector-debugger-conf/vimspector.json")
+def copy_configs(home_directory_address):
+    print("Moving configs")
+    try:
+        os.mkdir(home_directory_address + "/.config/nvim")
+    except FileExistsError:
+        pass
+
+    cmd = "cp -r {}".format(os.path.dirname(__file__) + "/../configs/* ") + home_directory_address + "/.config/nvim/"
+    os.system(cmd)
+    print("Configs moved")
+
+def main():
+    home_directory_address = os.path.expanduser("~")
+
+    # listing installed apps and packages
+    list_of_apps = os.listdir("/usr/bin")
+
+    py3_pkgs = []
+    os.system("pip3 list >> pip3.txt")
+    with open("pip3.txt", "r") as pip_file:
+        for line in pip_file:
+            py3_pkgs.append(line.split(" ")[0])
+
+    npm_pkgs = []
+    os.system("npm list -g --depth=0 >> npm.txt")
+    with open("npm.txt", "r") as npm_file:
+        for line in npm_file:
+            try:
+                pkg = line.split(" ")[1]
+                pkg = pkg.split("@")[0]
+                npm_pkgs.append(pkg)
+            except:
+                pass
+
+    print("Downloading dependencys")
+    pack_manager_install(list_of_apps, "nvim", "neovim")
+    pack_manager_install(list_of_apps, "curl", "curl")
+    pack_manager_install(list_of_apps, "git", "git")
+    pack_manager_install(list_of_apps, "unzip", "unzip")
+    pack_manager_install(list_of_apps, "ctags", "ctags")
+    pack_manager_install(list_of_apps, "node", "node")
+    pack_manager_install(list_of_apps, "pip3", "python3")
+    pack_manager_install(list_of_apps, "ranger", "ranger")
+    pack_manager_install(list_of_apps, "xclip", "xclip")
+    pack_manager_install(list_of_apps, "gcc", "gcc")
+    pip_install(py3_pkgs, "ueberzug")
+    pip_install(py3_pkgs, "pynvim")
+    npm_install(npm_pkgs, "neovim")
+
+    install_needed_font(home_directory_address)
+    install_packer()
+    print("Dependencys installed\n")
+    copy_configs(home_directory_address)
+    print("instalation proccess finished")
+
+
+main()
