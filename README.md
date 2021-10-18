@@ -32,10 +32,15 @@ sudo pip3 install distro
 python3 install.py
 ```
 
-On windows/mac:
+<h2>IMPORTANT NOTE: macOS installer is not tested because I dont have a device with macOS</h2>
+
+On windows/macOS:
 ```bash
 python3 install.py
 ```
+
+<h2>Install plugins:</h2>
+<p>Open NeoVim and type <kbd>:PackerInstall</kbd></p>
 
 <h2>Install lsp and treesitter</h2>
 <ul>
@@ -63,3 +68,13 @@ python3 install.py
 <img src="./utils/media/Screenshot12.png" alt="Screenshot 12">
 <img src="./utils/media/Screenshot13.png" alt="Screenshot 13">
 <img src="./utils/media/Screenshot14.png" alt="Screenshot 14">
+
+# TODOS:
+
+- [] Add lsp status to lualine
+- [] Lazy load plugins
+- [] Find a way to install NeoVim 0.5 on debian based operating systems
+- [] Find a way to install ueberzug on rhel based operating systems and opensuse
+- [] Make new install script for windows
+- [] Test current MacOS script
+- [] Clean current codebase convert vimscript(I mean vimscript in luafiles) to lua and maybe remove some plugins
