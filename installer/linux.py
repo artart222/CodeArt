@@ -89,10 +89,10 @@ def install_needed_font(home_directory_address):
     print("file downloaded")
 
     os.chdir(home_directory_address + "/.fonts")
-    os.system("unzip FiraCode.zip")
+    os.system("unzip JetBrainsMono.zip")
 
     os.system("fc-cache -f -v")
-    print("Font downloaded")
+    print("Font installed")
 
 
 def install_packer():
@@ -171,9 +171,6 @@ def main():
     print("Dependencys installed\n")
     copy_configs(home_directory_address)
     print("instalation proccess finished")
-
-    # TODO install lsp's for diffrente languages.
-    # TODO install treesitter for diffrente languages.
 
 
 main()
