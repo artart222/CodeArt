@@ -37,14 +37,13 @@ On windows/mac:
 python3 install.py
 ```
 
-
 <h2>Install lsp and treesitter</h2>
 <ul>
   <li>You can install lsp for a language with <kbd>:LspInstall &ltlanguage&gt</kbd></li>
   <li>and you can install treesitter with <kbd>:TSInstall &ltlanguage&gt</kbd></li>
 </ul>
 
-<p>for completing instalation you must run <kbd>:call mkdp#util#install()</kbd> to add markdown preview support</p>
+<p>for completing installation you must run <kbd>:call mkdp#util#install()</kbd> to add markdown preview support</p>
 
 
 <h2>Screenshots:</h2>
