@@ -87,16 +87,15 @@ function _G.set_terminal_keymaps()
   local opts = {noremap = true}
   vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
   vim.api.nvim_buf_set_keymap(0, 't', 'jk', [[<C-\><C-n>]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<c-h>', [[<c-\><c-n><c-w>h]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<c-j>', [[<c-\><c-n><c-w>j]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<c-k>', [[<c-\><c-n><c-w>k]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<c-l>', [[<c-\><c-n><c-w>l]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<a-h>', [[<c-\><c-n><c-w>h]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<a-j>', [[<c-\><c-n><c-w>j]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<a-k>', [[<c-\><c-n><c-w>k]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<a-l>', [[<c-\><c-n><c-w>l]], opts)
 
-  -- FIX: Fix this code for terminal resizing.
-  -- vim.api.nvim_buf_set_keymap(0, 't', '<S-h>', [[<c-\><c-n><S-h>]], opts)
-  -- vim.api.nvim_buf_set_keymap(0, 't', '<S-j>', [[<c-\><c-n><S-j>]], opts)
-  -- vim.api.nvim_buf_set_keymap(0, 't', '<S-k>', [[<c-\><c-n><S-k>]], opts)
-  -- vim.api.nvim_buf_set_keymap(0, 't', '<S-l>', [[<c-\><c-n><S-l>]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<S-h>', [[<c-\><C-n>:call ResizeLeft(3)<CR>]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<S-j>', [[<c-\><C-n>:call ResizeDown(1)<CR>]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<S-k>', [[<c-\><C-n>:call ResizeUp(1)<CR>]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<S-l>', [[<c-\><C-n>:call ResizeRight(3)<CR>]], opts)
 end
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
