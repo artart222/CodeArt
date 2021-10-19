@@ -71,10 +71,15 @@ python3 install.py
 
 # TODOS:
 
-- [ ] Add lsp status to lualine
-- [ ] Lazy load plugins
-- [ ] Find a way to install NeoVim 0.5 on debian based operating systems
-- [ ] Find a way to install ueberzug on rhel based operating systems and opensuse
-- [ ] Make new install script for windows
-- [ ] Test current MacOS script
-- [ ] Clean current codebase convert vimscript(I mean vimscript in luafiles) to lua and maybe remove some plugins
+1. - [ ] Move from lueline to feline or to [this fork of lualine](https://github.com/shadmansaleh/lualine.nvim)
+2. - [ ] Add lsp status to lualine
+3. - [ ] Lazy load plugins
+4. - [ ] Find a way to install NeoVim 0.5 on debian based operating systems
+5. - [ ] Find a way to install ueberzug on rhel based operating systems and opensuse
+6. - [ ] Make new install script for windows
+7. - [ ] Test current MacOS script
+8. - [ ] Clean current codebase and convert vimscripts(I mean vimscripts in luafiles) to lua and maybe remove some plugins
+9. - [ ] Move to shell script for macOS and linux installer and powershell for windows installer
+10. - [ ] Implement a way to update CodeArt
+11. - [ ] Write a proper WhichKey
+12. - [ ] Move from compe to cmp
