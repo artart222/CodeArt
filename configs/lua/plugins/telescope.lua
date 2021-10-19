@@ -1,4 +1,9 @@
-require'telescope'.setup {
+local present, telescope = pcall(require, "telescope")
+if not present then
+    return
+end
+
+telescope.setup {
   extensions = {
     media_files = {
       -- filetypes whitelist

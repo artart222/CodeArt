@@ -1,4 +1,9 @@
-require("toggleterm").setup{
+local present, toggle_term = pcall(require, "toggleterm")
+if not present then
+    return
+end
+
+toggle_term.setup ({
   hide_numbers = true, -- hide the number column in toggleterm buffers
   shade_terminals = true,
   start_in_insert = true,
@@ -16,7 +21,7 @@ require("toggleterm").setup{
       background = "Normal",
     }
   }
-}
+})
 
 -- Don't show status line on vim terminals
 vim.cmd [[ au TermOpen term://* setlocal nonumber laststatus=0 ]]

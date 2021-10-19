@@ -12,7 +12,17 @@ return require('packer').startup({function()
 
   -- TrueZen.nvim is a Neovim plugin that aims to provide a cleaner and less cluttered interface
   -- when toggled in either of it's three different modes (Ataraxis, Minimalist and Focus).
-  use { 'Pocco81/TrueZen.nvim' }
+  use {
+    'Pocco81/TrueZen.nvim',
+    cmd = {
+      'TZFocus',
+      'TZAtaraxis',
+      'TZMinimalist',
+    },
+    setup = function()
+      require('plugins/true-zen')
+    end
+  }
 
   -- This plugin adds indentation guides to all lines (including empty lines).
   use { 'lukas-reineke/indent-blankline.nvim' }
@@ -24,7 +34,17 @@ return require('packer').startup({function()
   use { 'kyazdani42/nvim-web-devicons' }
 
   -- File explorer tree.
-  use { 'kyazdani42/nvim-tree.lua' }
+  use {
+    'kyazdani42/nvim-tree.lua',
+    cmd = {
+      'NvimTreeOpen',
+      'NvimTreeFocus',
+      'NvimTreeToggle',
+    },
+    config = function()
+      require('plugins/nvim-tree')
+    end
+  }
 
   -- Bufferline.
   use { 'akinsho/nvim-bufferline.lua' }
@@ -39,13 +59,37 @@ return require('packer').startup({function()
   use { 'norcalli/nvim-colorizer.lua' }
 
   -- Startup screen.
-  use { 'glepnir/dashboard-nvim' }
+  use {
+    'glepnir/dashboard-nvim',
+    cmd = {
+      'Dashboard',
+      'DashboardChangeColorscheme',
+      'DashboardFindFile',
+      'DashboardFindHistory',
+      'DashboardFindWord',
+      'DashboardNewFile',
+      'DashboardJumpMarks',
+      'SessionLoad',
+      'SessionSave'
+    },
+    setup = function()
+        require('plugins/dashboard')
+    end
+  }
 
   -- Fuzzy finder and it requirments.
-  use { 'nvim-telescope/telescope.nvim' }
-  use { 'nvim-telescope/telescope-media-files.nvim' }
-  use { 'nvim-lua/popup.nvim' }
-  use { 'nvim-lua/plenary.nvim' }
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = {
+      { 'nvim-telescope/telescope-media-files.nvim' },
+      { 'nvim-lua/popup.nvim' },
+      { 'nvim-lua/plenary.nvim' }
+    },
+    cmd = 'Telescope',
+    config = function()
+      require('plugins/telescope')
+    end
+  }
 
   -- LSP, LSP installer and tab completion.
   use { 'neovim/nvim-lspconfig' }
@@ -59,22 +103,28 @@ return require('packer').startup({function()
   use { 'onsails/lspkind-nvim' }
 
   -- View and search LSP symbols, tags in Neovim.
-  use { 'liuchengxu/vista.vim' }
+  use { 'liuchengxu/vista.vim', cmd = 'Vista' }
 
   -- Terminal.
-  use { 'akinsho/nvim-toggleterm.lua' }
-
-  -- Floating terminal.
-  use { 'voldikss/vim-floaterm' }
+  use {
+    'akinsho/nvim-toggleterm.lua',
+    cmd = 'ToggleTerm',
+    setup = function()
+      require('plugins/toggleterm')
+    end
+  }
 
   -- Git support for nvim.
-  use { 'tpope/vim-fugitive' }
+  use {
+    'tpope/vim-fugitive',
+    cmd = 'Git'
+  }
 
   -- Git signs.
-  use { 'lewis6991/gitsigns.nvim' }
-
-  -- Git commit browser.
-  use { 'junegunn/gv.vim' }
+  use {
+    'lewis6991/gitsigns.nvim',
+    requires = { { 'nvim-lua/plenary.nvim' } }
+  }
 
   -- Auto closes.
   use { 'windwp/nvim-ts-autotag' } -- This is for html and it can autorename too!
@@ -84,13 +134,18 @@ return require('packer').startup({function()
   use { 'dstein64/nvim-scrollview' }
 
   -- Smooth scroll.
-  use { 'karb94/neoscroll.nvim' }
-
-  -- Markdow preview.
-  use { 'iamcco/markdown-preview.nvim' }
+  use {
+    'karb94/neoscroll.nvim',
+  }
 
   -- Ranger.
-  use { 'kevinhwang91/rnvimr' }
+  use {
+    'kevinhwang91/rnvimr',
+    cmd = 'RnvimrToggle',
+    config = function()
+      require('plugins/ranger')
+    end
+  }
 
   -- todo-comments is a lua plugin for Neovim to highlight and search for
   -- todo comments like TODO, HACK, BUG in code base.
@@ -103,7 +158,13 @@ return require('packer').startup({function()
 
   -- A plugin for neovim that automatically creates missing directories
   -- on saving a file.
-  use { 'jghauser/mkdir.nvim' }
+  use {
+    'jghauser/mkdir.nvim',
+    cmd = 'new',
+    config = function()
+      require('mkdir')
+    end
+  }
 
   -- Dev setup for init.lua and plugin development with full signature
   -- help, docs and completion for the nvim lua API.
@@ -120,28 +181,20 @@ return require('packer').startup({function()
   use { 'artart222/vim-resize' }
 
   -- Import settings of plugins or start plugins.
-  require('plugins/dashboard')
   require('plugins/indent-blankline')
-  require('plugins/nvim-tree')
   require('plugins/bufferline')
   require('plugins/lualine')
-  require('plugins/true-zen')
   require('plugins/treesitter')
   require('plugins/colorize')
   require('plugins/lspkind')
   require('plugins/compe')
   require('lsp_signature').setup()
-  require('plugins/toggleterm')
   require('gitsigns').setup()
   require('nvim-autopairs').setup()
   require('neoscroll').setup()
   require('plugins/nvim-scroll')
-  require('plugins/markdown')
-  require('plugins/ranger')
   require('plugins/todo-comments')
   require("which-key").setup()
-  require('mkdir')
-  require('plugins/telescope')
   require('kommentary.config')
 end,
 config = {

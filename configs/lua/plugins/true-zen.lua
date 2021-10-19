@@ -1,4 +1,7 @@
-local true_zen = require("true-zen")
+local present, true_zen = pcall(require, "true-zen")
+if not present then
+    return
+end
 
 true_zen.setup({
 	ui = {
