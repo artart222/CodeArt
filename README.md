@@ -71,8 +71,8 @@ python3 install.py
 
 # TODOS:
 
-1. - [ ] Move from lueline to feline or to [this fork of lualine](https://github.com/shadmansaleh/lualine.nvim)
-2. - [ ] Add lsp status to lualine
+1. - [x] Move from lueline to feline or to [this fork of lualine](https://github.com/shadmansaleh/lualine.nvim)
+2. - [x] Add lsp status to lualine
 3. - [ ] Lazy load plugins
 4. - [ ] Find a way to install NeoVim 0.5 on debian based operating systems
 5. - [ ] Find a way to install ueberzug on rhel based operating systems and opensuse

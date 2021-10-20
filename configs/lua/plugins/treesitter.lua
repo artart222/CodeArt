@@ -1,4 +1,9 @@
-require('nvim-treesitter.configs').setup {
+local present, nvim_treesitter = pcall(require, "nvim-treesitter.configs")
+if not present then
+    return
+end
+
+nvim_treesitter.setup {
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = true,

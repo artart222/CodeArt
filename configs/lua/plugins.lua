@@ -22,12 +22,20 @@ return require('packer').startup({function()
     setup = function()
       require('plugins/true-zen')
     end
-  }
+}
 
   -- This plugin adds indentation guides to all lines (including empty lines).
-  use { 'lukas-reineke/indent-blankline.nvim' }
+  use {
+    'lukas-reineke/indent-blankline.nvim',
+    event = 'BufRead',
+    config = function()
+      require('plugins/indent-blankline')
+    end
+  }
 
   -- This plugin causes all trailing whitespace characters to be highlighted.
+  -- TODO: delete this plugin and implement it abilitys
+  -- (highlighting and removing whitespaces) in CodeArt
   use { 'ntpeters/vim-better-whitespace' }
 
   -- Icons.
@@ -50,13 +58,39 @@ return require('packer').startup({function()
   use { 'akinsho/nvim-bufferline.lua' }
 
   -- Statusline.
-  use { 'hoob3rt/lualine.nvim' }
+  -- Moved to this lualine because Main lualine has not get commit from may 27
+  -- use { 'hoob3rt/lualine.nvim' }
+  use { 'shadmansaleh/lualine.nvim' }
 
   -- TreeSitter.
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+    event = 'BufRead',
+    cmd = {
+      'TSInstall',
+      'TSInstallSync',
+      'TSBufEnable',
+      'TSBufToggle',
+      'TSEnableAll',
+      'TSInstallFromGrammer',
+      'TSToggleAll',
+      'TSUpdate',
+      'TSUpdateSync'
+    },
+    setup = function()
+      require('plugins/treesitter')
+    end
+  }
 
   -- Colorizer (for highlighting color codes).
-  use { 'norcalli/nvim-colorizer.lua' }
+  use {
+    'norcalli/nvim-colorizer.lua',
+    event = 'BufRead',
+    setup = function()
+      require('plugins/colorize')
+    end
+  }
 
   -- Startup screen.
   use {
@@ -94,7 +128,25 @@ return require('packer').startup({function()
   -- LSP, LSP installer and tab completion.
   use { 'neovim/nvim-lspconfig' }
   use { 'kabouzeid/nvim-lspinstall' }
-  use { 'hrsh7th/nvim-compe' }
+  -- use {
+  --   'rafamadriz/friendly-snippets',
+  --   event = 'InsertEnter'
+  -- }
+  use {
+    'hrsh7th/nvim-cmp',
+    requires = {
+      'L3MON4D3/LuaSnip',
+      'saadparwaiz1/cmp_luasnip',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-nvim-lua',
+    },
+    -- after = "friendly-snippets",
+    config = function()
+      require('plugins/cmp')
+    end
+  }
 
   -- LSP signature.
   use { "ray-x/lsp_signature.nvim" }
@@ -123,27 +175,39 @@ return require('packer').startup({function()
   -- Git signs.
   use {
     'lewis6991/gitsigns.nvim',
-    requires = { { 'nvim-lua/plenary.nvim' } }
+    requires = 'nvim-lua/plenary.nvim',
+    event = 'BufRead',
+    config = function()
+      require('gitsigns').setup()
+    end
   }
 
   -- Auto closes.
-  use { 'windwp/nvim-ts-autotag' } -- This is for html and it can autorename too!
-  use { 'windwp/nvim-autopairs' }
+  use {
+    'windwp/nvim-autopairs',
+    event = 'BufRead',
+    config = function()
+      require('nvim-autopairs').setup{}
+    end
+  }
+  -- This is for html and it can autorename too!
+  -- use { 'windwp/nvim-ts-autotag' }
 
   -- Scrollbar.
-  use { 'dstein64/nvim-scrollview' }
+  use {
+    'dstein64/nvim-scrollview',
+    event = 'BufRead',
+    config = function()
+      require('plugins/nvim-scroll')
+    end
+  }
 
   -- Smooth scroll.
   use {
     'karb94/neoscroll.nvim',
-  }
-
-  -- Ranger.
-  use {
-    'kevinhwang91/rnvimr',
-    cmd = 'RnvimrToggle',
+    event = 'BufRead',
     config = function()
-      require('plugins/ranger')
+      require('neoscroll').setup()
     end
   }
 
@@ -166,13 +230,15 @@ return require('packer').startup({function()
     end
   }
 
-  -- Dev setup for init.lua and plugin development with full signature
-  -- help, docs and completion for the nvim lua API.
-  use { 'folke/lua-dev.nvim' }
-
   -- Neovim plugin to comment text in and out.
   -- Supports commenting out the current line, a visual selection and a motion.
-  use { 'b3nj5m1n/kommentary' }
+  use {
+    'terrortylor/nvim-comment',
+    cmd = 'CommentToggle',
+    config = function()
+      require('nvim_comment').setup()
+    end
+  }
 
   -- match-up is a plugin that lets you highlight, navigate, and operate on sets of matching text.
   use { 'andymass/vim-matchup' }
@@ -184,18 +250,11 @@ return require('packer').startup({function()
   require('plugins/indent-blankline')
   require('plugins/bufferline')
   require('plugins/lualine')
-  require('plugins/treesitter')
-  require('plugins/colorize')
   require('plugins/lspkind')
-  require('plugins/compe')
   require('lsp_signature').setup()
-  require('gitsigns').setup()
-  require('nvim-autopairs').setup()
-  require('neoscroll').setup()
-  require('plugins/nvim-scroll')
   require('plugins/todo-comments')
   require("which-key").setup()
-  require('kommentary.config')
+
 end,
 config = {
   display = {
