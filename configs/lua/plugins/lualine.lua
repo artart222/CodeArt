@@ -1,9 +1,9 @@
-local present, lual = pcall(require, "lualine")
+local present, lualine = pcall(require, "lualine")
 if not present then
     return
 end
 
-lual.setup {
+lualine.setup {
   options = {theme = 'auto', disabled_filetypes = {'toggleterm', 'NvimTree', 'vista'}},
   extensions = {'fugitive'}
 }

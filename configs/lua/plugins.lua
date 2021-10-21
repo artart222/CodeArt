@@ -33,8 +33,13 @@ return require('packer').startup({function()
     end
   }
 
+  use { 'ntpeters/vim-better-whitespace' }
+
   -- Icons.
-  use { 'kyazdani42/nvim-web-devicons' }
+  use {
+      'kyazdani42/nvim-web-devicons',
+      event = 'BufEnter'
+  }
 
   -- File explorer tree.
   use {
@@ -50,12 +55,22 @@ return require('packer').startup({function()
   }
 
   -- Bufferline.
-  use { 'akinsho/nvim-bufferline.lua' }
+  use {
+    'akinsho/nvim-bufferline.lua',
+    after = 'nvim-web-devicons',
+    config  = function()
+      require('plugins/bufferline')
+    end
+  }
 
   -- Statusline.
-  -- Moved to this lualine because Main lualine has not get commit from may 27
-  -- use { 'hoob3rt/lualine.nvim' }
-  use { 'shadmansaleh/lualine.nvim' }
+  use {
+    'shadmansaleh/lualine.nvim',
+    after = 'nvim-bufferline.lua',
+    config = function ()
+      require('plugins/lualine')
+    end
+  }
 
   -- TreeSitter.
   use {
@@ -209,7 +224,6 @@ return require('packer').startup({function()
   -- todo-comments is a lua plugin for Neovim to highlight and search for
   -- todo comments like TODO, HACK, BUG in code base.
   use { 'folke/todo-comments.nvim' }
-  -- NOTE Check code to here
 
   -- WhichKey is a lua plugin that displays a popup with possible
   -- key bindings of the command you started typing.
@@ -243,8 +257,6 @@ return require('packer').startup({function()
 
   -- Import settings of plugins or start plugins.
   require('plugins/indent-blankline')
-  require('plugins/bufferline')
-  require('plugins/lualine')
   require('plugins/lspkind')
   require('lsp_signature').setup()
   require('plugins/todo-comments')

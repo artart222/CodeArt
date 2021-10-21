@@ -101,7 +101,7 @@ vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
 
 -- Remove unnecessary white spaces.
-map('n', '<leader>cw', '<cmd>:let _s=@/<Bar>:%s/\\s\\+$//e<Bar>:let @/=_s<Bar><CR>')
+map('n', '<leader>cw', '<cmd>:StripWhitespace<CR>')
 
 
 -- TrueZen focus mode.
