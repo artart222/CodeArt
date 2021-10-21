@@ -22,23 +22,27 @@ return require('packer').startup({function()
     setup = function()
       require('plugins/true-zen')
     end
-}
+  }
 
   -- This plugin adds indentation guides to all lines (including empty lines).
   use {
     'lukas-reineke/indent-blankline.nvim',
     event = 'BufRead',
-    config = function()
+    setup = function()
       require('plugins/indent-blankline')
     end
   }
 
-  use { 'ntpeters/vim-better-whitespace' }
+  -- TODO: remove this plugin as fast as possible!!!
+  use {
+    'ntpeters/vim-better-whitespace',
+    event = 'BufEnter'
+  }
 
   -- Icons.
   use {
-      'kyazdani42/nvim-web-devicons',
-      event = 'BufEnter'
+    'kyazdani42/nvim-web-devicons',
+    event = 'BufEnter'
   }
 
   -- File explorer tree.
@@ -137,25 +141,41 @@ return require('packer').startup({function()
 
   -- LSP, LSP installer and tab completion.
   use { 'neovim/nvim-lspconfig' }
-  use { 'kabouzeid/nvim-lspinstall' }
-  -- use {
-  --   'rafamadriz/friendly-snippets',
-  --   event = 'InsertEnter'
-  -- }
+  use { 'williamboman/nvim-lsp-installer' }
+  use {
+     'rafamadriz/friendly-snippets',
+     event = 'InsertEnter'
+  }
   use {
     'hrsh7th/nvim-cmp',
-    requires = {
-      'L3MON4D3/LuaSnip',
-      'saadparwaiz1/cmp_luasnip',
-      'hrsh7th/cmp-buffer',
-      'hrsh7th/cmp-path',
-      'hrsh7th/cmp-nvim-lsp',
-      'hrsh7th/cmp-nvim-lua',
-    },
-    -- after = "friendly-snippets",
+    after = "friendly-snippets",
     config = function()
       require('plugins/cmp')
     end
+  }
+  use {
+    'L3MON4D3/LuaSnip',
+    after = 'nvim-cmp'
+  }
+  use {
+    'saadparwaiz1/cmp_luasnip',
+    after = 'LuaSnip'
+  }
+  use {
+    'hrsh7th/cmp-buffer',
+    after = 'cmp_luasnip'
+  }
+  use {
+    'hrsh7th/cmp-path',
+    after = 'cmp-buffer'
+  }
+  use {
+    'hrsh7th/cmp-nvim-lsp',
+    after = 'cmp-path'
+  }
+  use {
+    'hrsh7th/cmp-nvim-lua',
+    after = 'cmp-nvim-lsp'
   }
 
   -- LSP signature.
@@ -256,7 +276,6 @@ return require('packer').startup({function()
   use { 'artart222/vim-resize' }
 
   -- Import settings of plugins or start plugins.
-  require('plugins/indent-blankline')
   require('plugins/lspkind')
   require('lsp_signature').setup()
   require('plugins/todo-comments')
