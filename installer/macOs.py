@@ -131,6 +131,8 @@ def main():
     pack_manager_install(list_of_apps, "ranger", "ranger")
     pack_manager_install(list_of_apps, "xclip", "xclip")
     pack_manager_install(list_of_apps, "gcc", "gcc")
+    # TODO: install ripgrep
+    # TODO: Install wget
     pip_install(py3_pkgs, "ueberzug")
     pip_install(py3_pkgs, "pynvim")
     npm_install(npm_pkgs, "neovim")
