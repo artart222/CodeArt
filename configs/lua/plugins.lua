@@ -33,11 +33,6 @@ return require('packer').startup({function()
     end
   }
 
-  -- This plugin causes all trailing whitespace characters to be highlighted.
-  -- TODO: delete this plugin and implement it abilitys
-  -- (highlighting and removing whitespaces) in CodeArt
-  use { 'ntpeters/vim-better-whitespace' }
-
   -- Icons.
   use { 'kyazdani42/nvim-web-devicons' }
 
@@ -78,7 +73,7 @@ return require('packer').startup({function()
       'TSUpdate',
       'TSUpdateSync'
     },
-    setup = function()
+    config = function()
       require('plugins/treesitter')
     end
   }
