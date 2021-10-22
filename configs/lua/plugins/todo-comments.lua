@@ -1,4 +1,9 @@
-require("todo-comments").setup {
+local present, todo_comments = pcall(require, "todo-comments")
+if not present then
+    return
+end
+
+todo_comments.setup {
   signs = true, -- show icons in the signs column
   sign_priority = 8, -- sign priority
   -- keywords recognized as todo comments

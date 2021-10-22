@@ -2,12 +2,16 @@ local present, cmp = pcall(require, "cmp")
 if not present then
     return
 end
+local lspkind = require('lspkind')
 
 cmp.setup({
   snippet = {
     expand = function(args)
       require('luasnip').lsp_expand(args.body)
     end,
+  },
+  formatting = {
+    format = lspkind.cmp_format({with_text = false, maxwidth = 50})
   },
   mapping = {
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),

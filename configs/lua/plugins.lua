@@ -36,7 +36,10 @@ return require('packer').startup({function()
   -- TODO: remove this plugin as fast as possible!!!
   use {
     'ntpeters/vim-better-whitespace',
-    event = 'BufEnter'
+    cmd = {
+      'EnableWhitespace',
+      'DisableWhitespace'
+    }
   }
 
   -- Icons.
@@ -126,12 +129,13 @@ return require('packer').startup({function()
   }
 
   -- Fuzzy finder and it requirments.
+  -- TODO: lazy load plenary, popup and telescope-media-files
   use {
     'nvim-telescope/telescope.nvim',
     requires = {
-      { 'nvim-telescope/telescope-media-files.nvim' },
-      { 'nvim-lua/popup.nvim' },
-      { 'nvim-lua/plenary.nvim' }
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope-media-files.nvim',
+      'nvim-lua/popup.nvim',
     },
     cmd = 'Telescope',
     config = function()
@@ -149,6 +153,9 @@ return require('packer').startup({function()
   use {
     'hrsh7th/nvim-cmp',
     after = "friendly-snippets",
+    requires = {
+      'hrsh7th/cmp-nvim-lsp'
+    },
     config = function()
       require('plugins/cmp')
     end
@@ -168,10 +175,6 @@ return require('packer').startup({function()
   use {
     'hrsh7th/cmp-path',
     after = 'cmp-buffer'
-  }
-  use {
-    'hrsh7th/cmp-nvim-lsp',
-    after = 'cmp-path'
   }
   use {
     'hrsh7th/cmp-nvim-lua',
@@ -205,7 +208,6 @@ return require('packer').startup({function()
   -- Git signs.
   use {
     'lewis6991/gitsigns.nvim',
-    requires = 'nvim-lua/plenary.nvim',
     event = 'BufRead',
     config = function()
       require('gitsigns').setup()
@@ -221,7 +223,10 @@ return require('packer').startup({function()
     end
   }
   -- This is for html and it can autorename too!
-  -- use { 'windwp/nvim-ts-autotag' }
+  use {
+    'windwp/nvim-ts-autotag',
+    after = 'nvim-treesitter',
+  }
 
   -- Scrollbar.
   use {
@@ -234,16 +239,19 @@ return require('packer').startup({function()
 
   -- Smooth scroll.
   use {
-    'karb94/neoscroll.nvim',
     event = 'BufRead',
     config = function()
       require('neoscroll').setup()
     end
   }
-
   -- todo-comments is a lua plugin for Neovim to highlight and search for
   -- todo comments like TODO, HACK, BUG in code base.
-  use { 'folke/todo-comments.nvim' }
+  use {
+    'folke/todo-comments.nvim',
+    event = 'BufRead',
+    config = function()
+    end
+  }
 
   -- WhichKey is a lua plugin that displays a popup with possible
   -- key bindings of the command you started typing.
@@ -273,12 +281,13 @@ return require('packer').startup({function()
   use { 'andymass/vim-matchup' }
 
   -- With this plugin you can resize Neovim buffers easily.
-  use { 'artart222/vim-resize' }
+  use {
+    'artart222/vim-resize',
+    event = 'BufRead'
+  }
 
   -- Import settings of plugins or start plugins.
-  require('plugins/lspkind')
   require('lsp_signature').setup()
-  require('plugins/todo-comments')
   require("which-key").setup()
 
 end,
