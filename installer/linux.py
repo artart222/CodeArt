@@ -153,8 +153,8 @@ def main():
     pack_manager_install(distro_name, list_of_apps, "ranger", "ranger", "ranger", "ranger", "ranger")
     pack_manager_install(distro_name, list_of_apps, "xclip", "xclip", "xclip", "xclip", "xclip")
     pack_manager_install(distro_name, list_of_apps, "gcc", "gcc", "gcc", "gcc", "gcc")
-    # TODO: Install ripgrep
-    # TODO: Install wget
+    pack_manager_install(distro_name, list_of_apps, "ripgrep", "ripgrep", "ripgrep", "ripgrep", "ripgrep")
+    pack_manager_install(distro_name, list_of_apps, "wget", "wget", "wget", "wget", "wget")
     if distro_name == "debian" or distro_name == "ubuntu" or distro_name == "raspbian":
         print("Installing ueberzug and its requirements if they are not installed")
         os.system("sudo apt update; sudo apt install libjpeg8-dev zlib1g-dev python-dev python3-dev libxtst-dev -y")
