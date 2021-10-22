@@ -69,7 +69,7 @@ return require('packer').startup({function()
 
   -- Statusline.
   use {
-    'shadmansaleh/lualine.nvim',
+    'nvim-lualine/lualine.nvim',
     after = 'nvim-bufferline.lua',
     config = function ()
       require('plugins/lualine')
