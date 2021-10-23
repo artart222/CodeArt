@@ -239,6 +239,7 @@ return require('packer').startup({function()
 
   -- Smooth scroll.
   use {
+    'karb94/neoscroll.nvim',
     event = 'BufRead',
     config = function()
       require('neoscroll').setup()
