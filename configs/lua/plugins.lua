@@ -251,6 +251,7 @@ return require('packer').startup({function()
     'folke/todo-comments.nvim',
     event = 'BufRead',
     config = function()
+      require('plugins/todo-comments')
     end
   }
 
