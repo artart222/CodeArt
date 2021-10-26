@@ -15,10 +15,10 @@ map('n', 'cl', '<cmd>noh<CR>')
 
 
 -- Split navigations.
-map('n', '<C-j>', '<C-w><C-j>')
-map('n', '<C-k>', '<C-w><C-k>')
-map('n', '<C-l>', '<C-w><C-l>')
-map('n', '<C-h>', '<C-w><C-h>')
+map('n', '<A-j>', '<C-w><C-j>')
+map('n', '<A-k>', '<C-w><C-k>')
+map('n', '<A-l>', '<C-w><C-l>')
+map('n', '<A-h>', '<C-w><C-h>')
 
 
 -- Buffer resizing.
@@ -29,8 +29,8 @@ map('n', '<S-j>', '<cmd>:call ResizeDown(1)<CR>')
 
 
 -- Buffer switching.
-map('n', '<A-l>', '<cmd>:BufferLineCycleNext<CR>')
-map('n', '<A-h>', '<cmd>:BufferLineCyclePrev<CR>')
+map('n', '<A-[>', '<cmd>:BufferLineCyclePrev<CR>')
+map('n', '<A-]>', '<cmd>:BufferLineCycleNext<CR>')
 
 -- Buffer closing.
 map('n', '<leader>bc', '<cmd>:BufferLinePickClose<CR>')
@@ -87,10 +87,10 @@ function _G.set_terminal_keymaps()
   local opts = {noremap = true}
   vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
   vim.api.nvim_buf_set_keymap(0, 't', 'jk', [[<C-\><C-n>]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<a-h>', [[<c-\><c-n><c-w>h]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<a-j>', [[<c-\><c-n><c-w>j]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<a-k>', [[<c-\><c-n><c-w>k]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<a-l>', [[<c-\><c-n><c-w>l]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<A-h>', [[<c-\><c-n><c-w>h]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<A-j>', [[<c-\><c-n><c-w>j]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<A-k>', [[<c-\><c-n><c-w>k]], opts)
+  vim.api.nvim_buf_set_keymap(0, 't', '<A-l>', [[<c-\><c-n><c-w>l]], opts)
 
   vim.api.nvim_buf_set_keymap(0, 't', '<S-h>', [[<c-\><C-n>:call ResizeLeft(3)<CR>]], opts)
   vim.api.nvim_buf_set_keymap(0, 't', '<S-j>', [[<c-\><C-n>:call ResizeDown(1)<CR>]], opts)
