@@ -22,6 +22,3 @@ toggle_term.setup ({
     }
   }
 })
-
--- Don't show status line on vim terminals
-vim.cmd [[ au TermOpen term://* setlocal nonumber laststatus=0 ]]
