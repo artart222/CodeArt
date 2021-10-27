@@ -51,22 +51,18 @@ def pip_install(pkgs, pack_name):
     if pack_name in pkgs:
         print("{} is installed. moving to next dependency".format(pack_name))
     else:
-        os.system("sudo pip3 install {}".format(pack_name))
+        os.system("pip3 install {}".format(pack_name))
 
 
 def npm_install(pkgs, pack_name):
     if pack_name in pkgs:
         print("{} is installed. moving to next dependency".format(pack_name))
     else:
-        os.system("sudo npm -g install {}".format(pack_name))
+        os.system("npm -g install {}".format(pack_name))
 
 
 def install_font():
     pack_manager_install("jetbrainsmononf")
-
-
-def install_packer():
-    os.system('git clone https://github.com/wbthomason/packer.nvim \"$env:LOCALAPPDATA\\nvim-data\\site\\pack\\packer\\start\\packer.nvim\"')
 
 
 def copy_configs(home_directory_address):
@@ -77,9 +73,13 @@ def copy_configs(home_directory_address):
         pass
 
     configs_dir_addr = os.path.dirname(__file__).split("\\")[::-1]
-    cmd = "cp -r {}".format(str(configs_dir_addr) + "\\..\\configs\\* " ) + home_directory_address + "\\AppData\\Local\\nvim\\"
-    print(cmd)
-    os.system(cmd)
+    new_configs_dir_addr = ""
+    for string in reversed(configs_dir_addr):
+        new_configs_dir_addr += string
+        new_configs_dir_addr += "\\"
+
+    cmd = "mv {}".format(str(new_configs_dir_addr) + "\\..\\configs\\ " ) + home_directory_address + "\\AppData\\Local\\nvim\\"
+    run(cmd)
     print("Configs moved")
 
 
@@ -94,7 +94,6 @@ def main():
     pack_manager_install("ctags")
     pack_manager_install("nodejs")
     pack_manager_install("pip")
-    pack_manager_install("xclip")
     pack_manager_install( "mingw")
     pack_manager_install("ripgrep")
     pack_manager_install("wget")
@@ -119,7 +118,6 @@ def main():
     npm_install(npm_pkgs, "neovim")
 
     install_font()
-    install_packer()
     print("Dependencys installed\n")
     copy_configs(home_directory_address)
     print("instalation proccess finished")
