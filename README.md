@@ -58,7 +58,7 @@ Open NeoVim and type `:PackerInstall`
 
 ## Screenshots:
 
-![Screenshot1](/utils/media/Screenshot1 "Screenshots1")
+![Screenshot1](/utils/media/Screenshot1.png "Screenshots1")
 
 ## Many themes!
 
