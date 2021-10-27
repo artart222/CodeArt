@@ -24,7 +24,7 @@
 </div>
 
 
-<h2>Install CodeArt easily</h2>
+## Install CodeArt easily
 
 On linux:
 ```bash
@@ -32,7 +32,7 @@ sudo pip3 install distro
 python3 install.py
 ```
 
-<h2>IMPORTANT NOTE: macOS installer is not tested because I dont have a device with macOS</h2>
+### IMPORTANT NOTE: macOS installer is not tested because I dont have a device with macOS</h3>
 
 On macOS:
 ```bash
@@ -47,35 +47,37 @@ $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";"
 python3.exe installer\windows2.py
 ```
 
-<h2>Install plugins:</h2>
-<p>Open NeoVim and type <kbd>:PackerInstall</kbd></p>
+## Install plugins:
 
-<h2>Install lsp and treesitter</h2>
-<ul>
-  <li>You can install lsp for a language with <kbd>:LspInstall &ltlanguage&gt</kbd></li>
-  <li>and you can install treesitter with <kbd>:TSInstall &ltlanguage&gt</kbd></li>
-</ul>
+Open NeoVim and type `:PackerInstall`
 
-<p>for completing installation you must run <kbd>:call mkdp#util#install()</kbd> to add markdown preview support</p>
+## Install lsp and treesitter
+
+* You can install lsp for a language with `:LspInstall &ltlanguage&gt`
+* and you can install treesitter with `:TSInstall &ltlanguage&gt`
+
+for completing installation you must run `:call mkdp#util#install()`
 
 
-<h2>Screenshots:</h2>
-<img src="./utils/media/Screenshot1.png" alt="Screenshot 1">
+## Screenshots:
 
-<h2>Many themes!</h2>
-<img src="./utils/media/Screenshot2.png" alt="Screenshot 2">
-<img src="./utils/media/Screenshot3.png" alt="Screenshot 3">
-<img src="./utils/media/Screenshot4.png" alt="Screenshot 4">
-<img src="./utils/media/Screenshot5.png" alt="Screenshot 5">
-<img src="./utils/media/Screenshot6.png" alt="Screenshot 6">
-<img src="./utils/media/Screenshot7.png" alt="Screenshot 7">
-<img src="./utils/media/Screenshot8.png" alt="Screenshot 8">
-<img src="./utils/media/Screenshot9.png" alt="Screenshot 9">
-<img src="./utils/media/Screenshot10.png" alt="Screenshot 10">
-<img src="./utils/media/Screenshot11.png" alt="Screenshot 11">
-<img src="./utils/media/Screenshot12.png" alt="Screenshot 12">
-<img src="./utils/media/Screenshot13.png" alt="Screenshot 13">
-<img src="./utils/media/Screenshot14.png" alt="Screenshot 14">
+![Screenshot1](/utils/media/Screenshot1 "Screenshots1")
+
+## Many themes!
+
+![Screenshot2](/utils/media/Screenshot2.png "Screenshots2")
+![Screenshot3](/utils/media/Screenshot3.png "Screenshots3")
+![Screenshot4](/utils/media/Screenshot4.png "Screenshots4")
+![Screenshot5](/utils/media/Screenshot5.png "Screenshots5")
+![Screenshot6](/utils/media/Screenshot6.png "Screenshots6")
+![Screenshot7](/utils/media/Screenshot7.png "Screenshots7")
+![Screenshot8](/utils/media/Screenshot8.png "Screenshots8")
+![Screenshot9](/utils/media/Screenshot9.png "Screenshots9")
+![Screenshot10](/utils/media/Screenshot10.png "Screenshots10")
+![Screenshot11](/utils/media/Screenshot11.png "Screenshots11")
+![Screenshot12](/utils/media/Screenshot12.png "Screenshots12")
+![Screenshot13](/utils/media/Screenshot13.png "Screenshots13")
+![Screenshot14](/utils/media/Screenshot14.png "Screenshots14")
 
 # TODOS:
 
