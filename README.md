@@ -53,11 +53,8 @@ Open NeoVim and type `:PackerInstall`
 
 ## Install lsp and treesitter
 
-* You can install lsp for a language with `:LspInstall &ltlanguage&gt`
-* and you can install treesitter with `:TSInstall &ltlanguage&gt`
-
-for completing installation you must run `:call mkdp#util#install()`
-
+* You can install lsp for a language with `:LspInstall <language>`
+* and you can install treesitter with `:TSInstall <language>`
 
 ## Screenshots:
 
