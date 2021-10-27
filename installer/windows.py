@@ -1,73 +1,128 @@
-import os, shutil, ctypes, sys
+import os, shutil, subprocess
+
+def run(cmd):
+    completed = subprocess.run(["powershell", "-Command", cmd], capture_output=True)
+    return completed
+
+run("choco_installer.ps1")
+
+def make_backup_of_config(home_directory_address):
+    print("Creating backup for your configs")
+    if not os.path.isdir(home_directory_address + "\\AppData\\Local\\nvim"):
+        pass
+    else:
+        try:
+            items_in_nvim_dir = os.listdir(home_directory_address + "\\AppData\\Local\\nvim")
+            last_backup = "0"
+            new_last_backup = ""
+
+            numbers = "0123456789"
+            for item in items_in_nvim_dir:
+                if "backup" in item:
+                    for char in item:
+                        if char in numbers:
+                            new_last_backup += char
+
+                    try:
+                        if int(new_last_backup) > int(last_backup):
+                            last_backup = new_last_backup
+                    except ValueError:
+                        pass
+
+                    new_last_backup = ""
+
+            new_backup = int(last_backup) + 1
+            os.mkdir(home_directory_address + "\\AppData\\Local\\nvim\\" + "backup" + str(new_backup))
+
+            for item in items_in_nvim_dir:
+                if not "backup" in item:
+                    shutil.move(home_directory_address + "\\AppData\\Local\\nvim\\" + item, home_directory_address + "\\AppDate\\Local\\nvim\\backup" + str(new_backup))
+        except FileNotFoundError:
+            pass
+    print("Backup created\n")
 
 
-home_directory_address = os.path.expanduser("~")
-currect_directory_address = os.getcwd()
-
-items_in_home_directory = os.listdir(home_directory_address)
-
-
-def is_admin():
-    try:
-        return ctypes.windll.shell32.IsUserAnAdmin()
-    except:
-        return False
+def pack_manager_install(package_name):
+    print("Installing {}".format(package_name))
+    os.system("choco install {} -y".format(package_name))
 
 
-#installing chocolatey(it is package manager for windows)
-if is_admin():
-    # Code of your program here
-    os.system("@\"%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoProfile -InputFormat None -ExecutionPolicy Bypass -Command \"[System.Net.ServicePointManager]::SecurityProtocol = 3072; iex ((New-Object System.Net.WebClient).DownloadString(\'https://chocolatey.org/install.ps1\'))\" && SET \"PATH=%PATH%;%ALLUSERSPROFILE%\\chocolatey\\bin\"")
-else:
-    # Re-run the program with admin rights
-    ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv), None, 1)
+def pip_install(pkgs, pack_name):
+    if pack_name in pkgs:
+        print("{} is installed. moving to next dependency".format(pack_name))
+    else:
+        os.system("sudo pip3 install {}".format(pack_name))
 
 
-def copy_or_make_vim_vimrc():
-    if ".vimrc" in items_in_home_directory:
-        shutil.move(home_directory_address + "/.vimrc", home_directory_address + "/.vimrc-copy.vim")
-    elif "_vimrc" in items_in_home_directory:
-        shutil.move(home_directory_address + "/_vimrc", home_directory_address + "/_vimrc-copy.vim")
-    if ".vim" in items_in_home_directory:
-        shutil.move(home_directory_address + "/.vim", home_directory_address + "/.vim-copy/")
-
-
-def install_dependencys():
-    #installing vim
-    print("installing vim")
-    os.system("scoop install vim")
-    print("moving to next dependency")
-
-    #installing curl
-    print("installing curl")
-    os.system("scoop install curl")
-
-    #installing git
-    print("installing git")
-    os.system("scoop install git")
-    print("moving to next dependency")
-
-    #installing unzip
-    print("installing unzip")
-    os.system("scoop install unzip")
-
-    #installing ctags
-    print("installing ctags")
-    os.system("scoop install ctags")
-    print("moving to next dependency")
+def npm_install(pkgs, pack_name):
+    if pack_name in pkgs:
+        print("{} is installed. moving to next dependency".format(pack_name))
+    else:
+        os.system("sudo npm -g install {}".format(pack_name))
 
 
 def install_font():
-    os.system("scoop bucket add nerd-fonts")
+    pack_manager_install("jetbrainsmononf")
 
 
-def install_vundle():
-    os.system("git clone https://github.com/VundleVim/Vundle.vim.git {}".format(home_directory_address + "/.vim/bundle/Vundle.vim"))
-
-def copy_vimrc():
-    shutil.copyfile(currect_directory_address + "/vimrc.vim", home_directory_address + "/_vimrc")
+def install_packer():
+    os.system('git clone https://github.com/wbthomason/packer.nvim \"$env:LOCALAPPDATA\\nvim-data\\site\\pack\\packer\\start\\packer.nvim\"')
 
 
-def copy_vimspector():
-    os.mkdir(home_directory_address + "/.vim/spector-debugger-conf")
-    shutil.copyfile(currect_directory_address + "/vimspector.json", home_directory_address + "/.vim/spector-debugger-conf/vimspector.json")
+def copy_configs(home_directory_address):
+    print("Moving configs")
+    try:
+        os.mkdir(home_directory_address + "\\AppData\\Local\\nvim")
+    except FileExistsError:
+        pass
+
+    configs_dir_addr = os.path.dirname(__file__).split("\\")[::-1]
+    cmd = "cp -r {}".format(str(configs_dir_addr) + "\\..\\configs\\* " ) + home_directory_address + "\\AppData\\Local\\nvim\\"
+    print(cmd)
+    os.system(cmd)
+    print("Configs moved")
+
+
+def main():
+    home_directory_address = os.path.expanduser("~")
+
+    print("Downloading dependencys")
+    pack_manager_install("neovim")
+    pack_manager_install("curl")
+    pack_manager_install("git")
+    pack_manager_install("7zip")
+    pack_manager_install("ctags")
+    pack_manager_install("nodejs")
+    pack_manager_install("pip")
+    pack_manager_install("xclip")
+    pack_manager_install( "mingw")
+    pack_manager_install("ripgrep")
+    pack_manager_install("wget")
+
+    py3_pkgs = []
+    os.system("pip3 list >> pip3.txt")
+    with open("pip3.txt", "r") as pip_file:
+        for line in pip_file:
+            py3_pkgs.append(line.split(" ")[0])
+    npm_pkgs = []
+    os.system("npm list -g --depth=0 >> npm.txt")
+    with open("npm.txt", "r") as npm_file:
+        for line in npm_file:
+            try:
+                pkg = line.split(" ")[1]
+                pkg = pkg.split("@")[0]
+                npm_pkgs.append(pkg)
+            except:
+                pass
+    pip_install(py3_pkgs, "ueberzug")
+    pip_install(py3_pkgs, "pynvim")
+    npm_install(npm_pkgs, "neovim")
+
+    install_font()
+    install_packer()
+    print("Dependencys installed\n")
+    copy_configs(home_directory_address)
+    print("instalation proccess finished")
+
+
+main()
