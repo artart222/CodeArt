@@ -103,23 +103,6 @@ def main():
     # listing installed apps and packages
     list_of_apps = os.listdir("/usr/bin")
 
-    py3_pkgs = []
-    os.system("pip3 list >> pip3.txt")
-    with open("pip3.txt", "r") as pip_file:
-        for line in pip_file:
-            py3_pkgs.append(line.split(" ")[0])
-
-    npm_pkgs = []
-    os.system("npm list -g --depth=0 >> npm.txt")
-    with open("npm.txt", "r") as npm_file:
-        for line in npm_file:
-            try:
-                pkg = line.split(" ")[1]
-                pkg = pkg.split("@")[0]
-                npm_pkgs.append(pkg)
-            except:
-                pass
-
     print("Downloading dependencys")
     pack_manager_install(list_of_apps, "nvim", "neovim")
     pack_manager_install(list_of_apps, "curl", "curl")
@@ -133,6 +116,22 @@ def main():
     pack_manager_install(list_of_apps, "gcc", "gcc")
     pack_manager_install(list_of_apps, "rg", "ripgrep")
     pack_manager_install(list_of_apps, "wget", "wget")
+
+    py3_pkgs = []
+    os.system("pip3 list >> pip3.txt")
+    with open("pip3.txt", "r") as pip_file:
+        for line in pip_file:
+            py3_pkgs.append(line.split(" ")[0])
+    npm_pkgs = []
+    os.system("npm list -g --depth=0 >> npm.txt")
+    with open("npm.txt", "r") as npm_file:
+        for line in npm_file:
+            try:
+                pkg = line.split(" ")[1]
+                pkg = pkg.split("@")[0]
+                npm_pkgs.append(pkg)
+            except:
+                pass
     pip_install(py3_pkgs, "ueberzug")
     pip_install(py3_pkgs, "pynvim")
     npm_install(npm_pkgs, "neovim")

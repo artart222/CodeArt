@@ -1,4 +1,4 @@
-import platform
+import platform, os
 
 os = platform.system()
 

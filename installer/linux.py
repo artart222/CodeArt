@@ -120,23 +120,6 @@ def main():
     # listing installed apps and packages
     list_of_apps = os.listdir("/bin")
 
-    py3_pkgs = []
-    os.system("pip3 list >> pip3.txt")
-    with open("pip3.txt", "r") as pip_file:
-        for line in pip_file:
-            py3_pkgs.append(line.split(" ")[0])
-
-    npm_pkgs = []
-    os.system("npm list -g --depth=0 >> npm.txt")
-    with open("npm.txt", "r") as npm_file:
-        for line in npm_file:
-            try:
-                pkg = line.split(" ")[1]
-                pkg = pkg.split("@")[0]
-                npm_pkgs.append(pkg)
-            except:
-                pass
-
     distro_name = find_distro_name()
 
     print("Downloading dependencys")
@@ -167,6 +150,22 @@ def main():
     elif distro_name == "opensuse":
         # TODO: Find a way to install ueberzug on opensuse
         pass
+
+    py3_pkgs = []
+    os.system("pip3 list >> pip3.txt")
+    with open("pip3.txt", "r") as pip_file:
+        for line in pip_file:
+            py3_pkgs.append(line.split(" ")[0])
+    npm_pkgs = []
+    os.system("npm list -g --depth=0 >> npm.txt")
+    with open("npm.txt", "r") as npm_file:
+        for line in npm_file:
+            try:
+                pkg = line.split(" ")[1]
+                pkg = pkg.split("@")[0]
+                npm_pkgs.append(pkg)
+            except:
+                pass
     pip_install(py3_pkgs, "pynvim")
     npm_install(npm_pkgs, "neovim")
 
