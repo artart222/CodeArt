@@ -113,7 +113,6 @@ def main():
                 npm_pkgs.append(pkg)
             except:
                 pass
-    pip_install(py3_pkgs, "ueberzug")
     pip_install(py3_pkgs, "pynvim")
     npm_install(npm_pkgs, "neovim")
 
