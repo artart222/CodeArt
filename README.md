@@ -87,9 +87,9 @@ And then `:PackerCompile`
 ![Screenshot11](/utils/media/Screenshot11.png "Screenshots11")
 ![Screenshot12](/utils/media/Screenshot12.png "Screenshots12")
 ![Screenshot13](/utils/media/Screenshot13.png "Screenshots13")
-![Screenshot14](/utils/media/Screenshot14.png "Screenshots14")
 
 <a id="features"></a>
+
 * 😴 Lazy load plugins!. With lazy loading NeoVim start up is very fast. It took around 45 miliseconds on virtual machine with 4GB ram and 2 Cores
 ![LazyLoad](/utils/media/LazyLoad.png "LazyLoad")
 
