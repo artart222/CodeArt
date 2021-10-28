@@ -2,8 +2,8 @@
 
 <h3 align="center">
   <a href="#screenshots">:camera_flash: Screenshots</a>
-  <a href="#installation">:construction: installation</a>
-  <a href="#features">:sparkles: features</a>
+  <a href="#installation">:construction: Installation</a>
+  <a href="#features">:sparkles: Important features</a>
   <a href="#todos">:white_check_mark: TODOS</a>
 </h3>
 
@@ -117,6 +117,10 @@ And then `:PackerCompile`
 * 🤔🔑 Wichkey
 * ![Wichkey](/utils/media/Wichkey.png "Wichkey")
 
+* ┇ Status line with git and lsp indicator + File manager and bufferline lsp indicator
+* ![StatusLine](/utils/media/StatusLine.png "StatusLine")
+
+StatusLine
 
 <a id="todos"></a>
 # TODOS:
