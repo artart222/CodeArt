@@ -1,5 +1,11 @@
-<h1 align="center">CodeArt</h1>
+<h1 align="center">👨‍💻CodeArt:art:</h1>
 
+<h3 align="center">
+  <a href="#screenshots">:camera_flash: Screenshots</a>
+  <a href="#installation">:construction: installation</a>
+  <a href="#features">:sparkles: features</a>
+  <a href="#todos">:white_check_mark: TODOS</a>
+</h3>
 
 <div align="center">
   <a href="https://github.com/artart222/CodeArt/blob/main/LICENSE">
@@ -24,6 +30,7 @@
 </div>
 
 
+<a id="installation"></a>
 ## Install CodeArt easily
 
 On linux:
@@ -32,7 +39,7 @@ sudo pip3 install distro
 python3 install.py
 ```
 
-### IMPORTANT NOTE: macOS installer is not tested because I dont have a device with macOS</h3>
+#### IMPORTANT NOTE: macOS installer is not tested because I dont have a device with macOS</h3>
 
 On macOS:
 ```bash
@@ -51,21 +58,22 @@ python3.exe installer\windows.py
 git clone https://github.com/wbthomason/packer.nvim "$env:LOCALAPPDATA\nvim-data\site\pack\packer\start\packer.nvim"
 ```
 
-## Install plugins:
+#### Install plugins:
 
 Open NeoVim and type `:PackerInstall`
 And then `:PackerCompile`
 
-## Install lsp and treesitter
+#### Install lsp and treesitter
 
 * You can install lsp for a language with `:LspInstall <language>`
 * and you can install treesitter with `:TSInstall <language>`
 
+<a id="screenshots"></a>
 ## Screenshots:
 
 ![Screenshot1](/utils/media/Screenshot1.png "Screenshots1")
 
-## Many themes!
+### Many themes!
 
 ![Screenshot2](/utils/media/Screenshot2.png "Screenshots2")
 ![Screenshot3](/utils/media/Screenshot3.png "Screenshots3")
@@ -81,6 +89,36 @@ And then `:PackerCompile`
 ![Screenshot13](/utils/media/Screenshot13.png "Screenshots13")
 ![Screenshot14](/utils/media/Screenshot14.png "Screenshots14")
 
+<a id="features"></a>
+* 😴 Lazy load plugins!. With lazy loading NeoVim start up is very fast. It took around 55 miliseconds on virtual machine with 4GB ram and 2 Cores
+![LazyLoad](/utils/media/LazyLoad.png "LazyLoad")
+
+* Σ 🖥️ Native LSP code completion support with documentation
+* ![CodeCompletion](/utils/media/CodeCompletion.png "CodeCompletion")
+
+* 🌲💺 Treesitter based code highlighting
+* ![Treesitter](/utils/media/Treesitter.png "Treesitter")
+
+* 🌳:card_file_box: NvimTree as file tree
+* ![FileTree](/utils/media/FileTree.png "FileTree")
+
+* 🚏🚌 ToggleTerm as built in terminal
+* ![Terminal](/utils/media/Terminal.png "Terminal")
+
+* 🔭 Fuzzy finder
+* ![Telescope](/utils/media/Telescope.png "Telescope")
+
+* :white_check_mark: TODO viewer
+* ![TODO](/utils/media/TODO.png "TODO")
+
+* :bookmark: Tag viewer
+* ![TagViewer](/utils/media/TagViewer.png "TagViewer")
+
+* 🤔🔑 Wichkey
+* ![Wichkey](/utils/media/Wichkey.png "Wichkey")
+
+
+<a id="todos"></a>
 # TODOS:
 
 1. - [x] Move from lueline to feline or to [this fork of lualine](https://github.com/shadmansaleh/lualine.nvim)
