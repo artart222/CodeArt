@@ -123,9 +123,13 @@ def main():
     distro_name = find_distro_name()
 
     print("Downloading dependencys")
-    # NOTE: neovim 0.5 is not in apt repos yet!.
-    # NOTE: but it is is snap.
-    pack_manager_install(distro_name, list_of_apps, "nvim", "neovim", "neovim", "python3-neovim", "neovim")
+    # NOTE: Fix installing NeoVim on ubuntu for now.
+    pack_manager_install(distro_name, list_of_apps, "nvim", "neovim", " ", "python3-neovim", "neovim")
+    if distro_name == "debian" or distro_name == "ubuntu" or distro_name == "raspbian":
+        os.system("sudo apt install software-properties-common")
+        os.system("sudo add-apt-repository ppa:neovim-ppa/unstable -y")
+        os.system("sudo apt update")
+        os.system("sudo apt install neovim -y")
     pack_manager_install(distro_name, list_of_apps, "curl", "curl", "curl", "curl", "curl")
     pack_manager_install(distro_name, list_of_apps, "git", "git", "git", "git", "git")
     pack_manager_install(distro_name, list_of_apps, "unzip", "unzip", "unzip", "unzip", "unzip")
