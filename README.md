@@ -142,15 +142,14 @@ And then `:PackerCompile`
 <a id="todos"></a>
 # :white_check_mark: TODOS:
 
-1. - [x] Move from lueline to feline or to [this fork of lualine](https://github.com/shadmansaleh/lualine.nvim)
-2. - [x] Add lsp status to lualine
-3. - [ ] Lazy load plugins
-4. - [ ] Find a way to install NeoVim 0.5 on debian based operating systems
-5. - [ ] Find a way to install ueberzug on rhel based operating systems and opensuse
-6. - [ ] Make new install script for windows
-7. - [ ] Test current MacOS script
-8. - [ ] Clean current codebase and convert vimscripts(I mean vimscripts in luafiles) to lua and maybe remove some plugins
-9. - [ ] Move to shell script for macOS and linux installer and powershell for windows installer
-10. - [ ] Implement a way to update CodeArt
-11. - [ ] Write a proper WhichKey
-12. - [ ] Move from compe to cmp
+1. - [x] Add lsp status to lualine
+2. - [ ] Lazy load plugins
+3. - [x] Find a way to install NeoVim 0.5 on debian based operating systems
+4. - [ ] Find a way to install ueberzug on rhel based operating systems and opensuse
+5. - [x] Make new install script for windows
+6. - [ ] Test current MacOS script
+7. - [ ] Clean current codebase and convert vimscripts(I mean vimscripts in luafiles) to lua and maybe remove some plugins
+8. - [ ] Move to shell script for macOS and linux installer and powershell for windows installer
+9. - [ ] Implement a way to update CodeArt
+10. - [ ] Write a proper WhichKey
+11. - [x] Move from compe to cmp
