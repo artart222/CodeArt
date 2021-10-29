@@ -142,6 +142,7 @@ return require('packer').startup({function()
       require('plugins/telescope')
     end
   }
+  use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
   -- LSP, LSP installer and tab completion.
   use { 'neovim/nvim-lspconfig' }

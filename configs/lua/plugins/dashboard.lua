@@ -37,4 +37,7 @@ g.dashboard_custom_footer = {
 
 -- Disable bufferline (tabline) and whitespace highlighting on dashboard.
 vim.cmd('autocmd FileType dashboard set showtabline=0 | autocmd BufWinLeave <buffer> set showtabline=2')
+vim.cmd('autocmd BufEnter * if &ft is "dashboard" | set laststatus=0 | else | set laststatus=2 | endif')
+vim.cmd('autocmd BufEnter * if &ft is "dashboard" | set nocursorline | endif')
+vim.cmd('autocmd BufEnter * if &ft isnot "dashboard" | execute "EnableWhitespace" | endif')
 vim.cmd('autocmd FileType dashboard execute "DisableWhitespace" | autocmd BufWinLeave <buffer> execute "EnableWhitespace"')
