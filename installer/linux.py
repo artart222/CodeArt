@@ -54,7 +54,7 @@ def pack_manager_install(distro_name, list_of_apps, pack_name, arch, debian, rhe
         print(pack_name, "is not installed.\ninstalling", pack_name)
         if distro_name == "arch":
             os.system("sudo pacman -Sy {} --noconfirm".format(arch))
-        elif distro_name == "debian" or distro_name == "ubuntu" or distro_name == "raspbian":
+        elif distro_name == "debian" or distro_name == "ubuntu":
             os.system("sudo apt update; sudo apt install {} -y".format(debian))
         elif distro_name == "rhel" or distro_name == "fedora" or distro_name == "centos":
             os.system("sudo dnf update -y; sudo dnf install {} -y".format(rhel))
@@ -125,7 +125,7 @@ def main():
     print("Downloading dependencys")
     # NOTE: Fix installing NeoVim on ubuntu for now.
     pack_manager_install(distro_name, list_of_apps, "nvim", "neovim", " ", "python3-neovim", "neovim")
-    if distro_name == "debian" or distro_name == "ubuntu" or distro_name == "raspbian":
+    if distro_name == "debian" or distro_name == "ubuntu":
         os.system("sudo apt install software-properties-common")
         os.system("sudo add-apt-repository ppa:neovim-ppa/unstable -y")
         os.system("sudo apt update")
