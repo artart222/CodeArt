@@ -31,24 +31,24 @@
 
 
 <a id="installation"></a>
-## :construction: Install CodeArt easily
+## Install CodeArt easily
 
-🐧 On linux:
+On linux:
 ```bash
 sudo pip3 install distro
 python3 install.py
 ```
 
-#### ⚠️  IMPORTANT NOTE: macOS installer is not tested because I dont have a device with macOS and installer does not work on debian
+#### IMPORTANT NOTE: macOS installer is not tested because I dont have a device with macOS</h3>
 
-🍎 On macOS:
+On macOS:
 ```bash
 python3 install.py
 ```
 
-🪟 on Windows:
+on Windows:
 
-⚡🐚 Open a powershell session as administrator and run these commands one by one:
+Open a powershell session as administrator and run these commands:
 
 ```powershell
 Set-ExecutionPolicy AllSigned
@@ -58,22 +58,22 @@ python3.exe installer\windows.py
 git clone https://github.com/wbthomason/packer.nvim "$env:LOCALAPPDATA\nvim-data\site\pack\packer\start\packer.nvim"
 ```
 
-#### 🔌Install plugins:
+#### Install plugins:
 
 Open NeoVim and type `:PackerInstall`
 And then `:PackerCompile`
 
-#### 🌲💺 Σ🖥️ Install lsp and treesitter:
+#### Install lsp and treesitter
 
 * You can install lsp for a language with `:LspInstall <language>`
 * and you can install treesitter with `:TSInstall <language>`
 
 <a id="screenshots"></a>
-## :camera_flash: Screenshots:
+## Screenshots:
 
 ![Screenshot1](/utils/media/Screenshot1.png "Screenshots1")
 
-### :art: Many themes!
+### Many themes!
 
 ![Screenshot2](/utils/media/Screenshot2.png "Screenshots2")
 ![Screenshot3](/utils/media/Screenshot3.png "Screenshots3")
@@ -87,43 +87,43 @@ And then `:PackerCompile`
 ![Screenshot11](/utils/media/Screenshot11.png "Screenshots11")
 ![Screenshot12](/utils/media/Screenshot12.png "Screenshots12")
 ![Screenshot13](/utils/media/Screenshot13.png "Screenshots13")
-![Screenshot13](/utils/media/Screenshot14.png "Screenshots14")
 
 <a id="features"></a>
-## :sparkles: Features:
 
 * 😴 Lazy load plugins!. With lazy loading NeoVim start up is very fast. It took around 45 miliseconds on virtual machine with 4GB ram and 2 Cores
 ![LazyLoad](/utils/media/LazyLoad.png "LazyLoad")
 
-* Σ🖥️ Native LSP code completion support with documentation
-![CodeCompletion](/utils/media/CodeCompletion.png "CodeCompletion")
+* Σ 🖥️ Native LSP code completion support with documentation
+* ![CodeCompletion](/utils/media/CodeCompletion.png "CodeCompletion")
 
 * 🌲💺 Treesitter based code highlighting
-![Treesitter](/utils/media/Treesitter.png "Treesitter")
+* ![Treesitter](/utils/media/Treesitter.png "Treesitter")
 
 * 🌳:card_file_box: NvimTree as file tree
-![FileTree](/utils/media/FileTree.png "FileTree")
+* ![FileTree](/utils/media/FileTree.png "FileTree")
 
 * 🚏🚌 ToggleTerm as built in terminal
-![Terminal](/utils/media/Terminal.png "Terminal")
+* ![Terminal](/utils/media/Terminal.png "Terminal")
 
 * 🔭 Fuzzy finder
-![Telescope](/utils/media/Telescope.png "Telescope")
+* ![Telescope](/utils/media/Telescope.png "Telescope")
 
 * :white_check_mark: TODO viewer
-![TODO](/utils/media/TODO.png "TODO")
+* ![TODO](/utils/media/TODO.png "TODO")
 
 * :bookmark: Tag viewer
-![TagViewer](/utils/media/TagViewer.png "TagViewer")
+* ![TagViewer](/utils/media/TagViewer.png "TagViewer")
 
 * 🤔🔑 Wichkey
-![Wichkey](/utils/media/Wichkey.png "Wichkey")
+* ![Wichkey](/utils/media/Wichkey.png "Wichkey")
 
 * ┇ Status line with git and lsp indicator + File manager and bufferline lsp indicator
-![StatusLine](/utils/media/StatusLine.png "StatusLine")
+* ![StatusLine](/utils/media/StatusLine.png "StatusLine")
+
+StatusLine
 
 <a id="todos"></a>
-# :white_check_mark: TODOS:
+# TODOS:
 
 1. - [x] Move from lueline to feline or to [this fork of lualine](https://github.com/shadmansaleh/lualine.nvim)
 2. - [x] Add lsp status to lualine
