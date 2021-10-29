@@ -33,7 +33,7 @@ return require('packer').startup({function()
     end
   }
 
-  -- TODO: remove this plugin as fast as possible!!!
+  -- This plugin show trailing whitespace.
   use {
     'ntpeters/vim-better-whitespace',
     cmd = {
@@ -130,7 +130,6 @@ return require('packer').startup({function()
 
   -- Fuzzy finder and it requirments.
   -- TODO: lazy load plenary, popup and telescope-media-files
-
   use { 'nvim-lua/plenary.nvim' }
   use { 'nvim-lua/popup.nvim' }
   use {
