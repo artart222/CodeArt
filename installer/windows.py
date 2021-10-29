@@ -1,45 +1,9 @@
 import os, shutil, subprocess
 
+
 def run(cmd):
     completed = subprocess.run(["powershell", "-Command", cmd], capture_output=True)
     return completed
-
-run("choco_installer.ps1")
-
-def make_backup_of_config(home_directory_address):
-    print("Creating backup for your configs")
-    if not os.path.isdir(home_directory_address + "\\AppData\\Local\\nvim"):
-        pass
-    else:
-        try:
-            items_in_nvim_dir = os.listdir(home_directory_address + "\\AppData\\Local\\nvim")
-            last_backup = "0"
-            new_last_backup = ""
-
-            numbers = "0123456789"
-            for item in items_in_nvim_dir:
-                if "backup" in item:
-                    for char in item:
-                        if char in numbers:
-                            new_last_backup += char
-
-                    try:
-                        if int(new_last_backup) > int(last_backup):
-                            last_backup = new_last_backup
-                    except ValueError:
-                        pass
-
-                    new_last_backup = ""
-
-            new_backup = int(last_backup) + 1
-            os.mkdir(home_directory_address + "\\AppData\\Local\\nvim\\" + "backup" + str(new_backup))
-
-            for item in items_in_nvim_dir:
-                if not "backup" in item:
-                    shutil.move(home_directory_address + "\\AppData\\Local\\nvim\\" + item, home_directory_address + "\\AppDate\\Local\\nvim\\backup" + str(new_backup))
-        except FileNotFoundError:
-            pass
-    print("Backup created\n")
 
 
 def pack_manager_install(package_name):

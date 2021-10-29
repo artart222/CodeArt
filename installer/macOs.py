@@ -6,34 +6,10 @@ def make_backup_of_config(home_directory_address):
     if not os.path.isdir(home_directory_address + "/.config/nvim"):
         pass
     else:
-        try:
-            items_in_nvim_dir = os.listdir(home_directory_address + "./config/nvim")
-            last_backup = "0"
-            new_last_backup = ""
-
-            numbers = "0123456789"
-            for item in items_in_nvim_dir:
-                if "backup" in item:
-                    for char in item:
-                        if char in numbers:
-                            new_last_backup += char
-
-                    try:
-                        if int(new_last_backup) > int(last_backup):
-                            last_backup = new_last_backup
-                    except ValueError:
-                        pass
-
-                    new_last_backup = ""
-
-            new_backup = int(last_backup) + 1
-            os.mkdir(home_directory_address + "/.config/nvim/" + "backup" + str(new_backup))
-
-            for item in items_in_nvim_dir:
-                if not "backup" in item:
-                    shutil.move(home_directory_address + "/.config/nvim/" + item, home_directory_address + "/.config/nvim/backup" + str(new_backup))
-        except FileNotFoundError:
-            pass
+        try_number = 1
+        while os.path.isdir(home_directory_address + "/.config/{}nvim".format(try_number)):
+            try_number += 1
+        shutil.move(home_directory_address + "/.config/nvim", home_directory_address + "/.config/{}nvim".format(try_number))
     print("Backup created\n")
 
 
@@ -99,6 +75,7 @@ def copy_configs(home_directory_address):
 
 def main():
     home_directory_address = os.path.expanduser("~")
+    make_backup_of_config(home_directory_address)
 
     # listing installed apps and packages
     list_of_apps = os.listdir("/usr/bin")
