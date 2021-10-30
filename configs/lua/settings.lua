@@ -85,3 +85,12 @@ vim.cmd
     autocmd VimEnter * Dashboard
   endif
 ]]
+
+vim.cmd
+[[
+if has('win32')
+
+else
+    command CodeArtUpdate !svn export --force https://github.com/artart222/CodeArt.git/trunk/configs/ ~/.config/nvim
+endif
+]]

@@ -3,6 +3,7 @@
 <h3 align="center">
   <a href="#screenshots">:camera_flash: Screenshots</a>
   <a href="#installation">:construction: Installation</a>
+  <a href="#update">⬆️📅 How to update CodeArt</a>
   <a href="#features">:sparkles: Important features</a>
   <a href="#todos">:white_check_mark: TODOS</a>
 </h3>
@@ -58,7 +59,7 @@ If you have config first make backup of it then
 Set-ExecutionPolicy AllSigned
 Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
-python3.exe installer\windows.py
+python3.exe install.py
 git clone https://github.com/wbthomason/packer.nvim "$env:LOCALAPPDATA\nvim-data\site\pack\packer\start\packer.nvim"
 ```
 
@@ -71,6 +72,11 @@ And then `:PackerCompile`
 
 * You can install lsp for a language with `:LspInstall <language>`
 * and you can install treesitter with `:TSInstall <language>`
+
+<a id="update"></a>
+## How to update CodeArt:
+Run `:CodeArtUpdate` inside NeoVim after that restart NeoVim and run `:PackerSync` and after that again restart NeoVim!\
+unfortunately you can't update CodeArt on windows
 
 <a id="screenshots"></a>
 ## :camera_flash: Screenshots:
@@ -154,6 +160,6 @@ And then `:PackerCompile`
 6. - [ ] Test current MacOS script
 7. - [ ] Clean current codebase and convert vimscripts(I mean vimscripts in luafiles) to lua and maybe remove some plugins
 8. - [ ] Move to shell script for macOS and linux installer and powershell for windows installer
-9. - [ ] Implement a way to update CodeArt
+9. - [x] Implement a way to update CodeArt
 10. - [ ] Write a proper WhichKey
 11. - [x] Move from compe to cmp

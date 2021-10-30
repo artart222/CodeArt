@@ -92,7 +92,7 @@ def main():
     pack_manager_install(list_of_apps, "gcc", "gcc")
     pack_manager_install(list_of_apps, "rg", "ripgrep")
     pack_manager_install(list_of_apps, "wget", "wget")
-
+    pack_manager_install(list_of_apps, "svn", "subversion")
     py3_pkgs = []
     os.system("pip3 list >> pip3.txt")
     with open("pip3.txt", "r") as pip_file:
