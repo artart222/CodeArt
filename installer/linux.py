@@ -113,7 +113,6 @@ def main():
     pack_manager_install(distro_name, list_of_apps, "ctags", "ctags", "universal-ctags", "ctags", "ctags")
     pack_manager_install(distro_name, list_of_apps, "node", "nodejs", "nodejs", "nodejs", "nodejs14")
     pack_manager_install(distro_name, list_of_apps, "npm", "npm", "npm", "npm", "npm14")
-    pack_manager_install(distro_name, list_of_apps, "pip3", "python-pip", "python3-pip", "python3-pip", "python3-pip")
     pack_manager_install(distro_name, list_of_apps, "ranger", "ranger", "ranger", "ranger", "ranger")
     pack_manager_install(distro_name, list_of_apps, "xclip", "xclip", "xclip", "xclip", "xclip")
     pack_manager_install(distro_name, list_of_apps, "gcc", "gcc", "gcc", "gcc", "gcc")

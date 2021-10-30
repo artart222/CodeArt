@@ -57,8 +57,7 @@ def main():
     pack_manager_install("7zip")
     pack_manager_install("ctags")
     pack_manager_install("nodejs")
-    pack_manager_install("pip")
-    pack_manager_install( "mingw")
+    pack_manager_install("mingw")
     pack_manager_install("ripgrep")
     pack_manager_install("wget")
 
