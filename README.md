@@ -73,6 +73,8 @@ And then `:PackerCompile`
 * You can install lsp for a language with `:LspInstall <language>`
 * and you can install treesitter with `:TSInstall <language>`
 
+#### This plugin use many nerd fonts icons and it's better you have a nerd font. Installer will install Jetbrains mono by default for you so you can choose it for you terinal
+
 <a id="update"></a>
 ## ⬆️📅 How to update CodeArt:
 Run `:CodeArtUpdate` inside NeoVim after that restart NeoVim and run `:PackerSync` and after that again restart NeoVim!\
