@@ -74,7 +74,7 @@ And then `:PackerCompile`
 * and you can install treesitter with `:TSInstall <language>`
 
 <a id="update"></a>
-## How to update CodeArt:
+## ⬆️📅 How to update CodeArt:
 Run `:CodeArtUpdate` inside NeoVim after that restart NeoVim and run `:PackerSync` and after that again restart NeoVim!\
 unfortunately you can't update CodeArt on windows
 
