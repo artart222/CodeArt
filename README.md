@@ -33,8 +33,7 @@
 <a id="installation"></a>
 ## :construction: Install CodeArt easily
 
-For installing CodeArt you must have python3.
-If you are installing CodeArt on Windows or Linux, you must have pip3
+For installing CodeArt you must have python3 and pip3.
 
 🐧 On linux:
 ```bash

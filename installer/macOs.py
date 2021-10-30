@@ -87,7 +87,6 @@ def main():
     pack_manager_install(list_of_apps, "unzip", "unzip")
     pack_manager_install(list_of_apps, "ctags", "ctags")
     pack_manager_install(list_of_apps, "node", "node")
-    pack_manager_install(list_of_apps, "pip3", "python3")
     pack_manager_install(list_of_apps, "ranger", "ranger")
     pack_manager_install(list_of_apps, "xclip", "xclip")
     pack_manager_install(list_of_apps, "gcc", "gcc")
