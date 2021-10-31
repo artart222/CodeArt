@@ -73,7 +73,7 @@ And then `:PackerCompile`
 * You can install lsp for a language with `:LspInstall <language>`
 * and you can install treesitter with `:TSInstall <language>`
 
-#### This plugin use many nerd fonts icons and it's better you have a nerd font. Installer will install Jetbrains mono by default for you so you can choose it for you terinal
+#### This plugin use many nerd fonts icons and it's better you have a nerd font. Installer will install Jetbrains mono by default for you so you can choose it for you terminal
 
 <a id="update"></a>
 ## ⬆️📅 How to update CodeArt:
