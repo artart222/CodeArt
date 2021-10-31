@@ -104,8 +104,9 @@ return require('packer').startup({function()
   use {
     'norcalli/nvim-colorizer.lua',
     event = 'BufRead',
-    setup = function()
+    config = function()
       require('plugins/colorize')
+      vim.cmd('ColorizerAttachToBuffer')
     end
   }
 
@@ -290,7 +291,7 @@ return require('packer').startup({function()
   -- With this plugin you can resize Neovim buffers easily.
   use {
     'artart222/vim-resize',
-    event = 'BufRead'
+    event = 'BufEnter'
   }
 
   -- Import settings of plugins or start plugins.

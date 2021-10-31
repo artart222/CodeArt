@@ -11,7 +11,7 @@ vim.g.mapleader = ' '
 
 
 -- Set cl for clearing highlights after searching word in file.
-map('n', 'cl', '<cmd>noh<CR>')
+map('n', 'cl', ':noh<CR>')
 
 
 -- Split navigations.
@@ -22,26 +22,26 @@ map('n', '<A-h>', '<C-w><C-h>')
 
 
 -- Buffer resizing.
-map('n', '<S-h>', '<cmd>:call ResizeLeft(3)<CR><Esc>')
-map('n', '<S-l>', '<cmd>:call ResizeRight(3)<CR><Esc>')
-map('n', '<S-k>', '<cmd>:call ResizeUp(1)<CR><Esc>')
-map('n', '<S-j>', '<cmd>:call ResizeDown(1)<CR><Esc>')
+map('n', '<S-h>', ':call ResizeLeft(3)<CR><Esc>')
+map('n', '<S-l>', ':call ResizeRight(3)<CR><Esc>')
+map('n', '<S-k>', ':call ResizeUp(1)<CR><Esc>')
+map('n', '<S-j>', ':call ResizeDown(1)<CR><Esc>')
 
 
 -- Buffer switching.
-map('n', '<A-[>', '<cmd>:BufferLineCyclePrev<CR>')
-map('n', '<A-]>', '<cmd>:BufferLineCycleNext<CR>')
+map('n', '<A-[>', ':BufferLineCyclePrev<CR>')
+map('n', '<A-]>', ':BufferLineCycleNext<CR>')
 
 -- Buffer closing.
-map('n', '<leader>bc', '<cmd>:BufferLinePickClose<CR>')
+map('n', '<leader>bc', ':BufferLinePickClose<CR>')
 
 -- Buffer moving.
-map('n', '<leader>bl', '<cmd>:BufferLineMoveNext<CR>')
-map('n', '<leader>bh', '<cmd>:BufferLineMovePrev<CR>')
+map('n', '<leader>bl', ':BufferLineMoveNext<CR>')
+map('n', '<leader>bh', '::BufferLineMovePrev<CR>')
 
 
 -- NvimTree toggle
-map('n', 'nt', '<cmd>NvimTreeToggle<CR>')
+map('n', 'nt', ':NvimTreeToggle<CR>')
 
 
 -- Telescop.
@@ -65,47 +65,44 @@ map("n", "<C-s>s", ":SessionSave<CR>")
 
 
 -- Lsp
-map('n', '<space>,', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>')
-map('n', '<space>;', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>')
-map('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-map('n', '<leader>gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
-map('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>')
-map('n', '<space>h', '<cmd>lua vim.lsp.buf.hover()<CR>')
-map('n', '<space>m', '<cmd>lua vim.lsp.buf.rename()<CR>')
-map('n', '<space>r', '<cmd>lua vim.lsp.buf.references()<CR>')
-map('n', '<space>s', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+map('n', '<space>,', ':lua vim.lsp.diagnostic.goto_prev()<CR>')
+map('n', '<space>;', ':lua vim.lsp.diagnostic.goto_next()<CR>')
+map('n', '<space>a', ':lua vim.lsp.buf.code_action()<CR>')
+map('n', '<leader>gd', ':lua vim.lsp.buf.definition()<CR>')
+map('n', '<space>f', ':lua vim.lsp.buf.formatting()<CR>')
+map('n', '<space>h', ':lua vim.lsp.buf.hover()<CR>')
+map('n', '<space>m', ':lua vim.lsp.buf.rename()<CR>')
+map('n', '<space>r', ':lua vim.lsp.buf.references()<CR>')
+map('n', '<space>s', ':lua vim.lsp.buf.document_symbol()<CR>')
 
 
 -- ToggleTerm
-vim.cmd
-[[
-  let g:toggleterm_terminal_mapping = '<C-t>'
-  nnoremap <silent><c-t> <Cmd>exe v:count1 . "ToggleTerm"<CR>
-  inoremap <silent><c-t> <Esc><Cmd>exe v:count1 . "ToggleTerm"<CR>
-]]
+map('n', '<C-t>', ':ToggleTerm<CR>')
+map('t', '<C-t>', ':ToggleTerm<CR>')
+map('n', '<C-t>', ':exe v:count1' .. '"ToggleTerm"<CR>')
+map('v', '<C-t>', ':exe v:count1' .. '"ToggleTerm"<CR>')
 function _G.set_terminal_keymaps()
-  local opts = {noremap = true}
-  vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', 'jk', [[<C-\><C-n>]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<A-h>', [[<c-\><c-n><c-w>h]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<A-j>', [[<c-\><c-n><c-w>j]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<A-k>', [[<c-\><c-n><c-w>k]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<A-l>', [[<c-\><c-n><c-w>l]], opts)
+  map('t', '<esc>', '<C-\\><C-n>')
+  map('t', 'jk', '<C-\\><C-n>')
+  map('t', '<A-h>', '<c-\\><c-n><c-w>h')
+  map('t', '<A-j>', '<c-\\><c-n><c-w>j')
+  map('t', '<A-k>', '<c-\\><c-n><c-w>k')
+  map('t', '<A-l>', '<c-\\><c-n><c-w>l')
 
-  vim.api.nvim_buf_set_keymap(0, 't', '<S-h>', [[<c-\><C-n>:call ResizeLeft(3)<CR>]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<S-j>', [[<c-\><C-n>:call ResizeDown(1)<CR>]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<S-k>', [[<c-\><C-n>:call ResizeUp(1)<CR>]], opts)
-  vim.api.nvim_buf_set_keymap(0, 't', '<S-l>', [[<c-\><C-n>:call ResizeRight(3)<CR>]], opts)
+  map('t', '<S-h>', '<c-\\><C-n>:call ResizeLeft(3)<CR>')
+  map('t', '<S-j>', '<c-\\><C-n>:call ResizeDown(1)<CR>')
+  map('t', '<S-k>', '<c-\\><C-n>:call ResizeUp(1)<CR>')
+  map('t', '<S-l>', '<c-\\><C-n>:call ResizeRight(3)<CR>')
 end
 vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 
 
 -- Remove unnecessary white spaces.
-map('n', '<leader>cw', '<cmd>:StripWhitespace<CR>')
+map('n', '<leader>cw', ':StripWhitespace<CR>')
 
 
 -- TrueZen focus mode.
-map('n', '<leader>fs', '<cmd>:TZFocus<CR>')
+map('n', '<leader>fs', ':TZFocus<CR>')
 
 
 -- Toggle fold.
