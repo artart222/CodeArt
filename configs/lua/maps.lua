@@ -22,10 +22,10 @@ map('n', '<A-h>', '<C-w><C-h>')
 
 
 -- Buffer resizing.
-map('n', '<S-h>', '<cmd>:call ResizeLeft(3)<CR>')
-map('n', '<S-l>', '<cmd>:call ResizeRight(3)<CR>')
-map('n', '<S-k>', '<cmd>:call ResizeUp(1)<CR>')
-map('n', '<S-j>', '<cmd>:call ResizeDown(1)<CR>')
+map('n', '<S-h>', '<cmd>:call ResizeLeft(3)<CR><Esc>')
+map('n', '<S-l>', '<cmd>:call ResizeRight(3)<CR><Esc>')
+map('n', '<S-k>', '<cmd>:call ResizeUp(1)<CR><Esc>')
+map('n', '<S-j>', '<cmd>:call ResizeDown(1)<CR><Esc>')
 
 
 -- Buffer switching.
