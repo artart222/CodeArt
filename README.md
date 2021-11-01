@@ -15,7 +15,7 @@
 
   <img src="https://img.shields.io/github/repo-size/artart222/CodeArt?style=flat-square" alt="Repo size">
 
-  <a href="https://discordapp.com/channels/904682355942375445">
+  <a href="https://discord.gg/mhy9aK9Qzp">
     <img src="https://img.shields.io/badge/Discord-server-blue?style=flat-square" alt="Discord server">
   </a>
 
