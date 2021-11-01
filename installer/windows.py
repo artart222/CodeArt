@@ -80,9 +80,9 @@ def main():
     npm_install(npm_pkgs, "neovim")
 
     install_font()
-    print("Dependencys installed\n")
+    print("Dependencies installed\n")
     copy_configs(home_directory_address)
-    print("instalation proccess finished")
+    print("Installation process finished")
 
 
 main()

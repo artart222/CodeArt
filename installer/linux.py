@@ -99,7 +99,7 @@ def main():
 
     distro_name = find_distro_name()
 
-    print("Downloading dependencys")
+    print("Downloading dependencies")
     # NOTE: Fix installing NeoVim on ubuntu for now.
     pack_manager_install(distro_name, list_of_apps, "nvim", "neovim", " ", "python3-neovim", "neovim")
     if distro_name == "debian" or distro_name == "ubuntu":
@@ -123,7 +123,7 @@ def main():
         print("Installing ueberzug and its requirements if they are not installed")
         os.system("sudo apt update; sudo apt install libjpeg8-dev zlib1g-dev python-dev python3-dev libxtst-dev -y")
     elif distro_name == "arch":
-        print("installing ueberzug and its requirements if thry are not installed")
+        print("installing ueberzug and its requirements if they are not installed")
         os.system("sudo pacman -Sy ueberzug --noconfirm")
     elif distro_name == "rhel" or distro_name == "fedora" or distro_name == "centos":
         # TODO: Find a way to install ueberzug on fedora
@@ -152,9 +152,9 @@ def main():
 
     install_needed_font(home_directory_address)
     install_packer()
-    print("Dependencys installed\n")
+    print("Dependencies installed\n")
     copy_configs(home_directory_address)
-    print("instalation proccess finished")
+    print("Instalation process finished")
 
 
 main()

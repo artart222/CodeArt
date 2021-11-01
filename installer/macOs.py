@@ -114,9 +114,9 @@ def main():
 
     install_needed_font(home_directory_address)
     install_packer()
-    print("Dependencys installed\n")
+    print("Dependencies installed\n")
     copy_configs(home_directory_address)
-    print("instalation proccess finished")
+    print("Installation process finished")
 
 
 main()
