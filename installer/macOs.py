@@ -78,10 +78,13 @@ def main():
     make_backup_of_config(home_directory_address)
 
     # listing installed apps and packages
-    list_of_apps = os.listdir("/usr/bin")
+    list_of_apps = os.listdir("/usr/local/bin")
 
     print("Downloading dependencys")
-    pack_manager_install(list_of_apps, "nvim", "neovim")
+    if "nvim" in list_of_apps:
+        print("nvim", "is installed. moving to next dependency")
+    else:
+        os.system("brew install --HEAD neovim")
     pack_manager_install(list_of_apps, "curl", "curl")
     pack_manager_install(list_of_apps, "git", "git")
     pack_manager_install(list_of_apps, "unzip", "unzip")
