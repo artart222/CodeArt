@@ -53,7 +53,7 @@ map("n", "<Leader>fp", ":lua require('telescope').extensions.media_files.media_f
 map("n", "<Leader>fb", ":Telescope buffers<CR>")
 map("n", "<Leader>fh", ":Telescope help_tags<CR>")
 map("n", "<Leader>fo", ":Telescope oldfiles<CR>")
-map("n", "<Leader>th", ":Telescope themes<CR>")
+map("n", "<Leader>th", ":Telescope colorscheme<CR>")
 
 
 -- Dashboard
