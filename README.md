@@ -15,11 +15,9 @@
 
   <img src="https://img.shields.io/github/repo-size/artart222/CodeArt?style=flat-square" alt="Repo size">
 
-  <!--
-  <a href="https://discordapp.com/channels/875388658637754428">
-    <img src="https://img.shields.io/discord/875388658637754428?style=flat-square" alt="Discord server">
+  <a href="https://discordapp.com/channels/904682355942375445">
+    <img src="https://img.shields.io/badge/Discord-server-blue?style=flat-square" alt="Discord server">
   </a>
-  -->
 
   <a href="https://github.com/artart222/CodeArt/issues">
     <img src="https://img.shields.io/github/issues/artart222/CodeArt?color=ff0000&style=flat-square" alt="Open issues">
@@ -73,10 +71,11 @@ And then `:PackerCompile`
 * You can install lsp for a language with `:LspInstall <language>`
 * and you can install treesitter with `:TSInstall <language>`
 
-#### This plugin use many nerd fonts icons and it's better you have a nerd font. Installer will install Jetbrains mono by default for you so you can choose it for you terminal
+#### This NeoVim configs use many nerd fonts icons and it's better you have a nerd font. Installer will install Jetbrains mono by default for you so you can choose it for you terminal
 
 <a id="update"></a>
 ## ⬆️📅 How to update CodeArt:
+#### Very important note: Updating CodeArt will replace this github repo configs directory with ~/.config/nvim
 Run `:CodeArtUpdate` inside NeoVim after that restart NeoVim and run `:PackerSync` and after that again restart NeoVim!\
 unfortunately you can't update CodeArt on windows
 
