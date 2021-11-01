@@ -9,9 +9,9 @@ additional_plugins = {
   -- You can put your additional plugins here.
   -- Syntax is like normal packer.nvim Syntax. Examples:
 
-  -- {'famiu/feline.nvim', branch = 'develop' }
+  {'famiu/feline.nvim', branch = 'develop' },
 
-  -- { 'mhartington/formatter.nvim' }
+  'mhartington/formatter.nvim'
 
   -- { crispgm/nvim-go', ft = 'go'}
 }
