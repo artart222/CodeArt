@@ -94,3 +94,5 @@ else
     command CodeArtUpdate !svn export --force https://github.com/artart222/CodeArt.git/trunk/configs/ ~/.config/nvim
 endif
 ]]
+
+vim.cmd('autocmd BufWritePost plugins.lua source <afile>')
