@@ -1,4 +1,6 @@
 local use = require('packer').use
+local user_settings_file = require('../user_settings')
+
 return require('packer').startup({function()
   use { 'wbthomason/packer.nvim' }
 
@@ -131,22 +133,24 @@ return require('packer').startup({function()
 
   -- Fuzzy finder and it requirments.
   -- TODO: lazy load plenary, popup and telescope-media-files
+  if vim.fn.has('win32') == 0 then
+    use {
+      'nvim-telescope/telescope-media-files.nvim',
+      cmd = 'Telescope'
+    }
+    use {
+      'nvim-telescope/telescope-fzf-native.nvim', run = 'make',
+      cmd = 'Telescope'
+    }
+    use { 'nvim-lua/popup.nvim' }
+  end
   use { 'nvim-lua/plenary.nvim' }
-  use { 'nvim-lua/popup.nvim' }
   use {
     'nvim-telescope/telescope.nvim',
     cmd = 'Telescope',
     config = function()
       require('plugins/telescope')
     end
-  }
-  use {
-    'nvim-telescope/telescope-media-files.nvim',
-    cmd = 'Telescope'
-  }
-  use {
-    'nvim-telescope/telescope-fzf-native.nvim', run = 'make',
-    cmd = 'Telescope'
   }
 
   -- LSP, LSP installer and tab completion.
