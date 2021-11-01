@@ -75,7 +75,7 @@ And then `:PackerCompile`
 
 <a id="update"></a>
 ## ⬆️📅 How to update CodeArt:
-#### Very important note: Updating CodeArt will replace this github repo configs directory with ~/.config/nvim
+#### Very important note: Updating CodeArt will replace this github repo configs directory with ~/.config/nvim so if you want to not lose your config you must put your modifications into ~/.config/nvim/lua/user_settings.lua
 Run `:CodeArtUpdate` inside NeoVim after that restart NeoVim and run `:PackerSync` and after that again restart NeoVim!\
 unfortunately you can't update CodeArt on windows
 
