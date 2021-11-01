@@ -298,6 +298,14 @@ return require('packer').startup({function()
     event = 'BufEnter'
   }
 
+  for key, plugin in pairs(additional_plugins) do
+    if type(plugin) == "string" then
+      use { plugin }
+    else
+      use { unpack(plugin) }
+    end
+  end
+
   -- Import settings of plugins or start plugins.
   require('lsp_signature').setup()
   require("which-key").setup()
