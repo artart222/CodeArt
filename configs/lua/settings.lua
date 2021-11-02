@@ -18,7 +18,7 @@ opt.mouse = 'a'
 -- Enable cursor line.
 opt.cursorline = true
 
--- Setting colorcolumn. This is set becuse of
+-- Setting colorcolumn. This is set because of
 -- this (https://github.com/lukas-reineke/indent-blankline.nvim/issues/59)
 -- indent-blankline bug.
 opt.colorcolumn = '9999'
@@ -89,7 +89,7 @@ vim.cmd
 vim.cmd
 [[
 if has('win32')
-
+    command CodeArtUpdate !powershell.exe -executionpolicy bypass -file "$HOME\AppData\Local\nvim\CodeArtUpdate.ps1"
 else
     command CodeArtUpdate !bash ~/.config/nvim/CodeArtUpdate.sh
 endif

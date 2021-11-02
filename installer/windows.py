@@ -56,10 +56,12 @@ def main():
     pack_manager_install("git")
     pack_manager_install("7zip")
     pack_manager_install("ctags")
+    pack_manager_install("make")
     pack_manager_install("nodejs")
     pack_manager_install("mingw")
     pack_manager_install("ripgrep")
     pack_manager_install("wget")
+    pack_manager_install("svn")
 
     py3_pkgs = []
     os.system("pip3 list >> pip3.txt")
