@@ -139,10 +139,9 @@ return require('packer').startup({function()
       cmd = 'Telescope'
     }
     use {
-      'nvim-telescope/telescope-fzf-native.nvim', run = 'make',
-      cmd = 'Telescope'
+      'nvim-lua/popup.nvim',
+      cmd = 'Telescope media_files'
     }
-    use { 'nvim-lua/popup.nvim' }
   end
   use { 'nvim-lua/plenary.nvim' }
   use {
@@ -151,6 +150,10 @@ return require('packer').startup({function()
     config = function()
       require('plugins/telescope')
     end
+  }
+  use {
+    'nvim-telescope/telescope-fzf-native.nvim', run = 'make',
+    cmd = 'Telescope'
   }
 
   -- LSP, LSP installer and tab completion.
@@ -259,7 +262,7 @@ return require('packer').startup({function()
   -- todo comments like TODO, HACK, BUG in code base.
   use {
     'folke/todo-comments.nvim',
-    event = 'BufRead',
+    event = 'BufEnter',
     config = function()
       require('plugins/todo-comments')
     end

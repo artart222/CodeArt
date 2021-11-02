@@ -21,5 +21,15 @@ if vim.fn.has('win32') == 0 then
   telescope.load_extension('media_files')
   telescope.load_extension('fzf')
 else
-  telescope.setup {}
+  telescope.setup {
+    extensions = {
+      fzf = {
+        fuzzy = true,
+        override_generic_sorter = true,
+        override_file_sorter = true,
+        case_mode = "smart_case",
+      }
+    },
+  }
+  telescope.load_extension('fzf')
 end
