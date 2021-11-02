@@ -76,7 +76,8 @@ And then `:PackerCompile`
 <a id="update"></a>
 ## ⬆️📅 How to update CodeArt:
 #### Very important note: Updating CodeArt will replace this github repo configs directory with ~/.config/nvim so if you want to not lose your configs you must put your modifications into ~/.config/nvim/lua/user_settings.lua on linux and mac or put your configs on C:\Users\your_user\AppData\Local\nvim\lua\user_settings.lua
-Run `:CodeArtUpdate` inside NeoVim after that restart NeoVim and run `:PackerSync` and after that again restart NeoVim!\
+
+Run `:CodeArtUpdate` inside NeoVim after that restart NeoVim and run `:PackerSync` and after that again restart NeoVim!
 
 <a id="screenshots"></a>
 ## :camera_flash: Screenshots:
