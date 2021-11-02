@@ -2,7 +2,7 @@ import os, shutil, distro, urllib.request
 
 
 def find_distro_name():
-    print("Finding which distribution is your os based on")
+    print("Finding out which distribution your OS is based on")
     distro_name = distro.like()
     if distro_name == "":
         distro_name = distro.id()
@@ -12,7 +12,7 @@ def find_distro_name():
 
 
 def make_backup_of_config(home_directory_address):
-    print("Creating backup for your configs")
+    print("Creating backup for any existing configuration files")
     if not os.path.isdir(home_directory_address + "/.config/nvim"):
         pass
     else:
@@ -25,9 +25,9 @@ def make_backup_of_config(home_directory_address):
 
 def pack_manager_install(distro_name, list_of_apps, pack_name, arch, debian, rhel, opensuse):
     if pack_name in list_of_apps:
-        print(pack_name, "is installed. moving to next dependency")
+        print(pack_name, "is installed. Checking next dependency..")
     else:
-        print(pack_name, "is not installed.\ninstalling", pack_name)
+        print(pack_name, "is not installed.\nInstalling", pack_name)
         if distro_name == "arch":
             os.system("sudo pacman -Sy {} --noconfirm".format(arch))
         elif distro_name == "debian" or distro_name == "ubuntu":
@@ -40,14 +40,14 @@ def pack_manager_install(distro_name, list_of_apps, pack_name, arch, debian, rhe
 
 def pip_install(pkgs, pack_name):
     if pack_name in pkgs:
-        print("{} is installed. moving to next dependency".format(pack_name))
+        print("{} is installed. Checking next dependency..".format(pack_name))
     else:
         os.system("sudo pip3 install {}".format(pack_name))
 
 
 def npm_install(pkgs, pack_name):
     if pack_name in pkgs:
-        print("{} is installed. moving to next dependency".format(pack_name))
+        print("{} is installed. Checking next dependency..".format(pack_name))
     else:
         os.system("sudo npm -g install {}".format(pack_name))
 
@@ -120,10 +120,10 @@ def main():
     pack_manager_install(distro_name, list_of_apps, "wget", "wget", "wget", "wget", "wget")
     pack_manager_install(distro_name, list_of_apps, "svn", "subversion", "subversion", "subversion", "subversion")
     if distro_name == "debian" or distro_name == "ubuntu" or distro_name == "raspbian":
-        print("Installing ueberzug and its requirements if they are not installed")
+        print("Installing ueberzug and its dependencies if they are not installed already")
         os.system("sudo apt update; sudo apt install libjpeg8-dev zlib1g-dev python-dev python3-dev libxtst-dev -y")
     elif distro_name == "arch":
-        print("installing ueberzug and its requirements if they are not installed")
+        print("installing ueberzug and its dependencies if they are not installed already")
         os.system("sudo pacman -Sy ueberzug --noconfirm")
     elif distro_name == "rhel" or distro_name == "fedora" or distro_name == "centos":
         # TODO: Find a way to install ueberzug on fedora
