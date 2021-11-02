@@ -7,7 +7,7 @@ if os == "Linux":
 
 # MacOs
 elif os == "Darwin":
-    from installer import macOs
+    from installer import macOS
 
 elif os == "Windows":
     from installer import windows
