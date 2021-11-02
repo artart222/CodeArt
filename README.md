@@ -32,7 +32,7 @@
 <a id="installation"></a>
 ## :construction: Install CodeArt easily
 
-For installing CodeArt you must have python3 and pip3.
+To install CodeArt you must have python3 and pip3 installed.
 
 🐧 On linux:
 ```bash
@@ -40,7 +40,7 @@ sudo pip3 install distro
 python3 install.py
 ```
 
-#### ⚠️  IMPORTANT NOTE: macOS installer is not tested because I dont have a device with macOS and installer does not work on debian
+#### ⚠️  IMPORTANT NOTE: The installer for MacOS is not tested since I don't have a device with macOS (and the installer does not work on debian)
 
 🍎 On macOS:
 ```bash
@@ -49,7 +49,8 @@ python3 install.py
 
 🪟 on Windows:
 
-If you have config first make backup of it then
+***please backup any existing configuration files***
+
 
 ⚡🐚 open a powershell session as administrator and run these commands one by one:
 
@@ -64,20 +65,25 @@ git clone https://github.com/wbthomason/packer.nvim "$env:LOCALAPPDATA\nvim-data
 #### 🔌Install plugins:
 
 Open NeoVim and type `:PackerInstall`
-And then `:PackerCompile`
+Once complete, run `:PackerCompile`
 
 #### 🌲💺Σ🖥️ Install lsp and treesitter:
 
 * You can install lsp for a language with `:LspInstall <language>`
-* and you can install treesitter with `:TSInstall <language>`
+* You can install treesitter with `:TSInstall <language>`
 
-#### This NeoVim configs use many nerd fonts icons and it's better you have a nerd font. Installer will install Jetbrains mono by default for you so you can choose it for you terminal
+#### These NeoVim configurations use many nerd fonts icons. JetBrains Mono will be installed by default.
 
 <a id="update"></a>
 ## ⬆️📅 How to update CodeArt:
-#### Very important note: Updating CodeArt will replace this github repo configs directory with ~/.config/nvim so if you want to not lose your configs you must put your modifications into ~/.config/nvim/lua/user_settings.lua on linux and mac or put your configs on C:\Users\your_user\AppData\Local\nvim\lua\user_settings.lua
+#### Very important note: Updating CodeArt will replace this github repo configs directory with ~/.config/nvim so if you don't want to lose any existing modifications you've made you must put your modifications into ~/.config/nvim/lua/user_settings.lua on linux and mac, put your configs in C:\Users\your_user\AppData\Local\nvim\lua\user_settings.lua if you use Windows
 
-Run `:CodeArtUpdate` inside NeoVim after that restart NeoVim and run `:PackerSync` and after that again restart NeoVim!
+
+
+* Run `:CodeArtUpdate` inside NeoVim 
+* Restart NeoVim  
+* Run `:PackerSync`
+* Restart NeoVim!
 
 <a id="screenshots"></a>
 ## :camera_flash: Screenshots:
@@ -120,7 +126,7 @@ Run `:CodeArtUpdate` inside NeoVim after that restart NeoVim and run `:PackerSyn
 <a id="features"></a>
 ## :sparkles: Features:
 
-* 😴 Lazy load plugins!. With lazy loading NeoVim start up is very fast. It took around 45 miliseconds on virtual machine with 4GB ram and 2 Cores
+* 😴 Lazy load plugins!. With lazy loading NeoVim starts up very fast. It took me around 45 miliseconds on a virtual machine with 4GB ram and 2 Cores
 ![LazyLoad](/utils/media/LazyLoad.png "LazyLoad")
 
 * Σ🖥️ Native LSP code completion support with documentation
