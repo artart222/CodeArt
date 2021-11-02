@@ -96,3 +96,16 @@ endif
 ]]
 
 vim.cmd('autocmd BufWritePost plugins.lua source <afile>')
+
+
+-- NOTE: Your shell must be powershell in bellow code block because of :CodeArtUpdate command
+vim.cmd
+[[
+if has('win32')
+    set shell=powershell " Your shell must be powershell
+    let &shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;'
+    let &shellredir = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+    let &shellpipe = '2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode'
+    set shellquote= shellxquote=
+endif
+]]
