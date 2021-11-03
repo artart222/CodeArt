@@ -20,7 +20,7 @@ def install_homebrew():
 # NOTE: some times name of package in /usr/bin is different from brew name.
 def pack_manager_install(list_of_apps, pack_name, install_name):
     if pack_name in list_of_apps:
-        print(pack_name, "is installed. moving to next dependency")
+        print(pack_name, "is installed. Checking next dependency..")
     else:
         print(pack_name, "is not installed.\ninstalling", pack_name)
         os.system("brew install {}".format(install_name))
@@ -28,14 +28,14 @@ def pack_manager_install(list_of_apps, pack_name, install_name):
 
 def pip_install(pkgs, pack_name):
     if pack_name in pkgs:
-        print("{} is installed. moving to next dependency".format(pack_name))
+        print("{} is installed. Checking next dependency..".format(pack_name))
     else:
         os.system("sudo pip3 install {}".format(pack_name))
 
 
 def npm_install(pkgs, pack_name):
     if pack_name in pkgs:
-        print("{} is installed. moving to next dependency".format(pack_name))
+        print("{} is installed. Checking next dependency..".format(pack_name))
     else:
         os.system("sudo npm -g install {}".format(pack_name))
 
