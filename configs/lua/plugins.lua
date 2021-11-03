@@ -38,10 +38,9 @@ return require('packer').startup({function()
   -- This plugin show trailing whitespace.
   use {
     'ntpeters/vim-better-whitespace',
-    cmd = {
-      'EnableWhitespace',
-      'DisableWhitespace'
-    }
+    config = function()
+        require('plugins/better-whitespace')
+    end
   }
 
   -- Icons.
