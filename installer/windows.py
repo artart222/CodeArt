@@ -13,14 +13,14 @@ def pack_manager_install(package_name):
 
 def pip_install(pkgs, pack_name):
     if pack_name in pkgs:
-        print("{} is installed. moving to next dependency".format(pack_name))
+        print("{} is installed. Checking next dependency..".format(pack_name))
     else:
         os.system("pip3 install {}".format(pack_name))
 
 
 def npm_install(pkgs, pack_name):
     if pack_name in pkgs:
-        print("{} is installed. moving to next dependency".format(pack_name))
+        print("{} is installed. Checking next dependency..".format(pack_name))
     else:
         os.system("npm -g install {}".format(pack_name))
 
