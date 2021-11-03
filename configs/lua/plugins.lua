@@ -133,16 +133,6 @@ return require('packer').startup({function()
 
   -- Fuzzy finder and it requirments.
   -- TODO: lazy load plenary, popup and telescope-media-files
-  if vim.fn.has('win32') == 0 then
-    use {
-      'nvim-telescope/telescope-media-files.nvim',
-      cmd = 'Telescope'
-    }
-    use {
-      'nvim-lua/popup.nvim',
-      cmd = 'Telescope media_files'
-    }
-  end
   use { 'nvim-lua/plenary.nvim' }
   use {
     'nvim-telescope/telescope.nvim',
@@ -155,6 +145,16 @@ return require('packer').startup({function()
     'nvim-telescope/telescope-fzf-native.nvim', run = 'make',
     cmd = 'Telescope'
   }
+  if vim.fn.has('win32') == 0 then
+    use {
+      'nvim-lua/popup.nvim',
+      cmd = 'Telescope'
+    }
+    use {
+      'nvim-telescope/telescope-media-files.nvim',
+      after = 'popup.nvim'
+    }
+  end
 
   -- LSP, LSP installer and tab completion.
   use { 'neovim/nvim-lspconfig' }
