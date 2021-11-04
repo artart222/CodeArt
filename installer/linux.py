@@ -154,7 +154,7 @@ def main():
     install_packer()
     print("Dependencies installed\n")
     copy_configs(home_directory_address)
-    print("Instalation process finished")
+    print("Installation process finished")
 
 
 main()
