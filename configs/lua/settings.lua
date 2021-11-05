@@ -109,3 +109,5 @@ if has('win32')
     set shellquote= shellxquote=
 endif
 ]]
+
+vim.cmd("command CodeArtTransparent lua make_codeart_transparent()")
