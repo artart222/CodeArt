@@ -1,24 +1,24 @@
 local present, cmp = pcall(require, "cmp")
 if not present then
-    return
+  return
 end
-local lspkind = require('lspkind')
+local lspkind = require("lspkind")
 
-cmp.setup({
+cmp.setup {
   snippet = {
     expand = function(args)
-      require('luasnip').lsp_expand(args.body)
+      require("luasnip").lsp_expand(args.body)
     end,
   },
   formatting = {
-    format = lspkind.cmp_format({with_text = false, maxwidth = 50})
+    format = lspkind.cmp_format({ with_text = false, maxwidth = 50 })
   },
   mapping = {
-    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.close(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ["<C-d>"] = cmp.mapping.scroll_docs(-4),
+    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    ["<C-Space>"] = cmp.mapping.complete(),
+    ["<C-e>"] = cmp.mapping.close(),
+    ["<CR>"] = cmp.mapping.confirm({ select = true }),
     ["<Tab>"] = function(fallback)
       if cmp.visible() then
          cmp.select_next_item()
@@ -39,10 +39,10 @@ cmp.setup({
     end,
   },
   sources = {
-    { name = 'luasnip' },
-    { name = 'buffer' },
-    { name = 'path' },
-    { name = 'nvim_lsp' },
-    { name = 'nvim_lua' }
-  }
-})
+    { name = "luasnip" },
+    { name = "buffer" },
+    { name = "path" },
+    { name = "nvim_lsp" },
+    { name = "nvim_lua" }
+  },
+}

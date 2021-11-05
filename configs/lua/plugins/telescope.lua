@@ -3,11 +3,11 @@ if not present then
     return
 end
 
-if vim.fn.has('win32') == 0 then
+if vim.fn.has("win32") == 0 then
   telescope.setup {
     extensions = {
       media_files = {
-        filetypes = {"png", "webp", "jpg", "jpeg"},
+        filetypes = { "png", "webp", "jpg", "jpeg" },
         find_cmd = "rg"
       },
       fzf = {
@@ -18,8 +18,8 @@ if vim.fn.has('win32') == 0 then
       }
     },
   }
-  telescope.load_extension('media_files')
-  telescope.load_extension('fzf')
+  telescope.load_extension("media_files")
+  telescope.load_extension("fzf")
 else
   telescope.setup {
     extensions = {
@@ -31,5 +31,5 @@ else
       }
     },
   }
-  telescope.load_extension('fzf')
+  telescope.load_extension("fzf")
 end
