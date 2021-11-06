@@ -45,13 +45,13 @@ def install_needed_font(home_directory_address):
     print("Please wait")
 
     url = "https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/JetBrainsMono.zip"
-    urllib.request.urlretrieve(url, home_directory_address + "/Desktop/JetBrainsMono.zip")
+    urllib.request.urlretrieve(url, home_directory_address + "/Downloads/JetBrainsMono.zip")
     print("file downloaded")
 
-    os.chdir(home_directory_address + "/Desktop")
+    os.chdir(home_directory_address + "/Downloads")
     os.system("unzip JetBrainsMono.zip")
 
-    os.system("mv ~/Desktop/JetBrains Mono Regular Nerd Font Complete Mono.ttf /Library/Fonts/")
+    os.system("mv ~/Downloads/JetBrains Mono Regular Nerd Font Complete Mono.ttf /Library/Fonts/")
     print("Font installed")
 
 
@@ -111,7 +111,6 @@ def main():
                 npm_pkgs.append(pkg)
             except:
                 pass
-    pip_install(py3_pkgs, "ueberzug")
     pip_install(py3_pkgs, "pynvim")
     npm_install(npm_pkgs, "neovim")
 
