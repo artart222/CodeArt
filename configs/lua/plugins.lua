@@ -206,7 +206,7 @@ return require("packer").startup({function()
   use {
     "akinsho/nvim-toggleterm.lua",
     cmd = "ToggleTerm",
-    setup = function()
+    config = function()
       require("plugins/toggleterm")
     end
   }
