@@ -144,7 +144,9 @@ return require("packer").startup({function()
     "nvim-telescope/telescope-fzf-native.nvim", run = "make",
     cmd = "Telescope"
   }
-  if vim.fn.has("win32") == 0 then
+
+  local os = vim.loop.os_uname().sysname
+  if os == "Linux" then
     use {
       "nvim-lua/popup.nvim",
       cmd = "Telescope"

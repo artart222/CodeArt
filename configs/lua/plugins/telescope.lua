@@ -3,7 +3,8 @@ if not present then
     return
 end
 
-if vim.fn.has("win32") == 0 then
+local os = vim.loop.os_uname().sysname
+if os == "Linux" then
   telescope.setup {
     extensions = {
       media_files = {
