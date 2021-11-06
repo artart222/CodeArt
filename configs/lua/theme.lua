@@ -26,6 +26,7 @@ function _G.make_codeart_transparent()
   vim.cmd("highlight NvimTreeNormal guibg=NONE guifg=NONE")
   vim.cmd("highlight NvimTreeNormalNc guibg=NONE guifg=NONE")
   vim.cmd("highlight NvimTreeEndOfBuffer guibg=NONE guifg=NONE")
+  vim.cmd("highlight NvimTreeFolderIcon guibg=NONE guifg=NONE")
 
 
   vim.cmd("highlight BufferLineFill guibg=NONE guifg=NONE")
@@ -33,6 +34,9 @@ function _G.make_codeart_transparent()
   vim.cmd("highlight BufferLineTab guibg=NONE guifg=NONE")
   vim.cmd("highlight BufferLineTabSelected guibg=NONE guifg=NONE")
   vim.cmd("highlight BufferLineTabClose guibg=NONE guifg=NONE")
+  vim.cmd("highlight BufferLineDuplicate guibg=NONE guifg=NONE")
+  vim.cmd("highlight BufferLineDuplicateSelected guibg=NONE guifg=NONE")
+  vim.cmd("highlight BufferLineDuplicateVisible guibg=NONE guifg=NONE")
 
   vim.cmd("highlight BufferLineBackground guibg=NONE guifg=NONE")
   vim.cmd("highlight BufferLineCloseButton guibg=NONE guifg=NONE")
@@ -86,6 +90,6 @@ function _G.make_codeart_transparent()
   vim.cmd("highlight DiagnosticVirtualTextInfo guibg=NONE")
 
   vim.cmd("highlight NormalFloat guibg=NONE")
-  vim.cmd("highlight FloatBorder guibg=#15161E")
+  vim.cmd("highlight FloatBorder guibg=#NONE")
   vim.cmd("highlight WhichKeyFloat guibg=NONE")
 end
