@@ -65,15 +65,24 @@ map("n", "<C-s>s", ":SessionSave<CR>")
 
 
 -- Lsp
-map("n", "<space>,", ":lua vim.lsp.diagnostic.goto_prev()<CR>")
-map("n", "<space>;", ":lua vim.lsp.diagnostic.goto_next()<CR>")
-map("n", "<space>a", ":lua vim.lsp.buf.code_action()<CR>")
-map("n", "<leader>gd", ":lua vim.lsp.buf.definition()<CR>")
-map("n", "<space>f", ":lua vim.lsp.buf.formatting()<CR>")
-map("n", "<space>h", ":lua vim.lsp.buf.hover()<CR>")
-map("n", "<space>m", ":lua vim.lsp.buf.rename()<CR>")
-map("n", "<space>r", ":lua vim.lsp.buf.references()<CR>")
-map("n", "<space>s", ":lua vim.lsp.buf.document_symbol()<CR>")
+local lsp_opts = { noremap=true, silent=true }
+map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", lsp_opts)
+map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", lsp_opts)
+map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", lsp_opts)
+map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", lsp_opts)
+map("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", lsp_opts)
+map("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", lsp_opts)
+map("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", lsp_opts)
+map("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", lsp_opts)
+map("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", lsp_opts)
+map("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", lsp_opts)
+map("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", lsp_opts)
+map("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", lsp_opts)
+map("n", "<space>e", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", lsp_opts)
+map("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", lsp_opts)
+map("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", lsp_opts)
+map("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", lsp_opts)
+map("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", lsp_opts)
 
 
 -- ToggleTerm
@@ -102,10 +111,6 @@ map("n", "<leader>cw", ":StripWhitespace<CR>")
 
 -- TrueZen focus mode.
 map("n", "<leader>fs", ":TZFocus<CR>")
-
-
--- Toggle fold.
-map("n", "<leader>ft", "za")
 
 
 -- comment
