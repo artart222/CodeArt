@@ -230,9 +230,9 @@ return require("packer").startup({function()
   -- Auto closes.
   use {
     "windwp/nvim-autopairs",
-    event = "BufRead",
+    after = "nvim-cmp",
     config = function()
-      require("nvim-autopairs").setup{}
+       require("nvim-autopairs").setup()
     end
   }
   -- This is for html and it can autorename too!
