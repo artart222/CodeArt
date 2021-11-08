@@ -11,9 +11,9 @@ additional_plugins = {
 
   -- { "famiu/feline.nvim", branch = "develop" },
 
-  -- "mhartington/formatter.nvim"
+  -- "mhartington/formatter.nvim",
 
-  -- { crispgm/nvim-go", ft = "go" }
+  -- { crispgm/nvim-go", ft = "go" },
 }
 
 -- Other settings here
