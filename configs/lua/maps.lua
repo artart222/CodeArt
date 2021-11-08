@@ -41,7 +41,7 @@ map("n", "<leader>bh", "::BufferLineMovePrev<CR>")
 
 
 -- NvimTree toggle
-map("n", "nt", ":NvimTreeToggle<CR>")
+map("n", "<leader>nt", ":NvimTreeToggle<CR>")
 
 
 -- Telescop.
@@ -68,7 +68,7 @@ map("n", "<C-s>s", ":SessionSave<CR>")
 local lsp_opts = { noremap=true, silent=true }
 map("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", lsp_opts)
 map("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", lsp_opts)
-map("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", lsp_opts)
+map("n", "<space>k", "<cmd>lua vim.lsp.buf.hover()<CR>", lsp_opts)
 map("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", lsp_opts)
 map("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", lsp_opts)
 map("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", lsp_opts)
