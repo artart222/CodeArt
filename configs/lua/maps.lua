@@ -86,8 +86,8 @@ map("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", lsp_opts)
 
 
 -- ToggleTerm
-map("n", "<C-t>", ":ToggleTerm<CR>")
-map("t", "<C-t>", ":ToggleTerm<CR>")
+map("n", "<C-t>", ":ToggleTerm dir=%:p:h<CR>")
+map("t", "<C-t>", ":ToggleTerm dir=%:p:h<CR>")
 map("n", "v:count1 <C-t>", ":v:count1" .. "\"ToggleTerm\"<CR>")
 map("v", "v:count1 <C-t>", ":v:count1" .. "\"ToggleTerm\"<CR>")
 function _G.set_terminal_keymaps()
