@@ -4,6 +4,6 @@ if not present then
 end
 
 lualine.setup {
-  options = { theme = "auto", disabled_filetypes = { "toggleterm", "NvimTree", "vista"} },
-  extensions = { "fugitive" }
+  options = { theme = "auto", disabled_filetypes = { "toggleterm", "NvimTree", "vista_kind"} },
+  extensions = { "fugitive" },
 }
