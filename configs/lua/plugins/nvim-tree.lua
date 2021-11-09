@@ -23,10 +23,6 @@ nvimtree.setup {
     enable = true,
     auto_open = true,
   },
-  update_focused_file = {
-    enable      = true,
-    update_cwd  = true,
-  },
   diagnostics = {
     enable = true,
     icons = {
