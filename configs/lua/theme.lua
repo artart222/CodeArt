@@ -27,6 +27,7 @@ function _G.make_codeart_transparent()
   vim.cmd("highlight NvimTreeNormalNc guibg=NONE guifg=NONE")
   vim.cmd("highlight NvimTreeEndOfBuffer guibg=NONE guifg=NONE")
   vim.cmd("highlight NvimTreeFolderIcon guibg=NONE guifg=NONE")
+  vim.cmd("highlight NvimTreeOpenedFolderName guibg=NONE guifg=NONE")
 
 
   vim.cmd("highlight BufferLineFill guibg=NONE guifg=NONE")
