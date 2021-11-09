@@ -53,7 +53,6 @@ opt.splitright = true
 
 -- Enabling ruler and statusline.
 opt.ruler = true
-opt.laststatus = 2
 
 -- Setting time that Neovim wait after each keystroke.
 opt.ttimeoutlen = 20
