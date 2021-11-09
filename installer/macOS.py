@@ -1,4 +1,5 @@
 import os, shutil, urllib.request
+import encodings.idna
 
 
 def make_backup_of_config(home_directory_address):
@@ -79,6 +80,7 @@ def main():
 
     # listing installed apps and packages
     list_of_apps = os.listdir("/usr/local/bin")
+    list_of_apps.extend(os.listdir("/usr/bin"))
 
     print("Downloading dependencys")
     if "nvim" in list_of_apps:
