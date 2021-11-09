@@ -202,7 +202,13 @@ return require("packer").startup({function()
   use { "onsails/lspkind-nvim" }
 
   -- View and search LSP symbols, tags in Neovim.
-  use { "liuchengxu/vista.vim", cmd = "Vista" }
+  use {
+    "liuchengxu/vista.vim",
+    cmd = "Vista",
+    config = function ()
+      require("plugins/vista")
+    end
+  }
 
   -- Terminal.
   use {
