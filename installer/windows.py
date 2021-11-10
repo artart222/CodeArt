@@ -55,7 +55,6 @@ def main():
     pack_manager_install("curl")
     pack_manager_install("git")
     pack_manager_install("7zip")
-    pack_manager_install("ctags")
     pack_manager_install("make")
     pack_manager_install("nodejs")
     pack_manager_install("mingw")

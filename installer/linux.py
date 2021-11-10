@@ -110,7 +110,6 @@ def main():
     pack_manager_install(distro_name, list_of_apps, "curl", "curl", "curl", "curl", "curl")
     pack_manager_install(distro_name, list_of_apps, "git", "git", "git", "git", "git")
     pack_manager_install(distro_name, list_of_apps, "unzip", "unzip", "unzip", "unzip", "unzip")
-    pack_manager_install(distro_name, list_of_apps, "ctags", "ctags", "universal-ctags", "ctags", "ctags")
     pack_manager_install(distro_name, list_of_apps, "node", "nodejs", "nodejs", "nodejs", "nodejs14")
     pack_manager_install(distro_name, list_of_apps, "npm", "npm", "npm", "npm", "npm14")
     pack_manager_install(distro_name, list_of_apps, "xclip", "xclip", "xclip", "xclip", "xclip")

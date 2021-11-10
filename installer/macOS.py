@@ -90,7 +90,6 @@ def main():
     pack_manager_install(list_of_apps, "curl", "curl")
     pack_manager_install(list_of_apps, "git", "git")
     pack_manager_install(list_of_apps, "unzip", "unzip")
-    pack_manager_install(list_of_apps, "ctags", "ctags")
     pack_manager_install(list_of_apps, "node", "node")
     pack_manager_install(list_of_apps, "xclip", "xclip")
     pack_manager_install(list_of_apps, "gcc", "gcc")
