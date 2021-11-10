@@ -42,10 +42,8 @@ nvimtree.setup {
     side = "left",
     mappings = {
       list = {
-        {
-          key = "<S-h>", cb = ":call ResizeLeft(3)<CR>",
-          key = "<C-h>", cb = tree_cb("toggle_dotfiles"),
-        },
+       {key = "<S-h>", cb = ":call ResizeLeft(3)<CR>"},
+       {key = "<C-h>", cb = tree_cb("toggle_dotfiles")},
       }
     }
   }
