@@ -82,7 +82,7 @@ map("n", "<leader>e", ":lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", lsp
 map("n", "[d", ":lua vim.lsp.diagnostic.goto_prev()<CR>", lsp_opts)
 map("n", "]d", ":lua vim.lsp.diagnostic.goto_next()<CR>", lsp_opts)
 map("n", "<leader>q", ":lua vim.lsp.diagnostic.set_loclist()<CR>", lsp_opts)
-map("n", "<leader>fo", ":lua vim.lsp.buf.formatting()<CR>", lsp_opts)
+map("n", "<leader>fr", ":lua vim.lsp.buf.formatting()<CR>", lsp_opts)
 
 
 -- ToggleTerm
