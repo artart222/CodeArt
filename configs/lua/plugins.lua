@@ -13,7 +13,7 @@ return require("packer").startup({function()
   use { "wuelnerdotexe/vim-enfocado" }
 
   -- TrueZen.nvim is a Neovim plugin that aims to provide a cleaner and less cluttered interface
-  -- when toggled in either of it"s three different modes (Ataraxis, Minimalist and Focus).
+  -- when toggled in either of it has three different modes (Ataraxis, Minimalist and Focus).
   use {
     "Pocco81/TrueZen.nvim",
     cmd = {
@@ -134,17 +134,16 @@ return require("packer").startup({function()
   -- TODO: lazy load plenary, popup and telescope-media-files
   use { "nvim-lua/plenary.nvim" }
   use {
+    "nvim-telescope/telescope-fzf-native.nvim", run = "make",
+    cmd = "Telescope"
+  }
+  use {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
     config = function()
       require("plugins/telescope")
     end
   }
-  use {
-    "nvim-telescope/telescope-fzf-native.nvim", run = "make",
-    cmd = "Telescope"
-  }
-
   local os = vim.loop.os_uname().sysname
   if os == "Linux" then
     use {
