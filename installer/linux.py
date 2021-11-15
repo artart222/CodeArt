@@ -23,7 +23,7 @@ def make_backup_of_config(home_directory_address):
     print("Backup created\n")
 
 
-def pack_manager_install(distro_name, list_of_apps, pack_name, arch, debian, rhel, opensuse):
+def pack_manager_install(distro_name, list_of_apps, pack_name, arch, debian, rhel, opensuse, gentoo):
     if pack_name in list_of_apps:
         print(pack_name, "is installed. Checking next dependency..")
     else:
@@ -36,6 +36,8 @@ def pack_manager_install(distro_name, list_of_apps, pack_name, arch, debian, rhe
             os.system("sudo dnf update -y; sudo dnf install {} -y".format(rhel))
         elif distro_name == "opensuse":
             os.system("sudo zypper ref; sudo zypper -n {}".format(opensuse))
+        elif distro_name == "gentoo":
+            os.system("emerge {}".format(gentoo))
 
 
 def pip_install(pkgs, pack_name):
@@ -101,35 +103,23 @@ def main():
 
     print("Downloading dependencies")
     # NOTE: Fix installing NeoVim on ubuntu for now.
-    pack_manager_install(distro_name, list_of_apps, "nvim", "neovim", " ", "python3-neovim", "neovim")
+    pack_manager_install(distro_name, list_of_apps, "nvim", "neovim", " ", "python3-neovim", "neovim", "app-editors/neovim")
     if distro_name == "debian" or distro_name == "ubuntu":
         os.system("sudo apt install software-properties-common")
         os.system("sudo add-apt-repository ppa:neovim-ppa/unstable -y")
         os.system("sudo apt update")
         os.system("sudo apt install neovim -y")
-    pack_manager_install(distro_name, list_of_apps, "curl", "curl", "curl", "curl", "curl")
-    pack_manager_install(distro_name, list_of_apps, "git", "git", "git", "git", "git")
-    pack_manager_install(distro_name, list_of_apps, "unzip", "unzip", "unzip", "unzip", "unzip")
-    pack_manager_install(distro_name, list_of_apps, "node", "nodejs", "nodejs", "nodejs", "nodejs14")
-    pack_manager_install(distro_name, list_of_apps, "npm", "npm", "npm", "npm", "npm14")
-    pack_manager_install(distro_name, list_of_apps, "xclip", "xclip", "xclip", "xclip", "xclip")
-    pack_manager_install(distro_name, list_of_apps, "gcc", "gcc", "gcc", "gcc", "gcc")
-    pack_manager_install(distro_name, list_of_apps, "make", "make", "make", "make", "make")
-    pack_manager_install(distro_name, list_of_apps, "ripgrep", "ripgrep", "ripgrep", "ripgrep", "ripgrep")
-    pack_manager_install(distro_name, list_of_apps, "wget", "wget", "wget", "wget", "wget")
-    pack_manager_install(distro_name, list_of_apps, "svn", "subversion", "subversion", "subversion", "subversion")
-    if distro_name == "debian" or distro_name == "ubuntu" or distro_name == "raspbian":
-        print("Installing ueberzug and its dependencies if they are not installed already")
-        os.system("sudo apt update; sudo apt install libjpeg8-dev zlib1g-dev python-dev python3-dev libxtst-dev -y")
-    elif distro_name == "arch":
-        print("installing ueberzug and its dependencies if they are not installed already")
-        os.system("sudo pacman -Sy ueberzug --noconfirm")
-    elif distro_name == "rhel" or distro_name == "fedora" or distro_name == "centos":
-        # TODO: Find a way to install ueberzug on fedora
-        pass
-    elif distro_name == "opensuse":
-        # TODO: Find a way to install ueberzug on opensuse
-        pass
+    pack_manager_install(distro_name, list_of_apps, "curl", "curl", "curl", "curl", "curl", "net-misc/curl")
+    pack_manager_install(distro_name, list_of_apps, "git", "git", "git", "git", "git", "dev-vcs/git")
+    pack_manager_install(distro_name, list_of_apps, "unzip", "unzip", "unzip", "unzip", "unzip", "app-arch/unzip")
+    pack_manager_install(distro_name, list_of_apps, "node", "nodejs", "nodejs", "nodejs", "nodejs14", "net-libs/nodejs")
+    pack_manager_install(distro_name, list_of_apps, "npm", "npm", "npm", "npm", "npm14", "")
+    pack_manager_install(distro_name, list_of_apps, "xclip", "xclip", "xclip", "xclip", "xclip", "x11-misc/xclip")
+    pack_manager_install(distro_name, list_of_apps, "gcc", "gcc", "gcc", "gcc", "gcc", "sys-devel/gcc")
+    pack_manager_install(distro_name, list_of_apps, "make", "make", "make", "make", "make", "sys-devel/make")
+    pack_manager_install(distro_name, list_of_apps, "ripgrep", "ripgrep", "ripgrep", "ripgrep", "ripgrep", "sys-apps/ripgrep")
+    pack_manager_install(distro_name, list_of_apps, "wget", "wget", "wget", "wget", "wget", "net-misc/wget")
+    pack_manager_install(distro_name, list_of_apps, "svn", "subversion", "subversion", "subversion", "subversion", "dev-vcs/subversion")
 
     py3_pkgs = []
     os.system("pip3 list >> pip3.txt")
@@ -148,6 +138,20 @@ def main():
                 pass
     pip_install(py3_pkgs, "pynvim")
     npm_install(npm_pkgs, "neovim")
+
+    if distro_name == "debian" or distro_name == "ubuntu" or distro_name == "raspbian":
+        print("Installing ueberzug and its dependencies if they are not installed already")
+        os.system("sudo apt update; sudo apt install libjpeg8-dev zlib1g-dev python-dev python3-dev libxtst-dev -y")
+        pip_install(py3_pkgs, "ueberzug")
+    elif distro_name == "arch":
+        print("installing ueberzug and its dependencies if they are not installed already")
+        os.system("sudo pacman -Sy ueberzug --noconfirm")
+    elif distro_name == "rhel" or distro_name == "fedora" or distro_name == "centos":
+        # TODO: Find a way to install ueberzug on fedora
+        pass
+    elif distro_name == "opensuse":
+        # TODO: Find a way to install ueberzug on opensuse
+        pass
 
     install_needed_font(home_directory_address)
     install_packer()
