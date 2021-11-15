@@ -2,7 +2,7 @@ local g = vim.g
 local fn = vim.fn
 
 if vim.fn.has("win32") == 1 then
-  plugins_count = fn.len(fn.globpath("~/.local/share/nvim/site/pack/packer/start", "*", 0, 1))
+  plugins_count = fn.len(fn.globpath("~/AppData/Local/nvim-data/site/pack/packer/start", "*", 0, 1))
 else
   plugins_count = fn.len(fn.globpath("~/.local/share/nvim/site/pack/packer/start", "*", 0, 1))
 end
