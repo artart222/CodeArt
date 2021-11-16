@@ -59,6 +59,7 @@ def main():
     pack_manager_install("nodejs")
     pack_manager_install("mingw")
     pack_manager_install("ripgrep")
+    pack_manager_install("fd")
     pack_manager_install("svn")
 
     py3_pkgs = []

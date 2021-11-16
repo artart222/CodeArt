@@ -118,6 +118,7 @@ def main():
     pack_manager_install(distro_name, list_of_apps, "gcc", "gcc", "gcc", "gcc", "gcc", "sys-devel/gcc")
     pack_manager_install(distro_name, list_of_apps, "make", "make", "make", "make", "make", "sys-devel/make")
     pack_manager_install(distro_name, list_of_apps, "ripgrep", "ripgrep", "ripgrep", "ripgrep", "ripgrep", "sys-apps/ripgrep")
+    pack_manager_install(distro_name, list_of_apps, "fd", "fd", "fd-find", "fd-find", "fd", "sys-apps/fd")
     pack_manager_install(distro_name, list_of_apps, "wget", "wget", "wget", "wget", "wget", "net-misc/wget")
     pack_manager_install(distro_name, list_of_apps, "svn", "subversion", "subversion", "subversion", "subversion", "dev-vcs/subversion")
 

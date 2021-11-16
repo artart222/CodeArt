@@ -95,6 +95,7 @@ def main():
     pack_manager_install(list_of_apps, "gcc", "gcc")
     pack_manager_install(list_of_apps, "make", "make")
     pack_manager_install(list_of_apps, "rg", "ripgrep")
+    pack_manager_install(list_of_apps, "fd", "fd")
     pack_manager_install(list_of_apps, "wget", "wget")
     pack_manager_install(list_of_apps, "svn", "subversion")
     py3_pkgs = []
