@@ -138,6 +138,10 @@ return require("packer").startup({function()
     cmd = "Telescope"
   }
   use {
+    "artart222/telescope_find_directories",
+    cmd = "Telescope"
+  }
+  use {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
     config = function()
