@@ -138,10 +138,6 @@ return require("packer").startup({function()
     cmd = "Telescope"
   }
   use {
-    "artart222/telescope_find_directories",
-    cmd = "Telescope"
-  }
-  use {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
     config = function()
@@ -157,6 +153,14 @@ return require("packer").startup({function()
     use {
       "nvim-telescope/telescope-media-files.nvim",
       after = "popup.nvim"
+    }
+    use {
+      "artart222/telescope_find_directories",
+      cmd = "Telescope"
+    }
+  else
+    use {
+      "artart222/telescope_find_directories",
     }
   end
 
