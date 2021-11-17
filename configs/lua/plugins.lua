@@ -84,7 +84,7 @@ return require("packer").startup({function()
   use {
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
-    event = "BufRead",
+    event = "BufEnter",
     cmd = {
       "TSInstall",
       "TSInstallSync",
@@ -203,6 +203,26 @@ return require("packer").startup({function()
 
   -- VsCode like pictograms for lsp.
   use { "onsails/lspkind-nvim" }
+
+  use { "mfussenegger/nvim-dap" }
+  use {
+    "Pocco81/DAPInstall.nvim",
+    config = function ()
+      require("plugins/dap")
+    end
+  }
+  use {
+    "rcarriga/nvim-dap-ui",
+    config = function ()
+      require("plugins/dap")
+    end
+  }
+
+  -- Code formatter.
+  use {
+    "sbdchd/neoformat",
+    cmd = "Neoformat"
+  }
 
   -- View and search LSP symbols, tags in Neovim.
   use {

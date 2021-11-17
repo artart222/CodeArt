@@ -35,7 +35,16 @@ local lualine_styles = {
 lualine.setup {
   options = {
     theme = "auto",
-    disabled_filetypes = { "toggleterm", "NvimTree", "vista_kind"},
+    disabled_filetypes = {
+      "toggleterm",
+      "NvimTree",
+      "vista_kind",
+      "dapui_scopes",
+      "dapui_breakpoints",
+      "dapui_stacks",
+      "dapui_watches",
+      "dap-repl"
+    },
 
     section_separators = lualine_styles[lualine_style][1],
     component_separators = lualine_styles[lualine_style][2]

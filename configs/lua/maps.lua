@@ -83,7 +83,16 @@ map("n", "<leader>e", ":lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", lsp
 map("n", "[d", ":lua vim.lsp.diagnostic.goto_prev()<CR>", lsp_opts)
 map("n", "]d", ":lua vim.lsp.diagnostic.goto_next()<CR>", lsp_opts)
 map("n", "<leader>q", ":lua vim.lsp.diagnostic.set_loclist()<CR>", lsp_opts)
-map("n", "<leader>fr", ":lua vim.lsp.buf.formatting()<CR>", lsp_opts)
+
+
+-- Dap
+map("n", "<leader>br", ":lua require(\"dap\").toggle_breakpoint()<CR>")
+map("n", "<leader>co", ":lua require(\"dap\").continue()<CR>")
+map("n", "<leader>so", ":lua require(\"dap\").step_over()<CR>")
+map("n", "<leader>si", ":lua require(\"dap\").step_into()<CR>")
+map("n", "<leader>re", ":lua require(\"dap\").repl.open()<CR>")
+map("n", "<leader>re", ":lua require(\"dap\").repl.open()<CR>")
+map("n", "<leader>dt", ":lua require(\"dapui\").toggle()<CR>")
 
 
 -- ToggleTerm
@@ -117,3 +126,7 @@ map("n", "<leader>fs", ":TZFocus<CR>")
 -- comment
 map("n", "ct", ":CommentToggle<CR>")
 map("v", "ct", ":'<,'>CommentToggle<CR>")
+
+
+-- Code formatter.
+map("n", "<leader>fr", ":Neoformat<CR>", lsp_opts)
