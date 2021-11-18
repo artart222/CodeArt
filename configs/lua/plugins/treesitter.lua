@@ -21,7 +21,7 @@ nvim_treesitter.setup {
 
 vim.cmd
 [[
-autocmd BufEnter * set foldmethod=expr
-autocmd BufEnter * set foldexpr=nvim_treesitter#foldexpr()
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
 set foldlevel=99
 ]]
