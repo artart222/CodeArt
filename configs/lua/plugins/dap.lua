@@ -55,3 +55,7 @@ require("dapui").setup({
 
 
 vim.fn.sign_define('DapBreakpoint', {text='●', texthl='', linehl='', numhl=''})
+
+
+local dap = require('dap')
+dap.defaults.fallback.terminal_win_cmd = 'ToggleTerm'
