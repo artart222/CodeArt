@@ -11,15 +11,15 @@ def find_distro_name():
     return distro_name
 
 
-def make_backup_of_config(home_directory_address):
+def make_backup_of_config(CONFIG_LOC):
     print("Creating backup for any existing configuration files")
-    if not os.path.isdir(home_directory_address + "/.config/nvim"):
+    if not os.path.isdir(CONFIG_LOC + "nvim"):
         pass
     else:
         try_number = 1
-        while os.path.isdir(home_directory_address + "/.config/{}nvim".format(try_number)):
+        while os.path.isdir(CONFIG_LOC + "{}nvim".format(try_number)):
             try_number += 1
-        shutil.move(home_directory_address + "/.config/nvim", home_directory_address + "/.config/{}nvim".format(try_number))
+        shutil.move(CONFIG_LOC + "nvim", CONFIG_LOC + "{}nvim".format(try_number))
     print("Backup created\n")
 
 
@@ -80,21 +80,27 @@ def install_packer():
     print("Neovim package manager downloaded")
 
 
-def copy_configs(home_directory_address):
+def copy_configs(CONFIG_LOC):
     print("Moving configs")
     try:
-        os.mkdir(home_directory_address + "/.config/nvim")
+        os.mkdir(CONFIG_LOC + "nvim")
     except FileExistsError:
         pass
 
-    cmd = "cp -r {}".format(os.path.dirname(__file__) + "/../configs/* ") + home_directory_address + "/.config/nvim/"
+    cmd = "cp -r {}".format(os.path.dirname(__file__) + "/../configs/* ") + CONFIG_LOC + "nvim/"
     os.system(cmd)
     print("Configs moved")
 
 
 def main():
     home_directory_address = os.path.expanduser("~")
-    make_backup_of_config(home_directory_address)
+    CONFIG_LOC = os.environ.get("XDG_CONFIG_HOME")
+    if CONFIG_LOC == None:
+        CONFIG_LOC = home_directory_address + "/.config/"
+    else:
+        CONFIG_LOC += "/"
+
+    make_backup_of_config(CONFIG_LOC)
 
     # listing installed apps and packages
     list_of_apps = os.listdir("/bin")
@@ -157,7 +163,7 @@ def main():
     install_needed_font(home_directory_address)
     install_packer()
     print("Dependencies installed\n")
-    copy_configs(home_directory_address)
+    copy_configs(CONFIG_LOC)
     print("Installation process finished")
 
 
