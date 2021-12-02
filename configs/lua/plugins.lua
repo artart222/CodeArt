@@ -203,24 +203,27 @@ return require("packer").startup({function()
   }
   use {
     "L3MON4D3/LuaSnip",
-    ft = "lua"
+    after = "nvim-cmp"
   }
-  -- use {
-  --   "saadparwaiz1/cmp_luasnip",
-  --   after = "LuaSnip"
-  -- }
-  -- use {
-    -- "hrsh7th/cmp-nvim-lua",
-    -- after = "cmp-nvim-lsp"
-  -- }
+  use {
+    "saadparwaiz1/cmp_luasnip",
+     after = "LuaSnip"
+  }
 
   -- LSP signature.
   use {
     "ray-x/lsp_signature.nvim",
+    after = "friendly-snippets",
+    config = function ()
+      require("lsp_signature").setup()
+    end
   }
 
   -- VsCode like pictograms for lsp.
-  use { "onsails/lspkind-nvim" }
+  use {
+    "onsails/lspkind-nvim",
+    after = "friendly-snippets"
+  }
 
   use { "mfussenegger/nvim-dap" }
   use {
@@ -263,6 +266,7 @@ return require("packer").startup({function()
   -- Git support for nvim.
   use {
     "tpope/vim-fugitive",
+    cmd = "Git"
   }
 
   -- Git signs.
@@ -357,7 +361,6 @@ return require("packer").startup({function()
   end
 
   -- Import settings of plugins or start plugins.
-  require("lsp_signature").setup()
   require("which-key").setup()
 
 end,
