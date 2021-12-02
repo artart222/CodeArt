@@ -6,6 +6,12 @@ opt.number = true
 opt.numberwidth = 2
 opt.relativenumber = true
 
+-- Set scroll offset.
+opt.scrolloff = 3
+
+-- Remove showing mode.
+opt.showmode = false
+
 -- True collor support.
 opt.termguicolors = true
 
