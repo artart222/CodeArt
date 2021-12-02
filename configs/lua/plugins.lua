@@ -139,10 +139,6 @@ return require("packer").startup({function()
     "nvim-telescope/telescope-fzf-native.nvim", run = "make",
     cmd = "Telescope"
   }
-  use {
-    "artart222/telescope_find_directories",
-    cmd = "Telescope"
-  }
   local os = vim.loop.os_uname().sysname
   if os == "Linux" then
     use {
@@ -152,6 +148,14 @@ return require("packer").startup({function()
     use {
       "nvim-telescope/telescope-media-files.nvim",
       cmd = "Telescope"
+    }
+    use {
+      "artart222/telescope_find_directories",
+      cmd = "Telescope"
+    }
+  else
+    use {
+      "artart222/telescope_find_directories",
     }
   end
   use {
