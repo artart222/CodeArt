@@ -29,8 +29,8 @@ return require("packer").startup({function()
   -- This plugin adds indentation guides to all lines (including empty lines).
   use {
     "lukas-reineke/indent-blankline.nvim",
-    event = "BufRead",
-    setup = function()
+    event = "BufEnter",
+    config = function()
       require("plugins/indent-blankline")
     end
   }
@@ -38,6 +38,7 @@ return require("packer").startup({function()
   -- This plugin show trailing whitespace.
   use {
     "ntpeters/vim-better-whitespace",
+    event = "BufRead",
     config = function()
         require("plugins/better-whitespace")
     end
@@ -84,7 +85,7 @@ return require("packer").startup({function()
   use {
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
-    event = "BufEnter",
+    event = "BufRead",
     cmd = {
       "TSInstall",
       "TSInstallSync",
@@ -104,7 +105,7 @@ return require("packer").startup({function()
   -- Colorizer (for highlighting color codes).
   use {
     "norcalli/nvim-colorizer.lua",
-    event = "BufRead",
+    event = "BufEnter",
     config = function()
       require("plugins/colorize")
       vim.cmd("ColorizerAttachToBuffer")
@@ -130,29 +131,27 @@ return require("packer").startup({function()
     end
   }
 
-  -- Fuzzy finder and it requirments.
-  -- TODO: lazy load plenary, popup and telescope-media-files
-  use { "nvim-lua/plenary.nvim" }
+  use {
+    "nvim-lua/plenary.nvim",
+  }
+
   use {
     "nvim-telescope/telescope-fzf-native.nvim", run = "make",
+    cmd = "Telescope"
+  }
+  use {
+    "artart222/telescope_find_directories",
     cmd = "Telescope"
   }
   local os = vim.loop.os_uname().sysname
   if os == "Linux" then
     use {
       "nvim-lua/popup.nvim",
+      cmd = "Telescope"
     }
     use {
       "nvim-telescope/telescope-media-files.nvim",
       cmd = "Telescope"
-    }
-    use {
-      "artart222/telescope_find_directories",
-      cmd = "Telescope"
-    }
-  else
-    use {
-      "artart222/telescope_find_directories",
     }
   end
   use {
@@ -164,45 +163,57 @@ return require("packer").startup({function()
   }
 
   -- LSP, LSP installer and tab completion.
-  use { "neovim/nvim-lspconfig" }
-  use { "williamboman/nvim-lsp-installer" }
   use {
-     "rafamadriz/friendly-snippets",
-     event = "InsertEnter"
+    "neovim/nvim-lspconfig",
+    event = "BufEnter"
+  }
+  use {
+    "williamboman/nvim-lsp-installer",
+    after = "nvim-lspconfig",
+    config = function()
+      require("../lsp")
+    end
+  }
+  use {
+    "rafamadriz/friendly-snippets",
+    event = "InsertEnter"
   }
   use {
     "hrsh7th/nvim-cmp",
     after = "friendly-snippets",
-    requires = {
-      "hrsh7th/cmp-nvim-lsp"
-    },
     config = function()
       require("plugins/cmp")
     end
   }
   use {
-    "L3MON4D3/LuaSnip",
-    after = "nvim-cmp"
-  }
-  use {
-    "saadparwaiz1/cmp_luasnip",
-    after = "LuaSnip"
-  }
-  use {
     "hrsh7th/cmp-buffer",
-    after = "cmp_luasnip"
+    after = "nvim-cmp"
   }
   use {
     "hrsh7th/cmp-path",
     after = "cmp-buffer"
   }
   use {
-    "hrsh7th/cmp-nvim-lua",
-    after = "cmp-nvim-lsp"
+    "hrsh7th/cmp-nvim-lsp",
+    after = "nvim-lsp-installer"
   }
+  use {
+    "L3MON4D3/LuaSnip",
+    ft = "lua"
+  }
+  -- use {
+  --   "saadparwaiz1/cmp_luasnip",
+  --   after = "LuaSnip"
+  -- }
+  -- use {
+    -- "hrsh7th/cmp-nvim-lua",
+    -- after = "cmp-nvim-lsp"
+  -- }
 
   -- LSP signature.
-  use { "ray-x/lsp_signature.nvim" }
+  use {
+    "ray-x/lsp_signature.nvim",
+  }
 
   -- VsCode like pictograms for lsp.
   use { "onsails/lspkind-nvim" }
