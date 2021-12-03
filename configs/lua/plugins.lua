@@ -85,7 +85,7 @@ return require("packer").startup({function()
   use {
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
-    event = "BufRead",
+    event = "BufEnter",
     cmd = {
       "TSInstall",
       "TSInstallSync",
@@ -209,6 +209,10 @@ return require("packer").startup({function()
     "saadparwaiz1/cmp_luasnip",
      after = "LuaSnip"
   }
+  use {
+    "hrsh7th/cmp-nvim-lua",
+    after = "nvim-cmp"
+  }
 
   -- LSP signature.
   use {
@@ -225,15 +229,46 @@ return require("packer").startup({function()
     after = "friendly-snippets"
   }
 
-  use { "mfussenegger/nvim-dap" }
+  use {
+    "mfussenegger/nvim-dap",
+  }
   use {
     "Pocco81/DAPInstall.nvim",
-    config = function ()
-      require("plugins/dap")
-    end
+    cmd = {
+      "lua require'dap'.continue()",
+      "lua require'dap'.run()",
+      "lua require'dap'.run_last()",
+      "lua require'dap'.launch()",
+      "lua require'dap'.terminate()",
+      "lua require'dap'.disconnect()",
+      "lua require'dap'.close()",
+      "lua require'dap'.attach()",
+      "lua require'dap'.set_breakpoint()",
+      "lua require'dap'.toggle_breakpoint()",
+      "lua require'dap'.list_breakpoints()",
+      "lua require'dap'.set_exception_breakpoints()",
+      "lua require'dap'.step_over()",
+      "lua require'dap'.step_into()",
+      "lua require'dap'.step_out()",
+      "lua require'dap'.step_back()",
+      "lua require'dap'.pause()",
+      "lua require'dap'.reverse_continue()",
+      "lua require'dap'.up()",
+      "lua require'dap'.down()",
+      "lua require'dap'.run_to_cursor()",
+      "lua require'dap'.repl.open()",
+      "lua require'dap'.repl.toggle()",
+      "lua require'dap'.repl.close()",
+      "lua require'dap'.set_log_level()",
+      "lua require'dap'.session()",
+      "DIInstall",
+      "DIUninstall",
+      "DIList",
+    },
   }
   use {
     "rcarriga/nvim-dap-ui",
+    after = "DAPInstall.nvim",
     config = function ()
       require("plugins/dap")
     end
@@ -289,7 +324,15 @@ return require("packer").startup({function()
   -- This is for html and it can autorename too!
   use {
     "windwp/nvim-ts-autotag",
-    after = "nvim-treesitter",
+    ft = {
+      "html",
+      "javascript",
+      "javascriptreact",
+      "typescriptreact",
+      "svelte",
+      "vue",
+      "php"
+    }
   }
 
   -- Scrollbar.
@@ -321,7 +364,12 @@ return require("packer").startup({function()
 
   -- WhichKey is a lua plugin that displays a popup with possible
   -- key bindings of the command you started typing.
-  use { "folke/which-key.nvim" }
+  use {
+    "folke/which-key.nvim",
+    config = function()
+      require("which-key").setup()
+    end
+  }
 
   -- A plugin for neovim that automatically creates missing directories
   -- on saving a file.
@@ -359,9 +407,6 @@ return require("packer").startup({function()
       use { unpack(plugin) }
     end
   end
-
-  -- Import settings of plugins or start plugins.
-  require("which-key").setup()
 
 end,
 config = {
