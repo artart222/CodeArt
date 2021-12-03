@@ -154,7 +154,8 @@ def main():
         print("installing ueberzug and its dependencies if they are not installed already")
         os.system("sudo pacman -Sy ueberzug --noconfirm")
     elif distro_name == "rhel" or distro_name == "fedora" or distro_name == "centos":
-        # TODO: Find a way to install ueberzug on fedora
+        print("installing ueberzug and its dependencies if they are not installed already")
+        os.system("dnf install libX11-devel libXext-devel -y && dnf install 'dnf-command(copr)' -y && dnf copr enable frostyx/ueberzug -y")  
         pass
     elif distro_name == "opensuse":
         # TODO: Find a way to install ueberzug on opensuse
