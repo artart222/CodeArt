@@ -155,11 +155,11 @@ def main():
         os.system("sudo pacman -Sy ueberzug --noconfirm")
     elif distro_name == "rhel" or distro_name == "fedora" or distro_name == "centos":
         print("installing ueberzug and its dependencies if they are not installed already")
-        os.system("sudo dnf install libX11-devel libXext-devel -y && sudo dnf install 'dnf-command(copr)' -y && sudo dnf copr enable frostyx/ueberzug -y")  
+        os.system("sudo dnf install libX11-devel libXext-devel -y && sudo dnf install 'dnf-command(copr)' -y && sudo dnf copr enable frostyx/ueberzug -y")
     elif distro_name == "opensuse":
         print("installing ueberzug and its dependencies if they are not installed already")
-        os.system(zypper addrepo https://download.opensuse.org/repositories/utilities/openSUSE_Leap_15.2/utilities.repo && zypper refresh && zypper install ueberzug")
-                 
+        os.system("zypper addrepo https://download.opensuse.org/repositories/utilities/openSUSE_Leap_15.2/utilities.repo && zypper refresh && zypper install ueberzug")
+
     install_needed_font(home_directory_address)
     install_packer()
     print("Dependencies installed\n")
