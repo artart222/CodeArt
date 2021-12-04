@@ -157,9 +157,9 @@ def main():
         print("installing ueberzug and its dependencies if they are not installed already")
         os.system("sudo dnf install libX11-devel libXext-devel -y && sudo dnf install 'dnf-command(copr)' -y && sudo dnf copr enable frostyx/ueberzug -y")  
     elif distro_name == "opensuse":
-        # TODO: Find a way to install ueberzug on opensuse
-        pass
-
+        print("installing ueberzug and its dependencies if they are not installed already")
+        os.sytem(zypper addrepo https://download.opensuse.org/repositories/utilities/openSUSE_Leap_15.2/utilities.repo && zypper refresh && zypper install ueberzug")
+                 
     install_needed_font(home_directory_address)
     install_packer()
     print("Dependencies installed\n")
