@@ -1,13 +1,18 @@
 -- Hide ~ from end of lines.
 vim.opt.fillchars = { eob = " " }
 
--- Add icons for lsp diagnostics sings
+-- -- Highlightign line number for lsp diagnostics sings
 vim.cmd
 [[
-sign define LspDiagnosticsSignError text= texthl=LspDiagnosticsSignError linehl= numhl=
-sign define LspDiagnosticsSignWarning text= texthl=LspDiagnosticsSignWarning linehl= numhl=
-sign define LspDiagnosticsSignInformation text= texthl=LspDiagnosticsSignInformation linehl= numhl=
-sign define LspDiagnosticsSignHint text= texthl=LspDiagnosticsSignHint linehl= numhl=
+  autocmd ColorScheme * highlight DiagnosticLineNrError guibg=#51202A guifg=#FF0000 gui=bold
+  autocmd ColorScheme * highlight DiagnosticLineNrWarn guibg=#51412A guifg=#FFA500 gui=bold
+  autocmd ColorScheme * highlight DiagnosticLineNrInfo guibg=#1E535D guifg=#00FFFF gui=bold
+  autocmd ColorScheme * highlight DiagnosticLineNrHint guibg=#1E205D guifg=#0000FF gui=bold
+
+  autocmd ColorScheme * sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=DiagnosticLineNrError
+  autocmd ColorScheme * sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=DiagnosticLineNrWarn
+  autocmd ColorScheme * sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=DiagnosticLineNrInfo
+  autocmd ColorScheme * sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticLineNrHint
 ]]
 
 vim.g.tokyonight_style = "night" -- styles: storm, night and day.
