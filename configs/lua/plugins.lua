@@ -140,7 +140,7 @@ return require("packer").startup({function()
     cmd = "Telescope"
   }
   local os = vim.loop.os_uname().sysname
-  if os == "Linux" then
+  if os == "Linux" or os == "Darwin" then
     use {
       "nvim-lua/popup.nvim",
       cmd = "Telescope"
@@ -231,40 +231,11 @@ return require("packer").startup({function()
 
   use {
     "mfussenegger/nvim-dap",
+    event = "BufRead",
   }
   use {
     "Pocco81/DAPInstall.nvim",
-    cmd = {
-      "lua require'dap'.continue()",
-      "lua require'dap'.run()",
-      "lua require'dap'.run_last()",
-      "lua require'dap'.launch()",
-      "lua require'dap'.terminate()",
-      "lua require'dap'.disconnect()",
-      "lua require'dap'.close()",
-      "lua require'dap'.attach()",
-      "lua require'dap'.set_breakpoint()",
-      "lua require'dap'.toggle_breakpoint()",
-      "lua require'dap'.list_breakpoints()",
-      "lua require'dap'.set_exception_breakpoints()",
-      "lua require'dap'.step_over()",
-      "lua require'dap'.step_into()",
-      "lua require'dap'.step_out()",
-      "lua require'dap'.step_back()",
-      "lua require'dap'.pause()",
-      "lua require'dap'.reverse_continue()",
-      "lua require'dap'.up()",
-      "lua require'dap'.down()",
-      "lua require'dap'.run_to_cursor()",
-      "lua require'dap'.repl.open()",
-      "lua require'dap'.repl.toggle()",
-      "lua require'dap'.repl.close()",
-      "lua require'dap'.set_log_level()",
-      "lua require'dap'.session()",
-      "DIInstall",
-      "DIUninstall",
-      "DIList",
-    },
+    after = "nvim-dap"
   }
   use {
     "rcarriga/nvim-dap-ui",
@@ -309,7 +280,7 @@ return require("packer").startup({function()
     "lewis6991/gitsigns.nvim",
     event = "BufRead",
     config = function()
-      require("gitsigns").setup()
+      require("plugins/gitsigns")
     end
   }
 
