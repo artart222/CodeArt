@@ -6,8 +6,8 @@ opt.number = true
 opt.numberwidth = 2
 opt.relativenumber = true
 
--- Set scroll offset.
-opt.scrolloff = 3
+-- Set signcolumn width to 2
+vim.opt.signcolumn = "yes:3"
 
 -- Remove showing mode.
 opt.showmode = false
@@ -99,9 +99,6 @@ else
   command CodeArtUpdate !bash ~/.config/nvim/CodeArtUpdate.sh
 endif
 ]]
-
-vim.cmd("autocmd BufWritePost plugins.lua source <afile>")
-
 
 -- NOTE: Your shell must be powershell in bellow code block because of :CodeArtUpdate command
 vim.cmd
