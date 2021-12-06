@@ -1,3 +1,8 @@
+local present, dap = pcall(require, "dap")
+if not present then
+    return
+end
+
 -- dap-install configurations
 local dap_install = require("dap-install")
 dap_install.setup {
@@ -12,7 +17,7 @@ end
 
 
 -- dap-ui configurations
-require("dapui").setup({
+require("dapui").setup {
   icons = { expanded = "▾", collapsed = "▸" },
   mappings = {
     -- Use a table to apply multiple mappings
@@ -51,11 +56,11 @@ require("dapui").setup({
     },
   },
   windows = { indent = 1 },
-})
+}
 
-
-vim.fn.sign_define('DapBreakpoint', {text='●', texthl='', linehl='', numhl=''})
-
-
-local dap = require('dap')
 dap.defaults.fallback.terminal_win_cmd = 'ToggleTerm'
+vim.fn.sign_define('DapBreakpoint', {text='● ', texthl='DiagnosticSignError', linehl='', numhl=''})
+vim.fn.sign_define('DapBreakpointCondition', {text='● ', texthl='DiagnosticSignWarn', linehl='', numhl=''})
+vim.fn.sign_define('DapLogPoint', {text='● ', texthl='DiagnosticSignInfo', linehl='', numhl=''})
+vim.fn.sign_define('DapStopped', {text='→ ', texthl='DiagnosticSignWarn', linehl='', numhl=''})
+vim.fn.sign_define('DapBreakpointReject', {text='●' , texthl='DiagnosticSignHint', linehl='', numhl=''})
