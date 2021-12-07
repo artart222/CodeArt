@@ -40,7 +40,7 @@ return require("packer").startup({function()
     "ntpeters/vim-better-whitespace",
     event = "BufRead",
     config = function()
-        require("plugins/better-whitespace")
+      require("plugins/better-whitespace")
     end
   }
 
@@ -127,7 +127,7 @@ return require("packer").startup({function()
       "SessionSave"
     },
     setup = function()
-        require("plugins/dashboard")
+      require("plugins/dashboard")
     end
   }
 
@@ -143,24 +143,26 @@ return require("packer").startup({function()
   if (os == "Linux" or os == "Darwin") and vim.fn.has("wsl") == 0 then
     use {
       "nvim-lua/popup.nvim",
-      cmd = "Telescope"
+      after = "telescope-fzf-native.nvim"
     }
     use {
       "nvim-telescope/telescope-media-files.nvim",
-      cmd = "Telescope"
+      after = "popup.nvim"
     }
     use {
       "artart222/telescope_find_directories",
-      cmd = "Telescope"
+      after = "telescope-media-files.nvim"
     }
   else
+    -- TODO: Find a way to lazyload this on windows.
     use {
       "artart222/telescope_find_directories",
+      after = "telescope-fzf-native.nvim"
     }
   end
   use {
     "nvim-telescope/telescope.nvim",
-    cmd = "Telescope",
+    after = "telescope_find_directories",
     config = function()
       require("plugins/telescope")
     end
@@ -209,6 +211,7 @@ return require("packer").startup({function()
     "saadparwaiz1/cmp_luasnip",
      after = "LuaSnip"
   }
+  -- TODO: Lazyload this on just lua filetype.
   use {
     "hrsh7th/cmp-nvim-lua",
     after = "nvim-cmp"
@@ -217,7 +220,7 @@ return require("packer").startup({function()
   -- LSP signature.
   use {
     "ray-x/lsp_signature.nvim",
-    after = "friendly-snippets",
+    after = "nvim-lspconfig",
     config = function ()
       require("lsp_signature").setup()
     end
@@ -229,6 +232,7 @@ return require("packer").startup({function()
     after = "friendly-snippets"
   }
 
+  -- TODO: Do better lazyloading here for dap.
   use {
     "mfussenegger/nvim-dap",
     event = "BufRead",
@@ -337,6 +341,7 @@ return require("packer").startup({function()
   -- key bindings of the command you started typing.
   use {
     "folke/which-key.nvim",
+    event = "VimEnter",
     config = function()
       require("which-key").setup()
     end
@@ -363,7 +368,10 @@ return require("packer").startup({function()
   }
 
   -- match-up is a plugin that lets you highlight, navigate, and operate on sets of matching text.
-  use { "andymass/vim-matchup" }
+  use {
+    "andymass/vim-matchup",
+    event = "BufRead"
+  }
 
   -- With this plugin you can resize Neovim buffers easily.
   use {
