@@ -140,7 +140,7 @@ return require("packer").startup({function()
     cmd = "Telescope"
   }
   local os = vim.loop.os_uname().sysname
-  if (os == "Linux" or os == "Darwin") and vim.fn.has("wsl") == false then
+  if (os == "Linux" or os == "Darwin") and vim.fn.has("wsl") == 0 then
     use {
       "nvim-lua/popup.nvim",
       cmd = "Telescope"
