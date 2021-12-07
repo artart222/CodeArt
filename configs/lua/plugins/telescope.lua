@@ -4,7 +4,7 @@ if not present then
 end
 
 local os = vim.loop.os_uname().sysname
-if os == "Linux" and vim.fn.has("wsl") == false then
+if os == "Linux" and vim.fn.has("wsl") == 0 then
   telescope.setup {
     extensions = {
       media_files = {
