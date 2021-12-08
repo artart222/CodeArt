@@ -84,7 +84,7 @@ augroup END
 vim.cmd
 [[
 if index(argv(), ".") >= 0
-  autocmd VimEnter * NvimTreeToggle
+  autocmd VimEnter * NvimTreeOpen
   bd1
 elseif len(argv()) == 0
   autocmd VimEnter * Dashboard
