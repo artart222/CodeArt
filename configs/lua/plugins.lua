@@ -35,15 +35,6 @@ return require("packer").startup({function()
     end
   }
 
-  -- This plugin show trailing whitespace.
-  use {
-    "ntpeters/vim-better-whitespace",
-    event = "BufRead",
-    config = function()
-      require("plugins/better-whitespace")
-    end
-  }
-
   -- Icons.
   use {
     "kyazdani42/nvim-web-devicons",

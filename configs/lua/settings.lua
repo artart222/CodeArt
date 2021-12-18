@@ -1,5 +1,18 @@
 -- Defining alias for vim.opt.
 local opt = vim.opt
+local exec = vim.api.nvim_exec
+
+local NoWhitespace = exec(
+    [[
+    function! NoWhitespace()
+        let l:save = winsaveview()
+        keeppatterns %s/\s\+$//e
+        call winrestview(l:save)
+    endfunction
+    call NoWhitespace()
+    ]],
+    true
+)
 
 -- Number settings.
 opt.number = true
@@ -78,6 +91,9 @@ augroup help_config
   autocmd FileType help :set number
 augroup END
 ]]
+
+-- Trim Whitespace
+exec([[au BufWritePre * call NoWhitespace()]], false)
 
 -- Auto open nvim-tree when writing (nvim .) in command line
 -- and auto open Dashboard when nothing given as argument.
