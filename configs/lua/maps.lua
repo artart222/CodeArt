@@ -29,8 +29,8 @@ map("n", "<S-j>", ":call ResizeDown(1)<CR><Esc>")
 
 
 -- Buffer switching.
-map("n", "<Tab>", ":BufferLineCyclePrev<CR>")
-map("n", "<S-Tab>", ":BufferLineCycleNext<CR>")
+map("n", "<S-Tab>", ":BufferLineCyclePrev<CR>")
+map("n", "<Tab>", ":BufferLineCycleNext<CR>")
 
 
 -- Buffer closing.
