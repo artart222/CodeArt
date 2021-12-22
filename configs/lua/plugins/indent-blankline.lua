@@ -6,7 +6,7 @@ if user_indent_blankline_style then
     indent_blankline_style = user_indent_blankline_style
 end
 
-indent_blankline_styles = {
+local indent_blankline_styles = {
     "▏",
     "¦",
     "┆",
@@ -29,5 +29,8 @@ vim.g.indent_blankline_filetype_exclude = {
 }
 vim.g.indent_blankline_buftype_exclude = { "terminal" }
 
-vim.g.indent_blankline_show_trailing_blankline_indent = false
+vim.g.indent_blankline_show_trailing_blankline_indent = true
 vim.g.indent_blankline_show_first_indent_level = true
+vim.g.indent_blankline_show_current_context = true
+vim.g.indent_blankline_context_char = indent_blankline_styles[indent_blankline_style]
+vim.cmd("autocmd CursorMoved * IndentBlanklineRefresh")
