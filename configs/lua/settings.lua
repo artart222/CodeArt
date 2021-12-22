@@ -14,6 +14,9 @@ local NoWhitespace = exec(
     true
 )
 
+-- Decrease time of completion menu.
+opt.updatetime = 300
+
 -- Number settings.
 opt.number = true
 opt.numberwidth = 2
