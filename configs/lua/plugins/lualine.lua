@@ -50,4 +50,19 @@ lualine.setup {
     component_separators = lualine_styles[lualine_style][2]
   },
   extensions = { "fugitive" },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {
+      {'branch'},
+      {
+        'diff',
+        symbols = { added = "  ", modified = "柳", removed = " " }, -- changes diff symbols
+      },
+      {'diagnostics'}
+    },
+    lualine_c = {'filename'},
+    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
 }
