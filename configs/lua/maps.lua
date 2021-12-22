@@ -42,6 +42,17 @@ map("n", "<leader>bl", ":BufferLineMoveNext<CR>")
 map("n", "<leader>bh", ":BufferLineMovePrev<CR>")
 
 
+-- Don't copy the replaced text after pasting.
+map("v", "p", '"_dP')
+
+
+-- Jk for going to normal mode while you are in insert mode.
+map("i", "jk", "<ESC>")
+
+-- With this you can use > < multiple time for changing indent when you visual selected text.
+map("v", "<", "<gv")
+map("v", ">", ">gv")
+
 -- Packer
 map('n', '<leader>pi', ':PackerInstall<CR>')
 map('n', '<leader>pu', ':PackerUpdate<CR>')
