@@ -62,9 +62,6 @@ python3.exe install.py
 git clone https://github.com/wbthomason/packer.nvim "$env:LOCALAPPDATA\nvim-data\site\pack\packer\start\packer.nvim"
 ```
 
-#### Icons
-1. Install [NerdFonts](https://www.nerdfonts.com/font-downloads)
-
 #### 🔌Install plugins:
 
 Open NeoVim and type `:PackerInstall`
