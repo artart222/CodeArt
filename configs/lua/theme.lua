@@ -91,11 +91,6 @@ function _G.make_codeart_transparent()
   vim.cmd("highlight BufferLineModifiedSelected guibg=NONE")
   vim.cmd("highlight BufferLineModifiedVisible guibg=NONE guifg=NONE")
 
-  vim.cmd("highlight DiagnosticVirtualTextError guibg=NONE")
-  vim.cmd("highlight DiagnosticVirtualTextWarn guibg=NONE")
-  vim.cmd("highlight DiagnosticVirtualTextHint guibg=NONE")
-  vim.cmd("highlight DiagnosticVirtualTextInfo guibg=NONE")
-
   vim.cmd("highlight NormalFloat guibg=NONE")
   vim.cmd("highlight FloatBorder guibg=#NONE")
   vim.cmd("highlight WhichKeyFloat guibg=NONE")
