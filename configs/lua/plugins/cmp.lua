@@ -38,10 +38,10 @@ cmp.setup {
     end,
   },
   formatting = {
-    fields = { "kind", "abbr", "menu"},
+    fields = { "abbr", "kind", "menu" },
     format = function(entry, vim_item)
       -- Kind icons
-      vim_item.kind = string.format('%s %s', cmp_kinds[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+      vim_item.kind = string.format('%s %s', vim_item.kind, cmp_kinds[vim_item.kind]) -- This concatonates the icons with the name of the item kind
       -- Source
       vim_item.menu = ({
         buffer = "[Buffer]",
