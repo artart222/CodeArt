@@ -4,6 +4,7 @@ if not present then
 end
 
 toggle_term.setup {
+  open_mapping = "<c-t>",
   hide_numbers = true, -- hide the number column in toggleterm buffers
   shade_terminals = false,
   start_in_insert = true,
