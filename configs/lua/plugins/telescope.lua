@@ -38,7 +38,7 @@ if os == "Linux" and vim.fn.has("wsl") == 0 then
         "--column",
         "--smart-case",
         "--hidden",
-        "--glob=!'.git/",
+        "--glob=!.git/",
       },
       prompt_prefix = "   ",
       selection_caret = " ",
