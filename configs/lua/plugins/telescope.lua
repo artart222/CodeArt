@@ -67,7 +67,6 @@ if os == "Linux" and vim.fn.has("wsl") == 0 then
 else
   telescope.setup {
     defaults = {
-      buffer_previewer_maker = new_maker,
       vimgrep_arguments = {
         "rg",
         "--color=never",
