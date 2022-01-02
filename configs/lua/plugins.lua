@@ -252,7 +252,7 @@ return require("packer").startup({function()
   -- Terminal.
   use {
     "akinsho/nvim-toggleterm.lua",
-    cmd = "ToggleTerm",
+    event = "BufEnter",
     config = function()
       require("plugins/toggleterm")
     end
@@ -364,7 +364,7 @@ return require("packer").startup({function()
     event = "BufEnter"
   }
 
-  for key, plugin in pairs(additional_plugins) do
+  for _, plugin in pairs(additional_plugins) do
     if type(plugin) == "string" then
       use { plugin }
     else
