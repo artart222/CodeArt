@@ -14,7 +14,7 @@ g.nvim_tree_git_hl = 1 -- Will enable file highlight for git attributes (can be 
 g.nvim_tree_highlight_opened_files = 0 -- Will enable folder and file icon highlight for opened files/directories.
 g.nvim_tree_add_trailing = 0 -- Append a trailing slash to folder names. ]]
 vim.g.nvim_tree_window_picker_exclude = {
-    filetype = {'packer', 'vista_kind'},
+    filetype = {'packer', 'vista_kind', 'toggleterm'},
     buftype = {'terminal'}
 }
 
