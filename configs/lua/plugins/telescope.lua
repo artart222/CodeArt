@@ -64,6 +64,44 @@ if os == "Linux" and vim.fn.has("wsl") == 0 then
   telescope.load_extension("media_files")
   telescope.load_extension("find_directories")
   telescope.load_extension("fzf")
+elseif os == "Linux" and vim.fn.has("wsl") == 1 then
+  telescope.setup {
+    defaults = {
+      buffer_previewer_maker = new_maker,
+      vimgrep_arguments = {
+        "rg",
+        "--color=never",
+        "--no-heading",
+        "--with-filename",
+        "--line-number",
+        "--column",
+        "--smart-case",
+        "--hidden",
+        "--glob=!.git/",
+      },
+      prompt_prefix = "   ",
+      selection_caret = " ",
+    },
+    pickers = {
+      find_files = {
+        find_command = { "fdfind", "--type=file", "--hidden", "--follow", "--exclude=.git"}
+      },
+    },
+    extensions = {
+      media_files = {
+        filetypes = { "png", "webp", "jpg", "jpeg" },
+        find_cmd = "rg"
+      },
+      fzf = {
+        fuzzy = true,
+        override_generic_sorter = true,
+        override_file_sorter = true,
+        case_mode = "smart_case",
+      },
+    },
+  }
+  telescope.load_extension("find_directories")
+  telescope.load_extension("fzf")
 else
   telescope.setup {
     defaults = {
