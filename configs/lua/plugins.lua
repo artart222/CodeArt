@@ -368,7 +368,7 @@ return require("packer").startup({function()
     if type(plugin) == "string" then
       use { plugin }
     else
-      use { plugin.unpack() }
+      use { unpack(plugin) }
     end
   end
 
