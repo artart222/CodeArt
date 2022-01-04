@@ -26,6 +26,13 @@ end
 
 local os = vim.loop.os_uname().sysname
 if os == "Linux" then
+  -- Find the name of the fd binary file in the operating system.
+  if vim.fn.filereadable("/bin/fdfind") == 1 then
+    finder = "fdfind"
+  else
+    finder = "fd"
+  end
+
   telescope.setup {
     defaults = {
       buffer_previewer_maker = new_maker,
@@ -45,7 +52,7 @@ if os == "Linux" then
     },
     pickers = {
       find_files = {
-        find_command = { "fd", "--type=file", "--hidden", "--follow", "--exclude=.git"}
+        find_command = { finder, "--type=file", "--hidden", "--follow", "--exclude=.git"}
       },
     },
     extensions = {
