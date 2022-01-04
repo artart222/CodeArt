@@ -24,15 +24,6 @@ local new_maker = function(filepath, bufnr, opts)
   }):sync()
 end
 
--- Find the name of the fd binary file in the operating system.
-local is_fdfind = os.execute("fdfind --version")
-local finder = ""
-if is_fdfind == true then
-  finder = "fdfind"
-else
-  finder = "fd"
-end
-
 local os = vim.loop.os_uname().sysname
 if os == "Linux" then
   telescope.setup {
@@ -54,7 +45,7 @@ if os == "Linux" then
     },
     pickers = {
       find_files = {
-        find_command = { finder, "--type=file", "--hidden", "--follow", "--exclude=.git"}
+        find_command = { "fd", "--type=file", "--hidden", "--follow", "--exclude=.git"}
       },
     },
     extensions = {
@@ -93,7 +84,7 @@ elseif os == "Darwin" then
     },
     pickers = {
       find_files = {
-        find_command = { finder, "--type=file", "--hidden", "--follow", "--exclude=.git"}
+        find_command = { "fd", "--type=file", "--hidden", "--follow", "--exclude=.git"}
       },
     },
     extensions = {
