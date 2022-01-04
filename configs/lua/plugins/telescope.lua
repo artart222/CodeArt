@@ -24,8 +24,17 @@ local new_maker = function(filepath, bufnr, opts)
   }):sync()
 end
 
+-- Find the name of the fd binary file in the operating system.
+local is_fdfind = os.execute("fdfind --version")
+local finder = ""
+if is_fdfind == true then
+  finder = "fdfind"
+else
+  finder = "fd"
+end
+
 local os = vim.loop.os_uname().sysname
-if os == "Linux" and vim.fn.has("wsl") == 0 then
+if os == "Linux" then
   telescope.setup {
     defaults = {
       buffer_previewer_maker = new_maker,
@@ -45,7 +54,7 @@ if os == "Linux" and vim.fn.has("wsl") == 0 then
     },
     pickers = {
       find_files = {
-        find_command = { "fd", "--type=file", "--hidden", "--follow", "--exclude=.git"}
+        find_command = { finder, "--type=file", "--hidden", "--follow", "--exclude=.git"}
       },
     },
     extensions = {
@@ -64,7 +73,7 @@ if os == "Linux" and vim.fn.has("wsl") == 0 then
   telescope.load_extension("media_files")
   telescope.load_extension("find_directories")
   telescope.load_extension("fzf")
-elseif os == "Linux" and vim.fn.has("wsl") == 1 then
+elseif os == "Darwin" then
   telescope.setup {
     defaults = {
       buffer_previewer_maker = new_maker,
@@ -84,14 +93,10 @@ elseif os == "Linux" and vim.fn.has("wsl") == 1 then
     },
     pickers = {
       find_files = {
-        find_command = { "fdfind", "--type=file", "--hidden", "--follow", "--exclude=.git"}
+        find_command = { finder, "--type=file", "--hidden", "--follow", "--exclude=.git"}
       },
     },
     extensions = {
-      media_files = {
-        filetypes = { "png", "webp", "jpg", "jpeg" },
-        find_cmd = "rg"
-      },
       fzf = {
         fuzzy = true,
         override_generic_sorter = true,
@@ -114,7 +119,7 @@ else
         "--column",
         "--smart-case",
         "--hidden",
-        "--glob=!'.git/",
+        "--glob=!.git/",
       },
       prompt_prefix = "   ",
       selection_caret = " ",
