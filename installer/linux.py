@@ -112,7 +112,7 @@ def main():
     pack_manager_install(distro_name, list_of_apps, "nvim", "neovim", " ", "python3-neovim", "neovim", "app-editors/neovim")
     if distro_name == "debian" or distro_name == "ubuntu":
         os.system("sudo apt install software-properties-common")
-        os.system("sudo add-apt-repository ppa:neovim-ppa/unstable -y")
+        os.system("sudo add-apt-repository ppa:neovim-ppa/stable -y")
         os.system("sudo apt update")
         os.system("sudo apt install neovim -y")
     pack_manager_install(distro_name, list_of_apps, "curl", "curl", "curl", "curl", "curl", "net-misc/curl")
