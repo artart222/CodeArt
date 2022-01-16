@@ -1,4 +1,4 @@
-require('gitsigns').setup {
+require("gitsigns").setup {
   signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
   numhl      = false, -- Toggle with `:Gitsigns toggle_numhl`
   attach_to_untracked = true,
