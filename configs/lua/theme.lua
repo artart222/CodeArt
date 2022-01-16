@@ -16,8 +16,8 @@ vim.cmd
 ]]
 
 vim.g.tokyonight_style = "night" -- styles: storm, night and day.
-vim.g.onedark_style = "deep"     -- styles: dark, darker, cool, deep, warm and warmer.
 vim.g.enfocado_style = "nature"    -- styles: nature and neon.
+
 vim.g.enfocado_plugins = {
   "cmp",
   "dashboard",
@@ -34,7 +34,29 @@ vim.g.enfocado_plugins = {
   "vista",
   "which-key",
 }
-vim.cmd("colorscheme onedark")
+require('onedark').setup  {
+    -- Main options --
+    style = 'deep', -- Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
+    term_colors = true,
+    -- Change code style ---
+    -- Options are italic, bold, underline, none
+    -- You can configure multiple style with comma seperated, For e.g., keywords = 'italic,bold'
+    code_style = {
+        comments = 'italic',
+        keywords = 'none',
+        functions = 'none',
+        strings = 'none',
+        variables = 'none'
+    },
+    -- Plugins Config --
+    diagnostics = {
+        darker = true, -- darker colors for diagnostic
+        undercurl = true,   -- use undercurl instead of underline for diagnostics
+        background = true,    -- use background color for virtual text
+    },
+}
+
+vim.cmd("colorscheme enfocado")
 
 function _G.make_codeart_transparent()
   vim.cmd("highlight Normal guibg=NONE guifg=NONE")
