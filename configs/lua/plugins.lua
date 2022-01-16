@@ -196,7 +196,11 @@ return require("packer").startup({function()
   }
   use {
     "L3MON4D3/LuaSnip",
-    after = "nvim-cmp"
+    after = "nvim-cmp",
+    config = function ()
+      require("luasnip/loaders/from_vscode").load()
+
+    end
   }
   use {
     "saadparwaiz1/cmp_luasnip",
@@ -284,15 +288,7 @@ return require("packer").startup({function()
   -- This is for html and it can autorename too!
   use {
     "windwp/nvim-ts-autotag",
-    ft = {
-      "html",
-      "javascript",
-      "javascriptreact",
-      "typescriptreact",
-      "svelte",
-      "vue",
-      "php"
-    }
+    after = "nvim-treesitter"
   }
 
   -- Scrollbar.
@@ -372,11 +368,12 @@ return require("packer").startup({function()
     end
   end
 
-end,
-config = {
-  display = {
-    open_fn = function()
-      return require("packer.util").float({ border = "single" })
-    end
+  end,
+  config = {
+    display = {
+      open_fn = function()
+        return require("packer.util").float({ border = "single" })
+      end
+    }
   }
-}})
+})

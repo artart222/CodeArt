@@ -32,16 +32,14 @@ local cmp_kinds = {
 }
 
 cmp.setup {
-  snippet = {
-    expand = function(args)
-      require("luasnip").lsp_expand(args.body)
-    end,
-  },
+	snippet = {
+		expand = function(args) require('luasnip').lsp_expand(args.body) end,
+	},
   formatting = {
     fields = { "abbr", "kind", "menu" },
     format = function(entry, vim_item)
       -- Kind icons
-      vim_item.kind = string.format('%s %s', vim_item.kind, cmp_kinds[vim_item.kind]) -- This concatonates the icons with the name of the item kind
+      vim_item.kind = string.format("%s %s", vim_item.kind, cmp_kinds[vim_item.kind]) -- This concatonates the icons with the name of the item kind
       -- Source
       vim_item.menu = ({
         buffer = "[Buffer]",
