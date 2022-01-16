@@ -15,20 +15,20 @@ local lualine_styles = {
       { left = "│", right = "│" },
     },
     {
-      { left = ' ', right = ''},
-      { left = ' ', right = ' '},
+      { left = " ", right = "" },
+      { left = " ", right = " " },
     },
     {
-      { left = '', right = ''},
-      { left = ' ', right = ' '},
+      { left = "", right = "" },
+      { left = " ", right = " " },
     },
     {
       { left = "", right = "" },
-      { left = '', right = '' }
+      { left = "", right = "" }
     },
     {
-      { left = "", right = ""},
-      { left = ' ', right = ' '}
+      { left = "", right = "" },
+      { left = " ", right = " " }
     }
 }
 
@@ -51,18 +51,18 @@ lualine.setup {
   },
   extensions = { "fugitive" },
   sections = {
-    lualine_a = {'mode'},
+    lualine_a = { "mode" },
     lualine_b = {
-      {'branch'},
+      { "branch" },
       {
-        'diff',
+        "diff",
         symbols = { added = "  ", modified = "柳", removed = " " }, -- changes diff symbols
       },
-      {'diagnostics'}
+      {"diagnostics"}
     },
-    lualine_c = {'filename'},
-    lualine_x = {'encoding', 'fileformat', 'filetype'},
-    lualine_y = {'progress'},
-    lualine_z = {'location'}
+    lualine_c = { "filename" },
+    lualine_x = { "encoding", "fileformat", "filetype" },
+    lualine_y = { "progress" },
+    lualine_z = { "location" }
   },
 }
