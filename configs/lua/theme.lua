@@ -18,6 +18,22 @@ vim.cmd
 vim.g.tokyonight_style = "night" -- styles: storm, night and day.
 vim.g.onedark_style = "deep"     -- styles: dark, darker, cool, deep, warm and warmer.
 vim.g.enfocado_style = "nature"    -- styles: nature and neon.
+vim.g.enfocado_plugins = {
+  "cmp",
+  "dashboard",
+  "gitsigns",
+  "lsp",
+  "lsp-installer",
+  "matchup",
+  "packer",
+  "scrollview",
+  "telescope",
+  "todo-comments",
+  "tree",
+  "treesitter",
+  "vista",
+  "which-key",
+}
 vim.cmd("colorscheme onedark")
 
 function _G.make_codeart_transparent()
