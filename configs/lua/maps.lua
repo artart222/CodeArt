@@ -43,7 +43,7 @@ map("n", "<leader>bh", ":BufferLineMovePrev<CR>")
 
 
 -- Don't copy the replaced text after pasting.
-map("v", "p", '"_dP')
+map("v", "p", "\"_dP")
 
 
 -- Jk for going to normal mode while you are in insert mode.
@@ -54,11 +54,11 @@ map("v", "<", "<gv")
 map("v", ">", ">gv")
 
 -- Packer
-map('n', '<leader>pi', ':PackerInstall<CR>')
-map('n', '<leader>pu', ':PackerUpdate<CR>')
-map('n', '<leader>pr', ':PackerClean<CR>')
-map('n', '<leader>ps', ':PackerSync<CR>')
-map('n', '<leader>pc', ':PackerCompile<CR>')
+map("n", "<leader>pi", ":PackerInstall<CR>")
+map("n", "<leader>pu", ":PackerUpdate<CR>")
+map("n", "<leader>pr", ":PackerClean<CR>")
+map("n", "<leader>ps", ":PackerSync<CR>")
+map("n", "<leader>pc", ":PackerCompile<CR>")
 
 -- NvimTree toggle
 map("n", "<leader>nt", ":NvimTreeToggle<CR>")
@@ -109,8 +109,8 @@ map("n", "<leader>q", ":lua vim.lsp.diagnostic.set_loclist()<CR>", lsp_opts)
 map("n", "<F5>", ":lua require(\"dap\").continue()<CR>")
 map("n", "<leader>te", ":lua require(\"dap\").terminate()<CR>")
 map("n", "<leader>br", ":lua require(\"dap\").toggle_breakpoint()<CR>")
-map("n", "<leader>Br", ":lua require(\"dap\").set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>")
-map("n", "<leader>lp", ":lua require(\"dap\").set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>")
+map("n", "<leader>Br", ":lua require(\"dap\").set_breakpoint(vim.fn.input(\"Breakpoint condition: \"))<CR>")
+map("n", "<leader>lp", ":lua require(\"dap\").set_breakpoint(nil, nil, vim.fn.input(\"Log point message: \"))<CR>")
 map("n", "<F10>", ":lua require(\"dap\").step_over()<CR>")
 map("n", "<F11>", ":lua require(\"dap\").step_into()<CR>")
 map("n", "<F12>", ":lua require(\"dap\").step_out()<CR>")
