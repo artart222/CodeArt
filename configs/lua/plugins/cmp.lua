@@ -33,7 +33,7 @@ local cmp_kinds = {
 
 cmp.setup {
 	snippet = {
-		expand = function(args) require('luasnip').lsp_expand(args.body) end,
+		expand = function(args) require("luasnip").lsp_expand(args.body) end,
 	},
   formatting = {
     fields = { "abbr", "kind", "menu" },
