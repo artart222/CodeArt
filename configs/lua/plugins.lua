@@ -1,8 +1,27 @@
 local use = require("packer").use
-local user_settings_file = require("../user_settings")
+local user_settings_file = require("user_settings")
 
 return require("packer").startup({function()
   use { "wbthomason/packer.nvim" }
+
+  -- These three plugins make CodeArt startup faster.
+  -- In addition FixCursorHold can fix this bug:
+  -- https://github.com/neovim/neovim/issues/12587
+  use {
+    "lewis6991/impatient.nvim",
+    config = function ()
+      require("impatient")
+    end
+  }
+  use {
+    "nathom/filetype.nvim",
+    config = function ()
+      vim.g.did_load_filetypes = 1
+    end
+  }
+  use {
+    "antoinemadec/FixCursorHold.nvim"
+  }
 
   -- Color schemes.
   use { "folke/tokyonight.nvim" }
@@ -76,18 +95,7 @@ return require("packer").startup({function()
   use {
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
-    event = "BufEnter",
-    cmd = {
-      "TSInstall",
-      "TSInstallSync",
-      "TSBufEnable",
-      "TSBufToggle",
-      "TSEnableAll",
-      "TSInstallFromGrammer",
-      "TSToggleAll",
-      "TSUpdate",
-      "TSUpdateSync"
-    },
+    after = "impatient.nvim",
     config = function()
       require("plugins/treesitter")
     end
@@ -324,7 +332,9 @@ return require("packer").startup({function()
     "folke/which-key.nvim",
     event = "VimEnter",
     config = function()
-      require("which-key").setup()
+      require("maps")
+      require("user_settings")
+      require("plugins/which_key")
     end
   }
 
@@ -338,14 +348,17 @@ return require("packer").startup({function()
     end
   }
 
-  -- Neovim plugin to comment text in and out.
-  -- Supports commenting out the current line, a visual selection and a motion.
+  -- Neovim plugin to comment in/out text.
   use {
-    "terrortylor/nvim-comment",
-    cmd = "CommentToggle",
+    "numToStr/Comment.nvim",
+    after = "nvim-treesitter",
     config = function()
-      require("nvim_comment").setup()
+      require("plugins/comment")
     end
+  }
+  use {
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    after = "Comment.nvim"
   }
 
   -- match-up is a plugin that lets you highlight, navigate, and operate on sets of matching text.

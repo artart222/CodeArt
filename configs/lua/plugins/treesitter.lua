@@ -12,10 +12,24 @@ nvim_treesitter.setup {
     enable = true,
   },
   indent = {
-    enable = true
+    enable = true,
+    disable = { "python" },
   },
   autotag = {
     enable = true
+  },
+  context_commentstring = {
+    enable = true,
+    config = {
+      -- Languages that have a single comment style
+      typescript = "// %s",
+      css = "/* %s */",
+      scss = "/* %s */",
+      html = "<!-- %s -->",
+      svelte = "<!-- %s -->",
+      vue = "<!-- %s -->",
+      json = "",
+    },
   }
 }
 

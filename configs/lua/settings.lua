@@ -17,6 +17,8 @@ local NoWhitespace = exec(
 -- Decrease time of completion menu.
 opt.updatetime = 300
 
+vim.g.cursorhold_updatetime = 100
+
 -- Number settings.
 opt.number = true
 opt.numberwidth = 2
