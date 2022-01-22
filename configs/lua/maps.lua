@@ -54,9 +54,9 @@ vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
 
 -- comment
-map("n", "ct", ":lua require(\"Comment.api\").toggle_linewise_op()<CR>")
-map("v", "ct", ":lua require(\"Comment.api\").toggle_blockwise_op(vim.fn.visualmode())<CR>")
-map("x", "ct", ":lua require(\"Comment.api\").toggle_blockwise_op(vim.fn.visualmode())<CR>")
+vim.g.kommentary_create_default_mappings = false
+vim.api.nvim_set_keymap("n", "ct", "<Plug>kommentary_line_default", {})
+vim.api.nvim_set_keymap("v", "ct", "<Plug>kommentary_visual_default", {})
 
 
 -- Don't copy the replaced text after pasting.

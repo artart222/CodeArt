@@ -350,15 +350,12 @@ return require("packer").startup({function()
 
   -- Neovim plugin to comment in/out text.
   use {
-    "numToStr/Comment.nvim",
+    "b3nj5m1n/kommentary",
     after = "nvim-treesitter",
-    config = function()
-      require("plugins/comment")
-    end
   }
   use {
     "JoosepAlviste/nvim-ts-context-commentstring",
-    after = "Comment.nvim"
+    after = "kommentary",
   }
 
   -- match-up is a plugin that lets you highlight, navigate, and operate on sets of matching text.

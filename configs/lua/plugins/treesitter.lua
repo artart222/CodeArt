@@ -20,16 +20,7 @@ nvim_treesitter.setup {
   },
   context_commentstring = {
     enable = true,
-    config = {
-      -- Languages that have a single comment style
-      typescript = "// %s",
-      css = "/* %s */",
-      scss = "/* %s */",
-      html = "<!-- %s -->",
-      svelte = "<!-- %s -->",
-      vue = "<!-- %s -->",
-      json = "",
-    },
+    enable_autocmd = true,
   }
 }
 
