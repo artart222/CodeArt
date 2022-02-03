@@ -17,8 +17,9 @@ bufferline.setup {
         text_align = "left"
       },
       {
-        filetype = "vista",
-        text = "LspTags",
+        filetype = "vista_kind",
+        text = "Lsp Tags",
+        text_align = "center"
       }
     }
   }

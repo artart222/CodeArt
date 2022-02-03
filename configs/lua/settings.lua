@@ -16,7 +16,6 @@ local NoWhitespace = exec(
 
 -- Decrease time of completion menu.
 opt.updatetime = 300
-
 vim.g.cursorhold_updatetime = 100
 
 -- Number settings.
@@ -52,12 +51,12 @@ opt.colorcolumn = "9999"
 opt.hidden = true
 
 -- Set indentation stuf.
-opt.tabstop = 4
+opt.tabstop = 8
 opt.shiftwidth = 4
 opt.smartindent = true
 opt.smartcase = true
 opt.expandtab = true
-opt.smarttab = true
+opt.pumheight = 25 -- pop up menu height
 
 -- Set searching stuf.
 opt.hlsearch = true
@@ -79,8 +78,7 @@ opt.splitright = true
 opt.ruler = true
 
 -- Setting time that Neovim wait after each keystroke.
-opt.ttimeoutlen = 20
-opt.timeoutlen = 1000
+opt.timeoutlen = 200
 
 -- Setting up autocomplete menu.
 opt.completeopt = "menuone,noselect"

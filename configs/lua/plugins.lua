@@ -138,27 +138,10 @@ return require("packer").startup({function()
     "nvim-telescope/telescope-fzf-native.nvim", run = "make",
     cmd = "Telescope"
   }
-  local os = vim.loop.os_uname().sysname
-  if os == "Linux" then
-    use {
-      "nvim-lua/popup.nvim",
-      after = "telescope-fzf-native.nvim"
-    }
-    use {
-      "nvim-telescope/telescope-media-files.nvim",
-      after = "popup.nvim"
-    }
-    use {
-      "artart222/telescope_find_directories",
-      after = "telescope-media-files.nvim"
-    }
-  else
-    -- TODO: Find a way to lazyload this on windows.
-    use {
-      "artart222/telescope_find_directories",
-      after = "telescope-fzf-native.nvim"
-    }
-  end
+  use {
+    "artart222/telescope_find_directories",
+    after = "telescope-fzf-native.nvim"
+  }
   use {
     "nvim-telescope/telescope.nvim",
     after = "telescope_find_directories",
