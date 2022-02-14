@@ -14,7 +14,7 @@ additional_plugins = {
   -- "mhartington/formatter.nvim",
 
   -- { crispgm/nvim-go", ft = "go" },
-  {
+  --[[{
     "iamcco/markdown-preview.nvim",
     ft = "markdown",
     config = function ()
@@ -31,7 +31,7 @@ additional_plugins = {
       blacklist           = {},  -- A list of strings or Lua patterns that disable Rich Presence if the current file name, path, or workspace matches
       })
     end
-  }
+  }]]
 }
 
 -- Other settings here
