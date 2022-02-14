@@ -83,12 +83,13 @@ powershell.exe -executionpolicy bypass -file installer/windows.ps1
 
 <div align="center">
 
+[Enfocado](https://github.com/wuelnerdotexe/vim-enfocado)
+![Screenshot8](/utils/media/Screenshot8.png "Screenshots8")
 [Tokyonight](https://github.com/folke/tokyonight.nvim) with storm style
 ![Screenshot2](/utils/media/Screenshot2.png "Screenshots2")
 [Tokyonight](https://github.com/folke/tokyonight.nvim) with night style
 ![Screenshot3](/utils/media/Screenshot3.png "Screenshots3")
-[Tokyonight](https://github.com/folke/tokyonight.nvim) with night style
- with day style
+[Tokyonight](https://github.com/folke/tokyonight.nvim) with day style
 ![Screenshot4](/utils/media/Screenshot4.png "Screenshots4")
 [Nightfly](https://github.com/bluz71/vim-nightfly-guicolors)
 ![Screenshot5](/utils/media/Screenshot5.png "Screenshots5")
@@ -96,8 +97,6 @@ powershell.exe -executionpolicy bypass -file installer/windows.ps1
 ![Screenshot6](/utils/media/Screenshot6.png "Screenshots6")
 [Nord](https://github.com/shaunsingh/nord.nvim)
 ![Screenshot7](/utils/media/Screenshot7.png "Screenshots7")
-[Enfocado](https://github.com/wuelnerdotexe/vim-enfocado)
-![Screenshot8](/utils/media/Screenshot8.png "Screenshots8")
 [Onedark](https://github.com/navarasu/onedark.nvim) with dark style
 ![Screenshot9](/utils/media/Screenshot9.png "Screenshots9")
 [Onedark](https://github.com/navarasu/onedark.nvim) with darker style
