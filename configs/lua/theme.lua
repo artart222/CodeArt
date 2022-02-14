@@ -59,105 +59,127 @@ require("onedark").setup  {
 vim.cmd("colorscheme enfocado")
 
 function _G.make_codeart_transparent()
-  vim.cmd("highlight Normal guibg=NONE guifg=NONE")
-  vim.cmd("highlight NormalNc guibg=NONE guifg=NONE")
-  vim.cmd("highlight LineNr guibg=NONE guifg=NONE")
-  vim.cmd("highlight CursorLineNr guibg=NONE guifg=NONE")
-  vim.cmd("highlight SignColumn guibg=NONE guifg=NONE")
-  vim.cmd("highlight EndOfBuffer guibg=NONE guifg=NONE")
+  vim.cmd
+  [[
+  highlight Normal guibg=NONE guifg=NONE
+  highlight NormalNc guibg=NONE guifg=NONE
+  highlight LineNr guibg=NONE guifg=NONE
+  highlight CursorLineNr guibg=NONE guifg=NONE
+  highlight SignColumn guibg=NONE guifg=NONE
+  highlight EndOfBuffer guibg=NONE guifg=NONE
 
 
-  vim.cmd("highlight NvimTreeNormal guibg=NONE guifg=NONE")
-  vim.cmd("highlight NvimTreeNormalNc guibg=NONE guifg=NONE")
-  vim.cmd("highlight NvimTreeEndOfBuffer guibg=NONE guifg=NONE")
-  vim.cmd("highlight NvimTreeFolderIcon guibg=NONE guifg=NONE")
-  vim.cmd("highlight NvimTreeOpenedFolderName guibg=NONE guifg=NONE")
+  highlight NvimTreeNormal guibg=NONE guifg=NONE
+  highlight NvimTreeNormalNc guibg=NONE guifg=NONE
+  highlight NvimTreeEndOfBuffer guibg=NONE guifg=NONE
+  highlight NvimTreeFolderIcon guibg=NONE guifg=NONE
+  highlight NvimTreeOpenedFolderName guibg=NONE guifg=NONE
 
-  vim.cmd("highlight lualine_b_normal guibg=NONE")
-  vim.cmd("highlight lualine_c_normal guibg=NONE")
-  vim.cmd("highlight lualine_b_command guibg=NONE")
-  vim.cmd("highlight lualine_c_command guibg=NONE")
-  vim.cmd("highlight lualine_b_terminal guibg=NONE")
-  vim.cmd("highlight lualine_c_terminal guibg=NONE")
-  vim.cmd("highlight lualine_b_visual guibg=NONE")
-  vim.cmd("highlight lualine_c_visual guibg=NONE")
-  vim.cmd("highlight lualine_b_insert guibg=NONE")
-  vim.cmd("highlight lualine_c_insert guibg=NONE")
-  vim.cmd("highlight lualine_b_replace guibg=NONE")
-  vim.cmd("highlight lualine_c_replace guibg=NONE")
+  highlight lualine_b_normal guibg=NONE
+  highlight lualine_c_normal guibg=NONE
+  highlight lualine_b_command guibg=NONE
+  highlight lualine_c_command guibg=NONE
+  highlight lualine_b_terminal guibg=NONE
+  highlight lualine_c_terminal guibg=NONE
+  highlight lualine_b_visual guibg=NONE
+  highlight lualine_c_visual guibg=NONE
+  highlight lualine_b_insert guibg=NONE
+  highlight lualine_c_insert guibg=NONE
+  highlight lualine_b_replace guibg=NONE
+  highlight lualine_c_replace guibg=NONE
 
-  vim.cmd("highlight lualine_a_inactive guibg=NONE")
-  vim.cmd("highlight lualine_b_inactive guibg=NONE")
-  vim.cmd("highlight lualine_c_inactive guibg=NONE")
-  vim.cmd("highlight StatusLine guibg=NONE")
-  vim.cmd("highlight StatusLineNc guibg=NONE")
+  highlight lualine_a_inactive guibg=NONE
+  highlight lualine_b_inactive guibg=NONE
+  highlight lualine_c_inactive guibg=NONE
+  highlight StatusLine guibg=NONE
+  highlight StatusLineNc guibg=NONE
 
-  vim.cmd("highlight lualine_b_diff_added_normal guibg=NONE")
-  vim.cmd("highlight lualine_b_diff_modified_normal guibg=NONE")
-  vim.cmd("highlight lualine_b_diff_removed_normal guibg=NONE")
-  vim.cmd("highlight lualine_b_diagnostics_error_normal guibg=NONE")
-  vim.cmd("highlight lualine_b_diagnostics_warn_normal guibg=NONE")
-  vim.cmd("highlight lualine_b_diagnostics_info_normal guibg=NONE")
-  vim.cmd("highlight lualine_b_diagnostics_hint_normal guibg=NONE")
-  vim.cmd("highlight lualine_x_DevIconLua_normal guibg=NONE")
+  highlight lualine_transitional_lualine_a_normal_to_lualine_b_normal guibg=NONE
+  highlight lualine_transitional_lualine_b_normal_to_lualine_c_normal guibg=NONE
+  highlight lualine_transitional_lualine_a_visual_to_lualine_b_visual guibg=NONE
+  highlight lualine_transitional_lualine_b_visual_to_lualine_c_visual guibg=NONE
+  highlight lualine_transitional_lualine_b_diagnostics_info_normal_to_lualine_c_normal guibg=NONE
+  highlight lualine_transitional_lualine_a_insert_to_lualine_b_insert guibg=NONE
+  highlight lualine_transitional_lualine_b_diagnostics_info_normal_to_lualine_c_insert guibg=NONE
+  highlight lualine_transitional_lualine_b_insert_to_lualine_c_insert guibg=NONE
+  highlight lualine_transitional_lualine_b_diagnostics_hint_normal_to_lualine_c_normal guibg=NONE
+  highlight lualine_transitional_lualine_b_diagnostics_error_normal_to_lualine_c_normal guibg=NONE
+  highlight lualine_transitional_lualine_b_diagnostics_error_normal_to_lualine_c_insert guibg=NONE
+  highlight lualine_transitional_lualine_a_command_to_lualine_b_command guibg=NONE
+  highlight lualine_transitional_lualine_b_command_to_lualine_c_command guibg=NONE
+  highlight lualine_transitional_lualine_b_diff_modified_normal_to_lualine_c_normal guibg=NONE
+  highlight lualine_transitional_lualine_b_diff_modified_normal_to_lualine_c_command guibg=NONE
+  highlight lualine_transitional_lualine_b_diff_modified_normal_to_lualine_c_visual guibg=NONE
+  highlight lualine_transitional_lualine_b_diagnostics_info_normal_to_lualine_c_visual guibg=NONE
+  highlight lualine_transitional_lualine_b_diff_modified_normal_to_lualine_c_insert guibg=NONE
+
+  highlight lualine_b_diff_added_normal guibg=NONE
+  highlight lualine_b_diff_modified_normal guibg=NONE
+  highlight lualine_b_diff_removed_normal guibg=NONE
+  highlight lualine_b_diagnostics_error_normal guibg=NONE
+  highlight lualine_b_diagnostics_warn_normal guibg=NONE
+  highlight lualine_b_diagnostics_info_normal guibg=NONE
+  highlight lualine_b_diagnostics_hint_normal guibg=NONE
+  highlight lualine_x_DevIconLua_normal guibg=NONE
 
 
-  vim.cmd("highlight BufferLineFill guibg=NONE guifg=NONE")
-  vim.cmd("highlight BufferLineDiagnostics guibg=NONE guifg=NONE")
-  vim.cmd("highlight BufferLineTab guibg=NONE guifg=NONE")
-  vim.cmd("highlight BufferLineTabSelected guibg=NONE guifg=NONE")
-  vim.cmd("highlight BufferLineTabClose guibg=NONE guifg=NONE")
-  vim.cmd("highlight BufferLineDuplicate guibg=NONE guifg=NONE")
-  vim.cmd("highlight BufferLineDuplicateSelected guibg=NONE guifg=NONE")
-  vim.cmd("highlight BufferLineDuplicateVisible guibg=NONE guifg=NONE")
+  highlight BufferLineFill guibg=NONE guifg=NONE
+  highlight BufferLineDiagnostics guibg=NONE guifg=NONE
+  highlight BufferLineTab guibg=NONE guifg=NONE
+  highlight BufferLineTabSelected guibg=NONE guifg=NONE
+  highlight BufferLineTabClose guibg=NONE guifg=NONE
+  highlight BufferLineDuplicate guibg=NONE guifg=NONE
+  highlight BufferLineDuplicateSelected guibg=NONE guifg=NONE
+  highlight BufferLineDuplicateVisible guibg=NONE guifg=NONE
 
-  vim.cmd("highlight BufferLineBackground guibg=NONE guifg=NONE")
-  vim.cmd("highlight BufferLineCloseButton guibg=NONE guifg=NONE")
-  vim.cmd("highlight BufferLineCloseButtonSelected	 guibg=NONE guifg=NONE")
-  vim.cmd("highlight BufferLineCloseButtonVisible	 guibg=NONE guifg=NONE")
-  vim.cmd("highlight BufferLineBufferVisible guibg=NONE guifg=NONE")
-  vim.cmd("highlight BufferLinePick guibg=NONE")
-  vim.cmd("highlight BufferLinePickSelected guibg=NONE")
-  vim.cmd("highlight BufferLineSeperator guibg=NONE guifg=NONE")
-  vim.cmd("highlight BufferLineGroupSeperator guibg=NONE guifg=NONE")
-  vim.cmd("highlight bufferlineseperatorvisible guibg=none guifg=none")
-  vim.cmd("highlight BufferLineSeparatorSelected guibg=none")
-  vim.cmd("highlight BufferLineSeparator guibg=NONE guifg=NONE")
-  vim.cmd("highlight BufferLineIndicatorSelected	 guibg=NONE")
-  vim.cmd("highlight BufferLineBufferSelected guibg=NONE guifg=NONE")
-  vim.cmd("highlight BufferLineDiagnostic	 guibg=NONE guifg=NONE")
-  vim.cmd("highlight BufferLineDevIconLuaSelected	 guibg=NONE")
-  vim.cmd("highlight BufferLineDevIconDefaultInactive	 guibg=NONE")
+  highlight BufferLineBackground guibg=NONE guifg=NONE
+  highlight BufferLineCloseButton guibg=NONE guifg=NONE
+  highlight BufferLineCloseButtonSelected	 guibg=NONE guifg=NONE
+  highlight BufferLineCloseButtonVisible	 guibg=NONE guifg=NONE
+  highlight BufferLineBufferVisible guibg=NONE guifg=NONE
+  highlight BufferLinePick guibg=NONE
+  highlight BufferLinePickSelected guibg=NONE
+  highlight BufferLineSeperator guibg=NONE guifg=NONE
+  highlight BufferLineGroupSeperator guibg=NONE guifg=NONE
+  highlight bufferlineseperatorvisible guibg=none guifg=none
+  highlight BufferLineSeparatorSelected guibg=none
+  highlight BufferLineSeparator guibg=NONE guifg=NONE
+  highlight BufferLineIndicatorSelected	 guibg=NONE
+  highlight BufferLineBufferSelected guibg=NONE guifg=NONE
+  highlight BufferLineDiagnostic	 guibg=NONE guifg=NONE
+  highlight BufferLineDevIconLuaSelected	 guibg=NONE
+  highlight BufferLineDevIconDefaultInactive	 guibg=NONE
 
-  vim.cmd("highlight BufferLineError guibg=NONE guifg=NONE")
-  vim.cmd("highlight BufferLineErrorVisible guibg=NONE guifg=NONE")
-  vim.cmd("highlight BufferLineErrorDiagnosticVisible guibg=NONE guifg=NONE")
-  vim.cmd("highlight BufferLineErrorSelected guibg=NONE")
-  vim.cmd("highlight BufferLineErrorDiagnostic guibg=NONE guifg=NONE")
-  vim.cmd("highlight BufferLineErrorDiagnosticSelected guibg=NONE")
-  vim.cmd("highlight BufferLineErrorDiagnosticSelected guibg=NONE")
+  highlight BufferLineError guibg=NONE guifg=NONE
+  highlight BufferLineErrorVisible guibg=NONE guifg=NONE
+  highlight BufferLineErrorDiagnosticVisible guibg=NONE guifg=NONE
+  highlight BufferLineErrorSelected guibg=NONE
+  highlight BufferLineErrorDiagnostic guibg=NONE guifg=NONE
+  highlight BufferLineErrorDiagnosticSelected guibg=NONE
+  highlight BufferLineErrorDiagnosticSelected guibg=NONE
 
-  vim.cmd("highlight BufferLineWarning guibg=NONE guifg=NONE")
-  vim.cmd("highlight BufferLineWarningVisible guibg=NONE guifg=NONE")
-  vim.cmd("highlight BufferLineWarningDiagnosticVisible guibg=NONE guifg=NONE")
-  vim.cmd("highlight BufferLineWarningSelected guibg=NONE")
-  vim.cmd("highlight BufferLineWarningDiagnostic guibg=NONE guifg=NONE")
-  vim.cmd("highlight BufferLineWarningDiagnosticSelected guibg=NONE")
-  vim.cmd("highlight BufferLineWarningDiagnosticSelected guibg=NONE")
+  highlight BufferLineWarning guibg=NONE guifg=NONE
+  highlight BufferLineWarningVisible guibg=NONE guifg=NONE
+  highlight BufferLineWarningDiagnosticVisible guibg=NONE guifg=NONE
+  highlight BufferLineWarningSelected guibg=NONE
+  highlight BufferLineWarningDiagnostic guibg=NONE guifg=NONE
+  highlight BufferLineWarningDiagnosticSelected guibg=NONE
+  highlight BufferLineWarningDiagnosticSelected guibg=NONE
 
-  vim.cmd("highlight BufferLineInfo guibg=NONE guifg=NONE")
-  vim.cmd("highlight BufferLineInfoVisible guibg=NONE guifg=NONE")
-  vim.cmd("highlight BufferLineInfoDiagnosticVisible guibg=NONE guifg=NONE")
-  vim.cmd("highlight BufferLineInfoSelected guibg=NONE")
-  vim.cmd("highlight BufferLineInfoDiagnostic guibg=NONE guifg=NONE")
-  vim.cmd("highlight BufferLineInfoDiagnosticSelected guibg=NONE")
-  vim.cmd("highlight BufferLineInfoDiagnosticSelected guibg=NONE")
+  highlight BufferLineInfo guibg=NONE guifg=NONE
+  highlight BufferLineInfoVisible guibg=NONE guifg=NONE
+  highlight BufferLineInfoDiagnosticVisible guibg=NONE guifg=NONE
+  highlight BufferLineInfoSelected guibg=NONE
+  highlight BufferLineInfoDiagnostic guibg=NONE guifg=NONE
+  highlight BufferLineInfoDiagnosticSelected guibg=NONE
+  highlight BufferLineInfoDiagnosticSelected guibg=NONE
 
-  vim.cmd("highlight BufferLineModified guibg=NONE")
-  vim.cmd("highlight BufferLineModifiedSelected guibg=NONE")
-  vim.cmd("highlight BufferLineModifiedVisible guibg=NONE guifg=NONE")
+  highlight BufferLineModified guibg=NONE
+  highlight BufferLineModifiedSelected guibg=NONE
+  highlight BufferLineModifiedVisible guibg=NONE guifg=NONE
 
-  vim.cmd("highlight NormalFloat guibg=NONE")
-  vim.cmd("highlight FloatBorder guibg=#NONE")
-  vim.cmd("highlight WhichKeyFloat guibg=NONE")
+  highlight NormalFloat guibg=NONE
+  highlight FloatBorder guibg=#NONE
+  highlight WhichKeyFloat guibg=NONE
+  ]]
 end
