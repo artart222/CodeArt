@@ -78,12 +78,14 @@ install_font() {
 make_backup_of_config
 
 echo "Installing dependencies"
-if [ $PACKAGE_MANAGER == "apt-get" ]; then
-    if ! [ "$(cat /etc/os-release | grep "ID=debian")" == "ID=debian" ]; then
+if ! [ "$(cat /etc/os-release | grep "ID=debian")" == "ID=debian" ]; then
+    if [ $PACKAGE_MANAGER == "apt-get" ]; then
         sudo apt install software-properties-common
         sudo add-apt-repository ppa:neovim-ppa/stable -y
         sudo apt update
-        sudo apt install neovim -y
+        pack_manager_install $PACKAGE_MANAGER "nvim" " " "neovim" "" "" "" ""
+    else
+        pack_manager_install $PACKAGE_MANAGER "nvim" "neovim" "neovim" "neovim" "neovim" "app-editors/neovim" "neovim"
     fi
 fi
 pack_manager_install $PACKAGE_MANAGER "curl" "curl" "curl" "curl" "curl" "net-misc/curl" "curl"
@@ -120,3 +122,5 @@ else
 fi
 cp -r configs $CONFIG_LOC
 echo "Configs moved"
+
+nvim +PackerSync

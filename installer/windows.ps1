@@ -4,9 +4,19 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 
 
-function pack_manager_install([string]$PYTHON_VERSIONACK_NAME) {
-    echo "Installing $PYTHON_VERSIONACK_NAME"
-    choco install "$PYTHON_VERSIONACK_NAME" -y
+function pack_manager_install([string]$PACK_NAME, [string]$APP_NAME) {
+    # Checking is package installed or not.
+    $COMMAND = &{iex "$APP_NAME --version"} 2>&1
+    $VERSION = -not (($COMMAND | % gettype) -eq  [System.Management.Automation.ErrorRecord])
+
+    # Installing package if it isn't installed
+    if ("$VERSION" -eq "False") {
+        echo "$APP_NAME is not installed."
+        echo "Installing $APP_NAME."
+        choco install --pre -v "$PACK_NAME" -y
+    } else {
+        echo "$APP_NAME is installed. Checking next dependency..."
+    }
 }
 
 
@@ -18,45 +28,35 @@ function copy_configs {
 
 
 echo "Downloading dependencys"
-# Installing python
-$PYTHON_VERSION = &{python -V} 2>&1
-# check if an ErrorRecord was returned
-$version = if($PYTHON_VERSION -is [System.Management.Automation.ErrorRecord])
-{
-    # grab the version string from the error message
-    $PYTHON_VERSION.Exception.Message
-}
-else
-{
-    $PYTHON_VERSION
-}
-if ($PYTHON_VERSION == "" -or $PYTHON_VERSION == " ") {
-    pack_manager_install -v "python"
-}
-# Installing other dependencies
-pack_manager_install("neovim")
-pack_manager_install("curl")
-pack_manager_install("git")
-pack_manager_install("7zip")
-pack_manager_install("make")
-pack_manager_install("nodejs")
-pack_manager_install("mingw")
-pack_manager_install("ripgrep")
-pack_manager_install("fd")
-pack_manager_install("svn")
-pack_manager_install("jetbrainsmononf")
 
+# Installing other dependencies
+pack_manager_install "neovim" "nvim"
+pack_manager_install "python" "python"
+pack_manager_install "curl" "curl"
+pack_manager_install "git" "git"
+pack_manager_install "7zip" "7z"
+pack_manager_install "make" "make"
+pack_manager_install "nodejs" "nodejs"
+pack_manager_install "mingw" "mingw"
+pack_manager_install "ripgrep" "ripgrep"
+pack_manager_install "fd" "fd"
+pack_manager_install "svn" "svn"
+echo "Installing JetBrains Nerd Fonts mono..."
+choco install --pre -v "jetbrainsmononf" -y
+
+
+$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 pip3 install pynvim
 npm install neovim
 
 
-$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
 git clone https://github.com/wbthomason/packer.nvim "$env:LOCALAPPDATA\nvim-data\site\pack\packer\start\packer.nvim"
 
 
-echo "Dependencies installed\n"
+echo "Dependencies installed"
 copy_configs
 echo "Installation process finished"
 
 
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
+nvim +PackerSync
