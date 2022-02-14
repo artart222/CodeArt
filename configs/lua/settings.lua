@@ -83,9 +83,6 @@ opt.timeoutlen = 200
 -- Setting up autocomplete menu.
 opt.completeopt = "menuone,noselect"
 
--- Add cursorline and diasable it in terminal
-vim.cmd("autocmd WinEnter,BufEnter * if &ft is \"toggleterm\" | set nocursorline | else | set cursorline | endif")
-
 -- Set line number for help files.
 vim.cmd
 [[
@@ -132,3 +129,31 @@ endif
 ]]
 
 vim.cmd("command CodeArtTransparent lua make_codeart_transparent()")
+
+
+-- Add cursorline and diasable it in some buffers and filetypes.
+statusline_hide = {
+  "dashboard",
+  "TelescopePrompt",
+  "TelescopeResults",
+  "terminal",
+  "toggleterm"
+}
+
+function hide_statusline(types)
+  for _,type in pairs(types) do
+    if vim.bo.filetype == type or vim.bo.buftype == type then
+      opt.laststatus = 0
+      opt.ruler = false
+      opt.cursorline = false
+      break
+    else
+      opt.laststatus = 2
+      opt.ruler = true
+      opt.cursorline = true
+    end
+  end
+end
+
+-- BufEnter,BufRead,BufWinEnter,FileType,WinEnter
+vim.cmd("autocmd BufEnter,BufRead,BufWinEnter,FileType,WinEnter * lua hide_statusline(statusline_hide)")
