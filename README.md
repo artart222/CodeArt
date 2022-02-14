@@ -5,7 +5,6 @@
   <a href="#installation">:construction: Installation</a>
   <a href="#update">⬆️📅 How to update CodeArt</a>
   <a href="#features">:sparkles: Important features</a>
-  <a href="#todos">:white_check_mark: TODOS</a>
 </h3>
 
 <div align="center">
@@ -32,47 +31,37 @@
 <a id="installation"></a>
 ## :construction: Install CodeArt easily
 
-To install CodeArt you must have python3 and pip3 installed.
 
-🐧 On linux:
+🐧🍎 On linux and macOS:
 ```bash
-sudo pip3 install distro
-python3 install.py
+chmod +x installer/linux-bash.sh
+./installer/linux-bash.sh
 ```
 
-#### ⚠️  IMPORTANT NOTE: The installer for MacOS is not tested since I don't have a device with macOS (and the installer does not work on debian)
+***If you have debian, after the instalation finished you must [add debian testing repos](https://serverfault.com/a/550856) and after that run***:
 
-🍎 On macOS:
 ```bash
-python3 install.py
+sudo apt update; sudo apt install neovim
 ```
+
+***And after that open neovim and run `:PackerSync` and then reopen nevom!***
 
 🪟 on Windows:
 
 ***please backup any existing configuration files***
 
-
-⚡🐚 open a powershell session as administrator and run these commands one by one:
+⚡🐚 open a powershell session as administrator and run this command:
 
 ```powershell
-Set-ExecutionPolicy AllSigned
-Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
-python3.exe install.py
-git clone https://github.com/wbthomason/packer.nvim "$env:LOCALAPPDATA\nvim-data\site\pack\packer\start\packer.nvim"
+powershell.exe -executionpolicy bypass -file installer/windows.ps1
 ```
-
-#### 🔌Install plugins:
-
-Open NeoVim and type `:PackerInstall`
-Once complete, run `:PackerCompile`
 
 #### 🌲💺Σ🖥️ Install lsp and treesitter:
 
 * You can install lsp for a language with `:LspInstall <language>`
 * You can install treesitter with `:TSInstall <language>`
 
-#### These NeoVim configurations use many nerd fonts icons. JetBrains Mono will be installed by default.
+#### These NeoVim configurations use many nerd fonts icons. JetBrains Mono will be installed by default. If you have problem for fonts and see weird icons you must change your terminal font.
 
 <a id="update"></a>
 ## ⬆️📅 How to update CodeArt:
@@ -126,7 +115,7 @@ Once complete, run `:PackerCompile`
 <a id="features"></a>
 ## :sparkles: Features:
 
-* 😴 Lazy load plugins!. With lazy loading NeoVim starts up very fast. It took me around 45 miliseconds on a virtual machine with 4GB ram and 2 Cores
+* 😴 Lazy load plugins!. With lazy loading NeoVim starts up very fast. It took me around 20 miliseconds on a virtual machine with 4GB ram and 2 Cores
 ![LazyLoad](/utils/media/LazyLoad.png "LazyLoad")
 
 * Σ🖥️ Native LSP code completion support with documentation
@@ -145,7 +134,8 @@ Once complete, run `:PackerCompile`
 ![Telescope](/utils/media/Telescope.png "Telescope")
 
 * :white_check_mark: [TODO viewer](https://github.com/folke/todo-comments.nvim)
-![TODO](/utils/media/TODO.png "TODO")
+![TODO1](/utils/media/TODO.png "TODO")
+![TODO2](/utils/media/TODO2.png "TODO2")
 
 * :bookmark: [Tag viewer](https://github.com/liuchengxu/vista.vim#commands)
 ![TagViewer](/utils/media/TagViewer.png "TagViewer")
@@ -155,18 +145,3 @@ Once complete, run `:PackerCompile`
 
 * ┇ [Status line](https://github.com/nvim-lualine/lualine.nvim) with git and lsp indicator + File manager and [bufferline](https://github.com/akinsho/nvim-bufferline.lua) lsp indicator
 ![StatusLine](/utils/media/StatusLine.png "StatusLine")
-
-<a id="todos"></a>
-# :white_check_mark: TODOS:
-
-1. - [x] Add lsp status to lualine
-2. - [ ] Lazy load plugins
-3. - [x] Find a way to install NeoVim 0.5 on debian based operating systems
-4. - [ ] Find a way to install ueberzug on rhel based operating systems and opensuse
-5. - [x] Make new install script for windows
-6. - [ ] Test current MacOS script
-7. - [ ] Clean current codebase and convert vimscripts(I mean vimscripts in luafiles) to lua and maybe remove some plugins
-8. - [ ] Move to shell script for macOS and linux installer and powershell for windows installer
-9. - [x] Implement a way to update CodeArt
-10. - [ ] Write a proper WhichKey
-11. - [x] Move from compe to cmp
