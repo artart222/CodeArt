@@ -7,8 +7,10 @@ end
 
 additional_plugins = {
   -- You can put your additional plugins here.
-  -- Syntax is like normal packer.nvim Syntax. Examples:
-
+  -- Syntax is like normal packer.nvim Syntax.
+  -- If you need to set some settings for your plugins
+  -- you must put configs in config = function() like below examples
+  
   -- { "famiu/feline.nvim", branch = "develop" },
 
   -- "mhartington/formatter.nvim",
