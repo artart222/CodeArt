@@ -53,10 +53,9 @@ npm install neovim
 git clone https://github.com/wbthomason/packer.nvim "$env:LOCALAPPDATA\nvim-data\site\pack\packer\start\packer.nvim"
 
 
-echo "Dependencies installed"
+echo "Dependencies installed\n"
 copy_configs
 echo "Installation process finished"
 
 
 $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
-nvim +PackerSync
