@@ -1,6 +1,38 @@
 local use = require("packer").use
 local user_settings_file = require("user_settings")
 
+-- Disable some builtin plugins.
+local disabled_built_ins = {
+   "2html_plugin",
+   "gzip",
+   "matchit",
+   "rrhelper",
+   'netrw',
+   'netrwPlugin',
+   'netrwSettings',
+   'netrwFileHandlers',
+   'zip',
+   'zipPlugin',
+   'tar',
+   'tarPlugin',
+   'getscript',
+   'getscriptPlugin',
+   'vimball',
+   'vimballPlugin',
+   'logipat',
+   'spellfile_plugin',
+}
+for _, plugin in pairs(disabled_built_ins) do
+  vim.g['loaded_' .. plugin] = 1
+end
+
+
+local fn = vim.fn
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+end
+
 return require("packer").startup({function()
   use { "wbthomason/packer.nvim" }
 
@@ -89,6 +121,14 @@ return require("packer").startup({function()
     config = function ()
       require("plugins/lualine")
     end
+  }
+
+  -- Better escape --> For escaping easily from insert mode with jk/jj.
+  use {
+    "max397574/better-escape.nvim",
+    config = function()
+      require("better_escape").setup()
+    end,
   }
 
   -- TreeSitter.
@@ -315,8 +355,6 @@ return require("packer").startup({function()
     "folke/which-key.nvim",
     event = "VimEnter",
     config = function()
-      require("maps")
-      require("user_settings")
       require("plugins/which_key")
     end
   }
@@ -359,6 +397,10 @@ return require("packer").startup({function()
     else
       use { unpack(plugin) }
     end
+  end
+
+  if packer_bootstrap then
+    require('packer').sync()
   end
 
   end,

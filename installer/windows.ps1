@@ -50,9 +50,6 @@ pip3 install pynvim
 npm install neovim
 
 
-git clone https://github.com/wbthomason/packer.nvim "$env:LOCALAPPDATA\nvim-data\site\pack\packer\start\packer.nvim"
-
-
 echo "Dependencies installed\n"
 copy_configs
 echo "Installation process finished"
