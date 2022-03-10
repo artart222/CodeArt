@@ -1,22 +1,48 @@
 local use = require("packer").use
 local user_settings_file = require("user_settings")
 
+-- Disable some builtin plugins.
+local disabled_built_ins = {
+   "2html_plugin",
+   "gzip",
+   "matchit",
+   "rrhelper",
+   'netrw',
+   'netrwPlugin',
+   'netrwSettings',
+   'netrwFileHandlers',
+   'zip',
+   'zipPlugin',
+   'tar',
+   'tarPlugin',
+   'getscript',
+   'getscriptPlugin',
+   'vimball',
+   'vimballPlugin',
+   'logipat',
+   'spellfile_plugin',
+}
+for _, plugin in pairs(disabled_built_ins) do
+  vim.g['loaded_' .. plugin] = 1
+end
+
+
+local fn = vim.fn
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if fn.empty(fn.glob(install_path)) > 0 then
+  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+end
+
 return require("packer").startup({function()
   use { "wbthomason/packer.nvim" }
 
-  -- These three plugins make CodeArt startup faster.
+  -- These two plugins make CodeArt startup faster.
   -- In addition FixCursorHold can fix this bug:
   -- https://github.com/neovim/neovim/issues/12587
   use {
     "lewis6991/impatient.nvim",
     config = function ()
       require("impatient")
-    end
-  }
-  use {
-    "nathom/filetype.nvim",
-    config = function ()
-      vim.g.did_load_filetypes = 1
     end
   }
   use {
@@ -29,7 +55,7 @@ return require("packer").startup({function()
   use { "bluz71/vim-moonfly-colors" }
   use { "shaunsingh/nord.nvim" }
   use { "navarasu/onedark.nvim" }
-  use { "wuelnerdotexe/vim-enfocado" }
+  use { "artart222/nvim-enfocado" }
 
   -- TrueZen.nvim is a Neovim plugin that aims to provide a cleaner and less cluttered interface
   -- when toggled in either of it has three different modes (Ataraxis, Minimalist and Focus).
@@ -89,6 +115,14 @@ return require("packer").startup({function()
     config = function ()
       require("plugins/lualine")
     end
+  }
+
+  -- Better escape --> For escaping easily from insert mode with jk/jj.
+  use {
+    "max397574/better-escape.nvim",
+    config = function()
+      require("better_escape").setup()
+    end,
   }
 
   -- TreeSitter.
@@ -315,8 +349,6 @@ return require("packer").startup({function()
     "folke/which-key.nvim",
     event = "VimEnter",
     config = function()
-      require("maps")
-      require("user_settings")
       require("plugins/which_key")
     end
   }
@@ -359,6 +391,10 @@ return require("packer").startup({function()
     else
       use { unpack(plugin) }
     end
+  end
+
+  if packer_bootstrap then
+    require('packer').sync()
   end
 
   end,
