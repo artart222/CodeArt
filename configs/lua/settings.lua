@@ -14,6 +14,10 @@ local NoWhitespace = exec(
     true
 )
 
+-- Using new filetype detection in lua.
+vim.g.do_filetype_lua = 1
+vim.g.did_load_filetypes = 0
+
 -- Decrease time of completion menu.
 opt.updatetime = 300
 vim.g.cursorhold_updatetime = 100
