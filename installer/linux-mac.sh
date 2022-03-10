@@ -103,11 +103,6 @@ pack_manager_install $PACKAGE_MANAGER "svn" "subversion" "subversion" "subversio
 
 install_font
 
-echo "Downloading Neovim package manager"
-git clone https://github.com/wbthomason/packer.nvim\
-    ~/.local/share/nvim/site/pack/packer/start/packer.nvim
-echo "Neovim package manager downloaded"
-
 pip3 install pynvim
 npm install neovim
 
@@ -123,4 +118,5 @@ fi
 cp -r configs $CONFIG_LOC
 echo "Configs moved"
 
-nvim +PackerSync
+echo
+echo "Installation finished"
