@@ -51,6 +51,7 @@ function _G.set_terminal_keymaps()
   map("t", "<S-k>", "<c-\\><C-n>:call ResizeUp(1)<CR>")
   map("t", "<S-l>", "<c-\\><C-n>:call ResizeRight(3)<CR>")
 end
+-- TODO: move to new autocmd api.
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
 
@@ -65,3 +66,4 @@ map("v", "p", "\"_dP")
 
 -- With this you can use > < multiple time for changing indent when you visual selected text.
 map("v", "<", "<gv")
+map("v", ">", ">gv")
