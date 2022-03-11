@@ -2,18 +2,40 @@
 vim.opt.fillchars = { eob = " " }
 
 -- -- Highlightign line number for lsp diagnostics sings
-vim.cmd
-[[
-  autocmd ColorScheme * highlight DiagnosticLineNrError guibg=#51202A guifg=#FF0000 gui=bold
-  autocmd ColorScheme * highlight DiagnosticLineNrWarn guibg=#51412A guifg=#FFA500 gui=bold
-  autocmd ColorScheme * highlight DiagnosticLineNrInfo guibg=#1E535D guifg=#00FFFF gui=bold
-  autocmd ColorScheme * highlight DiagnosticLineNrHint guibg=#1E205D guifg=#0000FF gui=bold
+vim.api.nvim_create_autocmd("ColorScheme", {
+    pattern = "*",
 
-  autocmd ColorScheme * sign define DiagnosticSignError text= texthl=DiagnosticSignError linehl= numhl=DiagnosticLineNrError
-  autocmd ColorScheme * sign define DiagnosticSignWarn text= texthl=DiagnosticSignWarn linehl= numhl=DiagnosticLineNrWarn
-  autocmd ColorScheme * sign define DiagnosticSignInfo text= texthl=DiagnosticSignInfo linehl= numhl=DiagnosticLineNrInfo
-  autocmd ColorScheme * sign define DiagnosticSignHint text= texthl=DiagnosticSignHint linehl= numhl=DiagnosticLineNrHint
-]]
+    callback = function()
+      vim.api.nvim_set_hl(0, "DiagnosticLineNrError", {
+        bg="#51202A",
+        fg="#FF0000",
+        bold = true
+      })
+
+      vim.api.nvim_set_hl(0, "DiagnosticLineNrWarn", {
+        bg="#51412A",
+        fg="#FFA500",
+        bold = true
+      })
+
+      vim.api.nvim_set_hl(0, "DiagnosticLineNrInfo", {
+        bg="#1E535D",
+        fg="#00FFFF",
+        bold = true
+      })
+
+      vim.api.nvim_set_hl(0, "DiagnosticLineNrHint", {
+        bg="#1E205D",
+        fg="#000FFF",
+        bold = true
+      })
+
+      vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "", numhl = "DiagnosticLineNrError" })
+      vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "", numhl = "DiagnosticLineNrWarn" })
+      vim.fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "", numhl = "DiagnosticLineNrInfo" })
+      vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "", numhl = "DiagnosticLineNrHint" })
+    end,
+})
 
 vim.g.tokyonight_style = "night" -- styles: storm, night and day.
 vim.g.enfocado_style = "nature"    -- styles: nature and neon.
@@ -59,127 +81,122 @@ require("onedark").setup  {
 vim.cmd("colorscheme enfocado")
 
 function _G.make_codeart_transparent()
-  vim.cmd
-  [[
-  highlight Normal guibg=NONE guifg=NONE
-  highlight NormalNc guibg=NONE guifg=NONE
-  highlight LineNr guibg=NONE guifg=NONE
-  highlight CursorLineNr guibg=NONE guifg=NONE
-  highlight SignColumn guibg=NONE guifg=NONE
-  highlight EndOfBuffer guibg=NONE guifg=NONE
+  vim.api.nvim_set_hl(0, "Normal", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "NormalNc", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "LineNr", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "CursorLineNr", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "SignColumn", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "EndOfBuffer", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "StatusLine", {bg=nil})
+  vim.api.nvim_set_hl(0, "StatusLineNc", {bg=nil})
 
+  vim.api.nvim_set_hl(0, "NvimTreeNormal", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "NvimTreeNormalNc", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "NvimTreeEndOfBuffer", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "NvimTreeFolderIcon", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "NvimTreeOpenedFolderName", {bg=nil, fg=nil})
 
-  highlight NvimTreeNormal guibg=NONE guifg=NONE
-  highlight NvimTreeNormalNc guibg=NONE guifg=NONE
-  highlight NvimTreeEndOfBuffer guibg=NONE guifg=NONE
-  highlight NvimTreeFolderIcon guibg=NONE guifg=NONE
-  highlight NvimTreeOpenedFolderName guibg=NONE guifg=NONE
+  vim.api.nvim_set_hl(0, "lualine_b_normal", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_c_normal", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_b_command", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_c_command", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_b_terminal", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_c_terminal", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_b_visual", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_c_visual", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_b_insert", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_c_insert", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_b_replace", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_c_replace", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_a_inactive", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_b_inactive", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_c_inactive", {bg=nil})
 
-  highlight lualine_b_normal guibg=NONE
-  highlight lualine_c_normal guibg=NONE
-  highlight lualine_b_command guibg=NONE
-  highlight lualine_c_command guibg=NONE
-  highlight lualine_b_terminal guibg=NONE
-  highlight lualine_c_terminal guibg=NONE
-  highlight lualine_b_visual guibg=NONE
-  highlight lualine_c_visual guibg=NONE
-  highlight lualine_b_insert guibg=NONE
-  highlight lualine_c_insert guibg=NONE
-  highlight lualine_b_replace guibg=NONE
-  highlight lualine_c_replace guibg=NONE
+  vim.api.nvim_set_hl(0, "lualine_transitional_lualine_a_normal_to_lualine_b_normal", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_normal_to_lualine_c_normal", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_transitional_lualine_a_visual_to_lualine_b_visual", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_visual_to_lualine_c_visual", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_diagnostics_info_normal_to_lualine_c_normal", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_transitional_lualine_a_insert_to_lualine_b_insert", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_diagnostics_info_normal_to_lualine_c_insert", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_insert_to_lualine_c_insert", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_diagnostics_hint_normal_to_lualine_c_normal", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_diagnostics_error_normal_to_lualine_c_normal", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_diagnostics_error_normal_to_lualine_c_insert", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_transitional_lualine_a_command_to_lualine_b_command", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_command_to_lualine_c_command", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_diff_modified_normal_to_lualine_c_normal", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_diff_modified_normal_to_lualine_c_command", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_diff_modified_normal_to_lualine_c_visual", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_diagnostics_info_normal_to_lualine_c_visual", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_transitional_lualine_b_diff_modified_normal_to_lualine_c_insert", {bg=nil})
 
-  highlight lualine_a_inactive guibg=NONE
-  highlight lualine_b_inactive guibg=NONE
-  highlight lualine_c_inactive guibg=NONE
-  highlight StatusLine guibg=NONE
-  highlight StatusLineNc guibg=NONE
+  vim.api.nvim_set_hl(0, "lualine_b_diff_added_normal", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_b_diff_modified_normal", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_b_diff_removed_normal", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_b_diagnostics_error_normal", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_b_diagnostics_warn_normal", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_b_diagnostics_info_normal", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_b_diagnostics_hint_normal", {bg=nil})
+  vim.api.nvim_set_hl(0, "lualine_x_DevIconLua_normal", {bg=nil})
 
-  highlight lualine_transitional_lualine_a_normal_to_lualine_b_normal guibg=NONE
-  highlight lualine_transitional_lualine_b_normal_to_lualine_c_normal guibg=NONE
-  highlight lualine_transitional_lualine_a_visual_to_lualine_b_visual guibg=NONE
-  highlight lualine_transitional_lualine_b_visual_to_lualine_c_visual guibg=NONE
-  highlight lualine_transitional_lualine_b_diagnostics_info_normal_to_lualine_c_normal guibg=NONE
-  highlight lualine_transitional_lualine_a_insert_to_lualine_b_insert guibg=NONE
-  highlight lualine_transitional_lualine_b_diagnostics_info_normal_to_lualine_c_insert guibg=NONE
-  highlight lualine_transitional_lualine_b_insert_to_lualine_c_insert guibg=NONE
-  highlight lualine_transitional_lualine_b_diagnostics_hint_normal_to_lualine_c_normal guibg=NONE
-  highlight lualine_transitional_lualine_b_diagnostics_error_normal_to_lualine_c_normal guibg=NONE
-  highlight lualine_transitional_lualine_b_diagnostics_error_normal_to_lualine_c_insert guibg=NONE
-  highlight lualine_transitional_lualine_a_command_to_lualine_b_command guibg=NONE
-  highlight lualine_transitional_lualine_b_command_to_lualine_c_command guibg=NONE
-  highlight lualine_transitional_lualine_b_diff_modified_normal_to_lualine_c_normal guibg=NONE
-  highlight lualine_transitional_lualine_b_diff_modified_normal_to_lualine_c_command guibg=NONE
-  highlight lualine_transitional_lualine_b_diff_modified_normal_to_lualine_c_visual guibg=NONE
-  highlight lualine_transitional_lualine_b_diagnostics_info_normal_to_lualine_c_visual guibg=NONE
-  highlight lualine_transitional_lualine_b_diff_modified_normal_to_lualine_c_insert guibg=NONE
+  vim.api.nvim_set_hl(0, "BufferLineFill", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "BufferLineDiagnostics", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "BufferLineTab", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "BufferLineTabSelected", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "BufferLineTabClose", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "BufferLineDuplicate", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "BufferLineDuplicateSelected", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "BufferLineDuplicateVisible", {bg=nil, fg=nil})
 
-  highlight lualine_b_diff_added_normal guibg=NONE
-  highlight lualine_b_diff_modified_normal guibg=NONE
-  highlight lualine_b_diff_removed_normal guibg=NONE
-  highlight lualine_b_diagnostics_error_normal guibg=NONE
-  highlight lualine_b_diagnostics_warn_normal guibg=NONE
-  highlight lualine_b_diagnostics_info_normal guibg=NONE
-  highlight lualine_b_diagnostics_hint_normal guibg=NONE
-  highlight lualine_x_DevIconLua_normal guibg=NONE
+  vim.api.nvim_set_hl(0, "BufferLineBackground", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "BufferLineCloseButton", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "BufferLineCloseButtonSelected", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "BufferLineCloseButtonVisible", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "BufferLineBufferVisible", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "BufferLineSeperator", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "BufferLineSeperatorVisible", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "BufferLineGroupSeperator", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "BufferLineSeparator", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "BufferLineBufferSelected", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "BufferLineDiagnostic", {bg=nil, fg=nil})
 
+  vim.api.nvim_set_hl(0, "BufferLinePick", {bg=nil})
+  vim.api.nvim_set_hl(0, "BufferLinePickSelected", {bg=nil})
+  vim.api.nvim_set_hl(0, "BufferLineSeparatorSelected", {bg=nil})
+  vim.api.nvim_set_hl(0, "BufferLineIndicatorSelected", {bg=nil})
+  vim.api.nvim_set_hl(0, "BufferLineDevIconLuaSelected", {bg=nil})
+  vim.api.nvim_set_hl(0, "BufferLineDevIconDefaultInactive", {bg=nil})
 
-  highlight BufferLineFill guibg=NONE guifg=NONE
-  highlight BufferLineDiagnostics guibg=NONE guifg=NONE
-  highlight BufferLineTab guibg=NONE guifg=NONE
-  highlight BufferLineTabSelected guibg=NONE guifg=NONE
-  highlight BufferLineTabClose guibg=NONE guifg=NONE
-  highlight BufferLineDuplicate guibg=NONE guifg=NONE
-  highlight BufferLineDuplicateSelected guibg=NONE guifg=NONE
-  highlight BufferLineDuplicateVisible guibg=NONE guifg=NONE
+  vim.api.nvim_set_hl(0, "BufferLineError", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "BufferLineErrorDiagnostic", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "BufferLineErrorVisible", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "BufferLineErrorDiagnosticVisible", {bg=nil, fg=nil})
+  vim.api.nvim_set_hl(0, "BufferLineErrorSelected", {bg=nil})
+  vim.api.nvim_set_hl(0, "BufferLineErrorDiagnosticSelected", {bg=nil})
+  vim.api.nvim_set_hl(0, "BufferLineErrorDiagnosticSelected", {bg=nil})
 
-  highlight BufferLineBackground guibg=NONE guifg=NONE
-  highlight BufferLineCloseButton guibg=NONE guifg=NONE
-  highlight BufferLineCloseButtonSelected	 guibg=NONE guifg=NONE
-  highlight BufferLineCloseButtonVisible	 guibg=NONE guifg=NONE
-  highlight BufferLineBufferVisible guibg=NONE guifg=NONE
-  highlight BufferLinePick guibg=NONE
-  highlight BufferLinePickSelected guibg=NONE
-  highlight BufferLineSeperator guibg=NONE guifg=NONE
-  highlight BufferLineGroupSeperator guibg=NONE guifg=NONE
-  highlight bufferlineseperatorvisible guibg=none guifg=none
-  highlight BufferLineSeparatorSelected guibg=none
-  highlight BufferLineSeparator guibg=NONE guifg=NONE
-  highlight BufferLineIndicatorSelected	 guibg=NONE
-  highlight BufferLineBufferSelected guibg=NONE guifg=NONE
-  highlight BufferLineDiagnostic	 guibg=NONE guifg=NONE
-  highlight BufferLineDevIconLuaSelected	 guibg=NONE
-  highlight BufferLineDevIconDefaultInactive	 guibg=NONE
+   vim.api.nvim_set_hl(0, "BufferLineWarning", {bg=nil, fg=nil})
+   vim.api.nvim_set_hl(0, "BufferLineWarningVisible", {bg=nil, fg=nil})
+   vim.api.nvim_set_hl(0, "BufferLineWarningDiagnosticVisible", {bg=nil, fg=nil})
+   vim.api.nvim_set_hl(0, "BufferLineWarningDiagnostic", {bg=nil, fg=nil})
+   vim.api.nvim_set_hl(0, "BufferLineWarningSelected", {bg=nil})
+   vim.api.nvim_set_hl(0, "BufferLineWarningDiagnosticSelected", {bg=nil})
+   vim.api.nvim_set_hl(0, "BufferLineWarningDiagnosticSelected", {bg=nil})
 
-  highlight BufferLineError guibg=NONE guifg=NONE
-  highlight BufferLineErrorVisible guibg=NONE guifg=NONE
-  highlight BufferLineErrorDiagnosticVisible guibg=NONE guifg=NONE
-  highlight BufferLineErrorSelected guibg=NONE
-  highlight BufferLineErrorDiagnostic guibg=NONE guifg=NONE
-  highlight BufferLineErrorDiagnosticSelected guibg=NONE
-  highlight BufferLineErrorDiagnosticSelected guibg=NONE
+   vim.api.nvim_set_hl(0, "BufferLineInfo", {bg=nil, fg=nil})
+   vim.api.nvim_set_hl(0, "BufferLineInfoVisible", {bg=nil, fg=nil})
+   vim.api.nvim_set_hl(0, "BufferLineInfoDiagnosticVisible", {bg=nil, fg=nil})
+   vim.api.nvim_set_hl(0, "BufferLineInfoDiagnostic", {bg=nil, fg=nil})
+   vim.api.nvim_set_hl(0, "BufferLineInfoSelected", {bg=nil})
+   vim.api.nvim_set_hl(0, "BufferLineInfoDiagnosticSelected", {bg=nil})
+   vim.api.nvim_set_hl(0, "BufferLineInfoDiagnosticSelected", {bg=nil})
 
-  highlight BufferLineWarning guibg=NONE guifg=NONE
-  highlight BufferLineWarningVisible guibg=NONE guifg=NONE
-  highlight BufferLineWarningDiagnosticVisible guibg=NONE guifg=NONE
-  highlight BufferLineWarningSelected guibg=NONE
-  highlight BufferLineWarningDiagnostic guibg=NONE guifg=NONE
-  highlight BufferLineWarningDiagnosticSelected guibg=NONE
-  highlight BufferLineWarningDiagnosticSelected guibg=NONE
+   vim.api.nvim_set_hl(0, "BufferLineModifiedVisible", {bg=nil, fg=nil})
+   vim.api.nvim_set_hl(0, "BufferLineModified", {bg=nil})
+   vim.api.nvim_set_hl(0, "BufferLineModifiedSelected", {bg=nil})
 
-  highlight BufferLineInfo guibg=NONE guifg=NONE
-  highlight BufferLineInfoVisible guibg=NONE guifg=NONE
-  highlight BufferLineInfoDiagnosticVisible guibg=NONE guifg=NONE
-  highlight BufferLineInfoSelected guibg=NONE
-  highlight BufferLineInfoDiagnostic guibg=NONE guifg=NONE
-  highlight BufferLineInfoDiagnosticSelected guibg=NONE
-  highlight BufferLineInfoDiagnosticSelected guibg=NONE
-
-  highlight BufferLineModified guibg=NONE
-  highlight BufferLineModifiedSelected guibg=NONE
-  highlight BufferLineModifiedVisible guibg=NONE guifg=NONE
-
-  highlight NormalFloat guibg=NONE
-  highlight FloatBorder guibg=#NONE
-  highlight WhichKeyFloat guibg=NONE
-  ]]
+   vim.api.nvim_set_hl(0, "NormalFloat", {bg=nil})
+   vim.api.nvim_set_hl(0, "FloatBorder", {bg=nil})
+   vim.api.nvim_set_hl(0, "WhichKeyFloat", {bg=nil})
 end

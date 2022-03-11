@@ -88,6 +88,7 @@ opt.timeoutlen = 200
 opt.completeopt = "menuone,noselect"
 
 -- Set line number for help files.
+-- TODO: move to new autocmd api.
 vim.cmd
 [[
 augroup help_config
@@ -101,6 +102,7 @@ exec([[au BufWritePre * call NoWhitespace()]], false)
 
 -- Auto open nvim-tree when writing (nvim .) in command line
 -- and auto open Dashboard when nothing given as argument.
+-- TODO: move to new autocmd api.
 vim.cmd
 [[
 if index(argv(), ".") >= 0
@@ -159,5 +161,9 @@ function hide_statusline(types)
   end
 end
 
--- BufEnter,BufRead,BufWinEnter,FileType,WinEnter
-vim.cmd("autocmd BufEnter,BufRead,BufWinEnter,FileType,WinEnter * lua hide_statusline(statusline_hide)")
+vim.api.nvim_create_autocmd({"BufEnter", "BufRead", "BufWinEnter", "FileType", "WinEnter"}, {
+    pattern = "*",
+    callback = function()
+      hide_statusline(statusline_hide)
+    end,
+})
