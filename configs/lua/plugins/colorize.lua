@@ -1,9 +1,9 @@
 local present, color = pcall(require, "colorizer")
 if not present then
-	return
+  return
 end
 
 color.setup({
-	"*",
-	css = { rgb_fn = true },
+  "*",
+  css = { rgb_fn = true },
 })

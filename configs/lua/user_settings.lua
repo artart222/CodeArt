@@ -1,31 +1,31 @@
 -- Functions for make mapping easier.
 local function map(mode, lhs, rhs, opts)
-	local options = { noremap = true }
-	if opts then
-		options = vim.tbl_extend("force", options, opts)
-	end
-	vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+  local options = { noremap = true }
+  if opts then
+    options = vim.tbl_extend("force", options, opts)
+  end
+  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
 local function wk_add(mappings, options)
-	table.insert(extra_which_keys, { mappings, options })
+  table.insert(extra_which_keys, { mappings, options })
 end
 
 extra_which_keys = {}
 
 additional_plugins = {
-	-- You can put your additional plugins here.
-	-- Syntax is like normal packer.nvim Syntax.
-	-- If you need to set some settings for your plugins
-	-- you must put configs in config = function() like below examples
+  -- You can put your additional plugins here.
+  -- Syntax is like normal packer.nvim Syntax.
+  -- If you need to set some settings for your plugins
+  -- you must put configs in config = function() like below examples
 
-	-- { "famiu/feline.nvim", branch = "develop" },
+  -- { "famiu/feline.nvim", branch = "develop" },
 
-	-- "mhartington/formatter.nvim",
+  -- "mhartington/formatter.nvim",
 
-	-- { crispgm/nvim-go", ft = "go" },
+  -- { crispgm/nvim-go", ft = "go" },
 
-	--[[ {
+  --[[ {
     "iamcco/markdown-preview.nvim",
     ft = "markdown",
     run = ":call mkdp#util#install()",

@@ -3,7 +3,7 @@ local opt = vim.opt
 local exec = vim.api.nvim_exec
 
 local NoWhitespace = exec(
-	[[
+  [[
     function! NoWhitespace()
         let l:save = winsaveview()
         keeppatterns %s/\s\+$//e
@@ -11,7 +11,7 @@ local NoWhitespace = exec(
     endfunction
     call NoWhitespace()
     ]],
-	true
+  true
 )
 
 -- Decrease time of completion menu.
@@ -128,26 +128,26 @@ vim.cmd("command CodeArtTransparent lua make_codeart_transparent()")
 
 -- Add cursorline and diasable it in some buffers and filetypes.
 statusline_hide = {
-	"dashboard",
-	"TelescopePrompt",
-	"TelescopeResults",
-	"terminal",
-	"toggleterm",
+  "dashboard",
+  "TelescopePrompt",
+  "TelescopeResults",
+  "terminal",
+  "toggleterm",
 }
 
 function hide_statusline(types)
-	for _, type in pairs(types) do
-		if vim.bo.filetype == type or vim.bo.buftype == type then
-			opt.laststatus = 0
-			opt.ruler = false
-			opt.cursorline = false
-			break
-		else
-			opt.laststatus = 2
-			opt.ruler = true
-			opt.cursorline = true
-		end
-	end
+  for _, type in pairs(types) do
+    if vim.bo.filetype == type or vim.bo.buftype == type then
+      opt.laststatus = 0
+      opt.ruler = false
+      opt.cursorline = false
+      break
+    else
+      opt.laststatus = 2
+      opt.ruler = true
+      opt.cursorline = true
+    end
+  end
 end
 
 -- BufEnter,BufRead,BufWinEnter,FileType,WinEnter

@@ -1,10 +1,10 @@
 -- Function for make mapping easier.
 local function map(mode, lhs, rhs, opts)
-	local options = { noremap = true }
-	if opts then
-		options = vim.tbl_extend("force", options, opts)
-	end
-	vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+  local options = { noremap = true }
+  if opts then
+    options = vim.tbl_extend("force", options, opts)
+  end
+  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
 -- Map leader key to space.
@@ -37,16 +37,16 @@ map("n", "<C-s>s", ":SessionSave<CR>")
 
 -- ToggleTerm
 function _G.set_terminal_keymaps()
-	map("t", "<esc>", "<C-\\><C-n>")
-	map("t", "<A-h>", "<c-\\><c-n><c-w>h")
-	map("t", "<A-j>", "<c-\\><c-n><c-w>j")
-	map("t", "<A-k>", "<c-\\><c-n><c-w>k")
-	map("t", "<A-l>", "<c-\\><c-n><c-w>l")
+  map("t", "<esc>", "<C-\\><C-n>")
+  map("t", "<A-h>", "<c-\\><c-n><c-w>h")
+  map("t", "<A-j>", "<c-\\><c-n><c-w>j")
+  map("t", "<A-k>", "<c-\\><c-n><c-w>k")
+  map("t", "<A-l>", "<c-\\><c-n><c-w>l")
 
-	map("t", "<S-h>", "<c-\\><C-n>:call ResizeLeft(3)<CR>")
-	map("t", "<S-j>", "<c-\\><C-n>:call ResizeDown(1)<CR>")
-	map("t", "<S-k>", "<c-\\><C-n>:call ResizeUp(1)<CR>")
-	map("t", "<S-l>", "<c-\\><C-n>:call ResizeRight(3)<CR>")
+  map("t", "<S-h>", "<c-\\><C-n>:call ResizeLeft(3)<CR>")
+  map("t", "<S-j>", "<c-\\><C-n>:call ResizeDown(1)<CR>")
+  map("t", "<S-k>", "<c-\\><C-n>:call ResizeUp(1)<CR>")
+  map("t", "<S-l>", "<c-\\><C-n>:call ResizeRight(3)<CR>")
 end
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
