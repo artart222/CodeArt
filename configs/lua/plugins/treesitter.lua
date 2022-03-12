@@ -1,9 +1,9 @@
 local present, nvim_treesitter = pcall(require, "nvim-treesitter.configs")
 if not present then
-    return
+  return
 end
 
-nvim_treesitter.setup {
+nvim_treesitter.setup({
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = true,
@@ -16,17 +16,16 @@ nvim_treesitter.setup {
     disable = { "python" },
   },
   autotag = {
-    enable = true
+    enable = true,
   },
   context_commentstring = {
     enable = true,
     enable_autocmd = true,
-  }
-}
+  },
+})
 
-vim.cmd
-[[
+vim.cmd([[
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 set foldlevel=99
-]]
+]])

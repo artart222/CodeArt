@@ -1,12 +1,12 @@
 local present, which_key = pcall(require, "which-key")
 if not present then
-    return
+  return
 end
 
 -- TODO: Find a way to only load specific variable
 local user_mappings = require("../user_settings")
 
-which_key.setup {
+which_key.setup({
   key_labels = {
     ["<space>"] = "SPC",
     ["<leader>"] = "SPC",
@@ -21,12 +21,10 @@ which_key.setup {
     position = "bottom", -- bottom, top
     margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
     padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
-    winblend = 0
+    winblend = 0,
   },
   ignore_missing = false,
-}
-
-
+})
 
 -- Packer
 which_key.register({
@@ -37,9 +35,8 @@ which_key.register({
     r = { ":PackerClean<CR>", "Uninstall unnecessary CodeArt packages" },
     s = { ":PackerSync<CR>", "Sync CodeArt packages" },
     c = { ":PackerClean<CR>", "Compile CodeArt packages" },
-  }
+  },
 }, { prefix = "<leader>" })
-
 
 which_key.register({
   b = {
@@ -48,12 +45,11 @@ which_key.register({
     e = { ":noh<CR>", "Erase Search Highlights" },
     l = { ":BufferLineMoveNext<CR>", "Move Buffer Right" },
     h = { ":BufferLineMovePrev<CR>", "Move buffer Left" },
-    n = { ":DashboardNewFile<CR>", "New Buffer"},
+    n = { ":DashboardNewFile<CR>", "New Buffer" },
     r = { ":Neoformat<CR>", "Format Buffer" },
     m = { ":TZFocus<CR>", "Maximize Current Buffer" },
-  }
+  },
 }, { prefix = "<leader>" })
-
 
 -- NvimTree
 which_key.register({
@@ -61,9 +57,8 @@ which_key.register({
     name = "NvimTree",
     t = { ":NvimTreeToggle<CR>", "Toggle NvimTree" },
     f = { ":NvimTreeFocus<CR>", "Focus on NvimTree" },
-  }
+  },
 }, { prefix = "<leader>" })
-
 
 -- Finding different stuf.
 which_key.register({
@@ -76,9 +71,8 @@ which_key.register({
     b = { ":Telescope buffers<CR>", "Buffer" },
     h = { ":Telescope help_tags<CR>", "Help File" },
     B = { ":DashboardJumpMarks<CR>", "Find BookMark" },
-  }
+  },
 }, { prefix = "<leader>" })
-
 
 -- Git keybinds.
 which_key.register({
@@ -94,12 +88,11 @@ which_key.register({
     r = { ":Gitsigns reset_hunk<CR>", "Reset Hunk" },
     R = { ":Gitsigns reset_buffer<CR>", "Reset Buffer" },
     d = { ":Gitsigns diffthis<CR>", "Git Diff" },
-    l = { ":Gitsigns blame_line<CR>", "Blame For Current Line"},
-    S = { ":Gitsigns stage_hunk<CR>", "Stage Hunk"},
-    u = { ":Gitsigns undo_stage_hunk<CR>", "Undo Stage Hunk"},
-    },
+    l = { ":Gitsigns blame_line<CR>", "Blame For Current Line" },
+    S = { ":Gitsigns stage_hunk<CR>", "Stage Hunk" },
+    u = { ":Gitsigns undo_stage_hunk<CR>", "Undo Stage Hunk" },
+  },
 }, { prefix = "<leader>" })
-
 
 -- ColorScheme keybindings.
 which_key.register({
@@ -107,9 +100,8 @@ which_key.register({
     name = "Theme",
     h = { ":Telescope colorscheme<CR>", "Find Colorscheme" },
     p = { ":Telescope colorscheme enable_preview=true<CR>", "Find Colorscheme with previwer " },
-  }
+  },
 }, { prefix = "<leader>" })
-
 
 -- Lsp
 which_key.register({
@@ -142,39 +134,39 @@ which_key.register({
       d = { ":lua vim.lsp.diagnostic.set_loclist()<CR>", "List Diagnostic" },
       r = { ":lua vim.lsp.buf.references()<CR>", "Show References" },
     },
-  }
+  },
 }, { prefix = "<leader>" })
-
 
 -- Dap
 which_key.register({
   d = {
     name = "Debugging",
-    c = { ":lua require(\"dap\").continue()<CR>", "Continue" },
-    t = { ":lua require(\"dap\").terminate()<CR>", "Terminate" },
-    l = { ":lua require(\"dap\").run_last()<CR>", "Run Last Debugging Config" },
-    d = { ":lua require(\"dap\").repl.open()<CR>", "Open Debug Console" },
+    c = { ':lua require("dap").continue()<CR>', "Continue" },
+    t = { ':lua require("dap").terminate()<CR>', "Terminate" },
+    l = { ':lua require("dap").run_last()<CR>', "Run Last Debugging Config" },
+    d = { ':lua require("dap").repl.open()<CR>', "Open Debug Console" },
     b = {
       name = "Breakpoint",
-      t = { ":lua require(\"dap\").toggle_breakpoint()<CR>", "Toggle" },
-      c = { ":lua require(\"dap\").set_breakpoint(vim.fn.input(\"Breakpoint condition: \"))<CR>", "Set conditional" },
-      l = { ":lua require(\"dap\").set_breakpoint(nil, nil, vim.fn.input(\"Log point message: \"))<CR>", "With Log Point Message" },
+      t = { ':lua require("dap").toggle_breakpoint()<CR>', "Toggle" },
+      c = { ':lua require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: "))<CR>', "Set conditional" },
+      l = {
+        ':lua require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: "))<CR>',
+        "With Log Point Message",
+      },
     },
     s = {
       name = "Step",
-      o = { ":lua require(\"dap\").step_over()<CR>", "Step Over" },
-      O = { ":lua require(\"dap\").step_into()<CR>", "Step Into" },
-      i = { ":lua require(\"dap\").step_out()<CR>", "Step Out" },
-      b = { ":lua require(\"dap\").step_back()<CR>", "Step Back" },
-      c = { ":lua require(\"dap\").run_to_cursor()<CR>", "Run To Cursor" },
+      o = { ':lua require("dap").step_over()<CR>', "Step Over" },
+      O = { ':lua require("dap").step_into()<CR>', "Step Into" },
+      i = { ':lua require("dap").step_out()<CR>', "Step Out" },
+      b = { ':lua require("dap").step_back()<CR>', "Step Back" },
+      c = { ':lua require("dap").run_to_cursor()<CR>', "Run To Cursor" },
     },
-    u = { ":lua require(\"dapui\").toggle()<CR>", "Toggle UI" },
-  }
+    u = { ':lua require("dapui").toggle()<CR>', "Toggle UI" },
+  },
 }, { prefix = "<leader>" })
 
-
-
 -- Adding user mappings
-for _,v in ipairs(extra_which_keys) do
-  which_key.register(v[1] , v[2])
+for _, v in ipairs(extra_which_keys) do
+  which_key.register(v[1], v[2])
 end

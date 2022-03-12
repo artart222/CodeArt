@@ -1,9 +1,9 @@
 local present, toggle_term = pcall(require, "toggleterm")
 if not present then
-    return
+  return
 end
 
-toggle_term.setup {
+toggle_term.setup({
   open_mapping = "<c-t>",
   hide_numbers = true, -- hide the number column in toggleterm buffers
   shade_terminals = false,
@@ -20,6 +20,6 @@ toggle_term.setup {
     highlights = {
       border = "Normal",
       background = "Normal",
-    }
-  }
-}
+    },
+  },
+})

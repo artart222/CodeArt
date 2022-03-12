@@ -1,17 +1,17 @@
 -- Functions for make mapping easier.
 local function map(mode, lhs, rhs, opts)
-  local options = {noremap = true}
-  if opts then options = vim.tbl_extend("force", options, opts) end
+  local options = { noremap = true }
+  if opts then
+    options = vim.tbl_extend("force", options, opts)
+  end
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
 local function wk_add(mappings, options)
-  table.insert(extra_which_keys, {mappings, options})
+  table.insert(extra_which_keys, { mappings, options })
 end
 
-extra_which_keys = {
-
-}
+extra_which_keys = {}
 
 additional_plugins = {
   -- You can put your additional plugins here.
@@ -51,7 +51,6 @@ additional_plugins = {
 -- vim.opt.number = false
 -- vim.opt.relativenumber = false
 
-
 -- Or for changing terminal toggle mapping:
 -- first argument is mode of mapping. second argument is keymap.
 -- third argument is command. and last argument is optional argument like {expr = true}.
@@ -72,7 +71,6 @@ additional_plugins = {
   }},
   { prefix = "<leader>" }
 )]]
-
 
 user_lualine_style = 1 -- You can choose between 1, 2, 3, 4 and 5
 user_indent_blankline_style = 1 -- You can choose between 1, 2, 3, 4,5 and 6

@@ -1,8 +1,8 @@
 local present, nvimtree = pcall(require, "nvim-tree")
 if not present then
-    return
+  return
 end
-local tree_cb = require"nvim-tree.config".nvim_tree_callback
+local tree_cb = require("nvim-tree.config").nvim_tree_callback
 
 -- Set alias for vim.g.
 local g = vim.g
@@ -13,7 +13,7 @@ g.nvim_tree_git_hl = 1 -- Will enable file highlight for git attributes (can be 
 g.nvim_tree_highlight_opened_files = 0 -- Will enable folder and file icon highlight for opened files/directories.
 g.nvim_tree_add_trailing = 0 -- Append a trailing slash to folder names. ]]
 
-nvimtree.setup {
+nvimtree.setup({
   auto_close = false,
   open_on_tab = false,
   update_cwd = true,
@@ -29,7 +29,7 @@ nvimtree.setup {
       info = "",
       warning = "",
       error = "",
-    }
+    },
   },
   git = {
     enable = true,
@@ -41,8 +41,8 @@ nvimtree.setup {
       ".git",
       "node_modules",
       ".cache",
-      "__pycache__"
-    }
+      "__pycache__",
+    },
   },
   view = {
     width = "15%",
@@ -50,10 +50,10 @@ nvimtree.setup {
     auto_resize = true,
     mappings = {
       list = {
-       {key = "<S-h>", cb = ":call ResizeLeft(3)<CR>"},
-       {key = "<C-h>", cb = tree_cb("toggle_dotfiles")},
-      }
-    }
+        { key = "<S-h>", cb = ":call ResizeLeft(3)<CR>" },
+        { key = "<C-h>", cb = tree_cb("toggle_dotfiles") },
+      },
+    },
   },
   open_file = {
     quit_on_open = false,
@@ -63,8 +63,8 @@ nvimtree.setup {
       chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
       exclude = {
         filetype = { "packer", "vista_kind", "toggleterm" },
-        buftype  = { "terminal" },
-      }
-    }
-  }
-}
+        buftype = { "terminal" },
+      },
+    },
+  },
+})

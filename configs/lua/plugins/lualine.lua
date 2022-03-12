@@ -6,33 +6,33 @@ end
 require("../user_settings")
 local lualine_style = 1
 if user_lualine_style then
-    lualine_style = user_lualine_style
+  lualine_style = user_lualine_style
 end
 
 local lualine_styles = {
-    {
-      { left = " ", right = " " },
-      { left = "│", right = "│" },
-    },
-    {
-      { left = " ", right = "" },
-      { left = " ", right = " " },
-    },
-    {
-      { left = "", right = "" },
-      { left = " ", right = " " },
-    },
-    {
-      { left = "", right = "" },
-      { left = "", right = "" }
-    },
-    {
-      { left = "", right = "" },
-      { left = " ", right = " " }
-    }
+  {
+    { left = " ", right = " " },
+    { left = "│", right = "│" },
+  },
+  {
+    { left = " ", right = "" },
+    { left = " ", right = " " },
+  },
+  {
+    { left = "", right = "" },
+    { left = " ", right = " " },
+  },
+  {
+    { left = "", right = "" },
+    { left = "", right = "" },
+  },
+  {
+    { left = "", right = "" },
+    { left = " ", right = " " },
+  },
 }
 
-lualine.setup {
+lualine.setup({
   options = {
     theme = "auto",
     disabled_filetypes = {
@@ -43,11 +43,11 @@ lualine.setup {
       "dapui_breakpoints",
       "dapui_stacks",
       "dapui_watches",
-      "dap-repl"
+      "dap-repl",
     },
 
     section_separators = lualine_styles[lualine_style][1],
-    component_separators = lualine_styles[lualine_style][2]
+    component_separators = lualine_styles[lualine_style][2],
   },
   extensions = { "fugitive" },
   sections = {
@@ -58,11 +58,11 @@ lualine.setup {
         "diff",
         symbols = { added = "  ", modified = "柳", removed = " " }, -- changes diff symbols
       },
-      {"diagnostics"}
+      { "diagnostics" },
     },
     lualine_c = { "filename" },
     lualine_x = { "encoding", "fileformat", "filetype" },
     lualine_y = { "progress" },
-    lualine_z = { "location" }
+    lualine_z = { "location" },
   },
-}
+})

@@ -3,7 +3,7 @@ if not present then
   return
 end
 
-color.setup {
+color.setup({
   "*",
-  css = { rgb_fn = true; }
-}
+  css = { rgb_fn = true },
+})

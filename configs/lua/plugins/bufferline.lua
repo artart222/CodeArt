@@ -3,7 +3,7 @@ if not present then
   return
 end
 
-bufferline.setup {
+bufferline.setup({
   options = {
     numbers = function(opts)
       return string.format("%s", opts.id)
@@ -14,13 +14,13 @@ bufferline.setup {
         filetype = "NvimTree",
         text = "File Explorer",
         highlight = "Directory",
-        text_align = "left"
+        text_align = "left",
       },
       {
         filetype = "vista_kind",
         text = "Lsp Tags",
-        text_align = "center"
-      }
-    }
-  }
-}
+        text_align = "center",
+      },
+    },
+  },
+})

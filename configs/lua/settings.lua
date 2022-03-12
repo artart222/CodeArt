@@ -3,7 +3,7 @@ local opt = vim.opt
 local exec = vim.api.nvim_exec
 
 local NoWhitespace = exec(
-    [[
+  [[
     function! NoWhitespace()
         let l:save = winsaveview()
         keeppatterns %s/\s\+$//e
@@ -11,7 +11,7 @@ local NoWhitespace = exec(
     endfunction
     call NoWhitespace()
     ]],
-    true
+  true
 )
 
 -- Using new filetype detection in lua.
@@ -88,43 +88,41 @@ opt.timeoutlen = 200
 opt.completeopt = "menuone,noselect"
 
 -- Set line number for help files.
--- TODO: move to new autocmd api.
-vim.cmd
-[[
-augroup help_config
-  autocmd!
-  autocmd FileType help :set number
-augroup END
-]]
+local help_config = vim.api.nvim_create_augroup("help_config", { clear = true })
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "help",
+  callback = function()
+    opt.number = true
+  end,
+  group = help_config,
+})
 
 -- Trim Whitespace
+-- TODO: move to new api
 exec([[au BufWritePre * call NoWhitespace()]], false)
 
 -- Auto open nvim-tree when writing (nvim .) in command line
 -- and auto open Dashboard when nothing given as argument.
 -- TODO: move to new autocmd api.
-vim.cmd
-[[
+vim.cmd([[
 if index(argv(), ".") >= 0
   autocmd VimEnter * NvimTreeOpen
   bd1
 elseif len(argv()) == 0
   autocmd VimEnter * Dashboard
 endif
-]]
+]])
 
-vim.cmd
-[[
+vim.cmd([[
 if has("win32")
   command CodeArtUpdate !powershell.exe -executionpolicy bypass -file "$HOME\AppData\Local\nvim\CodeArtUpdate.ps1"
 else
   command CodeArtUpdate !bash ~/.config/nvim/CodeArtUpdate.sh
 endif
-]]
+]])
 
 -- NOTE: Your shell must be powershell in bellow code block because of :CodeArtUpdate command
-vim.cmd
-[[
+vim.cmd([[
 if has("win32")
   set shell=powershell " Your shell must be powershell
   let &shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
@@ -132,10 +130,9 @@ if has("win32")
   let &shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
   set shellquote= shellxquote=
 endif
-]]
+]])
 
 vim.cmd("command CodeArtTransparent lua make_codeart_transparent()")
-
 
 -- Add cursorline and diasable it in some buffers and filetypes.
 statusline_hide = {
@@ -143,11 +140,11 @@ statusline_hide = {
   "TelescopePrompt",
   "TelescopeResults",
   "terminal",
-  "toggleterm"
+  "toggleterm",
 }
 
 function hide_statusline(types)
-  for _,type in pairs(types) do
+  for _, type in pairs(types) do
     if vim.bo.filetype == type or vim.bo.buftype == type then
       opt.laststatus = 0
       opt.ruler = false
@@ -161,9 +158,9 @@ function hide_statusline(types)
   end
 end
 
-vim.api.nvim_create_autocmd({"BufEnter", "BufRead", "BufWinEnter", "FileType", "WinEnter"}, {
-    pattern = "*",
-    callback = function()
-      hide_statusline(statusline_hide)
-    end,
+vim.api.nvim_create_autocmd({ "BufEnter", "BufRead", "BufWinEnter", "FileType", "WinEnter" }, {
+  pattern = "*",
+  callback = function()
+    hide_statusline(statusline_hide)
+  end,
 })

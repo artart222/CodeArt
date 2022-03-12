@@ -1,10 +1,15 @@
 if [[ $(uname) == "Linux" ]]; then
     PACKAGE_MANAGER=""
-    if [ -x "$(command -v pacman)" ];    then PACKAGE_MANAGER="pacman"
-    elif [ -x "$(command -v apt-get)" ]; then PACKAGE_MANAGER="apt-get"
-    elif [ -x "$(command -v dnf)" ];     then PACKAGE_MANAGER="dnf"
-    elif [ -x "$(command -v zypper)" ];  then PACKAGE_MANAGER="zypper"
-    elif [ -x "$(command -v emerge)" ];  then PACKAGE_MANAGER="emerge"
+    if [ -x "$(command -v pacman)" ]; then
+        PACKAGE_MANAGER="pacman"
+    elif [ -x "$(command -v apt-get)" ]; then
+        PACKAGE_MANAGER="apt-get"
+    elif [ -x "$(command -v dnf)" ]; then
+        PACKAGE_MANAGER="dnf"
+    elif [ -x "$(command -v zypper)" ]; then
+        PACKAGE_MANAGER="zypper"
+    elif [ -x "$(command -v emerge)" ]; then
+        PACKAGE_MANAGER="emerge"
     fi
 elif [[ $(uname) == "Darwin" ]]; then
     PACKAGE_MANAGER="brew"
@@ -20,20 +25,18 @@ elif [[ $(uname) == "Darwin" ]]; then
     fi
 fi
 
-
 make_backup_of_config() {
     echo "Creating backup for any existing configuration files"
     if [ -d "$HOME/.config/nvim" ]; then
         TRY_NUMBER=1
         while [ -d "$HOME/.config/nvim$TRY_NUMBER" ]; do
-            ((TRY_NUMBER=TRY_NUMBER+1))
+            ((TRY_NUMBER = TRY_NUMBER + 1))
         done
         mv ~/.config/nvim "$HOME/.config/nvim$TRY_NUMBER"
     fi
     echo "Backup created"
     echo ""
 }
-
 
 pack_manager_install() {
     LIST_OF_APPS=($(ls "/bin")+$(ls "/usr/bin"))
@@ -46,11 +49,14 @@ pack_manager_install() {
         if [[ "$1" == "pacman" ]]; then
             sudo pacman -Sy $3 --noconfirm
         elif [[ "$1" =~ "apt-get" ]]; then
-            sudo apt update; sudo apt install $4 -y
+            sudo apt update
+            sudo apt install $4 -y
         elif [[ "$1" =~ "dnf" ]]; then
-            sudo dnf update -y; sudo dnf install $5 -y
+            sudo dnf update -y
+            sudo dnf install $5 -y
         elif [[ "$1" =~ "zypper" ]]; then
-            sudo zypper ref; sudo zypper -n $6
+            sudo zypper ref
+            sudo zypper -n $6
         elif [[ "$1" =~ "emerge" ]]; then
             emerge $7
         elif [[ "$1" =~ "brew" ]]; then
@@ -58,7 +64,6 @@ pack_manager_install() {
         fi
     fi
 }
-
 
 install_font() {
     echo "Downloading font"
@@ -73,7 +78,6 @@ install_font() {
     fi
     echo "Font installed"
 }
-
 
 make_backup_of_config
 

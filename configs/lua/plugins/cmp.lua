@@ -8,7 +8,7 @@ local cmp_kinds = {
   Method = " ",
   Function = " ",
   Constructor = "略 ",
-  Field = "ﰠ" ,
+  Field = "ﰠ",
   Variable = " ",
   Class = " ",
   Interface = " ",
@@ -25,16 +25,18 @@ local cmp_kinds = {
   Folder = " ",
   EnumMember = " ",
   Constant = " ",
-  Struct = " " ,
+  Struct = " ",
   Event = " ",
   Operator = " ",
   TypeParameter = " ",
 }
 
-cmp.setup {
-	snippet = {
-		expand = function(args) require("luasnip").lsp_expand(args.body) end,
-	},
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      require("luasnip").lsp_expand(args.body)
+    end,
+  },
   formatting = {
     fields = { "abbr", "kind", "menu" },
     format = function(entry, vim_item)
@@ -50,7 +52,7 @@ cmp.setup {
       })[entry.source.name]
 
       return vim_item
-    end
+    end,
   },
   documentation = {
     border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
@@ -67,20 +69,20 @@ cmp.setup {
     ["<CR>"] = cmp.mapping.confirm({ select = true }),
     ["<Tab>"] = function(fallback)
       if cmp.visible() then
-         cmp.select_next_item()
+        cmp.select_next_item()
       elseif require("luasnip").expand_or_jumpable() then
-         vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
       else
-         fallback()
+        fallback()
       end
     end,
     ["<S-Tab>"] = function(fallback)
       if cmp.visible() then
-         cmp.select_prev_item()
+        cmp.select_prev_item()
       elseif require("luasnip").jumpable(-1) then
-         vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
       else
-         fallback()
+        fallback()
       end
     end,
   },
@@ -91,4 +93,4 @@ cmp.setup {
     { name = "buffer" },
     { name = "path" },
   },
-}
+})

@@ -1,14 +1,14 @@
 -- Function for make mapping easier.
 local function map(mode, lhs, rhs, opts)
-  local options = {noremap = true}
-  if opts then options = vim.tbl_extend("force", options, opts) end
+  local options = { noremap = true }
+  if opts then
+    options = vim.tbl_extend("force", options, opts)
+  end
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
-
 -- Map leader key to space.
 vim.g.mapleader = " "
-
 
 -- Split navigations.
 map("n", "<A-j>", "<C-w><C-j>")
@@ -16,13 +16,11 @@ map("n", "<A-k>", "<C-w><C-k>")
 map("n", "<A-l>", "<C-w><C-l>")
 map("n", "<A-h>", "<C-w><C-h>")
 
-
 -- Buffer resizing.
 map("n", "<S-h>", ":call ResizeLeft(3)<CR><Esc>")
 map("n", "<S-l>", ":call ResizeRight(3)<CR><Esc>")
 map("n", "<S-k>", ":call ResizeUp(1)<CR><Esc>")
 map("n", "<S-j>", ":call ResizeDown(1)<CR><Esc>")
-
 
 -- Buffer switching.
 map("n", "<S-Tab>", ":BufferLineCyclePrev<CR>")
@@ -37,7 +35,6 @@ map("n", "<Leader>db", ":Dashboard<CR>")
 map("n", "<C-s>l", ":SessionLoad<CR>")
 map("n", "<C-s>s", ":SessionSave<CR>")
 
-
 -- ToggleTerm
 function _G.set_terminal_keymaps()
   map("t", "<esc>", "<C-\\><C-n>")
@@ -51,9 +48,12 @@ function _G.set_terminal_keymaps()
   map("t", "<S-k>", "<c-\\><C-n>:call ResizeUp(1)<CR>")
   map("t", "<S-l>", "<c-\\><C-n>:call ResizeRight(3)<CR>")
 end
--- TODO: move to new autocmd api.
-vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
-
+vim.api.nvim_create_autocmd("TermOpen", {
+  pattern = "term://*",
+  callback = function()
+    set_terminal_keymaps()
+  end,
+})
 
 -- comment
 vim.g.kommentary_create_default_mappings = false
@@ -61,8 +61,7 @@ vim.api.nvim_set_keymap("n", "<leader>ct", "<Plug>kommentary_line_default", {})
 vim.api.nvim_set_keymap("v", "<leader>ct", "<Plug>kommentary_visual_default", {})
 
 -- Don't copy the replaced text after pasting.
-map("v", "p", "\"_dP")
-
+map("v", "p", '"_dP')
 
 -- With this you can use > < multiple time for changing indent when you visual selected text.
 map("v", "<", "<gv")
