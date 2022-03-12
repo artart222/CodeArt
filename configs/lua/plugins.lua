@@ -396,7 +396,7 @@ return require("packer").startup({
       if type(plugin) == "string" then
         use({ plugin })
       else
-        use({ unpack(plugin) })
+        use({ table.unpack(plugin) })
       end
     end
 
