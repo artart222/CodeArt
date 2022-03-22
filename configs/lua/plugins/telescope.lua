@@ -27,6 +27,7 @@ local new_maker = function(filepath, bufnr, opts)
 end
 
 local os = vim.loop.os_uname().sysname
+local finder
 if os == "Linux" or os == "Darwin" then
   -- Find the name of the fd binary file in the operating system.
   if vim.fn.filereadable("/bin/fdfind") == 1 or vim.fn.filereadable("/usr/bin/fdfind") == 1 then
