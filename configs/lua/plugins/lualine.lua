@@ -34,6 +34,7 @@ local lualine_styles = {
 
 lualine.setup({
   options = {
+    globalstatus = true,
     theme = "auto",
     disabled_filetypes = {
       "toggleterm",

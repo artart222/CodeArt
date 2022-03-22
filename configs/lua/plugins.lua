@@ -56,13 +56,57 @@ return require("packer").startup({
       "antoinemadec/FixCursorHold.nvim",
     })
 
+    -- This plugin is needed for many plugins(like telescope) so this is one of
+    -- default CodeArt's plugins.
+    use({
+      "nvim-lua/plenary.nvim",
+    })
+
     -- Color schemes.
-    use({ "folke/tokyonight.nvim" })
-    use({ "bluz71/vim-nightfly-guicolors" })
-    use({ "bluz71/vim-moonfly-colors" })
-    use({ "shaunsingh/nord.nvim" })
-    use({ "navarasu/onedark.nvim" })
-    use({ "artart222/nvim-enfocado" })
+    use({
+      "folke/tokyonight.nvim",
+      disable = disable_plugins.tokyonight,
+    })
+    use({
+      "bluz71/vim-nightfly-guicolors",
+      disable = disable_plugins.nightfly,
+    })
+    use({
+      "bluz71/vim-moonfly-colors",
+      disable = disable_plugins.moonfly,
+    })
+    use({
+      "shaunsingh/nord.nvim",
+      disable = disable_plugins.nord,
+    })
+    use({
+      "navarasu/onedark.nvim",
+      config = function()
+        require("onedark").setup({
+          -- Main options --
+          style = "deep", -- 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light'
+          term_colors = true,
+          code_style = {
+            comments = "italic",
+            keywords = "none",
+            functions = "none",
+            strings = "none",
+            variables = "none",
+          },
+          -- Plugins Config --
+          diagnostics = {
+            darker = true, -- darker colors for diagnostic
+            undercurl = true, -- use undercurl instead of underline for diagnostics
+            background = true, -- use background color for virtual text
+          },
+        })
+      end,
+      disable = disable_plugins.onedark,
+    })
+    use({
+      "artart222/nvim-enfocado",
+      disable = disable_plugins.nvim_enfocado,
+    })
 
     -- TrueZen.nvim is a Neovim plugin that aims to provide a cleaner and less cluttered interface
     -- when toggled in either of it has three different modes (Ataraxis, Minimalist and Focus).
@@ -76,6 +120,7 @@ return require("packer").startup({
       setup = function()
         require("plugins/true-zen")
       end,
+      disable = disable_plugins.truezen,
     })
 
     -- This plugin adds indentation guides to all lines (including empty lines).
@@ -85,12 +130,14 @@ return require("packer").startup({
       config = function()
         require("plugins/indent-blankline")
       end,
+      disable = disable_plugins.indent_blankline,
     })
 
     -- Icons.
     use({
       "kyazdani42/nvim-web-devicons",
       event = "BufEnter",
+      disable = disable_plugins.nvim_web_devicons,
     })
 
     -- File explorer tree.
@@ -104,6 +151,7 @@ return require("packer").startup({
       config = function()
         require("plugins/nvim-tree")
       end,
+      disable = disable_plugins.nvim_tree,
     })
 
     -- Bufferline.
@@ -113,6 +161,7 @@ return require("packer").startup({
       config = function()
         require("plugins/bufferline")
       end,
+      disable = disable_plugins.nvim_bufferline,
     })
 
     -- Statusline.
@@ -122,6 +171,7 @@ return require("packer").startup({
       config = function()
         require("plugins/lualine")
       end,
+      disable = disable_plugins.lualine,
     })
 
     -- Better escape --> For escaping easily from insert mode with jk/jj.
@@ -130,6 +180,7 @@ return require("packer").startup({
       config = function()
         require("better_escape").setup()
       end,
+      disable = disable_plugins.better_escape,
     })
 
     -- TreeSitter.
@@ -140,6 +191,7 @@ return require("packer").startup({
       config = function()
         require("plugins/treesitter")
       end,
+      disable = disable_plugins.treesitter,
     })
 
     -- Colorizer (for highlighting color codes).
@@ -150,6 +202,7 @@ return require("packer").startup({
         require("plugins/colorize")
         vim.cmd("ColorizerAttachToBuffer")
       end,
+      disable = disable_plugins.nvim_colorizer,
     })
 
     -- Startup screen.
@@ -169,20 +222,19 @@ return require("packer").startup({
       setup = function()
         require("plugins/dashboard")
       end,
-    })
-
-    use({
-      "nvim-lua/plenary.nvim",
+      disable = disable_plugins.dashboard_nvim,
     })
 
     use({
       "nvim-telescope/telescope-fzf-native.nvim",
       run = "make",
       cmd = "Telescope",
+      disable = disable_plugins.telescope_fzf_native,
     })
     use({
       "artart222/telescope_find_directories",
       after = "telescope-fzf-native.nvim",
+      disable = disable_plugins.telescope_find_directories,
     })
     use({
       "nvim-telescope/telescope.nvim",
@@ -190,12 +242,14 @@ return require("packer").startup({
       config = function()
         require("plugins/telescope")
       end,
+      disable = disable_plugins.telescope,
     })
 
     -- LSP, LSP installer and tab completion.
     use({
       "neovim/nvim-lspconfig",
       event = "BufEnter",
+      disable = disable_plugins.nvim_lspconfig,
     })
     use({
       "williamboman/nvim-lsp-installer",
@@ -203,10 +257,12 @@ return require("packer").startup({
       config = function()
         require("../lsp")
       end,
+      disable = disable_plugins.nvim_lsp_installer,
     })
     use({
       "rafamadriz/friendly-snippets",
       event = "InsertEnter",
+      disable = disable_plugins.friendly_snippets,
     })
     use({
       "hrsh7th/nvim-cmp",
@@ -214,18 +270,22 @@ return require("packer").startup({
       config = function()
         require("plugins/cmp")
       end,
+      disable = disable_plugins.nvim_cmp,
     })
     use({
       "hrsh7th/cmp-buffer",
       after = "nvim-cmp",
+      disable = disable_plugins.cmp_buffer,
     })
     use({
       "hrsh7th/cmp-path",
       after = "cmp-buffer",
+      disable = disable_plugins.cmp_path,
     })
     use({
       "hrsh7th/cmp-nvim-lsp",
       after = "nvim-lsp-installer",
+      disable = disable_plugins.cmp_nvim_lsp,
     })
     use({
       "L3MON4D3/LuaSnip",
@@ -233,15 +293,17 @@ return require("packer").startup({
       config = function()
         require("luasnip/loaders/from_vscode").load()
       end,
+      disable = disable_plugins.luasnip,
     })
     use({
       "saadparwaiz1/cmp_luasnip",
       after = "LuaSnip",
+      disable = disable_plugins.cmp_luasnip,
     })
-    -- TODO: Lazyload this on just lua filetype.
     use({
       "hrsh7th/cmp-nvim-lua",
       after = "nvim-cmp",
+      disable = disable_plugins.cmp_nvim_lua,
     })
 
     -- LSP signature.
@@ -251,16 +313,19 @@ return require("packer").startup({
       config = function()
         require("lsp_signature").setup()
       end,
+      disable = disable_plugins.lsp_signature,
     })
 
     -- TODO: Do better lazyloading here for dap.
     use({
       "mfussenegger/nvim-dap",
       event = "BufRead",
+      disable = disable_plugins.nvim_dap,
     })
     use({
       "Pocco81/DAPInstall.nvim",
       after = "nvim-dap",
+      disable = disable_plugins.dap_install,
     })
     use({
       "rcarriga/nvim-dap-ui",
@@ -268,12 +333,14 @@ return require("packer").startup({
       config = function()
         require("plugins/dap")
       end,
+      disable = disable_plugins.nvim_dap_ui,
     })
 
     -- Code formatter.
     use({
       "sbdchd/neoformat",
       cmd = "Neoformat",
+      disable = disable_plugins.neoformat,
     })
 
     -- View and search LSP symbols, tags in Neovim.
@@ -283,6 +350,7 @@ return require("packer").startup({
       config = function()
         require("plugins/vista")
       end,
+      disable = disable_plugins.vista,
     })
 
     -- Terminal.
@@ -292,12 +360,14 @@ return require("packer").startup({
       config = function()
         require("plugins/toggleterm")
       end,
+      disable = disable_plugins.toggleterm,
     })
 
     -- Git support for nvim.
     use({
       "tpope/vim-fugitive",
       cmd = "Git",
+      disable = disable_plugins.fugitive,
     })
 
     -- Git signs.
@@ -307,6 +377,7 @@ return require("packer").startup({
       config = function()
         require("plugins/gitsigns")
       end,
+      disable = disable_plugins.gitsigns,
     })
 
     -- Auto closes.
@@ -316,11 +387,13 @@ return require("packer").startup({
       config = function()
         require("nvim-autopairs").setup()
       end,
+      disable = disable_plugins.autopairs,
     })
     -- This is for html and it can autorename too!
     use({
       "windwp/nvim-ts-autotag",
       after = "nvim-treesitter",
+      disable = disable_plugins.nvim_ts_autotag,
     })
 
     -- Scrollbar.
@@ -330,6 +403,7 @@ return require("packer").startup({
       config = function()
         require("plugins/nvim-scroll")
       end,
+      disable = disable_plugins.scrollview,
     })
 
     -- Smooth scroll.
@@ -339,6 +413,7 @@ return require("packer").startup({
       config = function()
         require("neoscroll").setup()
       end,
+      disable = disable_plugins.neoscroll,
     })
     -- todo-comments is a lua plugin for Neovim to highlight and search for
     -- todo comments like TODO, HACK, BUG in code base.
@@ -348,6 +423,7 @@ return require("packer").startup({
       config = function()
         require("plugins/todo-comments")
       end,
+      disable = disable_plugins.todo_comments,
     })
 
     -- WhichKey is a lua plugin that displays a popup with possible
@@ -358,6 +434,7 @@ return require("packer").startup({
       config = function()
         require("plugins/which_key")
       end,
+      disable = disable_plugins.which_key,
     })
 
     -- A plugin for neovim that automatically creates missing directories
@@ -368,28 +445,33 @@ return require("packer").startup({
       config = function()
         require("mkdir")
       end,
+      disable = disable_plugins.mkdir,
     })
 
     -- Neovim plugin to comment in/out text.
     use({
       "b3nj5m1n/kommentary",
       after = "nvim-treesitter",
+      disable = disable_plugins.kommentary,
     })
     use({
       "JoosepAlviste/nvim-ts-context-commentstring",
       after = "kommentary",
+      disable = disable_plugins.ts_context_commentstring,
     })
 
     -- match-up is a plugin that lets you highlight, navigate, and operate on sets of matching text.
     use({
       "andymass/vim-matchup",
       event = "BufRead",
+      disable = disable_plugins.vim_matchup,
     })
 
     -- With this plugin you can resize Neovim buffers easily.
     use({
       "artart222/vim-resize",
       event = "BufEnter",
+      disable = disable_plugins.vim_resize,
     })
 
     for _, plugin in pairs(additional_plugins) do

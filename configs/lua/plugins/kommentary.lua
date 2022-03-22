@@ -11,7 +11,9 @@ for lang, _ in pairs(langs) do
     use_consistent_indentation = true,
     ignore_whitespace = true,
     hook_function = function()
-      require("ts_context_commentstring.internal").update_commentstring()
+      if disable_plugins.ts_context_commentstring == false then
+        require("ts_context_commentstring.internal").update_commentstring()
+      end
     end,
   })
 end

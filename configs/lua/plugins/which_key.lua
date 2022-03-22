@@ -3,7 +3,6 @@ if not present then
   return
 end
 
--- TODO: Find a way to only load specific variable
 local user_mappings = require("../user_settings")
 
 which_key.setup({

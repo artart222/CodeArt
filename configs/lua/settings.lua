@@ -2,18 +2,6 @@
 local opt = vim.opt
 local exec = vim.api.nvim_exec
 
-local NoWhitespace = exec(
-  [[
-    function! NoWhitespace()
-        let l:save = winsaveview()
-        keeppatterns %s/\s\+$//e
-        call winrestview(l:save)
-    endfunction
-    call NoWhitespace()
-    ]],
-  true
-)
-
 -- Using new filetype detection in lua.
 vim.g.do_filetype_lua = 1
 vim.g.did_load_filetypes = 0
@@ -98,12 +86,25 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- Trim Whitespace
--- TODO: move to new api
-exec([[au BufWritePre * call NoWhitespace()]], false)
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  callback = function()
+    exec(
+      [[
+            function! NoWhitespace()
+                let l:save = winsaveview()
+                keeppatterns %s/\s\+$//e
+                call winrestview(l:save)
+            endfunction
+            call NoWhitespace()
+            ]],
+      true
+    )
+  end,
+})
 
 -- Auto open nvim-tree when writing (nvim .) in command line
 -- and auto open Dashboard when nothing given as argument.
--- TODO: move to new autocmd api.
 vim.cmd([[
 if index(argv(), ".") >= 0
   autocmd VimEnter * NvimTreeOpen
@@ -151,7 +152,7 @@ function hide_statusline(types)
       opt.cursorline = false
       break
     else
-      opt.laststatus = 2
+      opt.laststatus = 3
       opt.ruler = true
       opt.cursorline = true
     end
