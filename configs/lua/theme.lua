@@ -57,7 +57,6 @@ vim.g.enfocado_plugins = {
   "which-key",
 }
 
-
 function _G.make_codeart_transparent()
   vim.api.nvim_set_hl(0, "Normal", { bg = nil, fg = nil })
   vim.api.nvim_set_hl(0, "NormalNc", { bg = nil, fg = nil })
