@@ -106,7 +106,7 @@ which_key.register({
 which_key.register({
   l = {
     name = "LSP",
-    a = { ":lua vim.lsp.buf.code_action()<CR>", "Code Action" },
+    a = { ":Lspsaga range_code_action<cr>", "Code Action" },
     d = { ":Telescope diagnostics<CR>", "Diagnostics" },
     i = { ":LspInfo<CR>", "Info" },
     I = { ":LspInstallInfo<CR>", "Installer Info" },
@@ -164,6 +164,20 @@ which_key.register({
     u = { ':lua require("dapui").toggle()<CR>', "Toggle UI" },
   },
 }, { prefix = "<leader>" })
+
+-- Comment
+which_key.register({
+  c = {
+    name = "Comment",
+    t = { "<Plug>kommentary_line_default", "Toggle" },
+  },
+}, { prefix = "<leader>", noremap = false })
+which_key.register({
+  c = {
+    name = "Comment",
+    t = { "<Plug>kommentary_visual_default", "Toggle" },
+  },
+}, { prefix = "<leader>", noremap = false, mode = "v" })
 
 -- Adding user mappings
 for _, v in ipairs(extra_which_keys) do

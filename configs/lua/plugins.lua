@@ -28,6 +28,7 @@ end
 
 local fn = vim.fn
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+local packer_bootstrap
 if fn.empty(fn.glob(install_path)) > 0 then
   packer_bootstrap = fn.system({
     "git",
@@ -251,9 +252,10 @@ return require("packer").startup({
       event = "BufEnter",
       disable = disable_plugins.nvim_lspconfig,
     })
+    use({ "tami5/lspsaga.nvim", after = "nvim-lspconfig" })
     use({
       "williamboman/nvim-lsp-installer",
-      after = "nvim-lspconfig",
+      after = "lspsaga.nvim",
       config = function()
         require("../lsp")
       end,

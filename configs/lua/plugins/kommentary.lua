@@ -17,3 +17,5 @@ for lang, _ in pairs(langs) do
     end,
   })
 end
+
+vim.g.kommentary_create_default_mappings = false
