@@ -12,6 +12,7 @@
         "disable_plugins",
         "additional_plugins",
         "user_lualine_style",
-        "user_indent_blankline_style"
+        "user_indent_blankline_style",
+        "nt_explorer"
     ]
 }

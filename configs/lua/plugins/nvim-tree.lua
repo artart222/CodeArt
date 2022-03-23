@@ -17,6 +17,8 @@ nvimtree.setup({
   auto_close = false,
   open_on_tab = false,
   update_cwd = true,
+  disable_netrw = true,
+  hijack_netrw = true,
   hijack_unnamed_buffer_when_opening = false,
   update_to_buf_dir = {
     enable = true,
@@ -48,6 +50,7 @@ nvimtree.setup({
     width = "15%",
     side = "left",
     auto_resize = true,
+    signcolumn = "no",
     mappings = {
       list = {
         { key = "<S-h>", cb = ":call ResizeLeft(3)<CR>" },
@@ -68,3 +71,14 @@ nvimtree.setup({
     },
   },
 })
+
+-- This function is for using Nvimtree as fullscreen explorer
+function nt_explorer()
+  local view = require"nvim-tree.view"
+  if view.is_visible() then
+    vim.cmd("NvimTreeClose")
+    vim.cmd("e .")
+  else
+    vim.cmd("e .")
+  end
+end

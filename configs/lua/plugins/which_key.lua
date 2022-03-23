@@ -4,6 +4,7 @@ if not present then
 end
 
 local user_mappings = require("../user_settings")
+local nvim_tree = require("../plugins/nvim-tree")
 
 which_key.setup({
   key_labels = {
@@ -56,6 +57,7 @@ which_key.register({
     name = "NvimTree",
     t = { ":NvimTreeToggle<CR>", "Toggle NvimTree" },
     f = { ":NvimTreeFocus<CR>", "Focus on NvimTree" },
+    e = { ":lua nt_explorer()<CR>", "Fullscreen Explorer"}
   },
 }, { prefix = "<leader>" })
 
