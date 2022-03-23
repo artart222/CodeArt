@@ -146,6 +146,7 @@ return require("packer").startup({
       "kyazdani42/nvim-tree.lua",
       cmd = {
         "NvimTreeOpen",
+        "NvimTreeClose",
         "NvimTreeFocus",
         "NvimTreeToggle",
       },

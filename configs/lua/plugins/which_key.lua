@@ -4,7 +4,6 @@ if not present then
 end
 
 local user_mappings = require("../user_settings")
-local nvim_tree = require("../plugins/nvim-tree")
 
 which_key.setup({
   key_labels = {
