@@ -140,8 +140,6 @@ statusline_hide = {
   "dashboard",
   "TelescopePrompt",
   "TelescopeResults",
-  "terminal",
-  "toggleterm",
 }
 
 function hide_statusline(types)
