@@ -56,7 +56,7 @@ which_key.register({
     name = "NvimTree",
     t = { ":NvimTreeToggle<CR>", "Toggle NvimTree" },
     f = { ":NvimTreeFocus<CR>", "Focus on NvimTree" },
-    e = { ":lua nt_explorer()<CR>", "Fullscreen Explorer"}
+    e = { ":lua nt_explorer()<CR>", "Fullscreen Explorer" },
   },
 }, { prefix = "<leader>" })
 

@@ -9,7 +9,7 @@ if user_lualine_style then
   if type(user_lualine_style) == "number" then
     lualine_style = user_lualine_style
   elseif type(user_lualine_style) == "table" then
-    lualine_style = {user_lualine_style[1], user_lualine_style[2]}
+    lualine_style = { user_lualine_style[1], user_lualine_style[2] }
   end
 end
 
@@ -65,7 +65,7 @@ lualine.setup({
     },
 
     section_separators = section_char,
-    component_separators = component_char
+    component_separators = component_char,
   },
   extensions = { "fugitive" },
   sections = {

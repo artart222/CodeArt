@@ -2,7 +2,7 @@
 vim.opt.fillchars = { eob = " " }
 
 -- -- Highlightign line number for lsp diagnostics sings
-vim.api.nvim_create_autocmd({"Colorscheme", "VimEnter"}, {
+vim.api.nvim_create_autocmd({ "Colorscheme", "VimEnter" }, {
   pattern = "*",
 
   callback = function()
