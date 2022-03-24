@@ -4,10 +4,10 @@ local fn = vim.fn
 local plugins_count
 if vim.fn.has("win32") == 1 then
   plugins_count = fn.len(fn.globpath("~/AppData/Local/nvim-data/site/pack/packer/start", "*", 0, 1))
-  vim.g.dashboard_session_directory = fn.glob("~/AppData/Local/nvim-data/").."session"
+  vim.g.dashboard_session_directory = fn.glob("~/AppData/Local/nvim-data/") .. "session"
 else
   plugins_count = fn.len(fn.globpath("~/.local/share/nvim/site/pack/packer/start", "*", 0, 1))
-  vim.g.dashboard_session_directory = fn.glob("~/.local/share/nvim/").."session"
+  vim.g.dashboard_session_directory = fn.glob("~/.local/share/nvim/") .. "session"
 end
 
 g.dashboard_disable_statusline = 1
