@@ -229,22 +229,49 @@ return require("packer").startup({
       end,
       disable = disable_plugins.telescope,
     })
-
     -- LSP, LSP installer and tab completion.
     use({
       "neovim/nvim-lspconfig",
       event = "BufEnter",
       disable = disable_plugins.nvim_lspconfig,
     })
-    use({ "tami5/lspsaga.nvim", after = "nvim-lspconfig" })
     use({
       "williamboman/nvim-lsp-installer",
-      after = "lspsaga.nvim",
+      after = "nvim-lspconfig",
       config = function()
         require("../lsp")
       end,
       disable = disable_plugins.nvim_lsp_installer,
     })
+
+    use({
+      "tami5/lspsaga.nvim",
+      cmd = "Lspsaga",
+    })
+
+    use({
+      "stevearc/aerial.nvim",
+      cmd = {
+        "AerialOpen",
+        "AerialClose",
+        "AerialPrev",
+        "AerialNext",
+        "AerialPrevUp",
+        "AerialNextUp",
+        "AerialGo",
+        "AerialTreeOpen",
+        "AerialTreeClose",
+        "AerialTreeToggle",
+        "AerialTreeOpenAll",
+        "AerialTreeCloseAll",
+        "AerialTreeSyncFolds",
+        "AerialInfo",
+      },
+      config = function()
+        require("plugins/aerial")
+      end,
+    })
+
     use({
       "rafamadriz/friendly-snippets",
       event = "InsertEnter",
@@ -327,16 +354,6 @@ return require("packer").startup({
       "sbdchd/neoformat",
       cmd = "Neoformat",
       disable = disable_plugins.neoformat,
-    })
-
-    -- View and search LSP symbols, tags in Neovim.
-    use({
-      "liuchengxu/vista.vim",
-      cmd = "Vista",
-      config = function()
-        require("plugins/vista")
-      end,
-      disable = disable_plugins.vista,
     })
 
     -- Terminal.
@@ -437,7 +454,10 @@ return require("packer").startup({
     -- Neovim plugin to comment in/out text.
     use({
       "b3nj5m1n/kommentary",
-      after = "nvim-treesitter",
+      keys = {
+        "<Plug>kommentary_line_default",
+        "<Plug>kommentary_visual_default",
+      },
       disable = disable_plugins.kommentary,
     })
     use({
