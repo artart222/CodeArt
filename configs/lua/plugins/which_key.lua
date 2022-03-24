@@ -97,10 +97,27 @@ which_key.register({
 
 -- ColorScheme keybindings.
 which_key.register({
-  t = {
-    name = "Theme",
-    h = { ":Telescope colorscheme<CR>", "Find Colorscheme" },
+  c = {
+    name = "Colorscheme",
+    f = { ":Telescope colorscheme<CR>", "Find Colorscheme" },
     p = { ":Telescope colorscheme enable_preview=true<CR>", "Find Colorscheme with previwer " },
+    o = { ':lua require("onedark").toggle()<CR>', "Toggle Onedark Style" },
+  },
+}, { prefix = "<leader>" })
+
+-- Terminal.
+which_key.register({
+  t = {
+    name = "Terminal",
+    n = { ":lua _NODE_TOGGLE()<CR>", "Node" },
+    N = { ":lua _NCDU_TOGGLE()<CR>", "Ncdu" },
+    H = { ":lua _HTOP_TOGGLE()<CR>", "Htop" },
+    p = { ":lua _PYTHON_TOGGLE()<CR>", "Python" },
+    r = { ":lua _RANGER_TOGGLE()<CR>", "Ranger" },
+    l = { ":lua _LAZYGIT_TOGGLE()<CR>", "LazyGit" },
+    f = { ":ToggleTerm direction=float<CR>", "Float" },
+    h = { ":ToggleTerm direction=horizontal<CR>", "Horizontal" },
+    v = { ":ToggleTerm direction=vertical<CR>", "Vertical" },
   },
 }, { prefix = "<leader>" })
 
@@ -170,16 +187,10 @@ which_key.register({
 
 -- Comment
 which_key.register({
-  c = {
-    name = "Comment",
-    t = { "<Plug>kommentary_line_default", "Toggle" },
-  },
+  ["/"] = { "<Plug>kommentary_line_default", "Comment" },
 }, { prefix = "<leader>", noremap = false })
 which_key.register({
-  c = {
-    name = "Comment",
-    t = { "<Plug>kommentary_visual_default", "Toggle" },
-  },
+  ["/"] = { "<Plug>kommentary_visual_default", "Comment" },
 }, { prefix = "<leader>", noremap = false, mode = "v" })
 
 -- Adding user mappings
