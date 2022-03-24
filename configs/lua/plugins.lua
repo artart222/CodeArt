@@ -86,6 +86,7 @@ return require("packer").startup({
         require("onedark").setup({
           -- Main options --
           style = "deep", -- 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light'
+          toggle_style_key = "<leader>co", -- Default keybinding to toggle
           term_colors = true,
           code_style = {
             comments = "italic",
