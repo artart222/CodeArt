@@ -121,11 +121,18 @@ additional_plugins = {
     e = { ":echo 'Hello'<CR>", "Echo Hello" },
     f = { ":echo 'Goodbye'<CR>", "Echo Goodbye" },
   }},
-  { prefix = "<leader>" }
+  { prefix = "<leader>", mode="v" } -- mode = "v" means it only works on visual mode.
 )]]
 
 user_lualine_style = 1 -- You can choose between 1, 2, 3, 4 and 5
+-- or you can define your custome seperator like this.
+-- first item is for component seperator and second item is
+-- for section seperator.
+-- user_lualine_style = {{left = '', right = ''}, {left = "|", right = "|"}}
+
 user_indent_blankline_style = 1 -- You can choose between 1, 2, 3, 4,5 and 6
+-- or you can use your favorite character.
+-- user_indent_blankline_style = "┆"
 
 -- Settings colorscheme on CodeArt is exactly like normal neovim.
 -- you must just install plugin and use this function.
