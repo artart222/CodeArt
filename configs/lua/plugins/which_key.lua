@@ -41,6 +41,7 @@ which_key.register({
   b = {
     name = "Buffer",
     c = { ":BufferLinePickClose<CR>", "Close Buffer" },
+    C = { ":bdelete! <CR>", "Close Current Buffer" },
     e = { ":noh<CR>", "Erase Search Highlights" },
     l = { ":BufferLineMoveNext<CR>", "Move Buffer Right" },
     h = { ":BufferLineMovePrev<CR>", "Move buffer Left" },
@@ -108,19 +109,19 @@ which_key.register({
   l = {
     name = "LSP",
     a = { ":Lspsaga range_code_action<cr>", "Code Action" },
-    d = { ":Telescope diagnostics<CR>", "Diagnostics" },
+    d = { ":Lspsaga show_line_diagnostics<CR>", "Show Current Line Diagnostics" },
     i = { ":LspInfo<CR>", "Info" },
     I = { ":LspInstallInfo<CR>", "Installer Info" },
-    r = { ":lua vim.lsp.buf.rename()<CR>", "Rename" },
-    h = { ":lua vim.lsp.buf.hover()<CR>", "Display Information Of Symbol" },
+    r = { ":Lspsaga rename<CR>", "Rename" },
+    h = { ":Lspsaga hover_doc<CR>", "Display Information Of Symbol" },
     s = { ":lua vim.lsp.buf.signature_help()<CR>", "Signature Help" },
     g = {
       name = "GOTO",
       D = { ":lua vim.lsp.buf.declaration()<CR>", "Go To Declaration" },
       i = { ":lua vim.lsp.buf.implementation()<CR>", "Go To Implementation" },
       d = { "::lua vim.lsp.buf.definition()<CR>", "Go to Definition" },
-      j = { ":lua vim.lsp.diagnostic.goto_prev()<CR>", "Go To Previous Diagnostics" },
-      k = { ":lua vim.lsp.diagnostic.goto_next()<CR>", "Go To Next Diagnostics" },
+      j = { ":Lspsaga diagnostic_jump_next<CR>", "Go To Previous Diagnostics" },
+      k = { ":Lspsaga diagnostic_jump_prev<CR>", "Go To Next Diagnostics" },
       t = { ":lua vim.lsp.buf.type_definition()<CR>", "Go To Type Definition" },
     },
     w = {
@@ -132,6 +133,7 @@ which_key.register({
     l = {
       name = "List Reference/Diagnostic",
       d = { ":lua vim.lsp.diagnostic.set_loclist()<CR>", "List Diagnostic" },
+      D = { ":Telescope diagnostics<CR>", "Show Diagnostics list via Telescope" },
       r = { ":lua vim.lsp.buf.references()<CR>", "Show References" },
     },
   },
