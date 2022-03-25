@@ -6,6 +6,23 @@ end
 local user_mappings = require("../user_settings")
 
 which_key.setup({
+  plugins = {
+    marks = false,
+    registers = false,
+    spelling = {
+      enabled = true,
+      suggestions = 20,
+    },
+    presets = {
+      operators = true,
+      motions = true,
+      text_objects = true,
+      nav = true,
+      z = false,
+      g = false,
+      windows = false, -- default bindings on <c-w>
+    },
+  },
   key_labels = {
     ["<space>"] = "SPC",
     ["<leader>"] = "SPC",
@@ -53,7 +70,6 @@ which_key.register({
 which_key.register({
   ["r"] = { ":Neoformat<CR>", "Format" },
 }, { prefix = "<leader>" })
-
 
 -- NvimTree
 which_key.register({
