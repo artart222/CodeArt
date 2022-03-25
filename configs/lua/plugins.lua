@@ -162,6 +162,7 @@ return require("packer").startup({
     -- Better escape --> For escaping easily from insert mode with jk/jj.
     use({
       "max397574/better-escape.nvim",
+      keys = { { "i", "jj" }, { "i", "jk" } },
       config = function()
         require("better_escape").setup()
       end,
@@ -172,7 +173,7 @@ return require("packer").startup({
     use({
       "nvim-treesitter/nvim-treesitter",
       run = ":TSUpdate",
-      after = "impatient.nvim",
+      event = { "BufEnter", "BufRead" },
       config = function()
         require("plugins/treesitter")
       end,
@@ -297,7 +298,8 @@ return require("packer").startup({
     })
     use({
       "hrsh7th/cmp-nvim-lsp",
-      after = "nvim-lsp-installer",
+      -- after = "nvim-lsp-installer",
+      after = "nvim-cmp",
       disable = disable_plugins.cmp_nvim_lsp,
     })
     use({
@@ -322,7 +324,8 @@ return require("packer").startup({
     -- LSP signature.
     use({
       "ray-x/lsp_signature.nvim",
-      after = "nvim-lspconfig",
+      -- after = "nvim-lspconfig",
+      event = "InsertEnter *",
       config = function()
         require("lsp_signature").setup()
       end,
@@ -332,19 +335,23 @@ return require("packer").startup({
     -- TODO: Do better lazyloading here for dap.
     use({
       "mfussenegger/nvim-dap",
-      event = "BufRead",
+      event = "BufEnter",
       disable = disable_plugins.nvim_dap,
     })
+
     use({
       "Pocco81/DAPInstall.nvim",
       after = "nvim-dap",
+      config = function()
+        require("plugins/dap")
+      end,
       disable = disable_plugins.dap_install,
     })
     use({
       "rcarriga/nvim-dap-ui",
-      after = "DAPInstall.nvim",
+      after = "nvim-dap",
       config = function()
-        require("plugins/dap")
+        require("plugins/dapui")
       end,
       disable = disable_plugins.nvim_dap_ui,
     })
@@ -359,7 +366,8 @@ return require("packer").startup({
     -- Terminal.
     use({
       "akinsho/nvim-toggleterm.lua",
-      event = "BufEnter",
+      keys = "<C-t>",
+      cmd = "ToggleTerm",
       config = function()
         require("plugins/toggleterm")
       end,
@@ -376,7 +384,7 @@ return require("packer").startup({
     -- Git signs.
     use({
       "lewis6991/gitsigns.nvim",
-      event = "BufRead",
+      event = "BufEnter",
       config = function()
         require("plugins/gitsigns")
       end,
@@ -386,7 +394,15 @@ return require("packer").startup({
     -- Auto closes.
     use({
       "windwp/nvim-autopairs",
-      after = "nvim-cmp",
+      -- after = "nvim-cmp",
+      keys = {
+        { "i", "(" },
+        { "i", "[" },
+        { "i", "{" },
+        { "i", "'" },
+        { "i", '"' },
+        { "i", "<BS>" },
+      },
       config = function()
         require("nvim-autopairs").setup()
       end,
@@ -395,14 +411,31 @@ return require("packer").startup({
     -- This is for html and it can autorename too!
     use({
       "windwp/nvim-ts-autotag",
-      after = "nvim-treesitter",
+      ft = {
+        "html",
+        "javascript",
+        "typescript",
+        "javascriptreact",
+        "typescriptreact",
+        "svelte",
+        "vue",
+        "tsx",
+        "jsx",
+        "rescript",
+        "xml",
+        "php",
+        "markdown",
+        "glimmer",
+        "handlebars",
+        "hbs",
+      },
       disable = disable_plugins.nvim_ts_autotag,
     })
 
     -- Scrollbar.
     use({
       "dstein64/nvim-scrollview",
-      event = "BufRead",
+      event = "BufEnter",
       config = function()
         require("plugins/nvim-scroll")
       end,
@@ -412,7 +445,7 @@ return require("packer").startup({
     -- Smooth scroll.
     use({
       "karb94/neoscroll.nvim",
-      event = "BufRead",
+      event = "BufEnter",
       config = function()
         require("neoscroll").setup()
       end,
@@ -433,7 +466,7 @@ return require("packer").startup({
     -- key bindings of the command you started typing.
     use({
       "folke/which-key.nvim",
-      event = "VimEnter",
+      event = "BufEnter",
       config = function()
         require("plugins/which_key")
       end,
@@ -479,7 +512,12 @@ return require("packer").startup({
     -- With this plugin you can resize Neovim buffers easily.
     use({
       "artart222/vim-resize",
-      event = "BufEnter",
+      event = {
+        "FuncUndefined ResizeDown",
+        "FuncUndefined ResizeUp",
+        "FuncUndefined ResizeLeft",
+        "FuncUndefined ResizeRight",
+      },
       disable = disable_plugins.vim_resize,
     })
 
