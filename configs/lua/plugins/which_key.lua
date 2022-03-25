@@ -68,7 +68,7 @@ which_key.register({
 }, { prefix = "<leader>" })
 
 which_key.register({
-  ["r"] = { ":Neoformat<CR>", "Format" },
+  ["r"] = { ":lua formatting(vim.api.nvim_get_current_buf())<CR>", "Format" },
 }, { prefix = "<leader>" })
 
 -- NvimTree
