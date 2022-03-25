@@ -34,7 +34,7 @@ which_key.register({
     u = { ":PackerUpdate<CR>", "Update CodeArt packages" },
     r = { ":PackerClean<CR>", "Uninstall unnecessary CodeArt packages" },
     s = { ":PackerSync<CR>", "Sync CodeArt packages" },
-    c = { ":PackerClean<CR>", "Compile CodeArt packages" },
+    c = { ":PackerCompile<CR>", "Compile CodeArt packages" },
   },
 }, { prefix = "<leader>" })
 
