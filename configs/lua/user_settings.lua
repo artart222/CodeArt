@@ -14,6 +14,8 @@ end
 extra_which_keys = {}
 
 disable_plugins = {
+  impatient = false,
+  fix_cursor_hold = false,
   tokyonight = false,
   nightfly = false,
   moonfly = false,
@@ -35,6 +37,9 @@ disable_plugins = {
   telescope = false,
   nvim_lspconfig = false,
   lsp_installer = false,
+  null_ls = false,
+  lspsaga = false,
+  aerial = false,
   friendly_snippets = false,
   nvim_cmp = false,
   cmp_buffer = false,
@@ -47,7 +52,6 @@ disable_plugins = {
   nvim_dap = false,
   dap_install = false,
   nvim_dap_ui = false,
-  neoformat = false,
   vista = false,
   toggleterm = false,
   fugitive = false,

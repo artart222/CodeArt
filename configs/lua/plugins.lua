@@ -52,15 +52,18 @@ return require("packer").startup({
       config = function()
         require("impatient")
       end,
+      disable = disable_plugins.impatient,
     })
     use({
       "antoinemadec/FixCursorHold.nvim",
+      disable = disable_plugins.fix_cursor_hold,
     })
 
     -- This plugin is needed for many plugins(like telescope) so this is one of
     -- default CodeArt's plugins.
     use({
       "nvim-lua/plenary.nvim",
+      disable = disable_plugins.tokyonight,
     })
 
     -- Color schemes.
@@ -154,7 +157,7 @@ return require("packer").startup({
       "nvim-lualine/lualine.nvim",
       after = "nvim-bufferline.lua",
       config = function()
-        require("plugins/lualine")
+        require("plugins/lualine/lualine")
       end,
       disable = disable_plugins.lualine,
     })
@@ -174,6 +177,16 @@ return require("packer").startup({
       "nvim-treesitter/nvim-treesitter",
       run = ":TSUpdate",
       event = { "BufEnter", "BufRead" },
+      cmd = {
+        "TSInstall",
+        "TSInstallInfo",
+        "TSInstallSync",
+        "TSUninstall",
+        "TSUpdate",
+        "TSUpdateSync",
+        "TSDisableAll",
+        "TSEnableAll",
+      },
       config = function()
         require("plugins/treesitter")
       end,
@@ -240,14 +253,23 @@ return require("packer").startup({
       "williamboman/nvim-lsp-installer",
       after = "nvim-lspconfig",
       config = function()
-        require("../lsp")
+        require("plugins.lsp.lsp")
       end,
       disable = disable_plugins.nvim_lsp_installer,
+    })
+    use({
+      "jose-elias-alvarez/null-ls.nvim",
+      config = function()
+        require("plugins.lsp.null-ls")
+      end,
+      after = "nvim-lsp-installer",
+      disable = disable_plugins.null_ls,
     })
 
     use({
       "tami5/lspsaga.nvim",
       cmd = "Lspsaga",
+      disable = disable_plugins.lspsaga,
     })
 
     use({
@@ -271,6 +293,7 @@ return require("packer").startup({
       config = function()
         require("plugins/aerial")
       end,
+      disable = disable_plugins.aerial,
     })
 
     use({
@@ -354,13 +377,6 @@ return require("packer").startup({
         require("plugins/dapui")
       end,
       disable = disable_plugins.nvim_dap_ui,
-    })
-
-    -- Code formatter.
-    use({
-      "sbdchd/neoformat",
-      cmd = "Neoformat",
-      disable = disable_plugins.neoformat,
     })
 
     -- Terminal.
