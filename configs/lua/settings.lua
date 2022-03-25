@@ -10,6 +10,9 @@ vim.g.did_load_filetypes = 0
 opt.updatetime = 300
 vim.g.cursorhold_updatetime = 100
 
+-- Set file encoding to utf-8
+opt.fileencoding = "utf-8"
+
 -- Number settings.
 opt.number = true
 opt.numberwidth = 2
