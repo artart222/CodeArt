@@ -33,7 +33,7 @@ which_key.register({
     u = { ":PackerUpdate<CR>", "Update CodeArt packages" },
     r = { ":PackerClean<CR>", "Uninstall unnecessary CodeArt packages" },
     s = { ":PackerSync<CR>", "Sync CodeArt packages" },
-    c = { ":PackerClean<CR>", "Compile CodeArt packages" },
+    c = { ":PackerCompile<CR>", "Compile CodeArt packages" },
   },
 }, { prefix = "<leader>" })
 
@@ -46,10 +46,14 @@ which_key.register({
     l = { ":BufferLineMoveNext<CR>", "Move Buffer Right" },
     h = { ":BufferLineMovePrev<CR>", "Move buffer Left" },
     n = { ":DashboardNewFile<CR>", "New Buffer" },
-    r = { ":Neoformat<CR>", "Format Buffer" },
     m = { ":TZFocus<CR>", "Maximize Current Buffer" },
   },
 }, { prefix = "<leader>" })
+
+which_key.register({
+  ["r"] = { ":Neoformat<CR>", "Format" },
+}, { prefix = "<leader>" })
+
 
 -- NvimTree
 which_key.register({
