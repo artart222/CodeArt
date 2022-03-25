@@ -3,6 +3,8 @@ if not present then
   return
 end
 
+local utils = require("plugins.lualine.components")
+
 require("../user_settings")
 local lualine_style = 1
 if user_lualine_style then
@@ -47,41 +49,6 @@ if user_lualine_style then
   end
 end
 
-local function lsp_progress(_)
-  local Lsp = vim.lsp.util.get_progress_messages()[1]
-
-  if Lsp then
-    local msg = Lsp.message or ""
-    local percentage = Lsp.percentage or 0
-    local title = Lsp.title or ""
-
-    local spinners = { "", "", "" }
-    local success_icon = { "", "", "" }
-
-    local ms = vim.loop.hrtime() / 1000000
-    local frame = math.floor(ms / 120) % #spinners
-
-    if percentage >= 70 then
-      return string.format(" %%<%s %s %s (%s%%%%) ", success_icon[frame + 1], title, msg, percentage)
-    end
-
-    return string.format(" %%<%s %s %s (%s%%%%) ", spinners[frame + 1], title, msg, percentage)
-  end
-
-  return ""
-end
-
-local function treesitter_status(_)
-  local b = vim.api.nvim_get_current_buf()
-  if type(vim.treesitter.highlighter.active[b]) ~= "nil" then
-    if next(vim.treesitter.highlighter.active[b]) then
-      return " TS"
-    end
-    return " TS"
-  end
-  return " TS"
-end
-
 lualine.setup({
   options = {
     globalstatus = true,
@@ -114,15 +81,22 @@ lualine.setup({
       { "diagnostics" },
     },
     lualine_c = {
-
       { "filetype", icon_only = true, padding = { left = 1, right = 0 }, separator = " " },
       { "filename", padding = { left = 0, right = 1 } },
     },
     lualine_x = {
-      { treesitter_status, color = { fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("DiffChange")), "fg") } },
+      {
+        utils.lsp_name,
+        icon = " ",
+        color = { gui = "none" },
+      },
+      {
+        utils.treesitter_status,
+        color = { fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("DiffChange")), "fg") },
+      },
       "fileformat",
     },
-    lualine_y = { lsp_progress, "progress" },
+    lualine_y = { utils.lsp_progress, "progress" },
     lualine_z = { "location" },
   },
 })
