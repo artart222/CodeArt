@@ -5,7 +5,7 @@ end
 
 local treesitter_config = {
   highlight = {
-    enable = false,
+    enable = true,
     additional_vim_regex_highlighting = false,
   },
   matchup = {

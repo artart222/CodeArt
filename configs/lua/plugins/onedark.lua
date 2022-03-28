@@ -1,9 +1,9 @@
-local present, onedark = pcall(require, "onedark")
+local present, onedark_setup = pcall(require, "onedark")
 if not present then
   return
 end
 
-onedark.setup({
+local onedark_config = {
   -- Main options --
   style = "deep", -- 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light'
   toggle_style_key = "<leader>co", -- Default keybinding to toggle
@@ -21,4 +21,13 @@ onedark.setup({
     undercurl = true, -- use undercurl instead of underline for diagnostics
     background = true, -- use background color for virtual text
   },
-})
+}
+
+local config = require("user_settings")
+if config.onedark then
+  for k, v in pairs(config.onedark) do
+    onedark_config[k] = v
+  end
+end
+
+onedark_setup.setup(onedark_config)

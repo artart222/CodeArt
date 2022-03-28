@@ -13,7 +13,7 @@ g.nvim_tree_git_hl = 1 -- Will enable file highlight for git attributes (can be 
 g.nvim_tree_highlight_opened_files = 0 -- Will enable folder and file icon highlight for opened files/directories.
 g.nvim_tree_add_trailing = 0 -- Append a trailing slash to folder names. ]]
 
-nvimtree.setup({
+local nvimtree_config = {
   auto_close = false,
   open_on_tab = false,
   update_cwd = true,
@@ -70,7 +70,16 @@ nvimtree.setup({
       },
     },
   },
-})
+}
+
+local config = require("user_settings")
+if config.nvim_tree then
+  for k, v in pairs(config.nvim_tree) do
+    nvimtree_config[k] = v
+  end
+end
+
+nvimtree.setup(nvimtree_config)
 
 -- This function is for using Nvimtree as fullscreen explorer
 function nt_explorer()

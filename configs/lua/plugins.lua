@@ -123,8 +123,8 @@ return require("packer").startup({
     -- Icons.
     use({
       "kyazdani42/nvim-web-devicons",
-      event = "BufEnter",
-      config = function ()
+      event = "VimEnter",
+      config = function()
         require("plugins.nvim_web_devicons")
       end,
       disable = disable_plugins.nvim_web_devicons,
@@ -170,7 +170,7 @@ return require("packer").startup({
       "max397574/better-escape.nvim",
       keys = { { "i", "jj" }, { "i", "jk" } },
       config = function()
-        require("better_escape").setup()
+        require("plugins.better_escape")
       end,
       disable = disable_plugins.better_escape,
     })
@@ -246,6 +246,7 @@ return require("packer").startup({
       end,
       disable = disable_plugins.telescope,
     })
+
     -- LSP, LSP installer and tab completion.
     use({
       "neovim/nvim-lspconfig",

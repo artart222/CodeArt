@@ -1,9 +1,9 @@
-local present, bufferline = pcall(require, "bufferline")
+local present, bufferline_setup = pcall(require, "bufferline")
 if not present then
   return
 end
 
-bufferline.setup({
+local bufferline_config = {
   options = {
     numbers = function(opts)
       return string.format("%s", opts.id)
@@ -23,4 +23,13 @@ bufferline.setup({
       },
     },
   },
-})
+}
+
+local config = require("user_settings")
+if config.bufferline then
+  for k, v in pairs(config.bufferline) do
+    bufferline_config[k] = v
+  end
+end
+
+bufferline_setup.setup(bufferline_config)

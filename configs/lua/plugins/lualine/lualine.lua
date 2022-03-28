@@ -1,4 +1,4 @@
-local present, lualine = pcall(require, "lualine")
+local present, lualine_setup = pcall(require, "lualine")
 if not present then
   return
 end
@@ -49,7 +49,7 @@ if user_lualine_style then
   end
 end
 
-lualine.setup({
+local lualine_config = {
   options = {
     globalstatus = true,
     theme = "auto",
@@ -99,4 +99,13 @@ lualine.setup({
     lualine_y = { utils.lsp_progress, "progress" },
     lualine_z = { "location" },
   },
-})
+}
+
+local config = require("user_settings")
+if config.lualine then
+  for k, v in pairs(config.lualine) do
+    lualine_config[k] = v
+  end
+end
+
+lualine_setup.setup(lualine_config)

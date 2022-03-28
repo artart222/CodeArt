@@ -1,4 +1,4 @@
-local present, telescope = pcall(require, "telescope")
+local present, telescope_setup = pcall(require, "telescope")
 if not present then
   return
 end
@@ -27,6 +27,7 @@ local new_maker = function(filepath, bufnr, opts)
 end
 
 local os = vim.loop.os_uname().sysname
+local buffer_previewer_maker
 local finder
 if os == "Linux" or os == "Darwin" then
   -- Find the name of the fd binary file in the operating system.
@@ -35,71 +36,56 @@ if os == "Linux" or os == "Darwin" then
   else
     finder = "fd"
   end
-
-  telescope.setup({
-    defaults = {
-      buffer_previewer_maker = new_maker,
-      vimgrep_arguments = {
-        "rg",
-        "--color=never",
-        "--no-heading",
-        "--with-filename",
-        "--line-number",
-        "--column",
-        "--smart-case",
-        "--hidden",
-        "--glob=!.git/",
-      },
-      prompt_prefix = "   ",
-      selection_caret = " ",
-    },
-    pickers = {
-      find_files = {
-        find_command = { finder, "--type=file", "--hidden", "--follow", "--exclude=.git" },
-      },
-    },
-    extensions = {
-      fzf = {
-        fuzzy = true,
-        override_generic_sorter = true,
-        override_file_sorter = true,
-        case_mode = "smart_case",
-      },
-    },
-  })
-  telescope.load_extension("find_directories")
-  telescope.load_extension("fzf")
+  buffer_previewer_maker = new_maker
 else
-  telescope.setup({
-    defaults = {
-      vimgrep_arguments = {
-        "rg",
-        "--color=never",
-        "--no-heading",
-        "--with-filename",
-        "--line-number",
-        "--column",
-        "--smart-case",
-        "--hidden",
-        "--glob=!.git/",
-      },
-      prompt_prefix = "   ",
-      selection_caret = " ",
-    },
-    pickers = {
-      find_files = {
-        find_command = { "fd", "--type=file", "--hidden", "--follow", "--exclude=.git" },
-      },
-    },
-    extensions = {
-      fzf = {
-        fuzzy = true,
-        override_generic_sorter = true,
-        override_file_sorter = true,
-        case_mode = "smart_case",
-      },
-    },
-  })
-  telescope.load_extension("fzf")
-  telescope.load_extension("find_directories")
+  finder = "fd"
+  buffer_previewer_maker = nil
 end
+
+local telescope_config = {
+  defaults = {
+    buffer_previewer_maker = buffer_previewer_maker,
+    vimgrep_arguments = {
+      "rg",
+      "--color=never",
+      "--no-heading",
+      "--with-filename",
+      "--line-number",
+      "--column",
+      "--smart-case",
+      "--hidden",
+      "--glob=!.git/",
+    },
+    prompt_prefix = "   ",
+    selection_caret = " ",
+  },
+  pickers = {
+    find_files = {
+      find_command = { finder, "--type=file", "--hidden", "--follow", "--exclude=.git" },
+    },
+  },
+  extensions = {},
+}
+
+if disable_plugins.telescope_fzf_native ~= true then
+  telescope_config.extensions["fzf"] = {
+    fuzzy = true,
+    override_generic_sorter = true,
+    override_file_sorter = true,
+    case_mode = "smart_case",
+  }
+  telescope_setup.load_extension("fzf")
+end
+
+if disable_plugins.telescope_find_directories ~= true then
+  telescope_setup.load_extension("find_directories")
+end
+
+local config = require("user_settings")
+if config.telescope then
+  for k, v in pairs(config.telescope) do
+    telescope_config[k] = v
+  end
+end
+
+telescope_setup.setup(telescope_config)
