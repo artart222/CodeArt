@@ -3,9 +3,9 @@ if not present then
   return
 end
 
-nvim_treesitter.setup({
+local treesitter_config = {
   highlight = {
-    enable = true,
+    enable = false,
     additional_vim_regex_highlighting = false,
   },
   matchup = {
@@ -22,10 +22,13 @@ nvim_treesitter.setup({
     enable = true,
     enable_autocmd = true,
   },
-})
+}
 
-vim.cmd([[
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
-set foldlevel=99
-]])
+local config = require("user_settings")
+if config.treesitter then
+  for k, v in pairs(config.treesitter) do
+    treesitter_config[k] = v
+  end
+end
+
+nvim_treesitter.setup(treesitter_config)

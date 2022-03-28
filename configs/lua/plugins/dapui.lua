@@ -1,5 +1,10 @@
+local present, dapui = pcall(require, "dapui")
+if not present then
+  return
+end
+
 -- dap-ui configurations
-require("dapui").setup({
+dapui.setup({
   icons = { expanded = "▾", collapsed = "▸" },
   mappings = {
     -- Use a table to apply multiple mappings

@@ -104,7 +104,7 @@ return require("packer").startup({
         "TZAtaraxis",
         "TZMinimalist",
       },
-      setup = function()
+      config = function()
         require("plugins/true-zen")
       end,
       disable = disable_plugins.truezen,
@@ -124,6 +124,9 @@ return require("packer").startup({
     use({
       "kyazdani42/nvim-web-devicons",
       event = "BufEnter",
+      config = function ()
+        require("plugins.nvim_web_devicons")
+      end,
       disable = disable_plugins.nvim_web_devicons,
     })
 
@@ -261,6 +264,10 @@ return require("packer").startup({
       "jose-elias-alvarez/null-ls.nvim",
       config = function()
         require("plugins.lsp.null-ls")
+        local config = require("user_settings")
+        if config.null_ls ~= nil then
+          config.null_ls()
+        end
       end,
       after = "nvim-lsp-installer",
       disable = disable_plugins.null_ls,
@@ -507,11 +514,13 @@ return require("packer").startup({
         "<Plug>kommentary_line_default",
         "<Plug>kommentary_visual_default",
       },
+      config = function()
+        require("plugins.kommentary")
+      end,
       disable = disable_plugins.kommentary,
     })
     use({
       "JoosepAlviste/nvim-ts-context-commentstring",
-      after = "kommentary",
       disable = disable_plugins.ts_context_commentstring,
     })
 

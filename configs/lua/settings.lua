@@ -78,6 +78,10 @@ opt.timeoutlen = 200
 -- Setting up autocomplete menu.
 opt.completeopt = "menuone,noselect"
 
+opt.foldmethod = "expr"
+opt.foldexpr = "nvim_treesitter#foldexpr()"
+opt.foldlevel = 99
+
 -- Set line number for help files.
 local help_config = vim.api.nvim_create_augroup("help_config", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {

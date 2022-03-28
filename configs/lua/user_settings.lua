@@ -142,3 +142,59 @@ user_indent_blankline_style = 1 -- You can choose between 1, 2, 3, 4,5 and 6
 -- you must just install plugin and use this function.
 -- This is example with one of default CodeArt colorschemes
 vim.cmd("colorscheme enfocado")
+
+-- NOTE: Configs off builtin plugins are here
+-- Name of functions is exactly like config file in plugins directory
+-- the only diffrence is if in file name you have hifen here you must
+-- replace it with underline.
+local config = {
+  -- null-ls configuration
+  null_ls = function()
+    -- Formatting and linting
+    -- https://github.com/jose-elias-alvarez/null-ls.nvim
+    local status_ok, null_ls = pcall(require, "null-ls")
+    if not status_ok then
+      return
+    end
+
+    -- Check supported formatters
+    -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
+    local formatting = null_ls.builtins.formatting
+
+    -- Check supported linters
+    -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
+    local diagnostics = null_ls.builtins.diagnostics
+
+    null_ls.setup({
+      debug = false,
+      sources = {
+        -- Settings up some linters and code formatters.
+        formatting.black,
+        formatting.stylua,
+        formatting.rustfmt,
+        formatting.clang_format,
+        -- formatting.clang_format
+        -- diagnostics.luacheck,
+        diagnostics.pylint,
+      },
+      -- This function is for format on save.
+      -- on_attach = function(client)
+      --   if client.resolved_capabilities.document_formatting then
+      --     vim.cmd([[
+      --       augroup LspFormatting
+      --           autocmd! * <buffer>
+      --           autocmd BufWritePre <buffer> lua global_code_formatter(vim.api.nvim_get_current_buf())
+      --       augroup END
+      --       ]])
+      --   end
+      -- end,
+    })
+  end,
+  treesitter = {
+    highlight = {
+      enable = true,
+    },
+  },
+}
+
+return config

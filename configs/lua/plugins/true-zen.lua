@@ -1,9 +1,9 @@
-local present, true_zen = pcall(require, "true-zen")
+local present, tzen = pcall(require, "true-zen")
 if not present then
   return
 end
 
-true_zen.setup({
+local truezen_config = {
   ui = {
     bottom = {
       laststatus = 0,
@@ -68,4 +68,13 @@ true_zen.setup({
     ui_elements_commands = false,
     cursor_by_mode = false,
   },
-})
+}
+
+local config = require("user_settings")
+if config.true_zen then
+  for k, v in pairs(config.true_zen) do
+    truezen_config[k] = v
+  end
+end
+
+tzen.setup(truezen_config)
