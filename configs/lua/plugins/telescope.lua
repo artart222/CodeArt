@@ -61,7 +61,7 @@ local telescope_config = {
   },
   pickers = {
     find_files = {
-      find_command = { finder, "--type=file", "--hidden", "--follow", "--exclude=.git" },
+      find_command = { finder, "--type=file", "--follow", "--exclude=.git" },
     },
   },
   extensions = {},
