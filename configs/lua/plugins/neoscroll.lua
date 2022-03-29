@@ -1,4 +1,4 @@
-local present, neoscroll_setup = pcall(require, "nvim-treesitter.configs")
+local present, neoscroll_setup = pcall(require, "neoscroll")
 if not present then
   return
 end
