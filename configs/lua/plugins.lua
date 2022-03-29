@@ -201,7 +201,7 @@ return require("packer").startup({
       "norcalli/nvim-colorizer.lua",
       event = "BufEnter",
       config = function()
-        require("plugins/colorize")
+        require("plugins/colorizer")
         vim.cmd("ColorizerAttachToBuffer")
       end,
       disable = disable_plugins.nvim_colorizer,
@@ -355,7 +355,6 @@ return require("packer").startup({
     -- LSP signature.
     use({
       "ray-x/lsp_signature.nvim",
-      -- after = "nvim-lspconfig",
       event = "InsertEnter *",
       config = function()
         require("lsp_signature").setup()
@@ -471,7 +470,7 @@ return require("packer").startup({
       "karb94/neoscroll.nvim",
       event = "BufEnter",
       config = function()
-        require("neoscroll").setup()
+        require("plugins.neoscroll")
       end,
       disable = disable_plugins.neoscroll,
     })

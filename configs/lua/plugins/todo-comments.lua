@@ -1,9 +1,9 @@
-local present, todo_comments = pcall(require, "todo-comments")
+local present, todo_comments_setup = pcall(require, "todo-comments")
 if not present then
   return
 end
 
-todo_comments.setup({
+local todo_comments_config = {
   signs = true, -- show icons in the signs column
   sign_priority = 2, -- sign priority
   -- keywords recognized as todo comments
@@ -58,4 +58,13 @@ todo_comments.setup({
     -- pattern = [[\b(KEYWORDS):]], -- ripgrep regex
     pattern = [[\b(KEYWORDS)\b]], -- match without the extra colon. You"ll likely get false positives
   },
-})
+}
+
+local config = require("user_settings")
+if config.todo_comments then
+  for k, v in pairs(config.todo_comments) do
+    todo_comments_config[k] = v
+  end
+end
+
+todo_comments_setup.setup(todo_comments_config)

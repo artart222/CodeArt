@@ -1,9 +1,9 @@
-local status_ok, gitsigns = pcall(require, "gitsigns")
+local status_ok, gitsigns_setup = pcall(require, "gitsigns")
 if not status_ok then
   return
 end
 
-gitsigns.setup({
+local gitsigns_config = {
   signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
   numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
   attach_to_untracked = true,
@@ -22,4 +22,13 @@ gitsigns.setup({
     topdelete = { hl = "GitSignsDelete", text = "│", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
     changedelete = { hl = "GitSignsChange", text = "│", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
   },
-})
+}
+
+local config = require("user_settings")
+if config.gitsigns then
+  for k, v in pairs(config.gitsigns) do
+    gitsigns_config[k] = v
+  end
+end
+
+gitsigns_setup.setup(gitsigns_config)
