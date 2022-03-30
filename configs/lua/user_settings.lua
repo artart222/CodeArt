@@ -141,7 +141,10 @@ user_indent_blankline_style = 1 -- You can choose between 1, 2, 3, 4,5 and 6
 -- Settings colorscheme on CodeArt is exactly like normal neovim.
 -- you must just install plugin and use this function.
 -- This is example with one of default CodeArt colorschemes
-vim.cmd("colorscheme enfocado")
+vim.schedule(function()
+  vim.cmd("colorscheme enfocado")
+end)
+
 
 -- NOTE: Configs off builtin plugins are here
 -- Name of functions is exactly like config file in plugins directory
