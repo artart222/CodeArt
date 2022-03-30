@@ -132,19 +132,23 @@ user_lualine_style = 1 -- You can choose between 1, 2, 3, 4 and 5
 -- or you can define your custome seperator like this.
 -- first item is for component seperator and second item is
 -- for section seperator.
--- user_lualine_style = {{left = '', right = ''}, {left = "|", right = "|"}}
+-- user_lualine_style = {{left = 'î‚´', right = 'î‚¶'}, {left = "|", right = "|"}}
 
 user_indent_blankline_style = 1 -- You can choose between 1, 2, 3, 4,5 and 6
 -- or you can use your favorite character.
--- user_indent_blankline_style = "┆"
+-- user_indent_blankline_style = "â”†"
 
 -- Settings colorscheme on CodeArt is exactly like normal neovim.
+-- But inside
+-- vim.schedule(function()
+--
+-- end)
+-- Function
 -- you must just install plugin and use this function.
 -- This is example with one of default CodeArt colorschemes
 vim.schedule(function()
   vim.cmd("colorscheme enfocado")
 end)
-
 
 -- NOTE: Configs off builtin plugins are here
 -- Name of functions is exactly like config file in plugins directory
@@ -176,6 +180,20 @@ local config = {
         formatting.stylua,
         formatting.rustfmt,
         formatting.clang_format,
+        formatting.prettier,
+        formatting.taplo,
+        formatting.shfmt.with({
+          command = "shfmt",
+          args = {
+            "-i",
+            "2",
+            "-ci",
+            "-bn",
+            "$FILENAME",
+            "-w"
+          },
+        }),
+        diagnostics.zsh,
         -- formatting.clang_format
         -- diagnostics.luacheck,
         diagnostics.pylint,
