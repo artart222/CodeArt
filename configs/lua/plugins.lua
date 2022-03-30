@@ -1,6 +1,3 @@
-local use = require("packer").use
-local user_settings_file = require("user_settings")
-
 -- Disable some builtin plugins.
 local disabled_built_ins = {
   "2html_plugin",
@@ -39,6 +36,11 @@ if fn.empty(fn.glob(install_path)) > 0 then
     install_path,
   })
 end
+
+vim.cmd [[packadd packer.nvim]]
+
+local use = require("packer").use
+local user_settings_file = require("user_settings")
 
 return require("packer").startup({
   function()
