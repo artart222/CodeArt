@@ -27,28 +27,28 @@
   </a>
 </div>
 
-
 <a id="installation"></a>
+
 ## :construction: Install CodeArt easily
 
-
 🐧🍎 On linux and macOS:
+
 ```bash
 chmod +x installer/linux-bash.sh
 ./installer/linux-bash.sh
 ```
 
-***If you have debian, after the instalation finished you must [add debian testing repos](https://serverfault.com/a/550856) and after that run***:
+**_If you have debian, after the instalation finished you must [add debian testing repos](https://serverfault.com/a/550856) and after that run_**:
 
 ```bash
 sudo apt update; sudo apt install neovim
 ```
 
-***And after that open neovim and run `:PackerSync` and then reopen nevom!***
+**_And after that open neovim and run `:PackerSync` and then reopen nevom!_**
 
 🪟 on Windows:
 
-***please backup any existing configuration files***
+**_please backup any existing configuration files_**
 
 ⚡🐚 open a powershell session as administrator and run this command:
 
@@ -58,23 +58,24 @@ powershell.exe -executionpolicy bypass -file installer/windows.ps1
 
 #### 🌲💺Σ🖥️ Install lsp and treesitter:
 
-* You can install lsp for a language with `:LspInstall <language>`
-* You can install treesitter with `:TSInstall <language>`
+- You can install lsp for a language with `:LspInstall <language>`
+- You can install treesitter with `:TSInstall <language>`
 
 #### These NeoVim configurations use many nerd fonts icons. JetBrains Mono will be installed by default. If you have problem for fonts and see weird icons you must change your terminal font.
 
 <a id="update"></a>
+
 ## ⬆️📅 How to update CodeArt:
+
 #### Very important note: Updating CodeArt will replace this github repo configs directory with ~/.config/nvim so if you don't want to lose any existing modifications you've made you must put your modifications into ~/.config/nvim/lua/user_settings.lua on linux and mac, put your configs in C:\Users\your_user\AppData\Local\nvim\lua\user_settings.lua if you use Windows
 
-
-
-* Run `:CodeArtUpdate` inside NeoVim
-* Restart NeoVim
-* Run `:PackerSync`
-* Restart NeoVim!
+- Run `:CodeArtUpdate` inside NeoVim
+- Restart NeoVim
+- Run `:PackerSync`
+- Restart NeoVim!
 
 <a id="screenshots"></a>
+
 ## :camera_flash: Screenshots:
 
 ![Screenshot1](/utils/media/Screenshot1.png "Screenshots1")
@@ -109,38 +110,40 @@ powershell.exe -executionpolicy bypass -file installer/windows.ps1
 ![Screenshot13](/utils/media/Screenshot13.png "Screenshots13")
 [Onedark](https://github.com/navarasu/onedark.nvim) with warmer style
 ![Screenshot13](/utils/media/Screenshot14.png "Screenshots14")
+
 </div>
 
 <a id="features"></a>
+
 ## :sparkles: Features:
 
-* 😴 Lazy load plugins!. With lazy loading NeoVim starts up very fast. It took me around 20 miliseconds on a virtual machine with 4GB ram and 2 Cores
-![LazyLoad](/utils/media/LazyLoad.png "LazyLoad")
+- 😴 Lazy load plugins!. With lazy loading NeoVim starts up very fast. It took me around 20 miliseconds on a virtual machine with 4GB ram and 2 Cores
+  ![LazyLoad](/utils/media/LazyLoad.png "LazyLoad")
 
-* Σ🖥️ Native LSP code completion support with documentation
-![CodeCompletion](/utils/media/CodeCompletion.png "CodeCompletion")
+- Σ🖥️ Native LSP code completion support with documentation
+  ![CodeCompletion](/utils/media/CodeCompletion.png "CodeCompletion")
 
-* 🌲💺 [Treesitter](https://github.com/nvim-treesitter/nvim-treesitter) based code highlighting
-![Treesitter](/utils/media/Treesitter.png "Treesitter")
+- 🌲💺 [Treesitter](https://github.com/nvim-treesitter/nvim-treesitter) based code highlighting
+  ![Treesitter](/utils/media/Treesitter.png "Treesitter")
 
-* 🌳:card_file_box: [NvimTree](https://github.com/kyazdani42/nvim-tree.lua) as file tree
-![FileTree](/utils/media/FileTree.png "FileTree")
+- 🌳:card_file_box: [NvimTree](https://github.com/kyazdani42/nvim-tree.lua) as file tree
+  ![FileTree](/utils/media/FileTree.png "FileTree")
 
-* 🚏🚌 [ToggleTerm](https://github.com/akinsho/toggleterm.nvim) as built in terminal
-![Terminal](/utils/media/Terminal.png "Terminal")
+- 🚏🚌 [ToggleTerm](https://github.com/akinsho/toggleterm.nvim) as built in terminal
+  ![Terminal](/utils/media/Terminal.png "Terminal")
 
-* 🔭 [Fuzzy finder](https://github.com/nvim-telescope/telescope.nvim)
-![Telescope](/utils/media/Telescope.png "Telescope")
+- 🔭 [Fuzzy finder](https://github.com/nvim-telescope/telescope.nvim)
+  ![Telescope](/utils/media/Telescope.png "Telescope")
 
-* :white_check_mark: [TODO viewer](https://github.com/folke/todo-comments.nvim)
-![TODO1](/utils/media/TODO.png "TODO")
-![TODO2](/utils/media/TODO2.png "TODO2")
+- :white_check_mark: [TODO viewer](https://github.com/folke/todo-comments.nvim)
+  ![TODO1](/utils/media/TODO.png "TODO")
+  ![TODO2](/utils/media/TODO2.png "TODO2")
 
-* :bookmark: [Tag viewer](https://github.com/liuchengxu/vista.vim#commands)
-![TagViewer](/utils/media/TagViewer.png "TagViewer")
+- :bookmark: [Tag viewer](https://github.com/liuchengxu/vista.vim#commands)
+  ![TagViewer](/utils/media/TagViewer.png "TagViewer")
 
-* 🤔🔑 [Whichkey](https://github.com/folke/which-key.nvim)
-![Wichkey](/utils/media/Wichkey.png "Wichkey")
+- 🤔🔑 [Whichkey](https://github.com/folke/which-key.nvim)
+  ![Wichkey](/utils/media/Wichkey.png "Wichkey")
 
-* ┇ [Status line](https://github.com/nvim-lualine/lualine.nvim) with git and lsp indicator + File manager and [bufferline](https://github.com/akinsho/nvim-bufferline.lua) lsp indicator
-![StatusLine](/utils/media/StatusLine.png "StatusLine")
+- ┇ [Status line](https://github.com/nvim-lualine/lualine.nvim) with git and lsp indicator + File manager and [bufferline](https://github.com/akinsho/nvim-bufferline.lua) lsp indicator
+  ![StatusLine](/utils/media/StatusLine.png "StatusLine")
