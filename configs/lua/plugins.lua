@@ -37,7 +37,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
   })
 end
 
-vim.cmd [[packadd packer.nvim]]
+vim.cmd([[packadd packer.nvim]])
 
 local use = require("packer").use
 local user_settings_file = require("user_settings")
@@ -486,12 +486,11 @@ return require("packer").startup({
       end,
       disable = disable_plugins.todo_comments,
     })
-
     -- WhichKey is a lua plugin that displays a popup with possible
     -- key bindings of the command you started typing.
     use({
       "folke/which-key.nvim",
-      event = "BufEnter",
+      event = "VimEnter",
       config = function()
         require("plugins/which_key")
       end,
@@ -559,8 +558,14 @@ return require("packer").startup({
     if packer_bootstrap then
       require("packer").sync()
     end
+
+    user_settings_file.other_configs()
   end,
   config = {
+    compile_path = vim.fn.stdpath("data") .. "/plugin/" .. "packer_compiled.lua",
+    git = {
+      clone_timeout = 300,
+    },
     display = {
       open_fn = function()
         return require("packer.util").float({ border = "single" })

@@ -1,3 +1,6 @@
+-- NOTE: These two functions are for
+-- making mappings and adding item to
+-- which key easier
 -- Functions for make mapping easier.
 local function map(mode, lhs, rhs, opts)
   local options = { noremap = true }
@@ -11,6 +14,7 @@ local function wk_add(mappings, options)
   table.insert(extra_which_keys, { mappings, options })
 end
 
+-- WARN: Do not touch this table.
 extra_which_keys = {}
 
 disable_plugins = {
@@ -79,78 +83,30 @@ additional_plugins = {
 
   -- "mhartington/formatter.nvim",
 
-  -- { crispgm/nvim-go", ft = "go" },
+  -- { "crispgm/nvim-go", ft = "go" },
 
-  --[[ {
-    "iamcco/markdown-preview.nvim",
-    ft = "markdown",
-    run = ":call mkdp#util#install()",
-    config = function ()
-      vim.g.mkdp_auto_close = 0
-    end
-  },
+  -- {
+  --   "iamcco/markdown-preview.nvim",
+  --   ft = "markdown",
+  --   run = ":call mkdp#util#install()",
+  --   config = function()
+  --     vim.g.mkdp_auto_close = 0
+  --   end,
+  -- },
 
-  {
-    "andweeb/presence.nvim",
-    config = function ()
-      require("presence"):setup({
-      log_level           = "info", -- Log messages at or above this level (one of the following: "debug", "info", "warn", "error")
-      debounce_timeout    = 5,   -- Number of seconds to debounce events (or calls to `:lua package.loaded.presence:update(<filename>, true)`)
-      blacklist           = {},  -- A list of strings or Lua patterns that disable Rich Presence if the current file name, path, or workspace matches
-      })
-    end
-  } ]]
+  -- {
+  --   "andweeb/presence.nvim",
+  --   config = function()
+  --     require("presence"):setup({
+  --       log_level = "info", -- Log messages (one of the following: "debug", "info", "warn", "error")
+  --       debounce_timeout = 5,
+  --       blacklist = {}, -- file name, path, or workspace matches
+  --     })
+  --   end,
+  -- },
 }
 
--- Other settings here
--- For examples for disabling line number:
--- vim.opt.number = false
--- vim.opt.relativenumber = false
-
--- Or for changing terminal toggle mapping:
--- first argument is mode of mapping. second argument is keymap.
--- third argument is command. and last argument is optional argument like {expr = true}.
--- map("n", "<C-t>", ":ToggleTerm<CR>")
--- map("t", "<C-t>", ":ToggleTerm<CR>")
-
--- This is example of how to make keymap and add it to
--- which_keys(that pop of window on bottom of NeoVim that help you to find keymaps)
--- This will make new group of keymaps names Something with two commands and they're describtions.
--- with pressing `<leader> + s` you can trigger which keys to show you
--- Something commands. with pressing e it will echo hello on command prompt at the end of NeoVim
--- and with pressing f it will echo Goodbye on command prompt at the end of NeoVim
---[[ wk_add(
-  { s = {
-    name = "Something",
-    e = { ":echo 'Hello'<CR>", "Echo Hello" },
-    f = { ":echo 'Goodbye'<CR>", "Echo Goodbye" },
-  }},
-  { prefix = "<leader>", mode="v" } -- mode = "v" means it only works on visual mode.
-)]]
-
-user_lualine_style = 1 -- You can choose between 1, 2, 3, 4 and 5
--- or you can define your custome seperator like this.
--- first item is for component seperator and second item is
--- for section seperator.
--- user_lualine_style = {{left = 'î‚´', right = 'î‚¶'}, {left = "|", right = "|"}}
-
-user_indent_blankline_style = 1 -- You can choose between 1, 2, 3, 4,5 and 6
--- or you can use your favorite character.
--- user_indent_blankline_style = "â”†"
-
--- Settings colorscheme on CodeArt is exactly like normal neovim.
--- But inside
--- vim.schedule(function()
---
--- end)
--- Function
--- you must just install plugin and use this function.
--- This is example with one of default CodeArt colorschemes
-vim.schedule(function()
-  vim.cmd("colorscheme enfocado")
-end)
-
--- NOTE: Configs off builtin plugins are here
+-- NOTE: here
 -- Name of functions is exactly like config file in plugins directory
 -- the only diffrence is if in file name you have hifen here you must
 -- replace it with underline.
@@ -190,7 +146,7 @@ local config = {
             "-ci",
             "-bn",
             "$FILENAME",
-            "-w"
+            "-w",
           },
         }),
         diagnostics.zsh,
@@ -216,6 +172,46 @@ local config = {
       enable = true,
     },
   },
+  other_configs = function()
+    vim.cmd("colorscheme enfocado")
+    -- Other settings here
+    -- For examples for disabling line number:
+    -- vim.opt.number = false
+    -- vim.opt.relativenumber = false
+
+    -- Or for changing terminal toggle mapping:
+    -- first argument is mode of mapping. second argument is keymap.
+    -- third argument is command. and last argument is optional argument like {expr = true}.
+    -- map("n", "<C-t>", ":ToggleTerm<CR>")
+    -- map("t", "<C-t>", ":ToggleTerm<CR>")
+
+    -- This is example of how to make keymap and add it to
+    -- which_keys(that pop of window on bottom of NeoVim that help you to find keymaps)
+    -- This will make new group of keymaps names Something with two commands and they're describtions.
+    -- with pressing `<leader> + s` you can trigger which keys to show you
+    -- Something commands. with pressing e it will echo hello on command prompt at the end of NeoVim
+    -- and with pressing f it will echo Goodbye on command prompt at the end of NeoVim
+    -- wk_add(
+    --   {
+    --     s = {
+    --       name = "Something",
+    --       e = { ":echo 'Hello'<CR>", "Echo Hello" },
+    --       f = { ":echo 'Goodbye'<CR>", "Echo Goodbye" },
+    --     },
+    --   },
+    --   { prefix = "<leader>", mode = "v" } -- mode = "v" means it only works on visual mode.
+    -- )
+
+    -- user_lualine_style = 1 -- You can choose between predefined 1, 2, 3, 4 and 5
+    -- or you can define your custome seperator like this.
+    -- first item is for component seperator and second item is
+    -- for section seperator.
+    -- user_lualine_style = { { left = " ", right = " " }, { left = "", right = "" } }
+
+    -- user_indent_blankline_style = 1 -- You can choose between predefined 1, 2, 3, 4,5 and 6
+    -- or you can use your favorite character.
+    -- user_indent_blankline_style = ""
+  end,
 }
 
 return config
