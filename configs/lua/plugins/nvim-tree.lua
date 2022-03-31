@@ -80,14 +80,3 @@ if config.nvim_tree then
 end
 
 nvimtree.setup(nvimtree_config)
-
--- This function is for using Nvimtree as fullscreen explorer
-function nt_explorer()
-  local view = require("nvim-tree.view")
-  if view.is_visible() then
-    vim.cmd("NvimTreeClose")
-    vim.cmd("e .")
-  else
-    vim.cmd("e .")
-  end
-end

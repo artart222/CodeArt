@@ -5,6 +5,18 @@ end
 
 local user_mappings = require("../user_settings")
 
+-- This function is for using Nvimtree as fullscreen explorer
+function nt_explorer()
+  local view = require("nvim-tree.view")
+  if view.is_visible() then
+    vim.cmd("NvimTreeClose")
+    vim.cmd("e .")
+  else
+    vim.cmd("e .")
+    vim.cmd("NvimTreeOpen")
+  end
+end
+
 which_key.setup({
   plugins = {
     marks = false,
