@@ -47,6 +47,9 @@ if user_lualine_style then
     section_char = user_lualine_style[1]
     component_char = user_lualine_style[2]
   end
+else
+  section_char = lualine_styles[lualine_style][1]
+  component_char = lualine_styles[lualine_style][2]
 end
 
 local lualine_config = {

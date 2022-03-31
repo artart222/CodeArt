@@ -23,18 +23,24 @@ local indent_blankline_styles = {
 }
 if type(user_indent_blankline_style) == "number" then
   vim.g.indent_blankline_char = indent_blankline_styles[indent_blankline_style]
+  vim.g.indent_blankline_context_char = indent_blankline_styles[indent_blankline_style]
 elseif type(user_indent_blankline_style) == "string" then
   vim.g.indent_blankline_char = user_indent_blankline_style
+  vim.g.indent_blankline_context_char = user_indent_blankline_style
+elseif type(user_indent_blankline_style) == "nil" then
+  vim.g.indent_blankline_char = indent_blankline_styles[indent_blankline_style]
+  vim.g.indent_blankline_context_char = indent_blankline_styles[indent_blankline_style]
 end
 
 local blankline_config = {
   show_trailing_blankline_indent = false,
+  indent_blankline_use_treesitter = true,
   show_first_indent_level = true,
   show_current_context = true,
   indent_blankline_buftype_exclude = { "terminal" },
   filetype_exclude = {
     "help",
-    "terminal",
+    "toggleterm",
     "dashboard",
     "packer",
     "lsp-installer",
