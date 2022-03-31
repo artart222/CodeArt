@@ -2,6 +2,9 @@
 local opt = vim.opt
 local exec = vim.api.nvim_exec
 
+require("user_settings")
+local utils = require("utils")
+
 -- Using new filetype detection in lua.
 vim.g.do_filetype_lua = 1
 vim.g.did_load_filetypes = 0
@@ -112,14 +115,26 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 
 -- Auto open nvim-tree when writing (nvim .) in command line
 -- and auto open Dashboard when nothing given as argument.
-vim.cmd([[
-if index(argv(), ".") >= 0
-  autocmd VimEnter * NvimTreeOpen
-  bd1
-elseif len(argv()) == 0
-  autocmd VimEnter * Dashboard
-endif
-]])
+if vim.fn.index(vim.fn.argv(), ".") >= 0 then
+  vim.api.nvim_create_autocmd("VimEnter", {
+    pattern = "*",
+    callback = function()
+      if utils.is_plugin_installed("nvim-tree.lua") then
+        vim.cmd("NvimTreeOpen")
+      end
+    end,
+  })
+  vim.cmd("bd1")
+elseif vim.fn.len(vim.fn.argv()) == 0 then
+  vim.api.nvim_create_autocmd("VimEnter", {
+    pattern = "*",
+    callback = function()
+      if utils.is_plugin_installed("dashboard-nvim") then
+        vim.cmd("Dashboard")
+      end
+    end,
+  })
+end
 
 vim.cmd([[
 if has("win32")
@@ -164,9 +179,8 @@ function hide_statusline(types)
   end
 end
 
-vim.api.nvim_create_autocmd({ "BufEnter", "BufRead", "BufWinEnter", "FileType", "WinEnter" }, {
-  pattern = "*",
-  callback = function()
-    hide_statusline(statusline_hide)
-  end,
-})
+utils.autocmd(
+  { "BufEnter", "BufRead", "BufWinEnter", "FileType", "WinEnter" },
+  "*",
+  "lua hide_statusline(statusline_hide)"
+)

@@ -1,69 +1,81 @@
--- NOTE: These two functions are for
--- making mappings and adding item to
--- which key easier
--- Functions for make mapping easier.
-local function map(mode, lhs, rhs, opts)
-  local options = { noremap = true }
-  if opts then
-    options = vim.tbl_extend("force", options, opts)
-  end
-  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
-end
-
-local function wk_add(mappings, options)
-  table.insert(extra_which_keys, { mappings, options })
-end
+local map = require("utils").map
+local which_key = require("utils").wk_add
 
 -- WARN: Do not touch this table.
 extra_which_keys = {}
 
 disable_plugins = {
+  -- NOTE: These two plugins are for better performance
+  -- and fixing one of neovim bugs.
   impatient = false,
   fix_cursor_hold = false,
-  tokyonight = false,
-  nightfly = false,
-  moonfly = false,
-  nord = false,
-  onedark = false,
+
+  -- NOTE: Many plugins use this plugin as a dependency.
+  -- I suggest to not remove this plugins.
+  plenary = false,
+
+  -- NOTE: These plugins are colorscheme. By default only
+  -- enfocado is enabled. you can enable other by changing
+  -- true to false.
+  tokyonight = true,
+  nightfly = true,
+  moonfly = true,
+  nord = true,
+  onedark = true,
   nvim_enfocado = false,
-  truezen = false,
-  indent_blankline = false,
+
+  -- NOTE: These plugins are for debugging. You can install
+  -- Some debug servers with dap_install but the list of those
+  -- Are realy small. You can install debugger by your self and
+  -- then configure it by your self so you can use nvim_dap and nvim_dap_ui
+  -- without dap_install
+  nvim_dap = true,
+  dap_install = true,
+  nvim_dap_ui = true,
+
+  -- NOTE: these plugins are telescope and telescope extensions. fzf is for
+  -- better searching experince and you can fuzzy find directories with
+  -- telescope_find_directories
+  telescope_fzf_native = false,
+  telescope_find_directories = false,
+  telescope = false,
+
+  -- NOTE: neoscroll is builtin scrollbar for CodeArt and
+  scrollview = false,
+  neoscroll = false,
+
+  -- NOTE: nvim-cmp and luasnip are for code completion.
+  nvim_cmp = false,
+  luasnip = false,
+  friendly_snippets = false,
+  cmp_buffer = false,
+  cmp_path = false,
+  cmp_nvim_lsp = false,
+  cmp_luasnip = false,
+  cmp_nvim_lua = false,
+
   nvim_web_devicons = false,
-  nvim_tree = false,
-  nvim_bufferline = false,
   lualine = false,
+  nvim_bufferline = false,
+  indent_blankline = false,
+
+  truezen = false,
+  nvim_tree = false,
   better_escape = false,
   treesitter = false,
   nvim_colorizer = false,
   dashboard_nvim = false,
-  telescope_fzf_native = false,
-  telescope_find_directories = false,
-  telescope = false,
   nvim_lspconfig = false,
   lsp_installer = false,
   null_ls = false,
   lspsaga = false,
   aerial = false,
-  friendly_snippets = false,
-  nvim_cmp = false,
-  cmp_buffer = false,
-  cmp_path = false,
-  cmp_nvim_lsp = false,
-  luasnip = false,
-  cmp_luasnip = false,
-  cmp_nvim_lua = false,
   lsp_signature = false,
-  nvim_dap = false,
-  dap_install = false,
-  nvim_dap_ui = false,
-  vista = false,
   toggleterm = false,
   fugitive = false,
   gitsigns = false,
   autopairs = false,
   nvim_ts_autotag = false,
-  scrollview = false,
-  neoscroll = false,
   todo_comments = false,
   which_key = false,
   mkdir = false,
@@ -200,6 +212,7 @@ local config = {
     --     },
     --   },
     --   { prefix = "<leader>", mode = "v" } -- mode = "v" means it only works on visual mode.
+    --   extra_which_keys
     -- )
 
     -- user_lualine_style = 1 -- You can choose between predefined 1, 2, 3, 4 and 5

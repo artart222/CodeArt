@@ -8,6 +8,7 @@ for lang, _ in pairs(langs) do
   kommentary_config.configure_language(lang, {
     single_line_comment_string = "auto",
     multi_line_comment_strings = "auto",
+    prefer_multi_line_comments = true,
     use_consistent_indentation = true,
     ignore_whitespace = true,
     hook_function = function()

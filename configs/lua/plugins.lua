@@ -1,3 +1,5 @@
+local utils = require("utils")
+
 -- Disable some builtin plugins.
 local disabled_built_ins = {
   "2html_plugin",
@@ -24,20 +26,18 @@ for _, plugin in pairs(disabled_built_ins) do
 end
 
 local fn = vim.fn
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 local packer_bootstrap
-if fn.empty(fn.glob(install_path)) > 0 then
+if not utils.is_plugin_installed("packer.nvim") then
   packer_bootstrap = fn.system({
     "git",
     "clone",
     "--depth",
     "1",
     "https://github.com/wbthomason/packer.nvim",
-    install_path,
+    utils.plugins_path .. "/start/packer.nvim",
   })
+  vim.cmd([[packadd packer.nvim]])
 end
-
-vim.cmd([[packadd packer.nvim]])
 
 local use = require("packer").use
 local user_settings_file = require("user_settings")
@@ -65,7 +65,7 @@ return require("packer").startup({
     -- default CodeArt's plugins.
     use({
       "nvim-lua/plenary.nvim",
-      disable = disable_plugins.tokyonight,
+      disable = disable_plugins.plenary,
     })
 
     -- Color schemes.
@@ -150,7 +150,7 @@ return require("packer").startup({
     -- Bufferline.
     use({
       "akinsho/nvim-bufferline.lua",
-      after = "nvim-web-devicons",
+      event = "BufEnter",
       config = function()
         require("plugins/bufferline")
       end,
@@ -326,12 +326,11 @@ return require("packer").startup({
     })
     use({
       "hrsh7th/cmp-path",
-      after = "cmp-buffer",
+      after = "nvim-cmp",
       disable = disable_plugins.cmp_path,
     })
     use({
       "hrsh7th/cmp-nvim-lsp",
-      -- after = "nvim-lsp-installer",
       after = "nvim-cmp",
       disable = disable_plugins.cmp_nvim_lsp,
     })
@@ -357,7 +356,7 @@ return require("packer").startup({
     -- LSP signature.
     use({
       "ray-x/lsp_signature.nvim",
-      event = "InsertEnter *",
+      event = "InsertEnter",
       config = function()
         require("lsp_signature").setup()
       end,
@@ -419,7 +418,6 @@ return require("packer").startup({
     -- Auto closes.
     use({
       "windwp/nvim-autopairs",
-      -- after = "nvim-cmp",
       keys = {
         { "i", "(" },
         { "i", "[" },

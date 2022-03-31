@@ -3,7 +3,7 @@ if not present then
   return
 end
 
-local user_mappings = require("../user_settings")
+local user_settings = require("../user_settings")
 
 -- This function is for using Nvimtree as fullscreen explorer
 function nt_explorer()
@@ -84,14 +84,16 @@ which_key.register({
 }, { prefix = "<leader>" })
 
 -- NvimTree
-which_key.register({
-  n = {
-    name = "NvimTree",
-    t = { ":NvimTreeToggle<CR>", "Toggle NvimTree" },
-    f = { ":NvimTreeFocus<CR>", "Focus on NvimTree" },
-    e = { ":lua nt_explorer()<CR>", "Fullscreen Explorer" },
-  },
-}, { prefix = "<leader>" })
+if not disable_plugins.nvim_tree then
+  which_key.register({
+    n = {
+      name = "NvimTree",
+      t = { ":NvimTreeToggle<CR>", "Toggle NvimTree" },
+      f = { ":NvimTreeFocus<CR>", "Focus on NvimTree" },
+      e = { ":lua nt_explorer()<CR>", "Fullscreen Explorer" },
+    },
+  }, { prefix = "<leader>" })
+end
 
 -- Finding different stuf.
 which_key.register({

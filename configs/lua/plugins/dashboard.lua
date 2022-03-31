@@ -2,7 +2,8 @@ local g = vim.g
 local fn = vim.fn
 
 local plugins_count
-if vim.fn.has("win32") == 1 then
+local os = require("utils").os
+if os == "Windows" then
   plugins_count = fn.len(fn.globpath("~/AppData/Local/nvim-data/site/pack/packer/start", "*", 0, 1))
   vim.g.dashboard_session_directory = fn.glob("~/AppData/Local/nvim-data/") .. "session"
 else

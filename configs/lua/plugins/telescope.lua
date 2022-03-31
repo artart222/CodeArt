@@ -26,7 +26,7 @@ local new_maker = function(filepath, bufnr, opts)
     :sync()
 end
 
-local os = vim.loop.os_uname().sysname
+local os = require("utils").os
 local buffer_previewer_maker
 local finder
 if os == "Linux" or os == "Darwin" then
