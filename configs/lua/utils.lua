@@ -5,6 +5,7 @@ local M = {}
 M.plugins_path = fn.stdpath("data") .. "/site/pack/packer"
 M.os = vim.loop.os_uname().sysname
 
+-- Check for instalation status of plugin.
 function M.is_plugin_installed(plugins_name)
   if
     fn.empty(fn.glob(M.plugins_path .. "/start/" .. plugins_name)) > 0
@@ -35,6 +36,21 @@ function M.autocmd(group, event, cmd, opts)
     options = vim.tbl_extend("force", options, opts)
   end
   vim.api.nvim_create_autocmd(group, options)
+end
+
+function M.highlight(highlight_group, colors, opts)
+  local options = {}
+  for k, v in pairs(colors) do
+    options[k] = v
+  end
+
+  if opts then
+    for k, v in pairs(opts) do
+      options[k] = v
+    end
+  end
+
+  vim.api.nvim_set_hl(0, highlight_group, options)
 end
 
 return M
