@@ -137,13 +137,15 @@ elseif vim.fn.len(vim.fn.argv()) == 0 then
   })
 end
 
-vim.cmd([[
-if has("win32")
-  command CodeArtUpdate !powershell.exe -executionpolicy bypass -file "$HOME\AppData\Local\nvim\CodeArtUpdate.ps1"
+if require("utils").os == "Windows_NT" then
+  vim.api.nvim_add_user_command(
+    "CodeArtUpdate",
+    '!powershell.exe -executionpolicy bypass -file "$HOME\\AppData\\Local\\nvim\\CodeArtUpdate.ps1',
+    { nargs = 0 }
+  )
 else
-  command CodeArtUpdate !bash ~/.config/nvim/CodeArtUpdate.sh
-endif
-]])
+  vim.api.nvim_add_user_command("CodeArtUpdate", "!bash ~/.config/nvim/CodeArtUpdate.sh", { nargs = 0 })
+end
 
 -- NOTE: Your shell must be powershell in bellow code block because of :CodeArtUpdate command
 vim.cmd([[
