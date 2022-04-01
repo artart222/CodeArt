@@ -20,7 +20,7 @@ local treesitter_config = {
   },
   context_commentstring = {
     enable = true,
-    enable_autocmd = true,
+    enable_autocmd = false,
   },
 }
 
