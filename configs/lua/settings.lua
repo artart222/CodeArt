@@ -3,7 +3,8 @@ local opt = vim.opt
 local exec = vim.api.nvim_exec
 
 require("user_settings")
-local utils = require("utils")
+local is_plugin_installed = require("utils").is_plugin_installed
+local autocmd = vim.api.nvim_create_autocmd
 
 -- Using new filetype detection in lua.
 vim.g.do_filetype_lua = 1
@@ -86,7 +87,7 @@ opt.foldlevel = 99
 
 -- Set line number for help files.
 local help_config = vim.api.nvim_create_augroup("help_config", { clear = true })
-vim.api.nvim_create_autocmd("FileType", {
+autocmd("FileType", {
   pattern = "help",
   callback = function()
     opt.number = true
@@ -95,7 +96,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- Trim Whitespace
-vim.api.nvim_create_autocmd("BufWritePre", {
+autocmd("BufWritePre", {
   pattern = "*",
   callback = function()
     exec(
@@ -115,20 +116,20 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 -- Auto open nvim-tree when writing (nvim .) in command line
 -- and auto open Alpha when nothing given as argument.
 if vim.fn.index(vim.fn.argv(), ".") >= 0 then
-  vim.api.nvim_create_autocmd("VimEnter", {
+  autocmd("VimEnter", {
     pattern = "*",
     callback = function()
-      if utils.is_plugin_installed("nvim-tree.lua") == true then
+      if is_plugin_installed("nvim-tree.lua") == true then
         vim.cmd("NvimTreeOpen")
       end
     end,
   })
   vim.cmd("bd1")
 elseif vim.fn.len(vim.fn.argv()) == 0 then
-  vim.api.nvim_create_autocmd("VimEnter", {
+  autocmd("VimEnter", {
     pattern = "*",
     callback = function()
-      if utils.is_plugin_installed("alpha-nvim") == true then
+      if is_plugin_installed("alpha-nvim") == true then
         vim.cmd("Alpha")
         vim.cmd("bd 1")
       end
@@ -179,8 +180,9 @@ function hide_statusline(types)
   end
 end
 
-utils.autocmd(
-  { "BufEnter", "BufRead", "BufWinEnter", "FileType", "WinEnter" },
-  "*",
-  "lua hide_statusline(statusline_hide)"
-)
+autocmd({ "BufEnter", "BufRead", "BufWinEnter", "FileType", "WinEnter" }, {
+  pattern = "*",
+  callback = function()
+    hide_statusline(statusline_hide)
+  end,
+})

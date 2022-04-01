@@ -30,14 +30,6 @@ function M.wk_add(mappings, options, maps_list)
   table.insert(maps_list, { mappings, options })
 end
 
-function M.autocmd(group, event, cmd, opts)
-  local options = { command = cmd, pattern = event }
-  if opts then
-    options = vim.tbl_extend("force", options, opts)
-  end
-  vim.api.nvim_create_autocmd(group, options)
-end
-
 function M.highlight(highlight_group, colors, opts)
   local options = {}
   for k, v in pairs(colors) do
