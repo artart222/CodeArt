@@ -3,9 +3,7 @@ if not present then
   return
 end
 
-local devicons_config = {
-
-}
+local devicons_config = {}
 
 local config = require("user_settings")
 if config.nvim_web_devicons then

@@ -3,8 +3,7 @@ if not present then
   return
 end
 
-local neoscroll_config = {
-}
+local neoscroll_config = {}
 
 local config = require("user_settings")
 if config.neoscroll then
