@@ -303,8 +303,16 @@ return require("packer").startup({
       disable = disable_plugins.friendly_snippets,
     })
     use({
-      "hrsh7th/nvim-cmp",
+      "L3MON4D3/LuaSnip",
       after = "friendly-snippets",
+      config = function()
+        require("luasnip/loaders/from_vscode").load()
+      end,
+      disable = disable_plugins.luasnip,
+    })
+    use({
+      "hrsh7th/nvim-cmp",
+      after = "LuaSnip",
       config = function()
         require("plugins/cmp")
       end,
@@ -324,14 +332,6 @@ return require("packer").startup({
       "hrsh7th/cmp-nvim-lsp",
       after = "nvim-cmp",
       disable = disable_plugins.cmp_nvim_lsp,
-    })
-    use({
-      "L3MON4D3/LuaSnip",
-      after = "nvim-cmp",
-      config = function()
-        require("luasnip/loaders/from_vscode").load()
-      end,
-      disable = disable_plugins.luasnip,
     })
     use({
       "saadparwaiz1/cmp_luasnip",
@@ -526,7 +526,7 @@ return require("packer").startup({
     })
     use({
       "JoosepAlviste/nvim-ts-context-commentstring",
-      after = "kommentary",
+      event = "BufRead",
       disable = disable_plugins.ts_context_commentstring,
     })
 
