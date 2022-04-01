@@ -248,6 +248,16 @@ return require("packer").startup({
     use({
       "williamboman/nvim-lsp-installer",
       after = "nvim-lspconfig",
+      cmd = {
+        "LspInstall",
+        "LspInstallInfo",
+        "LspPrintInstalled",
+        "LspRestart",
+        "LspStart",
+        "LspStop",
+        "LspUninstall",
+        "LspUninstallAll",
+      },
       config = function()
         require("plugins.lsp.lsp")
       end,
