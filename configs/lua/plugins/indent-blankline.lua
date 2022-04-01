@@ -37,7 +37,7 @@ local blankline_config = {
   indent_blankline_use_treesitter = true,
   show_first_indent_level = true,
   show_current_context = true,
-  indent_blankline_buftype_exclude = { "terminal", "nofile" },
+  buftype_exclude = { "terminal", "nofile", "help" },
   filetype_exclude = {
     "help",
     "toggleterm",
