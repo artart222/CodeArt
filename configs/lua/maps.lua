@@ -24,10 +24,8 @@ map("n", "<Tab>", ":BufferLineCycleNext<CR>")
 map("v", "K", ":move '<-2<CR>gv-gv")
 map("v", "J", ":move '>+1<CR>gv-gv")
 
--- Save and load session/Dashboard.
-map("n", "<Leader>db", ":Dashboard<CR>")
-map("n", "<C-s>l", ":SessionLoad<CR>")
-map("n", "<C-s>s", ":SessionSave<CR>")
+-- Save and load session.
+-- TODO: install session plugin
 
 -- ToggleTerm
 function _G.set_terminal_keymaps()

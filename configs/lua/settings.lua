@@ -7,7 +7,6 @@ local utils = require("utils")
 
 -- Using new filetype detection in lua.
 vim.g.do_filetype_lua = 1
-vim.g.did_load_filetypes = 0
 
 -- Decrease time of completion menu.
 opt.updatetime = 300
@@ -114,12 +113,12 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 })
 
 -- Auto open nvim-tree when writing (nvim .) in command line
--- and auto open Dashboard when nothing given as argument.
+-- and auto open Alpha when nothing given as argument.
 if vim.fn.index(vim.fn.argv(), ".") >= 0 then
   vim.api.nvim_create_autocmd("VimEnter", {
     pattern = "*",
     callback = function()
-      if utils.is_plugin_installed("nvim-tree.lua") then
+      if utils.is_plugin_installed("nvim-tree.lua") == true then
         vim.cmd("NvimTreeOpen")
       end
     end,
@@ -129,8 +128,9 @@ elseif vim.fn.len(vim.fn.argv()) == 0 then
   vim.api.nvim_create_autocmd("VimEnter", {
     pattern = "*",
     callback = function()
-      if utils.is_plugin_installed("dashboard-nvim") then
-        vim.cmd("Dashboard")
+      if utils.is_plugin_installed("alpha-nvim") == true then
+        vim.cmd("Alpha")
+        vim.cmd("bd 1")
       end
     end,
   })
@@ -159,7 +159,7 @@ vim.cmd("command CodeArtTransparent lua make_codeart_transparent()")
 
 -- Add cursorline and diasable it in some buffers and filetypes.
 statusline_hide = {
-  "dashboard",
+  "alpha",
   "TelescopePrompt",
   "TelescopeResults",
 }

@@ -74,7 +74,7 @@ which_key.register({
     e = { ":noh<CR>", "Erase Search Highlights" },
     l = { ":BufferLineMoveNext<CR>", "Move Buffer Right" },
     h = { ":BufferLineMovePrev<CR>", "Move buffer Left" },
-    n = { ":DashboardNewFile<CR>", "New Buffer" },
+    n = { ":ene <BAR> startinsert<CR>", "New Buffer" },
     m = { ":TZFocus<CR>", "Maximize Current Buffer" },
   },
 }, { prefix = "<leader>" })
@@ -105,7 +105,7 @@ which_key.register({
     d = { ":Telescope find_directories<CR>", "Directory" },
     b = { ":Telescope buffers<CR>", "Buffer" },
     h = { ":Telescope help_tags<CR>", "Help File" },
-    B = { ":DashboardJumpMarks<CR>", "Find BookMark" },
+    B = { ":Telescope marks<CR>", "Find BookMark" },
   },
 }, { prefix = "<leader>" })
 

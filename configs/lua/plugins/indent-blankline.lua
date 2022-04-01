@@ -37,15 +37,18 @@ local blankline_config = {
   indent_blankline_use_treesitter = true,
   show_first_indent_level = true,
   show_current_context = true,
-  indent_blankline_buftype_exclude = { "terminal" },
+  indent_blankline_buftype_exclude = { "terminal", "nofile" },
   filetype_exclude = {
     "help",
     "toggleterm",
-    "dashboard",
+    "alpha",
     "packer",
     "lsp-installer",
     "lspinfo",
     "vista_kind",
+    "terminal",
+    "TelescopePrompt",
+    "TelescopeResults",
   },
 }
 
@@ -58,10 +61,3 @@ end
 
 -- Disable indent-blankline on these pages.
 blankline.setup(blankline_config)
-
-vim.api.nvim_create_autocmd("CursorMoved", {
-  pattern = "*",
-  callback = function()
-    vim.cmd("IndentBlanklineRefresh")
-  end,
-})

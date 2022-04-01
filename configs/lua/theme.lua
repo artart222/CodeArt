@@ -52,7 +52,7 @@ vim.g.enfocado_style = "nature" -- styles: nature and neon.
 
 vim.g.enfocado_plugins = {
   "cmp",
-  "dashboard",
+  "alpha",
   "gitsigns",
   "lsp",
   "lsp-installer",
@@ -63,7 +63,6 @@ vim.g.enfocado_plugins = {
   "todo-comments",
   "tree",
   "treesitter",
-  "vista",
   "which-key",
 }
 

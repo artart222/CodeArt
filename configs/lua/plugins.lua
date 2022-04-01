@@ -58,6 +58,7 @@ return require("packer").startup({
     })
     use({
       "antoinemadec/FixCursorHold.nvim",
+      event = "BufRead",
       disable = disable_plugins.fix_cursor_hold,
     })
 
@@ -115,7 +116,7 @@ return require("packer").startup({
     -- This plugin adds indentation guides to all lines (including empty lines).
     use({
       "lukas-reineke/indent-blankline.nvim",
-      event = "BufEnter",
+      event = "BufRead",
       config = function()
         require("plugins/indent-blankline")
       end,
@@ -125,7 +126,7 @@ return require("packer").startup({
     -- Icons.
     use({
       "kyazdani42/nvim-web-devicons",
-      event = "VimEnter",
+      event = "BufRead",
       config = function()
         require("plugins.nvim_web_devicons")
       end,
@@ -137,12 +138,11 @@ return require("packer").startup({
       "kyazdani42/nvim-tree.lua",
       cmd = {
         "NvimTreeOpen",
-        "NvimTreeClose",
         "NvimTreeFocus",
         "NvimTreeToggle",
       },
       config = function()
-        require("plugins/nvim-tree")
+        require("plugins.nvim-tree")
       end,
       disable = disable_plugins.nvim_tree,
     })
@@ -150,7 +150,8 @@ return require("packer").startup({
     -- Bufferline.
     use({
       "akinsho/nvim-bufferline.lua",
-      event = "BufEnter",
+      event = "BufRead",
+      -- after = "nvim-treesitter",
       config = function()
         require("plugins/bufferline")
       end,
@@ -180,8 +181,8 @@ return require("packer").startup({
     -- TreeSitter.
     use({
       "nvim-treesitter/nvim-treesitter",
-      run = ":TSUpdate",
-      event = { "BufEnter", "BufRead" },
+      run = "TSUpdate",
+      event = "BufRead",
       cmd = {
         "TSInstall",
         "TSInstallInfo",
@@ -201,7 +202,7 @@ return require("packer").startup({
     -- Colorizer (for highlighting color codes).
     use({
       "norcalli/nvim-colorizer.lua",
-      event = "BufEnter",
+      event = "BufRead",
       config = function()
         require("plugins/colorizer")
         vim.cmd("ColorizerAttachToBuffer")
@@ -211,22 +212,12 @@ return require("packer").startup({
 
     -- Startup screen.
     use({
-      "glepnir/dashboard-nvim",
-      cmd = {
-        "Dashboard",
-        "DashboardChangeColorscheme",
-        "DashboardFindFile",
-        "DashboardFindHistory",
-        "DashboardFindWord",
-        "DashboardNewFile",
-        "DashboardJumpMarks",
-        "SessionLoad",
-        "SessionSave",
-      },
-      setup = function()
-        require("plugins/dashboard")
+      "goolord/alpha-nvim",
+      cmd = "Alpha",
+      config = function()
+        require("plugins.alpha")
       end,
-      disable = disable_plugins.dashboard_nvim,
+      disable = disable_plugins.alpha,
     })
 
     use({
@@ -252,7 +243,7 @@ return require("packer").startup({
     -- LSP, LSP installer and tab completion.
     use({
       "neovim/nvim-lspconfig",
-      event = "BufEnter",
+      event = "BufRead",
       disable = disable_plugins.nvim_lspconfig,
     })
     use({
@@ -349,7 +340,8 @@ return require("packer").startup({
     })
     use({
       "hrsh7th/cmp-nvim-lua",
-      after = "nvim-cmp",
+      -- after = "nvim-cmp",
+      ft = "lua",
       disable = disable_plugins.cmp_nvim_lua,
     })
 
@@ -366,7 +358,7 @@ return require("packer").startup({
     -- TODO: Do better lazyloading here for dap.
     use({
       "mfussenegger/nvim-dap",
-      event = "BufEnter",
+      event = "BufRead",
       disable = disable_plugins.nvim_dap,
     })
 
@@ -408,7 +400,7 @@ return require("packer").startup({
     -- Git signs.
     use({
       "lewis6991/gitsigns.nvim",
-      event = "BufEnter",
+      event = "BufRead",
       config = function()
         require("plugins/gitsigns")
       end,
@@ -458,7 +450,7 @@ return require("packer").startup({
     -- Scrollbar.
     use({
       "dstein64/nvim-scrollview",
-      event = "BufEnter",
+      event = "BufRead",
       config = function()
         require("plugins/nvim-scroll")
       end,
@@ -468,7 +460,7 @@ return require("packer").startup({
     -- Smooth scroll.
     use({
       "karb94/neoscroll.nvim",
-      event = "BufEnter",
+      event = "BufRead",
       config = function()
         require("plugins.neoscroll")
       end,
@@ -478,7 +470,7 @@ return require("packer").startup({
     -- todo comments like TODO, HACK, BUG in code base.
     use({
       "folke/todo-comments.nvim",
-      event = "BufEnter",
+      event = "BufRead",
       config = function()
         require("plugins/todo-comments")
       end,
@@ -488,7 +480,21 @@ return require("packer").startup({
     -- key bindings of the command you started typing.
     use({
       "folke/which-key.nvim",
-      event = "VimEnter",
+      -- event = "BufEnter",
+      keys = {
+        "<leader>",
+        "g",
+        "d",
+        "y",
+        "!",
+        "z",
+        ">",
+        "<",
+        "]",
+        "[",
+        "v",
+        "c",
+      },
       config = function()
         require("plugins/which_key")
       end,
@@ -520,6 +526,7 @@ return require("packer").startup({
     })
     use({
       "JoosepAlviste/nvim-ts-context-commentstring",
+      after = "kommentary",
       disable = disable_plugins.ts_context_commentstring,
     })
 
@@ -560,10 +567,10 @@ return require("packer").startup({
     user_settings_file.other_configs()
   end,
   config = {
-    compile_path = vim.fn.stdpath("data") .. "/plugin/" .. "packer_compiled.lua",
-    git = {
-      clone_timeout = 300,
-    },
+    -- compile_path = vim.fn.stdpath("config") .. "/plugin/" .. "packer_compiled.lua",
+    -- git = {
+    --   clone_timeout = 300,
+    -- },
     display = {
       open_fn = function()
         return require("packer.util").float({ border = "single" })
