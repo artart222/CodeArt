@@ -65,7 +65,7 @@ dashboard.section.buttons.opts.hl = "AlphaCenter"
 dashboard.section.buttons.opts.hl_shortcut = "AlphaShortcut"
 
 local plugins_count
-if os == "Windows" then
+if os == "Windows_NT" then
   plugins_count = fn.len(fn.globpath("~/AppData/Local/nvim-data/site/pack/packer/start", "*", 0, 1))
 else
   plugins_count = fn.len(fn.globpath("~/.local/share/nvim/site/pack/packer/start", "*", 0, 1))
