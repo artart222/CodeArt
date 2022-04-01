@@ -59,7 +59,7 @@ dashboard.section.buttons.val = {
   button("SPC f w", "  Find Word", ":Telescope live_grep<CR>"),
   button("SPC f n", "  New File", ":ene <BAR> startinsert<CR><ESC>"),
   button("SPC f m", "  Bookmarks", ":Telescope marks<CR>"),
-  button("SPC f l", "  Load Last Session", ":Telescope oldfiles<CR>"), -- TODO: update this with session plugin.
+  -- button("SPC f l", "  Load Last Session", ":Telescope oldfiles<CR>"), -- TODO: update this with session plugin.
 }
 dashboard.section.buttons.opts.hl = "AlphaCenter"
 dashboard.section.buttons.opts.hl_shortcut = "AlphaShortcut"
