@@ -170,7 +170,7 @@ return require("packer").startup({
     -- Better escape --> For escaping easily from insert mode with jk/jj.
     use({
       "max397574/better-escape.nvim",
-      keys = { { "i", "jj" }, { "i", "jk" } },
+      event = "InsertEnter",
       config = function()
         require("plugins.better_escape")
       end,
