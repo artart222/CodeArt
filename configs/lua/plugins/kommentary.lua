@@ -12,7 +12,7 @@ for lang, _ in pairs(langs) do
     use_consistent_indentation = true,
     ignore_whitespace = true,
     hook_function = function()
-      if disable_plugins.ts_context_commentstring == false then
+      if require("utils").is_plugin_installed("kommentary") then
         require("ts_context_commentstring.internal").update_commentstring()
       end
     end,

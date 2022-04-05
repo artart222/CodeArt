@@ -67,7 +67,7 @@ local telescope_config = {
   extensions = {},
 }
 
-if disable_plugins.telescope_fzf_native ~= true then
+if require("utils").is_plugin_installed("telescope-fzf-native.nvim") then
   telescope_config.extensions["fzf"] = {
     fuzzy = true,
     override_generic_sorter = true,
@@ -77,7 +77,7 @@ if disable_plugins.telescope_fzf_native ~= true then
   telescope_setup.load_extension("fzf")
 end
 
-if disable_plugins.telescope_find_directories ~= true then
+if require("utils").is_plugin_installed("telescope_find_directories") then
   telescope_setup.load_extension("find_directories")
 end
 

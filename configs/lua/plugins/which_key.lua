@@ -84,7 +84,7 @@ which_key.register({
 }, { prefix = "<leader>" })
 
 -- NvimTree
-if not disable_plugins.nvim_tree then
+if require("utils").is_plugin_installed("nvim-tree.lua") then
   which_key.register({
     n = {
       name = "NvimTree",
