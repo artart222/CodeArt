@@ -40,7 +40,8 @@ disable_plugins = {
   telescope_find_directories = false,
   telescope = false,
 
-  -- NOTE: neoscroll is builtin scrollbar for CodeArt and
+  -- NOTE: scrollview is builtin scrollbar for CodeArt and
+  -- And neoscroll is for scroll animation.
   scrollview = false,
   neoscroll = false,
 
@@ -59,9 +60,10 @@ disable_plugins = {
   nvim_bufferline = false,
   indent_blankline = false,
 
+  better_escape = true, -- For exiting from insert mode with jj and jk
+
   truezen = false,
   nvim_tree = false,
-  better_escape = false,
   treesitter = false,
   nvim_colorizer = false,
   alpha = false,
