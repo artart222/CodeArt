@@ -165,6 +165,10 @@ statusline_hide = {
   "alpha",
   "TelescopePrompt",
   "TelescopeResults",
+  "packer",
+  "lspinfo",
+  "lsp-installer",
+  "nofile",
 }
 
 function hide_statusline(types)
