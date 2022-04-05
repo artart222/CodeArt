@@ -168,7 +168,6 @@ statusline_hide = {
   "packer",
   "lspinfo",
   "lsp-installer",
-  "nofile",
 }
 
 function hide_statusline(types)
