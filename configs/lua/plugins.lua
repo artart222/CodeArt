@@ -149,7 +149,7 @@ return require("packer").startup({
 
     -- Bufferline.
     use({
-      "akinsho/nvim-bufferline.lua",
+      "akinsho/bufferline.nvim",
       event = { "BufRead", "BufNewFile" },
       config = function()
         require("plugins/bufferline")
@@ -389,7 +389,7 @@ return require("packer").startup({
 
     -- Terminal.
     use({
-      "akinsho/nvim-toggleterm.lua",
+      "akinsho/toggleterm.nvim",
       keys = "<C-t>",
       cmd = "ToggleTerm",
       config = function()
