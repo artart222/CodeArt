@@ -73,7 +73,7 @@ local lualine_config = {
     section_separators = section_char,
     component_separators = component_char,
   },
-  extensions = { "fugitive" },
+  extensions = { "fugitive", "nvim-tree", "toggleterm", "aerial", "quickfix" },
   sections = {
     lualine_a = { "mode" },
     lualine_b = {
