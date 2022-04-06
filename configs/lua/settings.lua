@@ -189,5 +189,9 @@ autocmd({ "BufEnter", "BufRead", "BufWinEnter", "FileType", "WinEnter" }, {
   pattern = "*",
   callback = function()
     hide_statusline(statusline_hide)
+    if vim.bo.filetype == "toggleterm" then
+      opt.signcolumn = "no"
+      opt.cursorline = false
+    end
   end,
 })
