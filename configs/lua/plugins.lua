@@ -301,7 +301,7 @@ return require("packer").startup({
         "AerialInfo",
       },
       config = function()
-        require("plugins/aerial")
+        require("plugins.aerial")
       end,
       disable = disable_plugins.aerial,
     })
@@ -570,8 +570,6 @@ return require("packer").startup({
     if packer_bootstrap then
       require("packer").sync()
     end
-
-    user_settings_file.other_configs()
   end,
   config = {
     compile_path = vim.fn.stdpath("config") .. "/plugin/" .. "packer_compiled.lua",

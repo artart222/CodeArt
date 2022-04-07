@@ -2,7 +2,6 @@
 local opt = vim.opt
 local exec = vim.api.nvim_exec
 
-require("user_settings")
 local is_plugin_installed = require("utils").is_plugin_installed
 local autocmd = vim.api.nvim_create_autocmd
 
@@ -54,7 +53,7 @@ opt.shiftwidth = 4
 opt.smartindent = true
 opt.smartcase = true
 opt.expandtab = true
-opt.pumheight = 25 -- pop up menu height
+opt.pumheight = 20 -- pop up menu height
 
 -- Set searching stuf.
 opt.hlsearch = true
@@ -79,7 +78,7 @@ opt.ruler = true
 opt.timeoutlen = 200
 
 -- Setting up autocomplete menu.
-opt.completeopt = "menuone,noselect"
+opt.completeopt = { "menuone", "noselect" }
 
 opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
