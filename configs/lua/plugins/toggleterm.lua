@@ -12,15 +12,16 @@ toggle_term.setup({
   persist_size = true,
   direction = "horizontal",
   close_on_exit = true, -- close the terminal window when the process exits
+  highlights = {
+    Normal = {
+      guibg = "Normal",
+    },
+  },
   float_opts = {
     border = "curved",
     width = 120,
     height = 40,
     winblend = 3,
-    highlights = {
-      border = "Normal",
-      background = "Normal",
-    },
   },
 })
 
