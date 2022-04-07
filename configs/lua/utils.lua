@@ -31,9 +31,32 @@ function M.wk_add(mappings, options, maps_list)
 end
 
 function M.highlight(highlight_group, colors, opts)
-  local options = {}
+  local function get_attr(attr)
+    return vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID(highlight_group)), attr)
+  end
+
+  local options = {
+    bg = get_attr("bg"),
+    fg = get_attr("fg"),
+  }
+  if get_attr("bold") == "1" then
+    options.bold = true
+  end
+  if get_attr("italic") == "1" then
+    options.italic = true
+  end
+
+  if get_attr("undercurl") == "1" then
+    options.undercurl = true
+  end
+  if get_attr("underline") == "1" then
+    options.underline = true
+  end
+
   for k, v in pairs(colors) do
-    options[k] = v
+    if colors[k] == "NONE" then
+      options[k] = nil
+    end
   end
 
   if opts then
