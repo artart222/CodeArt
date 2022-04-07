@@ -121,6 +121,6 @@ function _G.make_codeart_transparent()
   highlight("BufferLineModifiedSelected", { bg = nil })
 
   highlight("NormalFloat", { bg = nil })
-  highlight("FloatBorder", { bg = nil })
+  highlight("Float", { bg = nil })
   highlight("WhichKeyFloat", { bg = nil })
 end
