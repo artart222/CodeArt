@@ -56,6 +56,8 @@ function M.highlight(highlight_group, colors, opts)
   for k, v in pairs(colors) do
     if colors[k] == "NONE" then
       options[k] = nil
+    else
+      options[k] = v
     end
   end
 
