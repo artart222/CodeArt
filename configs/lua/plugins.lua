@@ -512,7 +512,7 @@ return require("packer").startup({
     -- on saving a file.
     use({
       "jghauser/mkdir.nvim",
-      cmd = "new",
+      event = { "FileWritePre", "BufWritePre" },
       config = function()
         require("mkdir")
       end,
