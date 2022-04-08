@@ -157,7 +157,7 @@ if has("win32")
 endif
 ]])
 
-vim.cmd("command CodeArtTransparent lua make_codeart_transparent()")
+vim.api.nvim_add_user_command("CodeArtTransparent", "lua make_codeart_transparent()", { nargs = 0 })
 
 -- Add cursorline and diasable it in some buffers and filetypes.
 statusline_hide = {
