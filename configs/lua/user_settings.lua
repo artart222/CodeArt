@@ -17,11 +17,11 @@ disable_plugins = {
   -- NOTE: These plugins are colorscheme. By default only
   -- enfocado is enabled. you can enable other by changing
   -- true to false.
-  tokyonight = true,
-  nightfly = true,
-  moonfly = true,
-  nord = true,
-  onedark = true,
+  tokyonight = false,
+  nightfly = false,
+  moonfly = false,
+  nord = false,
+  onedark = false,
   nvim_enfocado = false,
 
   -- NOTE: These plugins are for debugging. You can install
