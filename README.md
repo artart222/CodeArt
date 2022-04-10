@@ -34,8 +34,8 @@
 
 🐧🍎 On linux and macOS:
 ```bash
-chmod +x installer/linux-bash.sh
-./installer/linux-bash.sh
+chmod +x installer/linux-mac.sh
+./installer/linux-mac.sh
 ```
 
 ***If you have debian, after the instalation finished you must [add debian testing repos](https://serverfault.com/a/550856) and after that run***:
