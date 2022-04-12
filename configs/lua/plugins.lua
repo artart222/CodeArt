@@ -266,7 +266,6 @@ return require("packer").startup({
     use({
       "jose-elias-alvarez/null-ls.nvim",
       config = function()
-        require("plugins.lsp.null-ls")
         local config = require("user_settings")
         if config.null_ls ~= nil then
           config.null_ls()

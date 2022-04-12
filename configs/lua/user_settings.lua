@@ -71,7 +71,7 @@ disable_plugins = {
   lsp_installer = false,
   null_ls = false,
   lspsaga = false,
-  aerial = false,
+  symbols_outline = false,
   lsp_signature = false,
   toggleterm = false,
   fugitive = false,
@@ -164,7 +164,6 @@ local config = {
           },
         }),
         diagnostics.zsh,
-        -- formatting.clang_format
         -- diagnostics.luacheck,
         diagnostics.pylint,
       },
@@ -174,7 +173,7 @@ local config = {
       --     vim.cmd([[
       --       augroup LspFormatting
       --           autocmd! * <buffer>
-      --           autocmd BufWritePre <buffer> lua global_code_formatter(vim.api.nvim_get_current_buf())
+      --           autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
       --       augroup END
       --       ]])
       --   end
