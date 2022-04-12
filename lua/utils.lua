@@ -70,4 +70,37 @@ function M.highlight(highlight_group, colors, opts)
   vim.api.nvim_set_hl(0, highlight_group, options)
 end
 
+function M.update()
+  -- local Job = require("plenary.job")
+
+  -- local status = vim.fn.system("bash " .. vim.fn.stdpath("config") .. "/CodeArtUpdate.sh; echo $?")
+  -- if vim.fn.trim(status) == "0" then
+  --   vim.notify(
+  --     "Backuped your entire NeoVim config into "
+  --       .. vim.fn.stdpath("config")
+  --       .. ".backup"
+  --       .. "your previous config will be use in new file structure but in case of any problem you can have your old config."
+  --       .. "In case of any prolem see https://github.com/artart222/CodeArt/wiki",
+  --     vim.log.levels.WARN,
+  --     { title = "CodeArt" }
+  --   )
+  -- else
+  --   Job
+  --     :new({
+  --       command = "git",
+  --       args = { "pull", "--ff-only" },
+  --       cwd = vim.fn.stdpath("config"),
+  --       on_exit = function(_, return_val)
+  --         if return_val == 0 then
+  --           vim.notify("Updated!", vim.log.levels.WARN, { title = "CodeArt" })
+  --         else
+  --           vim.notify("Update failed! Please try pulling manually.", vim.log.levels.ERROR, { title = "CodeArt" })
+  --           return nil
+  --         end
+  --       end,
+  --     })
+  --     :sync()
+  -- end
+end
+
 return M

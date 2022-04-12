@@ -137,13 +137,16 @@ elseif vim.fn.len(vim.fn.argv()) == 0 then
 end
 
 if require("utils").os == "Windows_NT" then
-  vim.api.nvim_add_user_command(
+  vim.api.nvim_create_user_command(
     "CodeArtUpdate",
     '!powershell.exe -executionpolicy bypass -file "$HOME\\AppData\\Local\\nvim\\CodeArtUpdate.ps1',
     { nargs = 0 }
   )
 else
-  vim.api.nvim_add_user_command("CodeArtUpdate", "!bash ~/.config/nvim/CodeArtUpdate.sh", { nargs = 0 })
+  -- vim.api.nvim_create_user_command("CodeArtUpdate", "!bash ~/.config/nvim/CodeArtUpdate.sh", { nargs = 0 })
+  vim.api.nvim_create_user_command("CodeArtUpdate", function()
+    require("utils").update()
+  end, { nargs = 0 })
 end
 
 -- NOTE: Your shell must be powershell in bellow code block because of :CodeArtUpdate command
@@ -157,7 +160,7 @@ if has("win32")
 endif
 ]])
 
-vim.api.nvim_add_user_command("CodeArtTransparent", "lua make_codeart_transparent()", { nargs = 0 })
+vim.api.nvim_create_user_command("CodeArtTransparent", "lua make_codeart_transparent()", { nargs = 0 })
 
 -- Add cursorline and diasable it in some buffers and filetypes.
 statusline_hide = {
