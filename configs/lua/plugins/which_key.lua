@@ -80,7 +80,7 @@ which_key.register({
 }, { prefix = "<leader>" })
 
 which_key.register({
-  ["r"] = { ":lua global_code_formatter(vim.api.nvim_get_current_buf())<CR>", "Format" },
+  ["r"] = { ":lua vim.lsp.buf.formatting_sync()<CR>", "Format" },
 }, { prefix = "<leader>" })
 
 -- NvimTree
