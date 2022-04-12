@@ -21,6 +21,11 @@ local bufferline_config = {
         text = "Lsp Tags",
         text_align = "center",
       },
+      {
+        filetype = "Outline",
+        text = " Lsp Tags",
+        text_align = "center",
+      },
     },
   },
 }

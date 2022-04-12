@@ -283,27 +283,16 @@ return require("packer").startup({
     })
 
     use({
-      "stevearc/aerial.nvim",
+      "simrat39/symbols-outline.nvim",
       cmd = {
-        "AerialOpen",
-        "AerialClose",
-        "AerialPrev",
-        "AerialNext",
-        "AerialPrevUp",
-        "AerialNextUp",
-        "AerialGo",
-        "AerialTreeOpen",
-        "AerialTreeClose",
-        "AerialTreeToggle",
-        "AerialTreeOpenAll",
-        "AerialTreeCloseAll",
-        "AerialTreeSyncFolds",
-        "AerialInfo",
+        "SymbolsOutline",
+        "SymbolsOutlineOpen",
+        "SymbolsOutlineClose",
       },
       config = function()
-        require("plugins.aerial")
+        require("plugins.symbols-outline")
       end,
-      disable = disable_plugins.aerial,
+      disable = disable_plugins.symbols_outline,
     })
 
     use({

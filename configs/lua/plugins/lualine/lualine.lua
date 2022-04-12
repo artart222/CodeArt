@@ -57,12 +57,9 @@ local lualine_config = {
     globalstatus = true,
     theme = "auto",
     disabled_filetypes = {
-      "NvimTree",
       "TelescopePrompt",
       "TelescopeResults",
-      "vista_kind",
       "aerial",
-      "alpha",
       "dapui_scopes",
       "dapui_breakpoints",
       "dapui_stacks",
@@ -73,7 +70,7 @@ local lualine_config = {
     section_separators = section_char,
     component_separators = component_char,
   },
-  extensions = { "fugitive", "nvim-tree", "toggleterm", "aerial", "quickfix" },
+  extensions = { "fugitive", "nvim-tree", "toggleterm", "aerial", "quickfix", "symbols-outline" },
   sections = {
     lualine_a = { "mode" },
     lualine_b = {
