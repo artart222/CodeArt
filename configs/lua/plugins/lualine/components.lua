@@ -1,5 +1,7 @@
 local M = {}
 
+local lsp_utils = require("plugins.lsp.utils")
+
 function M.lsp_progress(_)
   local Lsp = vim.lsp.util.get_progress_messages()[1]
 
@@ -35,33 +37,6 @@ function M.treesitter_status(_)
   return " TS"
 end
 
-function M.list_registered_providers_names(filetype)
-  local s = require("null-ls.sources")
-  local available_sources = s.get_available(filetype)
-  local registered = {}
-  for _, source in ipairs(available_sources) do
-    for method in pairs(source.methods) do
-      registered[method] = registered[method] or {}
-      table.insert(registered[method], source.name)
-    end
-  end
-  return registered
-end
-
-function M.list_registered_formatters(filetype)
-  local null_ls_methods = require("null-ls.methods")
-  local formatter_method = null_ls_methods.internal["FORMATTING"]
-  local registered_providers = M.list_registered_providers_names(filetype)
-  return registered_providers[formatter_method] or {}
-end
-
-function M.list_registered_linters(filetype)
-  local null_ls_methods = require("null-ls.methods")
-  local formatter_method = null_ls_methods.internal["DIAGNOSTICS"]
-  local registered_providers = M.list_registered_providers_names(filetype)
-  return registered_providers[formatter_method] or {}
-end
-
 function M.lsp_name(msg)
   msg = msg or "Inactive"
   local buf_clients = vim.lsp.buf_get_clients()
@@ -80,10 +55,10 @@ function M.lsp_name(msg)
     end
   end
 
-  local supported_formatters = M.list_registered_formatters(buf_ft)
+  local supported_formatters = lsp_utils.list_registered_formatters(buf_ft)
   vim.list_extend(buf_client_names, supported_formatters)
 
-  local supported_linters = M.list_registered_linters(buf_ft)
+  local supported_linters = lsp_utils.list_registered_linters(buf_ft)
   vim.list_extend(buf_client_names, supported_linters)
 
   return table.concat(buf_client_names, ", ")
