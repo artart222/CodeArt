@@ -3,12 +3,14 @@ vim.opt.fillchars = { eob = " " }
 
 local highlight = require("utils").highlight
 
--- -- Highlightign line number for lsp diagnostics sings
+-- -- Highlightign line number for lsp diagnostics sings based on colorscheme
 vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
   pattern = "*",
 
   callback = function()
     local fn = vim.fn
+
+    -- Getting diagnostic signs color.
     local error_bcolor = fn.synIDattr(fn.synIDtrans(fn.hlID("DiagnosticSignError")), "fg")
     local info_bcolor = fn.synIDattr(fn.synIDtrans(fn.hlID("DiagnosticSignInfo")), "fg")
     local warn_bcolor = fn.synIDattr(fn.synIDtrans(fn.hlID("DiagnosticSignWarn")), "fg")
@@ -19,11 +21,13 @@ vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
     local warn_fcolor = fn.synIDattr(fn.synIDtrans(fn.hlID("DiagnosticSignWarn")), "bg")
     local hint_fcolor = fn.synIDattr(fn.synIDtrans(fn.hlID("DiagnosticSignHint")), "bg")
 
+    -- Applying thoes colors to diagnostic line number.
     highlight("DiagnosticLineNrError", { bg = error_bcolor, fg = error_fcolor }, { bold = true })
     highlight("DiagnosticLineNrWarn", { bg = warn_bcolor, fg = warn_fcolor }, { bold = true })
     highlight("DiagnosticLineNrInfo", { bg = info_bcolor, fg = info_fcolor }, { bold = true })
     highlight("DiagnosticLineNrHint", { bg = hint_bcolor, fg = hint_fcolor }, { bold = true })
 
+    -- Applying diagnostic line number and remove diagnostic signs
     fn.sign_define("DiagnosticSignError", { text = "", texthl = "", numhl = "DiagnosticLineNrError" })
     fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "", numhl = "DiagnosticLineNrWarn" })
     fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "", numhl = "DiagnosticLineNrInfo" })
@@ -34,6 +38,8 @@ vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
 vim.g.tokyonight_style = "night" -- styles: storm, night and day.
 vim.g.enfocado_style = "nature" -- styles: nature and neon.
 
+-- In enfocado colorscheme you can enable highlight some plugins.
+-- You can set enabled plugins like this(This is CodeArt supported plugins).
 vim.g.enfocado_plugins = {
   "cmp",
   "alpha",
@@ -50,6 +56,7 @@ vim.g.enfocado_plugins = {
   "which-key",
 }
 
+-- Removing background and/or foreground from some highlight groups
 function _G.make_codeart_transparent()
   highlight("Normal", { bg = "NONE", fg = "NONE" })
   highlight("NormalNc", { bg = "NONE", fg = "NONE" })
