@@ -1,4 +1,5 @@
 local utils = require("utils")
+local fn = vim.fn
 
 -- Disable some builtin plugins.
 local disabled_built_ins = {
@@ -25,7 +26,7 @@ for _, plugin in pairs(disabled_built_ins) do
   vim.g["loaded_" .. plugin] = 1
 end
 
-local fn = vim.fn
+-- Install packer.nvim if it's not installed.
 local packer_bootstrap
 if not utils.is_plugin_installed("packer.nvim") then
   packer_bootstrap = fn.system({
@@ -547,6 +548,7 @@ return require("packer").startup({
       disable = disable_plugins.vim_resize,
     })
 
+    -- Install additional user plugins.
     for _, plugin in pairs(additional_plugins) do
       if type(plugin) == "string" then
         use({ plugin })
@@ -555,15 +557,19 @@ return require("packer").startup({
       end
     end
 
+    -- Run :PackerSync if packer.nvim was not installed and
+    -- CodeArt installed that.
     if packer_bootstrap then
       require("packer").sync()
     end
   end,
   config = {
-    compile_path = vim.fn.stdpath("config") .. "/plugin/" .. "packer_compiled.lua",
+    -- Default compile path of packer_compiled file.
+    compile_path = fn.stdpath("config") .. "/plugin/" .. "packer_compiled.lua",
     git = {
       clone_timeout = 300,
     },
+    -- Adding single border to packer window.
     display = {
       open_fn = function()
         return require("packer.util").float({ border = "single" })
