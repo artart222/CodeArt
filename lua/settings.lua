@@ -2,31 +2,34 @@
 local opt = vim.opt
 local exec = vim.api.nvim_exec
 
+-- Defining alias for some functions.
 local is_plugin_installed = require("utils").is_plugin_installed
 local autocmd = vim.api.nvim_create_autocmd
 
--- Using new filetype detection in lua.
+-- Using new filetype detection system(written in lua).
 vim.g.do_filetype_lua = 1
 
 -- Decrease time of completion menu.
 opt.updatetime = 300
+
+-- Set cursorhold updatetime(:  .
 vim.g.cursorhold_updatetime = 100
 
--- Set file encoding to utf-8
+-- Set file encoding to utf-8.
 opt.fileencoding = "utf-8"
 
--- Number settings.
+-- Line number settings.
 opt.number = true
 opt.numberwidth = 2
 opt.relativenumber = true
 
--- Set signcolumn width to 2
+-- Set signcolumn width to 3.
 vim.opt.signcolumn = "yes:3"
 
 -- Remove showing mode.
 opt.showmode = false
 
--- True collor support.
+-- Adding true color to NeoVim.
 opt.termguicolors = true
 
 -- Enable clipboard.
@@ -34,9 +37,6 @@ opt.clipboard = "unnamedplus"
 
 -- Enable mouse in all modes.
 opt.mouse = "a"
-
--- Enable cursor line.
-opt.cursorline = true
 
 -- Setting colorcolumn. This is set because of
 -- this (https://github.com/lukas-reineke/indent-blankline.nvim/issues/59)
@@ -53,7 +53,9 @@ opt.shiftwidth = 4
 opt.smartindent = true
 opt.smartcase = true
 opt.expandtab = true
-opt.pumheight = 20 -- pop up menu height
+
+-- Setting completion menu height.
+opt.pumheight = 20 -- pop up menu height.
 
 -- Set searching stuf.
 opt.hlsearch = true
@@ -71,15 +73,13 @@ opt.backspace = "indent,eol,start"
 opt.splitbelow = true
 opt.splitright = true
 
--- Enabling ruler and statusline.
-opt.ruler = true
-
 -- Setting time that Neovim wait after each keystroke.
 opt.timeoutlen = 200
 
 -- Setting up autocomplete menu.
 opt.completeopt = { "menuone", "noselect" }
 
+-- Seting fold settings.
 opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.foldlevel = 99
@@ -100,13 +100,13 @@ autocmd("BufWritePre", {
   callback = function()
     exec(
       [[
-            function! NoWhitespace()
-                let l:save = winsaveview()
-                keeppatterns %s/\s\+$//e
-                call winrestview(l:save)
-            endfunction
-            call NoWhitespace()
-            ]],
+        function! NoWhitespace()
+          let l:save = winsaveview()
+          keeppatterns %s/\s\+$//e
+          call winrestview(l:save)
+        endfunction
+        call NoWhitespace()
+        ]],
       true
     )
   end,
@@ -136,23 +136,14 @@ elseif vim.fn.len(vim.fn.argv()) == 0 then
   })
 end
 
-if require("utils").os == "Windows_NT" then
-  vim.api.nvim_create_user_command(
-    "CodeArtUpdate",
-    '!powershell.exe -executionpolicy bypass -file "$HOME\\AppData\\Local\\nvim\\CodeArtUpdate.ps1',
-    { nargs = 0 }
-  )
-else
-  -- vim.api.nvim_create_user_command("CodeArtUpdate", "!bash ~/.config/nvim/CodeArtUpdate.sh", { nargs = 0 })
-  vim.api.nvim_create_user_command("CodeArtUpdate", function()
-    require("utils").update()
-  end, { nargs = 0 })
-end
+-- Defining CodeArtUpdate commands.
+vim.api.nvim_create_user_command("CodeArtUpdate", function()require("utils").update()end, ({ nargs = 0 }))
 
--- NOTE: Your shell must be powershell in bellow code block because of :CodeArtUpdate command
+-- NOTE: Set your shell to powershell because of :CodeArtUpdate command and
+-- other problems with cmd in Windows.
 vim.cmd([[
 if has("win32")
-  set shell=powershell " Your shell must be powershell
+  set shell=powershell " Set shell to powershell.
   let &shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
   let &shellredir = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
   let &shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
@@ -160,9 +151,10 @@ if has("win32")
 endif
 ]])
 
+-- Creating CodeArtTransparent command.
 vim.api.nvim_create_user_command("CodeArtTransparent", "lua make_codeart_transparent()", { nargs = 0 })
 
--- Add cursorline and diasable it in some buffers and filetypes.
+-- Add/Diasable cursorline and statusline in some buffers and filetypes.
 statusline_hide = {
   "alpha",
   "TelescopePrompt",
@@ -187,6 +179,7 @@ function hide_statusline(types)
   end
 end
 
+-- Remove signcolumn and cursorline in toggleterm.
 autocmd({ "BufEnter", "BufRead", "BufWinEnter", "FileType", "WinEnter" }, {
   pattern = "*",
   callback = function()
