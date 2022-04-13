@@ -121,8 +121,8 @@ additional_plugins = {
 }
 
 -- NOTE: here
--- Name of functions is exactly like config file in plugins directory
--- the only diffrence is if in file name you have hifen here you must
+-- Name of functions is exactly like config file in nvim/lua/plugins directory
+-- the only diffrence is if in file name you have hifen(-) here you must
 -- replace it with underline.
 local config = {
   -- null-ls configuration
