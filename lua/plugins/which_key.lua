@@ -228,6 +228,8 @@ which_key.register({
 }, { prefix = "<leader>", noremap = false, mode = "v" })
 
 -- Adding user mappings
-for _, v in ipairs(extra_which_keys) do
-  which_key.register(v[1], v[2])
+if extra_which_keys then
+  for _, v in ipairs(extra_which_keys) do
+    which_key.register(v[1], v[2])
+  end
 end
