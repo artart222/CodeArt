@@ -81,8 +81,6 @@ function M.highlight(highlight_group, colors, opts)
 end
 
 function M.update()
-  local Job = require("plenary.job")
-
   -- Running CodeArtUpdate for checking is config structure new or not.
   local status
   if M.os == "Windows_NT" then
@@ -114,6 +112,7 @@ function M.update()
   end
 
   -- Update CodeArt via git pull --ff-only
+  local Job = require("plenary.job")
   Job
     :new({
       command = "git",
@@ -121,10 +120,13 @@ function M.update()
       cwd = vim.fn.stdpath("config"),
       on_exit = function(_, return_val)
         if return_val == 0 then
-          vim.notify("Updated!", vim.log.levels.WARN, { title = "CodeArt" })
+          -- vim.api.nvim_notify("Updated!", vim.log.levels.WARN, { title = "CodeArt" })
+          print("Updated!")
+          return
         else
-          vim.notify("Update failed! Please try pulling manually.", vim.log.levels.ERROR, { title = "CodeArt" })
-          return nil
+          -- vim.notify("Update failed! Please try pulling manually.", vim.log.levels.ERROR, { title = "CodeArt" })
+          print("Update failed! Please try pulling manually.")
+          return
         end
       end,
     })
