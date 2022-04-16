@@ -49,7 +49,6 @@ pack_manager_install "nodejs" "nodejs"
 pack_manager_install "mingw" "mingw"
 pack_manager_install "ripgrep" "ripgrep"
 pack_manager_install "fd" "fd"
-pack_manager_install "svn" "svn"
 echo "Installing JetBrains Nerd Fonts mono..."
 choco install --pre -v "jetbrainsmononf" -y
 

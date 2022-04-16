@@ -103,7 +103,6 @@ pack_manager_install $PACKAGE_MANAGER "make" "make" "make" "make" "make" "sys-de
 pack_manager_install $PACKAGE_MANAGER "ripgrep" "ripgrep" "ripgrep" "ripgrep" "ripgrep" "sys-apps/ripgrep" "ripgrep"
 pack_manager_install $PACKAGE_MANAGER "fd" "fd" "fd-find" "fd-find" "fd" "sys-apps/fd" "fd"
 pack_manager_install $PACKAGE_MANAGER "wget" "wget" "wget" "wget" "wget" "net-misc/wget" "wget"
-pack_manager_install $PACKAGE_MANAGER "svn" "subversion" "subversion" "subversion" "subversion" "dev-vcs/subversion" "subversion"
 
 install_font
 
