@@ -81,18 +81,23 @@ function M.highlight(highlight_group, colors, opts)
 end
 
 function M.update()
-  -- Running CodeArtUpdate for checking is config structure new or not.
-  local status
-  if M.os == "Windows_NT" then
-    local status = vim.fn.system(
-      "powershell.exe -executionpolicy bypass -file " .. vim.fn.stdpath("config") .. "/CodeArtUpdate.ps1"
-    )
-  else -- In case of mac and linux and maybe bsd I didn't work with that (:
-    local status = vim.fn.system("bash " .. vim.fn.stdpath("config") .. "/CodeArtUpdate.sh; echo $?")
-  end
-
-  -- In case of old config structure make it new.
-  if vim.fn.trim(status) == "0" then
+  local config_directory = vim.fn.stdpath("config")
+  -- If there is not .git directory in config_directory
+  -- backup config, clone new config and remove CodeArtUpdate.
+  if vim.fn.isdirectory(config_directory .. "/.git") == "0" then
+    if M.os == "Windows_NT" then
+    else
+      vim.fn.system(
+        "mv " .. config_directory .. "/lua/user_settings.lua " .. config_directory .. "/../user_settings.lua"
+      )
+      vim.fn.system("cp -r " .. config_directory .. " " .. config_directory .. ".backup")
+      vim.fn.system("rm -r --force" .. config_directory)
+      vim.fn.system("git clone https://github.com/artart222/CodeArt " .. config_directory)
+      vim.fn.system("rm " .. config_directory .. "/lua/user_settings.lua")
+      vim.fn.system(
+        "mv " .. config_directory .. "/../user_settings.lua " .. config_directory .. "/lua/user_settings.lua"
+      )
+    end
     vim.notify(
       "CodeArt Backuped your entire NeoVim config into "
         .. vim.fn.stdpath("config")
