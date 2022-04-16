@@ -54,7 +54,6 @@ local nvimtree_config = {
     width = "15%",
     side = "left",
     auto_resize = true,
-    signcolumn = "no",
     mappings = {
       list = {
         { key = "<S-h>", cb = ":call ResizeLeft(3)<CR>" },
