@@ -128,6 +128,8 @@ function M.update()
       end,
     })
     :sync()
+
+  -- Show status to user
   if job_status == 0 then
     vim.api.nvim_notify("Updated!", vim.log.levels.WARN, { title = "CodeArt" })
   else
