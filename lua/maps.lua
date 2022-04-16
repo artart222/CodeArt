@@ -24,9 +24,6 @@ map("n", "<Tab>", ":BufferLineCycleNext<CR>")
 map("v", "K", ":move '<-2<CR>gv-gv")
 map("v", "J", ":move '>+1<CR>gv-gv")
 
--- Save and load session.
--- TODO: install session plugin
-
 -- ToggleTerm
 function _G.set_terminal_keymaps()
   map("t", "<esc>", "<C-\\><C-n>")
