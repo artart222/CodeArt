@@ -113,6 +113,7 @@ function M.update()
 
   -- Update CodeArt via git pull --ff-only
   local Job = require("plenary.job")
+  local job_status
   Job
     :new({
       command = "git",
@@ -120,17 +121,18 @@ function M.update()
       cwd = vim.fn.stdpath("config"),
       on_exit = function(_, return_val)
         if return_val == 0 then
-          -- vim.api.nvim_notify("Updated!", vim.log.levels.WARN, { title = "CodeArt" })
-          print("Updated!")
-          return
+          job_status = 0
         else
-          -- vim.notify("Update failed! Please try pulling manually.", vim.log.levels.ERROR, { title = "CodeArt" })
-          print("Update failed! Please try pulling manually.")
-          return
+          job_status = 1
         end
       end,
     })
     :sync()
+  if job_status == 0 then
+    vim.api.nvim_notify("Updated!", vim.log.levels.WARN, { title = "CodeArt" })
+  else
+    vim.notify("Update failed! Please try pulling manually.", vim.log.levels.ERROR, { title = "CodeArt" })
+  end
 end
 
 return M
