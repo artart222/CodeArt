@@ -137,7 +137,9 @@ elseif vim.fn.len(vim.fn.argv()) == 0 then
 end
 
 -- Defining CodeArtUpdate commands.
-vim.api.nvim_create_user_command("CodeArtUpdate", function()require("utils").update()end, ({ nargs = 0 }))
+vim.api.nvim_create_user_command("CodeArtUpdate", function()
+  require("utils").update()
+end, { nargs = 0 })
 
 -- NOTE: Set your shell to powershell because of :CodeArtUpdate command and
 -- other problems with cmd in Windows.
