@@ -111,15 +111,5 @@ npm install neovim
 
 echo "Dependencies installed"
 
-echo "Moving configs"
-CONFIG_LOC=$(env | grep XDG_CONFIG_HOME)
-if [ -z "$CONFIG_LOC" ]; then
-  CONFIG_LOC="$HOME/.config/nvim"
-else
-  CONFIG_LOC="$(env | grep XDG_CONFIG_HOME)/nvim"
-fi
-cp -r configs $CONFIG_LOC
-echo "Configs moved"
-
 echo
 echo "Installation finished"

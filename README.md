@@ -34,8 +34,9 @@
 🐧🍎 On linux and macOS:
 
 ```bash
-chmod +x installer/linux-bash.sh
-./installer/linux-bash.sh
+git clone https://github.com/artart222/CodeArt ~/.config/nvim
+chmod +x ~/.config/nvim/installer/linux-bash.sh
+exec ~/.config/nvim/installer/linux-bash.sh
 ```
 
 **_If you have debian, after the instalation finished you must [add debian testing repos](https://serverfault.com/a/550856) and after that run_**:
@@ -53,7 +54,8 @@ sudo apt update; sudo apt install neovim
 ⚡🐚 open a powershell session as administrator and run this command:
 
 ```powershell
-powershell.exe -executionpolicy bypass -file installer/windows.ps1
+git clone https://github.com/artart222/CodeArt ~\AppData\Local\nvim
+powershell.exe -executionpolicy bypass -file ~\AppData\Local\installer\windows.ps1
 ```
 
 #### 🌲💺Σ🖥️ Install lsp and treesitter:

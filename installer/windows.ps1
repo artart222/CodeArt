@@ -20,13 +20,6 @@ function pack_manager_install([string]$PACK_NAME, [string]$APP_NAME) {
 }
 
 
-function copy_configs {
-    echo "Moving configs"
-    Copy-Item -Path ".\configs\" -Destination "~\AppData\Local\nvim" -Recurse
-    echo "Configs moved"
-}
-
-
 echo "Downloading dependencys"
 
 # Installing other dependencies
@@ -50,7 +43,6 @@ npm install neovim
 
 
 echo "Dependencies installed\n"
-copy_configs
 echo "Installation process finished"
 
 
