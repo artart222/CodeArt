@@ -13,7 +13,7 @@ function pack_manager_install([string]$PACK_NAME, [string]$APP_NAME) {
     if ("$VERSION" -eq "False") {
         echo "$APP_NAME is not installed."
         echo "Installing $APP_NAME."
-        choco install --pre -v "$PACK_NAME" -y
+        choco install -v "$PACK_NAME" -y
     } else {
         echo "$APP_NAME is installed. Checking next dependency..."
     }
