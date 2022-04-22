@@ -80,7 +80,39 @@ function M.highlight(highlight_group, colors, opts)
   vim.api.nvim_set_hl(0, highlight_group, options)
 end
 
+function M.update_neovim()
+  vim.notify("Updating NeoVim.", vim.log.levels.WARN, { title = "CodeArt" })
+  if M.os == "Windows_NT" then
+    vim.notify("Please check for NeoVim u.", vim.log.levels.WARN, { title = "CodeArt" })
+    if vim.fn.has("nvim-0.7.0") == "0" then
+      vim.notify(
+        "Please update your NeoVim. You can probably update it with opening powershell session as addministrator and running choco install --force neovim. After that open NeoVim and run :CodeArtUpdate",
+        vim.log.levels.WARN,
+        { title = "CodeArt" }
+      )
+    end
+  elseif M.os == "Linux" then
+    if vim.fn.system("command -v pacman") ~= "" then
+      vim.fn.system("sudo pacman -Sy neovim --noconfirm")
+    elseif vim.fn.system("command -v apt-get") ~= "" then
+      vim.fn.system("sudo apt update; sudo apt install neovim -y")
+    elseif vim.fn.system("command -v dnf") ~= "" then
+      vim.fn.system("sudo dnf update -y; sudo dnf install neovim -y")
+    elseif vim.fn.system("command -v zypper") ~= "" then
+      vim.fn.system("sudo zypper ref; sudo zypper -n neovim")
+    elseif vim.fn.system("command -v emerge") ~= "" then
+      vim.fn.system("emerge app-editors/neovim")
+    end
+    vim.notify("NeoVim Updated.", vim.log.levels.WARN, { title = "CodeArt" })
+  else
+    vim.fn.system("brew install neovim")
+    vim.notify("NeoVim Updated.", vim.log.levels.WARN, { title = "CodeArt" })
+  end
+end
+
 function M.update()
+  M.update_neovim()
+
   local config_directory = vim.fn.stdpath("config")
   -- If there is not .git directory in config_directory
   -- backup config, clone new config and remove CodeArtUpdate.
@@ -136,7 +168,7 @@ function M.update()
 
   -- Show status to user
   if job_status == 0 then
-    vim.api.nvim_notify("Updated!", vim.log.levels.WARN, { title = "CodeArt" })
+    vim.api.nvim_notify("CodeArt Updated!", vim.log.levels.WARN, { title = "CodeArt" })
   else
     vim.notify("Update failed! Please try pulling manually.", vim.log.levels.ERROR, { title = "CodeArt" })
   end
