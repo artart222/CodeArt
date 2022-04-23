@@ -360,7 +360,7 @@ return require("packer").startup({
     })
 
     use({
-      "Pocco81/DAPInstall.nvim",
+      "Pocco81/dap-buddy.nvim",
       after = "nvim-dap",
       config = function()
         require("plugins/dap")
@@ -369,7 +369,7 @@ return require("packer").startup({
     })
     use({
       "rcarriga/nvim-dap-ui",
-      after = "nvim-dap",
+      after = "dap-buddy.nvim",
       config = function()
         require("plugins/dapui")
       end,
