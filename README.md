@@ -27,6 +27,8 @@
   </a>
 </div>
 
+## :warning: I chaged CodeArt config directory structure on 23th of april. If you downloaded CodeArt before that day please make backup of your config remove nvim config directory and clone https://github.com/artart222/CodeArt as your nvim config directory.
+
 <a id="installation"></a>
 
 ## :construction: Install CodeArt easily
