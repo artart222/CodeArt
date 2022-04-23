@@ -113,41 +113,6 @@ end
 function M.update()
   M.update_neovim()
 
-  local config_directory = vim.fn.stdpath("config")
-  -- If there is not .git directory in config_directory
-  -- backup config, clone new config and remove CodeArtUpdate.
-  if vim.fn.isdirectory(config_directory .. "/.git") == "0" then
-    if M.os == "Windows_NT" then
-    else
-      vim.fn.system(
-        "mv " .. config_directory .. "/lua/user_settings.lua " .. config_directory .. "/../user_settings.lua"
-      )
-      vim.fn.system("cp -r " .. config_directory .. " " .. config_directory .. ".backup")
-      vim.fn.system("rm -r --force" .. config_directory)
-      vim.fn.system("git clone https://github.com/artart222/CodeArt " .. config_directory)
-      vim.fn.system("rm " .. config_directory .. "/lua/user_settings.lua")
-      vim.fn.system(
-        "mv " .. config_directory .. "/../user_settings.lua " .. config_directory .. "/lua/user_settings.lua"
-      )
-    end
-    vim.notify(
-      "CodeArt Backuped your entire NeoVim config into "
-        .. vim.fn.stdpath("config")
-        .. ".backup"
-        .. "your previous config will be use in new file structure but in case of any problem you can have your old config."
-        .. "In case of any prolem see https://github.com/artart222/CodeArt/wiki",
-      vim.log.levels.WARN,
-      { title = "CodeArt" }
-    )
-  else
-    -- In case of new config structure remove CodeArtUpdate because we don't need that
-    if M.os == "Windows_NT" then
-      vim.fn.system("rm " .. vim.fn.stdpath("config") .. "\\CodeArtUpdate.ps1")
-    else
-      vim.fn.system("rm " .. vim.fn.stdpath("config") .. "/CodeArtUpdate.sh")
-    end
-  end
-
   -- Update CodeArt via git pull --ff-only
   local Job = require("plenary.job")
   local job_status
