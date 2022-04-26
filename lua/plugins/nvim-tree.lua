@@ -13,16 +13,11 @@ g.nvim_tree_highlight_opened_files = 0 -- Will enable folder and file icon highl
 g.nvim_tree_add_trailing = 0 -- Append a trailing slash to folder names. ]]
 
 local nvimtree_config = {
-  auto_close = false,
   open_on_tab = false,
   update_cwd = true,
   disable_netrw = true,
   hijack_netrw = true,
   hijack_unnamed_buffer_when_opening = false,
-  update_to_buf_dir = {
-    enable = true,
-    auto_open = true,
-  },
   diagnostics = {
     enable = true,
     icons = {
@@ -51,9 +46,9 @@ local nvimtree_config = {
     },
   },
   view = {
-    width = "15%",
+    width = math.floor(vim.fn.winwidth(0) * 0.15), -- Finding 15% of windows width.
     side = "left",
-    auto_resize = true,
+    preserve_window_proportions = false,
     mappings = {
       list = {
         { key = "<S-h>", cb = ":call ResizeLeft(3)<CR>" },
@@ -61,15 +56,32 @@ local nvimtree_config = {
       },
     },
   },
-  open_file = {
-    quit_on_open = false,
-    resize_window = false,
-    window_picker = {
+  actions = {
+    use_system_clipboard = true,
+    change_dir = {
       enable = true,
-      chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
-      exclude = {
-        filetype = { "packer", "vista_kind", "toggleterm" },
-        buftype = { "terminal" },
+      global = false,
+      restrict_above_cwd = false,
+    },
+    open_file = {
+      quit_on_open = false,
+      resize_window = false,
+      window_picker = {
+        enable = true,
+        chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+        exclude = {
+          filetype = {
+            "notify",
+            "packer",
+            "qf",
+            "diff",
+            "fugitive",
+            "fugitiveblame",
+            "Outline",
+            "toggleterm",
+          },
+          buftype = { "nofile", "terminal", "help" },
+        },
       },
     },
   },
