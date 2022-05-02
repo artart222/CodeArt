@@ -25,19 +25,6 @@ elif [[ $(uname) == "Darwin" ]]; then
   fi
 fi
 
-make_backup_of_config() {
-  echo "Creating backup for any existing configuration files"
-  if [ -d "$HOME/.config/nvim" ]; then
-    TRY_NUMBER=1
-    while [ -d "$HOME/.config/nvim$TRY_NUMBER" ]; do
-      ((TRY_NUMBER = TRY_NUMBER + 1))
-    done
-    mv ~/.config/nvim "$HOME/.config/nvim$TRY_NUMBER"
-  fi
-  echo "Backup created"
-  echo ""
-}
-
 pack_manager_install() {
   LIST_OF_APPS=($(ls "/bin")+$(ls "/usr/bin"))
   IFS="|"
@@ -78,8 +65,6 @@ install_font() {
   fi
   echo "Font installed"
 }
-
-make_backup_of_config
 
 echo "Installing dependencies"
 if ! [ "$(cat /etc/os-release | grep "ID=debian")" == "ID=debian" ]; then
