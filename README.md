@@ -37,8 +37,8 @@
 
 ```bash
 git clone https://github.com/artart222/CodeArt ~/.config/nvim
-chmod +x ~/.config/nvim/installer/linux-bash.sh
-exec ~/.config/nvim/installer/linux-bash.sh
+chmod +x ~/.config/nvim/installer/linux-mac.sh
+exec ~/.config/nvim/installer/linux-mac.sh
 ```
 
 **_If you have debian, after the instalation finished you must [add debian testing repos](https://serverfault.com/a/550856) and after that run_**:
