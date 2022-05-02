@@ -8,6 +8,7 @@ local autocmd = vim.api.nvim_create_autocmd
 
 -- Using new filetype detection system(written in lua).
 vim.g.do_filetype_lua = 1
+vim.g.did_load_filetypes = 0
 
 -- Decrease time of completion menu.
 opt.updatetime = 300
