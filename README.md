@@ -33,6 +33,8 @@
 
 ## :construction: Install CodeArt easily
 
+**_please backup any existing configuration files_**
+
 🐧🍎 On linux and macOS:
 
 ```bash
