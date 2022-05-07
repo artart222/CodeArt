@@ -57,7 +57,7 @@ install_font() {
   echo "Please wait"
   wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/JetBrainsMono.zip --output-document ~/Downloads/JetBrainsMono.zip
   unzip ~/Downloads/JetBrainsMono.zip -d ~/Downloads/JetBrainsMono
-  if [ ! [ $PACKAGE_MANAGER == "brew" ] ]; then
+  if ![ $PACKAGE_MANAGER == "brew" ]; then
     mv ~/Downloads/JetBrainsMono/JetBrains Mono Regular Nerd Font Complete Mono.ttf /Library/Fonts/
   else
     mv ~/Downloads/JetBrainsMono/JetBrains Mono Regular Nerd Font Complete Mono.ttf ~/.fonts/
