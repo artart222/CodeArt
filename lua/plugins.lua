@@ -523,7 +523,7 @@ return require("packer").startup({
     })
     use({
       "JoosepAlviste/nvim-ts-context-commentstring",
-      event = { "BufRead", "BufNewFile" },
+      after = "nvim-treesitter",
       disable = disable_plugins.ts_context_commentstring,
     })
 
