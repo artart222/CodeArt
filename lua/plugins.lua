@@ -242,13 +242,8 @@ return require("packer").startup({
 
     -- LSP, LSP installer and tab completion.
     use({
-      "neovim/nvim-lspconfig",
-      event = { "BufRead", "BufNewFile" },
-      disable = disable_plugins.nvim_lspconfig,
-    })
-    use({
       "williamboman/nvim-lsp-installer",
-      after = "nvim-lspconfig",
+      event = { "BufRead", "BufNewFile" },
       cmd = {
         "LspInstall",
         "LspInstallInfo",
@@ -259,21 +254,26 @@ return require("packer").startup({
         "LspUninstall",
         "LspUninstallAll",
       },
-      config = function()
-        require("plugins.lsp.lsp")
-      end,
       disable = disable_plugins.nvim_lsp_installer,
     })
     use({
       "jose-elias-alvarez/null-ls.nvim",
+      after = "nvim-lsp-installer",
       config = function()
         local config = require("user_settings")
         if config.null_ls ~= nil then
           config.null_ls()
         end
       end,
-      after = "nvim-lsp-installer",
       disable = disable_plugins.null_ls,
+    })
+    use({
+      "neovim/nvim-lspconfig",
+      after = "null-ls.nvim",
+      config = function()
+        require("plugins.lsp.lsp")
+      end,
+      disable = disable_plugins.nvim_lspconfig,
     })
 
     use({
