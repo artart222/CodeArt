@@ -58,8 +58,8 @@ sudo apt update; sudo apt install neovim
 ⚡🐚 open a powershell session as administrator and run this command:
 
 ```powershell
-git clone https://github.com/artart222/CodeArt ~\AppData\Local\nvim
-powershell.exe -executionpolicy bypass -file ~\AppData\Local\installer\windows.ps1
+git clone https://github.com/artart222/CodeArt $HOME\AppData\Local\nvim
+powershell.exe -executionpolicy bypass -file $HOME\AppData\Local\installer\windows.ps1
 ```
 
 #### 🌲💺Σ🖥️ Install lsp and treesitter:
