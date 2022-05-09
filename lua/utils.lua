@@ -111,7 +111,7 @@ function M.update_neovim()
 end
 
 function M.update()
-  M.update_neovim()
+  -- M.update_neovim()
 
   -- Update CodeArt via git pull --ff-only
   local Job = require("plenary.job")
