@@ -31,7 +31,7 @@ local cmp_kinds = {
   TypeParameter = " ",
 }
 
-cmp.setup({
+local cmp_config = {
   snippet = {
     expand = function(args)
       require("luasnip").lsp_expand(args.body)
@@ -94,4 +94,13 @@ cmp.setup({
     { name = "buffer" },
     { name = "path" },
   },
-})
+}
+
+local config = require("user_settings")
+if config.cmp then
+  for k, v in pairs(config.cmp) do
+    cmp_config[k] = v
+  end
+end
+
+cmp.setup(cmp_config)

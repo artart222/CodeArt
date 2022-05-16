@@ -3,7 +3,7 @@ if not present then
   return
 end
 
-toggle_term.setup({
+local toggleterm_config = {
   open_mapping = "<c-t>",
   hide_numbers = true, -- hide the number column in toggleterm buffers
   shade_terminals = false,
@@ -23,7 +23,7 @@ toggle_term.setup({
     height = 40,
     winblend = 3,
   },
-})
+}
 
 local Terminal = require("toggleterm.terminal").Terminal
 
@@ -56,3 +56,12 @@ local ranger = Terminal:new({ cmd = "ranger", hidden = true, direction = "float"
 function _RANGER_TOGGLE()
   ranger:toggle()
 end
+
+local config = require("user_settings")
+if config.toggleterm then
+  for k, v in pairs(config.toggleterm) do
+    toggleterm_config[k] = v
+  end
+end
+
+toggle_term.setup(toggleterm_config)

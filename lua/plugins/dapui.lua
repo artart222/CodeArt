@@ -4,7 +4,7 @@ if not present then
 end
 
 -- dap-ui configurations
-dapui.setup({
+local dapui_config = {
   icons = { expanded = "▾", collapsed = "▸" },
   mappings = {
     -- Use a table to apply multiple mappings
@@ -43,4 +43,13 @@ dapui.setup({
     },
   },
   windows = { indent = 1 },
-})
+}
+
+local config = require("user_settings")
+if config.dapui then
+  for k, v in pairs(config.dapui) do
+    dapui_config[k] = v
+  end
+end
+
+dapui.setup()
