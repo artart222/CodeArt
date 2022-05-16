@@ -16,6 +16,10 @@ for _, server in pairs(lsp_installer.get_installed_servers()) do
           client.resolved_capabilities.document_range_formatting = false
         end
       end
+
+      if client.name == "clangd" then
+        client.offset_encoding = "utf-16"
+      end
     end,
 
     capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities()),
