@@ -3,21 +3,23 @@ if not present then
   return
 end
 
-local user_settings = require("../user_settings")
+local is_plugin_installed = require("utils").is_plugin_installed
 
 -- This function is for using Nvimtree as fullscreen explorer
-function nt_explorer()
-  local view = require("nvim-tree.view")
-  if view.is_visible() then
-    vim.cmd("NvimTreeClose")
-    vim.cmd("e .")
-  else
-    vim.cmd("e .")
-    vim.cmd("NvimTreeOpen")
+if is_plugin_installed("nvim-tree.lua") then
+  function nt_explorer()
+    local view = require("nvim-tree.view")
+    if view.is_visible() then
+      vim.cmd("NvimTreeClose")
+      vim.cmd("e .")
+    else
+      vim.cmd("e .")
+      vim.cmd("NvimTreeOpen")
+    end
   end
 end
 
-which_key.setup({
+local which_key_config = {
   plugins = {
     marks = false,
     registers = false,
@@ -52,39 +54,46 @@ which_key.setup({
     winblend = 0,
   },
   ignore_missing = false,
-})
+}
 
 -- Packer
-which_key.register({
-  p = {
-    name = "Packer",
-    i = { ":PackerInstall<CR>", "Install CodeArt packages" },
-    u = { ":PackerUpdate<CR>", "Update CodeArt packages" },
-    r = { ":PackerClean<CR>", "Uninstall unnecessary CodeArt packages" },
-    s = { ":PackerSync<CR>", "Sync CodeArt packages" },
-    c = { ":PackerCompile<CR>", "Compile CodeArt packages" },
-  },
-}, { prefix = "<leader>" })
+if is_plugin_installed("packer.nvim") then
+  which_key.register({
+    p = {
+      name = "Packer",
+      i = { ":PackerInstall<CR>", "Install CodeArt packages" },
+      u = { ":PackerUpdate<CR>", "Update CodeArt packages" },
+      r = { ":PackerClean<CR>", "Uninstall unnecessary CodeArt packages" },
+      s = { ":PackerSync<CR>", "Sync CodeArt packages" },
+      c = { ":PackerCompile<CR>", "Compile CodeArt packages" },
+    },
+  }, { prefix = "<leader>" })
+end
 
-which_key.register({
+local buffer_maps = {
   b = {
     name = "Buffer",
-    c = { ":BufferLinePickClose<CR>", "Close Buffer" },
     C = { ":bdelete! <CR>", "Close Current Buffer" },
     e = { ":noh<CR>", "Erase Search Highlights" },
-    l = { ":BufferLineMoveNext<CR>", "Move Buffer Right" },
-    h = { ":BufferLineMovePrev<CR>", "Move buffer Left" },
     n = { ":ene <BAR> startinsert<CR>", "New Buffer" },
-    m = { ":TZFocus<CR>", "Maximize Current Buffer" },
   },
-}, { prefix = "<leader>" })
+}
+if is_plugin_installed("bufferline.nvim") then
+  buffer_maps.b.c = { ":BufferLinePickClose<CR>", "Close Buffer" }
+  buffer_maps.b.l = { ":BufferLineMoveNext<CR>", "Move Buffer Right" }
+  buffer_maps.b.h = { ":BufferLineMovePrev<CR>", "Move buffer Left" }
+end
+if is_plugin_installed("TrueZen.nvim") then
+  buffer_maps.b.m = { ":TZFocus<CR>", "Maximize Current Buffer" }
+end
+which_key.register(buffer_maps, { prefix = "<leader>" })
 
 which_key.register({
   ["r"] = { ":lua vim.lsp.buf.formatting_sync()<CR>", "Format" },
 }, { prefix = "<leader>" })
 
 -- NvimTree
-if require("utils").is_plugin_installed("nvim-tree.lua") then
+if is_plugin_installed("nvim-tree.lua") then
   which_key.register({
     n = {
       name = "NvimTree",
@@ -96,83 +105,89 @@ if require("utils").is_plugin_installed("nvim-tree.lua") then
 end
 
 -- Finding different stuf.
-which_key.register({
-  f = {
-    name = "Find",
-    w = { ":Telescope live_grep<CR>", "Word" },
-    f = { ":Telescope find_files<CR>", "File" },
-    o = { ":Telescope oldfiles<CR>", "Old File" },
-    d = { ":Telescope find_directories<CR>", "Directory" },
-    b = { ":Telescope buffers<CR>", "Buffer" },
-    h = { ":Telescope help_tags<CR>", "Help File" },
-    B = { ":Telescope marks<CR>", "Find BookMark" },
-  },
-}, { prefix = "<leader>" })
+if is_plugin_installed("telescope.nvim") then
+  which_key.register({
+    f = {
+      name = "Find",
+      w = { ":Telescope live_grep<CR>", "Word" },
+      f = { ":Telescope find_files<CR>", "File" },
+      o = { ":Telescope oldfiles<CR>", "Old File" },
+      d = { ":Telescope find_directories<CR>", "Directory" },
+      b = { ":Telescope buffers<CR>", "Buffer" },
+      h = { ":Telescope help_tags<CR>", "Help File" },
+      B = { ":Telescope marks<CR>", "Find BookMark" },
+    },
+  }, { prefix = "<leader>" })
+end
 
 -- Git keybinds.
-which_key.register({
-  g = {
-    name = "Git",
-    s = { ":Telescope git_status<CR>", "Status + Git Diff" },
-    c = { ":Telescope git_commits<CR>", "Commit History" },
-    C = { ":Telescope git_bcommits<CR>", "Buffer Commit History" },
-    b = { ":Telescope git_branches<CR>", "Branches history" },
-    k = { ":Gitsigns prev_hunk<CR>", "Next Hunk" },
-    j = { ":Gitsigns next_hunk<CR>", "Prev Hunk" },
-    p = { ":Gitsigns preview_hunk<CR>", "Preview Hunk" },
-    r = { ":Gitsigns reset_hunk<CR>", "Reset Hunk" },
-    R = { ":Gitsigns reset_buffer<CR>", "Reset Buffer" },
-    d = { ":Gitsigns diffthis<CR>", "Git Diff" },
-    l = { ":Gitsigns blame_line<CR>", "Blame For Current Line" },
-    S = { ":Gitsigns stage_hunk<CR>", "Stage Hunk" },
-    u = { ":Gitsigns undo_stage_hunk<CR>", "Undo Stage Hunk" },
-  },
-}, { prefix = "<leader>" })
+if is_plugin_installed("telescope.nvim") or is_plugin_installed("gitsigns.nvim") then
+  local git_maps = { g = { name = "Git" } }
+  if is_plugin_installed("telescope.nvim") then
+    git_maps.g.s = { ":Telescope git_status<CR>", "Status + Git Diff" }
+    git_maps.g.c = { ":Telescope git_commits<CR>", "Commit History" }
+    git_maps.g.C = { ":Telescope git_bcommits<CR>", "Buffer Commit History" }
+    git_maps.g.b = { ":Telescope git_branches<CR>", "Branches history" }
+  end
+  if is_plugin_installed("gitsigns.nvim") then
+    git_maps.g.k = { ":Gitsigns prev_hunk<CR>", "Next Hunk" }
+    git_maps.g.j = { ":Gitsigns next_hunk<CR>", "Prev Hunk" }
+    git_maps.g.p = { ":Gitsigns preview_hunk<CR>", "Preview Hunk" }
+    git_maps.g.r = { ":Gitsigns reset_hunk<CR>", "Reset Hunk" }
+    git_maps.g.R = { ":Gitsigns reset_buffer<CR>", "Reset Buffer" }
+    git_maps.g.d = { ":Gitsigns diffthis<CR>", "Git Diff" }
+    git_maps.g.l = { ":Gitsigns blame_line<CR>", "Blame For Current Line" }
+    git_maps.g.S = { ":Gitsigns stage_hunk<CR>", "Stage Hunk" }
+    git_maps.g.u = { ":Gitsigns undo_stage_hunk<CR>", "Undo Stage Hunk" }
+  end
+  which_key.register(git_maps, { prefix = "<leader>" })
+end
 
 -- ColorScheme keybindings.
-which_key.register({
-  c = {
-    name = "Colorscheme",
-    f = { ":Telescope colorscheme<CR>", "Find Colorscheme" },
-    p = { ":Telescope colorscheme enable_preview=true<CR>", "Find Colorscheme with previwer " },
-    o = { ':lua require("onedark").toggle()<CR>', "Toggle Onedark Style" },
-  },
-}, { prefix = "<leader>" })
+if is_plugin_installed("telescope.nvim") or is_plugin_installed("onedark.nvim") then
+  local colorscheme_maps = {
+    c = {
+      name = "ColorScheme",
+    },
+  }
+  if is_plugin_installed("telescope.nvim") then
+    colorscheme_maps.c.f = { ":Telescope colorscheme<CR>", "Find Colorscheme" }
+    colorscheme_maps.c.p = { ":Telescope colorscheme enable_preview=true<CR>", "Find Colorscheme with previwer " }
+  end
+  if is_plugin_installed("onedark.nvim") then
+    colorscheme_maps.c.o = { ':lua require("onedark").toggle()<CR>', "Toggle Onedark Style" }
+  end
+  which_key.register(colorscheme_maps, { prefix = "<leader>" })
+end
 
 -- Terminal.
-which_key.register({
-  t = {
-    name = "Terminal",
-    n = { ":lua _NODE_TOGGLE()<CR>", "Node" },
-    N = { ":lua _NCDU_TOGGLE()<CR>", "Ncdu" },
-    H = { ":lua _HTOP_TOGGLE()<CR>", "Htop" },
-    p = { ":lua _PYTHON_TOGGLE()<CR>", "Python" },
-    r = { ":lua _RANGER_TOGGLE()<CR>", "Ranger" },
-    l = { ":lua _LAZYGIT_TOGGLE()<CR>", "LazyGit" },
-    f = { ":ToggleTerm direction=float<CR>", "Float" },
-    h = { ":ToggleTerm direction=horizontal<CR>", "Horizontal" },
-    v = { ":ToggleTerm direction=vertical<CR>", "Vertical" },
-  },
-}, { prefix = "<leader>" })
+if is_plugin_installed("toggleterm.nvim") then
+  which_key.register({
+    t = {
+      name = "Terminal",
+      n = { ":lua _NODE_TOGGLE()<CR>", "Node" },
+      N = { ":lua _NCDU_TOGGLE()<CR>", "Ncdu" },
+      H = { ":lua _HTOP_TOGGLE()<CR>", "Htop" },
+      p = { ":lua _PYTHON_TOGGLE()<CR>", "Python" },
+      r = { ":lua _RANGER_TOGGLE()<CR>", "Ranger" },
+      l = { ":lua _LAZYGIT_TOGGLE()<CR>", "LazyGit" },
+      f = { ":ToggleTerm direction=float<CR>", "Float" },
+      h = { ":ToggleTerm direction=horizontal<CR>", "Horizontal" },
+      v = { ":ToggleTerm direction=vertical<CR>", "Vertical" },
+    },
+  }, { prefix = "<leader>" })
+end
 
 -- Lsp
-which_key.register({
+local lsp_maps = {
   l = {
     name = "LSP",
-    a = { ":Lspsaga range_code_action<cr>", "Code Action" },
-    d = { ":Lspsaga show_line_diagnostics<CR>", "Show Current Line Diagnostics" },
-    i = { ":LspInfo<CR>", "Info" },
-    I = { ":LspInstallInfo<CR>", "Installer Info" },
-    r = { ":Lspsaga rename<CR>", "Rename" },
-    h = { ":Lspsaga hover_doc<CR>", "Display Information Of Symbol" },
     s = { ":lua vim.lsp.buf.signature_help()<CR>", "Signature Help" },
     g = {
       name = "GOTO",
       D = { ":lua vim.lsp.buf.declaration()<CR>", "Go To Declaration" },
       i = { ":lua vim.lsp.buf.implementation()<CR>", "Go To Implementation" },
       d = { "::lua vim.lsp.buf.definition()<CR>", "Go to Definition" },
-      j = { ":Lspsaga diagnostic_jump_next<CR>", "Go To Previous Diagnostics" },
-      k = { ":Lspsaga diagnostic_jump_prev<CR>", "Go To Next Diagnostics" },
       t = { ":lua vim.lsp.buf.type_definition()<CR>", "Go To Type Definition" },
     },
     w = {
@@ -184,14 +199,27 @@ which_key.register({
     l = {
       name = "List Reference/Diagnostic",
       d = { ":lua vim.lsp.diagnostic.set_loclist()<CR>", "List Diagnostic" },
-      D = { ":Telescope diagnostics<CR>", "Show Diagnostics list via Telescope" },
       r = { ":lua vim.lsp.buf.references()<CR>", "Show References" },
     },
   },
-}, { prefix = "<leader>" })
+}
+if is_plugin_installed("lspsaga.nvim") then
+  lsp_maps.l.a = { ":Lspsaga range_code_action<cr>", "Code Action" }
+  lsp_maps.l.d = { ":Lspsaga show_line_diagnostics<CR>", "Show Current Line Diagnostics" }
+  lsp_maps.l.i = { ":LspInfo<CR>", "Info" }
+  lsp_maps.l.I = { ":LspInstallInfo<CR>", "Installer Info" }
+  lsp_maps.l.r = { ":Lspsaga rename<CR>", "Rename" }
+  lsp_maps.l.h = { ":Lspsaga hover_doc<CR>", "Display Information Of Symbol" }
+  lsp_maps.l.g.j = { ":Lspsaga diagnostic_jump_next<CR>", "Go To Previous Diagnostics" }
+  lsp_maps.l.g.k = { ":Lspsaga diagnostic_jump_prev<CR>", "Go To Next Diagnostics" }
+end
+if is_plugin_installed("telescope.nvim") then
+  lsp_maps.l.l.D = { ":Telescope diagnostics<CR>", "Show Diagnostics list via Telescope" }
+end
+which_key.register(lsp_maps, { prefix = "<leader>" })
 
--- Dap
-which_key.register({
+-- Debugger
+local debug_maps = {
   d = {
     name = "Debugging",
     c = { ':lua require("dap").continue()<CR>', "Continue" },
@@ -215,17 +243,22 @@ which_key.register({
       b = { ':lua require("dap").step_back()<CR>', "Step Back" },
       c = { ':lua require("dap").run_to_cursor()<CR>', "Run To Cursor" },
     },
-    u = { ':lua require("dapui").toggle()<CR>', "Toggle UI" },
   },
-}, { prefix = "<leader>" })
+}
+if is_plugin_installed("nvim-dap-ui") then
+  debug_maps.d.u = { ':lua require("dapui").toggle()<CR>', "Toggle UI" }
+end
+which_key.register(debug_maps, { prefix = "<leader>" })
 
 -- Comment
-which_key.register({
-  ["/"] = { "<Plug>kommentary_line_default", "Comment" },
-}, { prefix = "<leader>", noremap = false })
-which_key.register({
-  ["/"] = { "<Plug>kommentary_visual_default", "Comment" },
-}, { prefix = "<leader>", noremap = false, mode = "v" })
+if is_plugin_installed("kommentary") then
+  which_key.register({
+    ["/"] = { "<Plug>kommentary_line_default", "Comment" },
+  }, { prefix = "<leader>", noremap = false })
+  which_key.register({
+    ["/"] = { "<Plug>kommentary_visual_default", "Comment" },
+  }, { prefix = "<leader>", noremap = false, mode = "v" })
+end
 
 -- Adding user mappings
 if extra_which_keys then
@@ -233,3 +266,12 @@ if extra_which_keys then
     which_key.register(v[1], v[2])
   end
 end
+
+local config = require("user_settings")
+if config.which_key then
+  for k, v in pairs(config.which_key) do
+    which_key_config[k] = v
+  end
+end
+
+which_key.setup(which_key_config)
