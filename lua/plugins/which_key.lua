@@ -162,20 +162,34 @@ end
 
 -- Terminal.
 if is_plugin_installed("toggleterm.nvim") then
-  which_key.register({
+  local terminal_maps = {
     t = {
       name = "Terminal",
-      n = { ":lua _NODE_TOGGLE()<CR>", "Node" },
-      N = { ":lua _NCDU_TOGGLE()<CR>", "Ncdu" },
-      H = { ":lua _HTOP_TOGGLE()<CR>", "Htop" },
-      p = { ":lua _PYTHON_TOGGLE()<CR>", "Python" },
-      r = { ":lua _RANGER_TOGGLE()<CR>", "Ranger" },
-      l = { ":lua _LAZYGIT_TOGGLE()<CR>", "LazyGit" },
       f = { ":ToggleTerm direction=float<CR>", "Float" },
       h = { ":ToggleTerm direction=horizontal<CR>", "Horizontal" },
       v = { ":ToggleTerm direction=vertical<CR>", "Vertical" },
     },
-  }, { prefix = "<leader>" })
+  }
+  local exec = vim.fn.executable
+  if exec("node") == 1 then
+    terminal_maps.t.n = { ":lua _G._NODE_TOGGLE()<CR>", "Node" }
+  end
+  if exec("ncdu") == 1 then
+    terminal_maps.t.N = { ":lua _G._NCDU_TOGGLE()<CR>", "Ncdu" }
+  end
+  if exec("htop") == 1 then
+    terminal_maps.t.H = { ":lua _G._HTOP_TOGGLE()<CR>", "Htop" }
+  end
+  if exec("python") == 1 then
+    terminal_maps.t.p = { ":lua _G._PYTHON_TOGGLE()<CR>", "Python" }
+  end
+  if exec("ranger") == 1 then
+    terminal_maps.t.r = { ":lua _G._RANGER_TOGGLE()<CR>", "Ranger" }
+  end
+  if exec("lazygit") == 1 then
+    terminal_maps.t.l = { ":lua _G._LAZYGIT_TOGGLE()<CR>", "LazyGit" }
+  end
+  which_key.register(terminal_maps, { prefix = "<leader>" })
 end
 
 -- Lsp

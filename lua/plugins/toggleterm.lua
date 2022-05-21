@@ -27,34 +27,48 @@ local toggleterm_config = {
 
 local Terminal = require("toggleterm.terminal").Terminal
 
-local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
-function _LAZYGIT_TOGGLE()
-  lazygit:toggle()
+local exec = vim.fn.executable
+
+if exec("lazygit") == 1 then
+  local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float" })
+  function _G._LAZYGIT_TOGGLE()
+    lazygit:toggle()
+  end
 end
 
-local node = Terminal:new({ cmd = "node", hidden = true, direction = "float" })
-function _NODE_TOGGLE()
-  node:toggle()
+if exec("node") == 1 then
+  local node = Terminal:new({ cmd = "node", hidden = true, direction = "float" })
+  function _G._NODE_TOGGLE()
+    node:toggle()
+  end
 end
 
-local ncdu = Terminal:new({ cmd = "ncdu", hidden = true, direction = "float" })
-function _NCDU_TOGGLE()
-  ncdu:toggle()
+if exec("ncdu") == 1 then
+  local ncdu = Terminal:new({ cmd = "ncdu", hidden = true, direction = "float" })
+  function _G._NCDU_TOGGLE()
+    ncdu:toggle()
+  end
 end
 
-local htop = Terminal:new({ cmd = "htop", hidden = true, direction = "float" })
-function _HTOP_TOGGLE()
-  htop:toggle()
+if exec("htop") == 1 then
+  local htop = Terminal:new({ cmd = "htop", hidden = true, direction = "float" })
+  function _G._HTOP_TOGGLE()
+    htop:toggle()
+  end
 end
 
-local python = Terminal:new({ cmd = "python", hidden = true, direction = "float" })
-function _PYTHON_TOGGLE()
-  python:toggle()
+if exec("python") == 1 then
+  local python = Terminal:new({ cmd = "python", hidden = true, direction = "float" })
+  function _G._PYTHON_TOGGLE()
+    python:toggle()
+  end
 end
 
-local ranger = Terminal:new({ cmd = "ranger", hidden = true, direction = "float" })
-function _RANGER_TOGGLE()
-  ranger:toggle()
+if exec("ranger") == 1 then
+  local ranger = Terminal:new({ cmd = "ranger", hidden = true, direction = "float" })
+  function _G._RANGER_TOGGLE()
+    ranger:toggle()
+  end
 end
 
 local config = require("user_settings")
