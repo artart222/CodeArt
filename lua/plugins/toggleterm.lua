@@ -12,11 +12,6 @@ local toggleterm_config = {
   persist_size = true,
   direction = "horizontal",
   close_on_exit = true, -- close the terminal window when the process exits
-  highlights = {
-    Normal = {
-      guibg = "Normal",
-    },
-  },
   float_opts = {
     border = "curved",
     width = 120,
