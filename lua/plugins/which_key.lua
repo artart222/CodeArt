@@ -130,8 +130,8 @@ if is_plugin_installed("telescope.nvim") or is_plugin_installed("gitsigns.nvim")
     git_maps.g.b = { ":Telescope git_branches<CR>", "Branches history" }
   end
   if is_plugin_installed("gitsigns.nvim") then
-    git_maps.g.k = { ":Gitsigns prev_hunk<CR>", "Next Hunk" }
-    git_maps.g.j = { ":Gitsigns next_hunk<CR>", "Prev Hunk" }
+    git_maps.g.j = { ":Gitsigns prev_hunk<CR>", "Prev Hunk" }
+    git_maps.g.k = { ":Gitsigns next_hunk<CR>", "Next Hunk" }
     git_maps.g.p = { ":Gitsigns preview_hunk<CR>", "Preview Hunk" }
     git_maps.g.r = { ":Gitsigns reset_hunk<CR>", "Reset Hunk" }
     git_maps.g.R = { ":Gitsigns reset_buffer<CR>", "Reset Buffer" }
