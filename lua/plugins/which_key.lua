@@ -130,8 +130,8 @@ if is_plugin_installed("telescope.nvim") or is_plugin_installed("gitsigns.nvim")
     git_maps.g.b = { ":Telescope git_branches<CR>", "Branches history" }
   end
   if is_plugin_installed("gitsigns.nvim") then
-    git_maps.g.j = { ":Gitsigns prev_hunk<CR>", "Prev Hunk" }
-    git_maps.g.k = { ":Gitsigns next_hunk<CR>", "Next Hunk" }
+    git_maps.g.k = { ":Gitsigns prev_hunk<CR>", "Prev Hunk" }
+    git_maps.g.j = { ":Gitsigns next_hunk<CR>", "Next Hunk" }
     git_maps.g.p = { ":Gitsigns preview_hunk<CR>", "Preview Hunk" }
     git_maps.g.r = { ":Gitsigns reset_hunk<CR>", "Reset Hunk" }
     git_maps.g.R = { ":Gitsigns reset_buffer<CR>", "Reset Buffer" }
@@ -224,8 +224,8 @@ if is_plugin_installed("lspsaga.nvim") then
   lsp_maps.l.I = { ":LspInstallInfo<CR>", "Installer Info" }
   lsp_maps.l.r = { ":Lspsaga rename<CR>", "Rename" }
   lsp_maps.l.h = { ":Lspsaga hover_doc<CR>", "Display Information Of Symbol" }
-  lsp_maps.l.g.j = { ":Lspsaga diagnostic_jump_next<CR>", "Go To Previous Diagnostics" }
   lsp_maps.l.g.k = { ":Lspsaga diagnostic_jump_prev<CR>", "Go To Next Diagnostics" }
+  lsp_maps.l.g.j = { ":Lspsaga diagnostic_jump_next<CR>", "Go To Previous Diagnostics" }
 end
 if is_plugin_installed("telescope.nvim") then
   lsp_maps.l.l.D = { ":Telescope diagnostics<CR>", "Show Diagnostics list via Telescope" }
