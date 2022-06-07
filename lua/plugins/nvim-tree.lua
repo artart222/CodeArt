@@ -7,11 +7,6 @@ local tree_cb = require("nvim-tree.config").nvim_tree_callback
 -- Set alias for vim.g.
 local g = vim.g
 
-g.nvim_tree_auto_ignore_ft = { "alpha" } -- Don't open tree on specific fiypes.
-g.nvim_tree_git_hl = 1 -- Will enable file highlight for git attributes (can be used without the icons).
-g.nvim_tree_highlight_opened_files = 0 -- Will enable folder and file icon highlight for opened files/directories.
-g.nvim_tree_add_trailing = 0 -- Append a trailing slash to folder names. ]]
-
 local nvimtree_config = {
   open_on_tab = false,
   update_cwd = true,
@@ -41,6 +36,9 @@ local nvimtree_config = {
     },
   },
   renderer = {
+    highlight_git = true,
+    add_trailing = false,
+    highlight_opened_files = "none",
     indent_markers = {
       enable = true,
     },
@@ -79,6 +77,7 @@ local nvimtree_config = {
             "fugitiveblame",
             "Outline",
             "toggleterm",
+            "alpha",
           },
           buftype = { "nofile", "terminal", "help" },
         },
