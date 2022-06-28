@@ -43,7 +43,7 @@ pack_manager_install() {
       sudo dnf install $5 -y
     elif [[ "$1" =~ "zypper" ]]; then
       sudo zypper ref
-      sudo zypper -n $6
+      sudo zypper install -n $6
     elif [[ "$1" =~ "emerge" ]]; then
       emerge $7
     elif [[ "$1" =~ "brew" ]]; then
