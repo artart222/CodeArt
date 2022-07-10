@@ -362,6 +362,8 @@ return require("packer").startup({
     use({
       "Pocco81/dap-buddy.nvim",
       after = "nvim-dap",
+      branch = "dev",
+      commit = "3679132",
       config = function()
         require("plugins/dap")
       end,
