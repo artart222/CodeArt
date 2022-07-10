@@ -4,6 +4,7 @@ if not present then
 end
 
 local is_plugin_installed = require("utils").is_plugin_installed
+require("toggleterm")
 
 -- This function is for using Nvimtree as fullscreen explorer
 if is_plugin_installed("nvim-tree.lua") then
@@ -172,22 +173,22 @@ if is_plugin_installed("toggleterm.nvim") then
   }
   local exec = vim.fn.executable
   if exec("node") == 1 then
-    terminal_maps.t.n = { ":lua _G._NODE_TOGGLE()<CR>", "Node" }
+    terminal_maps.t.n = { ":lua NODE_TOGGLE()<CR>", "Node" }
   end
   if exec("ncdu") == 1 then
-    terminal_maps.t.N = { ":lua _G._NCDU_TOGGLE()<CR>", "Ncdu" }
+    terminal_maps.t.N = { ":lua NCDU_TOGGLE()<CR>", "Ncdu" }
   end
   if exec("htop") == 1 then
-    terminal_maps.t.H = { ":lua _G._HTOP_TOGGLE()<CR>", "Htop" }
+    terminal_maps.t.H = { ":lua HTOP_TOGGLE()<CR>", "Htop" }
   end
   if exec("python") == 1 then
-    terminal_maps.t.p = { ":lua _G._PYTHON_TOGGLE()<CR>", "Python" }
+    terminal_maps.t.p = { ":lua PYTHON_TOGGLE()<CR>", "Python" }
   end
   if exec("ranger") == 1 then
-    terminal_maps.t.r = { ":lua _G._RANGER_TOGGLE()<CR>", "Ranger" }
+    terminal_maps.t.r = { ":lua RANGER_TOGGLE()<CR>", "Ranger" }
   end
   if exec("lazygit") == 1 then
-    terminal_maps.t.l = { ":lua _G._LAZYGIT_TOGGLE()<CR>", "LazyGit" }
+    terminal_maps.t.l = { ":lua LAZYGIT_TOGGLE()<CR>", "LazyGit" }
   end
   which_key.register(terminal_maps, { prefix = "<leader>" })
 end

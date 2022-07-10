@@ -42,6 +42,7 @@ end
 
 local use = require("packer").use
 local user_settings_file = require("user_settings")
+require("user_settings")
 
 return require("packer").startup({
   function()
@@ -347,9 +348,7 @@ return require("packer").startup({
     use({
       "ray-x/lsp_signature.nvim",
       event = "InsertEnter",
-      config = function()
-        require("lsp_signature").setup()
-      end,
+      -- Config of this plugin is in plugins/lsp/lsp.lua
       disable = disable_plugins.lsp_signature,
     })
 
@@ -381,7 +380,7 @@ return require("packer").startup({
     use({
       "akinsho/toggleterm.nvim",
       keys = "<C-t>",
-      cmd = "ToggleTerm",
+      module = { "toggleterm", "toggleterm.terminal" },
       config = function()
         require("plugins/toggleterm")
       end,
@@ -554,7 +553,7 @@ return require("packer").startup({
       if type(plugin) == "string" then
         use({ plugin })
       else
-        use({ table.unpack(plugin) })
+        use({ unpack(plugin) })
       end
     end
 
