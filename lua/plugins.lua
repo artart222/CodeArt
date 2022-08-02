@@ -103,7 +103,7 @@ return require("packer").startup({
     -- TrueZen.nvim is a Neovim plugin that aims to provide a cleaner and less cluttered interface
     -- when toggled in either of it has three different modes (Ataraxis, Minimalist and Focus).
     use({
-      "Pocco81/TrueZen.nvim",
+      "Pocco81/true-zen.nvim",
       cmd = {
         "TZFocus",
         "TZAtaraxis",
