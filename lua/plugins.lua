@@ -202,7 +202,7 @@ return require("packer").startup({
 
     -- Colorizer (for highlighting color codes).
     use({
-      "norcalli/nvim-colorizer.lua",
+      "NvChad/nvim-colorizer.lua",
       event = { "BufRead", "BufNewFile" },
       config = function()
         require("plugins/colorizer")
