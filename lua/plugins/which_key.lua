@@ -90,7 +90,7 @@ end
 which_key.register(buffer_maps, { prefix = "<leader>" })
 
 which_key.register({
-  ["r"] = { ":lua vim.lsp.buf.formatting_sync()<CR>", "Format" },
+  ["r"] = { ":lua vim.lsp.buf.format({async=true})<CR>", "Format" },
 }, { prefix = "<leader>" })
 
 -- NvimTree
