@@ -243,23 +243,29 @@ return require("packer").startup({
 
     -- LSP, LSP installer and tab completion.
     use({
-      "williamboman/nvim-lsp-installer",
-      event = { "BufRead", "BufNewFile" },
-      cmd = {
-        "LspInstall",
-        "LspInstallInfo",
-        "LspPrintInstalled",
-        "LspRestart",
-        "LspStart",
-        "LspStop",
-        "LspUninstall",
-        "LspUninstallAll",
-      },
-      disable = disable_plugins.nvim_lsp_installer,
+      "williamboman/mason.nvim",
+      config = function()
+        require("mason").setup()
+      end,
+    })
+    use({
+      "williamboman/mason-lspconfig.nvim",
+      after = "mason.nvim",
+      config = function()
+        require("mason-lspconfig").setup()
+      end,
+    })
+    use({
+      "neovim/nvim-lspconfig",
+      after = "mason-lspconfig.nvim",
+      config = function()
+        require("plugins.lsp.lsp")
+      end,
+      disable = disable_plugins.nvim_lspconfig,
     })
     use({
       "jose-elias-alvarez/null-ls.nvim",
-      after = "nvim-lsp-installer",
+      after = "nvim-lspconfig",
       config = function()
         local config = require("user_settings")
         if config.null_ls ~= nil then
@@ -267,14 +273,6 @@ return require("packer").startup({
         end
       end,
       disable = disable_plugins.null_ls,
-    })
-    use({
-      "neovim/nvim-lspconfig",
-      after = "null-ls.nvim",
-      config = function()
-        require("plugins.lsp.lsp")
-      end,
-      disable = disable_plugins.nvim_lspconfig,
     })
 
     use({
