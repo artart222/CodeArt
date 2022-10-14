@@ -116,20 +116,18 @@ function M.update()
   -- Update CodeArt via git pull --ff-only
   local Job = require("plenary.job")
   local job_status
-  Job
-    :new({
-      command = "git",
-      args = { "pull", "--ff-only" },
-      cwd = vim.fn.stdpath("config"),
-      on_exit = function(_, return_val)
-        if return_val == 0 then
-          job_status = 0
-        else
-          job_status = 1
-        end
-      end,
-    })
-    :sync()
+  Job:new({
+    command = "git",
+    args = { "pull", "--ff-only" },
+    cwd = vim.fn.stdpath("config"),
+    on_exit = function(_, return_val)
+      if return_val == 0 then
+        job_status = 0
+      else
+        job_status = 1
+      end
+    end,
+  }):sync()
 
   -- Show status to user
   if job_status == 0 then
