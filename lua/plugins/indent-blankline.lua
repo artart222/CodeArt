@@ -3,7 +3,7 @@ if not present then
   return
 end
 
-require("../user_settings")
+local config = require("user_settings")
 local indent_blankline_style = 1
 if user_indent_blankline_style then
   if type(user_indent_blankline_style) == "number" then
@@ -52,7 +52,6 @@ local blankline_config = {
   },
 }
 
-local config = require("user_settings")
 if config.indent_blankline then
   for k, v in pairs(config.indent_blankline) do
     blankline_config[k] = v
