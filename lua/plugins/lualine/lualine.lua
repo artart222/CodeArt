@@ -77,7 +77,7 @@ local lualine_config = {
       { "branch" },
       {
         "diff",
-        symbols = { added = "  ", modified = "柳", removed = " " }, -- changes diff symbols
+        symbols = { added = "  ", modified = "  ", removed = " " }, -- changes diff symbols
       },
       { "diagnostics" },
     },
