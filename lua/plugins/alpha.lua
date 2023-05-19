@@ -53,10 +53,10 @@ dashboard.section.header.val = {
 dashboard.section.header.opts.hl = "AlphaHeader"
 
 dashboard.section.buttons.val = {
-  button("SPC f f", "  Find File", ":Telescope find_files<CR>"),
-  button("SPC f d", "  Find directory", ":Telescope find_directories<CR>"),
-  button("SPC f o", "  Recents", ":Telescope oldfiles<CR>"),
-  button("SPC f w", "  Find Word", ":Telescope live_grep<CR>"),
+  button("SPC f f", "󰱼  Find File", ":Telescope find_files<CR>"),
+  button("SPC f d", "󰥨  Find directory", ":Telescope find_directories<CR>"),
+  button("SPC f o", "  Recents", ":Telescope oldfiles<CR>"),
+  button("SPC f w", "󰺮  Find Word", ":Telescope live_grep<CR>"),
   button("SPC f n", "  New File", ":ene <BAR> startinsert<CR><ESC>"),
   button("SPC f m", "  Bookmarks", ":Telescope marks<CR>"),
 }
