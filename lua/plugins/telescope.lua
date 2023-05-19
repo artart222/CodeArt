@@ -54,8 +54,8 @@ local telescope_config = {
       "--hidden",
       "--glob=!.git/",
     },
-    prompt_prefix = "   ",
-    selection_caret = " ",
+    prompt_prefix = "   ",
+    selection_caret = "󰋇 ",
   },
   pickers = {
     find_files = {
