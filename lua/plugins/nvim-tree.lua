@@ -7,7 +7,23 @@ local tree_cb = require("nvim-tree.config").nvim_tree_callback
 -- Set alias for vim.g.
 local g = vim.g
 
+local function on_attach(bufnr)
+  local api = require("nvim-tree.api")
+  local function opts(desc)
+    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+  end
+
+  api.config.mappings.default_on_attach(bufnr)
+
+  vim.keymap.del("n", "H", { buffer = bufnr })
+  vim.keymap.set("n", "H", function()
+    vim.cmd("call ResizeLeft(3)")
+  end)
+  vim.keymap.set("n", "<C-h>", api.tree.toggle_hidden_filter, opts("Toggle Dotfiles"))
+end
+
 local nvimtree_config = {
+  on_attach = on_attach,
   open_on_tab = false,
   update_cwd = true,
   disable_netrw = true,
@@ -47,12 +63,6 @@ local nvimtree_config = {
     width = math.floor(vim.fn.winwidth(0) * 0.15), -- Finding 15% of windows width.
     side = "left",
     preserve_window_proportions = false,
-    mappings = {
-      list = {
-        { key = "<S-h>", cb = ":call ResizeLeft(3)<CR>" },
-        { key = "<C-h>", cb = tree_cb("toggle_dotfiles") },
-      },
-    },
   },
   actions = {
     use_system_clipboard = true,
