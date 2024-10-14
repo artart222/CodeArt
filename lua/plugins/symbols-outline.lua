@@ -36,6 +36,7 @@ local symbols_outline_config = {
   },
   lsp_blacklist = {},
   symbol_blacklist = {},
+  -- TODO: Make a file to sete icons universally.
   symbols = {
     File = { icon = "", hl = "@text.uri" },
     Module = { icon = "", hl = "@namespace" },
@@ -68,6 +69,7 @@ local symbols_outline_config = {
   },
 }
 
+-- TODO: make better user settings file.
 local config = require("user_settings")
 if config.symbols_outline then
   for k, v in pairs(config.symbols_outline) do

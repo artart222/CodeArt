@@ -5,16 +5,7 @@ end
 
 local utils = require("plugins.lualine.components")
 
-require("../user_settings")
-local lualine_style = 1
-if user_lualine_style then
-  if type(user_lualine_style) == "number" then
-    lualine_style = user_lualine_style
-  elseif type(user_lualine_style) == "table" then
-    lualine_style = { user_lualine_style[1], user_lualine_style[2] }
-  end
-end
-
+-- Some preconfigured styles.
 local lualine_styles = {
   {
     { left = " ", right = " " },
@@ -38,18 +29,26 @@ local lualine_styles = {
   },
 }
 
+local lualine_style
 local section_char, component_char
-if user_lualine_style then
-  if type(user_lualine_style) == "number" then
+local config = require("user_settings").config
+-- If user has configured lualine style
+if config.user_lualine_style then
+  -- If user lualine style is number
+  if type(config.user_lualine_style) == "number" then
+    lualine_style = config.user_lualine_style
     section_char = lualine_styles[lualine_style][1]
     component_char = lualine_styles[lualine_style][2]
-  elseif type(user_lualine_style) == "table" then
-    section_char = user_lualine_style[1]
-    component_char = user_lualine_style[2]
+    -- If user lualine is custome character use that
+  elseif type(config.user_lualine_style) == "table" then
+    section_char = config.user_lualine_style[1]
+    component_char = config.user_lualine_style[2]
   end
 else
-  section_char = lualine_styles[lualine_style][1]
-  component_char = lualine_styles[lualine_style][2]
+  -- If user doesn't configured style use default config.
+  lualine_style = 1
+  section_char = lualine_styles[1][1]
+  component_char = lualine_styles[1][2]
 end
 
 local lualine_config = {
@@ -93,7 +92,10 @@ local lualine_config = {
       },
       {
         utils.treesitter_status,
-        color = { fg = vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("DiffChange")), "fg") },
+        color = {
+          -- Setting DiffChange color if termguicolors is setted.
+          fg = (vim.opt.termguicolors:get() and vim.fn.synIDattr(vim.fn.synIDtrans(vim.fn.hlID("DiffChange")), "fg")),
+        },
       },
       "fileformat",
     },
@@ -102,7 +104,7 @@ local lualine_config = {
   },
 }
 
-local config = require("user_settings")
+-- TODO: make better user settings file.
 if config.lualine then
   for k, v in pairs(config.lualine) do
     lualine_config[k] = v

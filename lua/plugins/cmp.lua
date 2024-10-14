@@ -31,6 +31,7 @@ local cmp_kinds = {
   TypeParameter = "  ",
 }
 
+-- TODO: make better config.
 local cmp_config = {
   snippet = {
     expand = function(args)
@@ -96,6 +97,7 @@ local cmp_config = {
   },
 }
 
+-- TODO: make better user settings file.
 local config = require("user_settings")
 if config.cmp then
   for k, v in pairs(config.cmp) do

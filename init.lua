@@ -1,8 +1,6 @@
--- sourcing config files.
+-- Sourcing config files.
 require("settings")
+require("maps")
 require("plugins")
 require("theme")
-require("maps")
-
-local user_settings_file = require("user_settings")
-user_settings_file.other_configs()
+require("user_settings").config.other_configs()

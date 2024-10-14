@@ -5,15 +5,5 @@
     "unused-local",
     "redefined-local"
   ],
-  "Lua.diagnostics.globals": [
-    "vim",
-    "statusline_hide",
-    "hide_statusline",
-    "extra_which_keys",
-    "disable_plugins",
-    "additional_plugins",
-    "user_lualine_style",
-    "user_indent_blankline_style",
-    "nt_explorer"
-  ]
+  "Lua.diagnostics.globals": ["vim"]
 }

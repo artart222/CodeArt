@@ -1,4 +1,4 @@
-local present, onedark_setup = pcall(require, "onedark")
+local present, onedark = pcall(require, "onedark")
 if not present then
   return
 end
@@ -23,6 +23,7 @@ local onedark_config = {
   },
 }
 
+-- TODO: make better user settings file.
 local config = require("user_settings")
 if config.onedark then
   for k, v in pairs(config.onedark) do
@@ -30,4 +31,4 @@ if config.onedark then
   end
 end
 
-onedark_setup.setup(onedark_config)
+onedark.setup(onedark_config)

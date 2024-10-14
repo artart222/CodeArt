@@ -1,4 +1,4 @@
-local present, better_escape_setup = pcall(require, "better_escape")
+local present, better_escape = pcall(require, "better_escape")
 if not present then
   return
 end
@@ -12,4 +12,4 @@ if config.better_escape then
   end
 end
 
-better_escape_setup.setup(better_escape_config)
+better_escape.setup(better_escape_config)

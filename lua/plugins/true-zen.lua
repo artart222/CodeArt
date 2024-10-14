@@ -1,4 +1,4 @@
-local present, tzen = pcall(require, "true-zen")
+local present, truezen = pcall(require, "true-zen")
 if not present then
   return
 end
@@ -77,4 +77,4 @@ if config.true_zen then
   end
 end
 
-tzen.setup(truezen_config)
+truezen.setup(truezen_config)

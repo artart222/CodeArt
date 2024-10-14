@@ -1,8 +1,9 @@
-local status_ok, gitsigns_setup = pcall(require, "gitsigns")
+local status_ok, gitsigns = pcall(require, "gitsigns")
 if not status_ok then
   return
 end
 
+-- TODO: complete setting file.
 local gitsigns_config = {
   signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
   numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
@@ -11,19 +12,17 @@ local gitsigns_config = {
   sign_priority = 1,
   update_debounce = 100,
   max_file_length = 40000,
-  keymaps = {
-    noremap = true,
-    buffer = true,
-  },
   signs = {
-    add = { hl = "GitSignsAdd", text = "│", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
-    change = { hl = "GitSignsChange", text = "│", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
-    delete = { hl = "GitSignsDelete", text = "│", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
-    topdelete = { hl = "GitSignsDelete", text = "│", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
-    changedelete = { hl = "GitSignsChange", text = "│", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
+    add = { text = "│" },
+    change = { text = "│" },
+    delete = { text = "│" },
+    topdelete = { text = "│" },
+    changedelete = { text = "│" },
+    untracked = { text = "│" },
   },
 }
 
+-- TODO: make better user settings file.
 local config = require("user_settings")
 if config.gitsigns then
   for k, v in pairs(config.gitsigns) do
@@ -31,4 +30,4 @@ if config.gitsigns then
   end
 end
 
-gitsigns_setup.setup(gitsigns_config)
+gitsigns.setup(gitsigns_config)

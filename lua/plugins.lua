@@ -1,579 +1,633 @@
-local utils = require("utils")
-local fn = vim.fn
+local disable_plugins = require("user_settings").disable_plugins
+local additional_plugins = require("user_settings").additional_plugins
+local lazy_nvim_path = require("utils").lazy_nvim_path
+local plugins_path = require("utils").plugins_path
 
--- Disable some builtin plugins.
-local disabled_built_ins = {
-  "2html_plugin",
-  "gzip",
-  "matchit",
-  "rrhelper",
-  "netrw",
-  "netrwPlugin",
-  "netrwSettings",
-  "netrwFileHandlers",
-  "zip",
-  "zipPlugin",
-  "tar",
-  "tarPlugin",
-  "getscript",
-  "getscriptPlugin",
-  "vimball",
-  "vimballPlugin",
-  "logipat",
-  "spellfile_plugin",
-}
-for _, plugin in pairs(disabled_built_ins) do
-  vim.g["loaded_" .. plugin] = 1
-end
-
--- Install packer.nvim if it's not installed.
-local packer_bootstrap
-if not utils.is_plugin_installed("packer.nvim") then
-  packer_bootstrap = fn.system({
+-- Install lazy.nvim if it is not installed.
+if not vim.loop.fs_stat(lazy_nvim_path) then
+  vim.fn.system({
     "git",
     "clone",
-    "--depth",
-    "1",
-    "https://github.com/wbthomason/packer.nvim",
-    utils.plugins_path .. "/start/packer.nvim",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable",
+    lazy_nvim_path,
   })
-  vim.cmd([[packadd packer.nvim]])
 end
+vim.opt.rtp:prepend(lazy_nvim_path)
 
-local use = require("packer").use
-local user_settings_file = require("user_settings")
-require("user_settings")
+local plugins = {
+  -- This plugin is needed for many plugins(like telescope) so this is one of
+  -- default CodeArt's plugins.
+  {
+    "nvim-lua/plenary.nvim",
+    enabled = not disable_plugins.plenary,
+  },
 
-return require("packer").startup({
-  function()
-    use({ "wbthomason/packer.nvim" })
+  -- Color schemes.
+  {
+    "folke/tokyonight.nvim",
+    config = function()
+      require("plugins.tokyonight")
+    end,
+    enabled = not disable_plugins.tokyonight,
+  },
+  {
+    "bluz71/vim-nightfly-guicolors",
+    enabled = not disable_plugins.nightfly,
+  },
+  {
+    "bluz71/vim-moonfly-colors",
+    enabled = not disable_plugins.moonfly,
+  },
+  {
+    "shaunsingh/nord.nvim",
+    enabled = not disable_plugins.nord,
+  },
+  {
+    "navarasu/onedark.nvim",
+    config = function()
+      require("plugins/onedark")
+    end,
+    enabled = not disable_plugins.onedark,
+  },
+  {
+    "artart222/nvim-enfocado",
+    config = function()
+      require("plugins.enfocado")
+    end,
+    enabled = not disable_plugins.nvim_enfocado,
+  },
 
-    -- These two plugins make CodeArt startup faster.
-    -- In addition FixCursorHold can fix this bug:
-    -- https://github.com/neovim/neovim/issues/12587
-    use({
-      "lewis6991/impatient.nvim",
-      config = function()
-        require("impatient")
-      end,
-      disable = disable_plugins.impatient,
-    })
-    use({
-      "antoinemadec/FixCursorHold.nvim",
-      event = { "BufRead", "BufNewFile" },
-      disable = disable_plugins.fix_cursor_hold,
-    })
-
-    -- This plugin is needed for many plugins(like telescope) so this is one of
-    -- default CodeArt's plugins.
-    use({
-      "nvim-lua/plenary.nvim",
-      disable = disable_plugins.plenary,
-    })
-
-    -- Color schemes.
-    use({
-      "folke/tokyonight.nvim",
-      disable = disable_plugins.tokyonight,
-    })
-    use({
-      "bluz71/vim-nightfly-guicolors",
-      disable = disable_plugins.nightfly,
-    })
-    use({
-      "bluz71/vim-moonfly-colors",
-      disable = disable_plugins.moonfly,
-    })
-    use({
-      "shaunsingh/nord.nvim",
-      disable = disable_plugins.nord,
-    })
-    use({
-      "navarasu/onedark.nvim",
-      config = function()
-        require("plugins/onedark")
-      end,
-      disable = disable_plugins.onedark,
-    })
-    use({
-      "artart222/nvim-enfocado",
-      disable = disable_plugins.nvim_enfocado,
-    })
-
-    -- TrueZen.nvim is a Neovim plugin that aims to provide a cleaner and less cluttered interface
-    -- when toggled in either of it has three different modes (Ataraxis, Minimalist and Focus).
-    use({
-      "Pocco81/true-zen.nvim",
-      cmd = {
-        "TZFocus",
-        "TZAtaraxis",
-        "TZMinimalist",
-      },
-      config = function()
-        require("plugins/true-zen")
-      end,
-      disable = disable_plugins.truezen,
-    })
-
-    -- This plugin adds indentation guides to all lines (including empty lines).
-    use({
-      "lukas-reineke/indent-blankline.nvim",
-      event = { "BufRead", "BufNewFile" },
-      config = function()
-        require("plugins/indent-blankline")
-      end,
-      disable = disable_plugins.indent_blankline,
-    })
-
-    -- Icons.
-    use({
-      "kyazdani42/nvim-web-devicons",
-      event = { "BufRead", "BufNewFile" },
-      config = function()
-        require("plugins.nvim_web_devicons")
-      end,
-      disable = disable_plugins.nvim_web_devicons,
-    })
-
-    -- File explorer tree.
-    use({
-      "kyazdani42/nvim-tree.lua",
-      cmd = {
-        "NvimTreeOpen",
-        "NvimTreeFocus",
-        "NvimTreeToggle",
-      },
-      config = function()
-        require("plugins.nvim-tree")
-      end,
-      disable = disable_plugins.nvim_tree,
-    })
-
-    -- Bufferline.
-    use({
-      "akinsho/bufferline.nvim",
-      event = { "BufRead", "BufNewFile" },
-      config = function()
-        require("plugins/bufferline")
-      end,
-      disable = disable_plugins.nvim_bufferline,
-    })
-
-    -- Statusline.
-    use({
-      "nvim-lualine/lualine.nvim",
-      event = { "BufRead", "BufNewFile" },
-      config = function()
-        require("plugins/lualine/lualine")
-      end,
-      disable = disable_plugins.lualine,
-    })
-
-    -- Better escape --> For escaping easily from insert mode with jk/jj.
-    use({
-      "max397574/better-escape.nvim",
-      event = "InsertEnter",
-      config = function()
-        require("plugins.better_escape")
-      end,
-      disable = disable_plugins.better_escape,
-    })
-
-    -- TreeSitter.
-    use({
-      "nvim-treesitter/nvim-treesitter",
-      run = ":TSUpdate",
-      event = { "BufRead", "BufNewFile" },
-      cmd = {
-        "TSInstall",
-        "TSInstallInfo",
-        "TSInstallSync",
-        "TSUninstall",
-        "TSUpdate",
-        "TSUpdateSync",
-        "TSDisableAll",
-        "TSEnableAll",
-      },
-      config = function()
-        require("plugins/treesitter")
-      end,
-      disable = disable_plugins.treesitter,
-    })
-
-    -- Colorizer (for highlighting color codes).
-    use({
-      "NvChad/nvim-colorizer.lua",
-      event = { "BufRead", "BufNewFile" },
-      config = function()
-        require("plugins/colorizer")
-        vim.cmd("ColorizerAttachToBuffer")
-      end,
-      disable = disable_plugins.nvim_colorizer,
-    })
-
-    -- Startup screen.
-    use({
-      "goolord/alpha-nvim",
-      cmd = "Alpha",
-      config = function()
-        require("plugins.alpha")
-      end,
-      disable = disable_plugins.alpha,
-    })
-
-    use({
-      "nvim-telescope/telescope-fzf-native.nvim",
-      run = "make",
-      cmd = "Telescope",
-      disable = disable_plugins.telescope_fzf_native,
-    })
-    use({
-      "artart222/telescope_find_directories",
-      after = "telescope-fzf-native.nvim",
-      disable = disable_plugins.telescope_find_directories,
-    })
-    use({
-      "nvim-telescope/telescope.nvim",
-      after = "telescope_find_directories",
-      config = function()
-        require("plugins/telescope")
-      end,
-      disable = disable_plugins.telescope,
-    })
-
-    -- LSP, LSP installer and tab completion.
-    use({
-      "williamboman/mason.nvim",
-      config = function()
-        require("mason").setup()
-      end,
-    })
-    use({
-      "williamboman/mason-lspconfig.nvim",
-      after = "mason.nvim",
-      config = function()
-        require("mason-lspconfig").setup()
-      end,
-    })
-    use({
-      "neovim/nvim-lspconfig",
-      after = "mason-lspconfig.nvim",
-      config = function()
-        require("plugins.lsp.lsp")
-      end,
-      disable = disable_plugins.nvim_lspconfig,
-    })
-    use({
-      "jose-elias-alvarez/null-ls.nvim",
-      after = "nvim-lspconfig",
-      config = function()
-        local config = require("user_settings")
-        if config.null_ls ~= nil then
-          config.null_ls()
-        end
-      end,
-      disable = disable_plugins.null_ls,
-    })
-
-    use({
-      "tami5/lspsaga.nvim",
-      cmd = "Lspsaga",
-      disable = disable_plugins.lspsaga,
-    })
-
-    use({
-      "simrat39/symbols-outline.nvim",
-      cmd = {
-        "SymbolsOutline",
-        "SymbolsOutlineOpen",
-        "SymbolsOutlineClose",
-      },
-      config = function()
-        require("plugins.symbols-outline")
-      end,
-      disable = disable_plugins.symbols_outline,
-    })
-
-    use({
-      "rafamadriz/friendly-snippets",
-      event = "InsertEnter",
-      disable = disable_plugins.friendly_snippets,
-    })
-    use({
-      "L3MON4D3/LuaSnip",
-      after = "friendly-snippets",
-      config = function()
-        require("luasnip.loaders.from_vscode").load()
-        require("luasnip.loaders.from_snipmate").lazy_load()
-      end,
-      disable = disable_plugins.luasnip,
-    })
-    use({
-      "hrsh7th/nvim-cmp",
-      after = "LuaSnip",
-      config = function()
-        require("plugins/cmp")
-      end,
-      disable = disable_plugins.nvim_cmp,
-    })
-    use({
-      "hrsh7th/cmp-buffer",
-      after = "nvim-cmp",
-      disable = disable_plugins.cmp_buffer,
-    })
-    use({
-      "hrsh7th/cmp-path",
-      after = "nvim-cmp",
-      disable = disable_plugins.cmp_path,
-    })
-    use({
-      "hrsh7th/cmp-nvim-lsp",
-      after = "nvim-cmp",
-      disable = disable_plugins.cmp_nvim_lsp,
-    })
-    use({
-      "saadparwaiz1/cmp_luasnip",
-      after = "LuaSnip",
-      disable = disable_plugins.cmp_luasnip,
-    })
-    use({
-      "hrsh7th/cmp-nvim-lua",
-      ft = "lua",
-      disable = disable_plugins.cmp_nvim_lua,
-    })
-
-    -- LSP signature.
-    use({
-      "ray-x/lsp_signature.nvim",
-      event = "InsertEnter",
-      -- Config of this plugin is in plugins/lsp/lsp.lua
-      disable = disable_plugins.lsp_signature,
-    })
-
-    -- TODO: Do better lazyloading here for dap.
-    use({
-      "mfussenegger/nvim-dap",
-      event = { "BufRead", "BufNewFile" },
-      disable = disable_plugins.nvim_dap,
-    })
-
-    use({
-      "Pocco81/dap-buddy.nvim",
-      after = "nvim-dap",
-      branch = "dev",
-      commit = "3679132",
-      config = function()
-        require("plugins/dap")
-      end,
-      disable = disable_plugins.dap_install,
-    })
-    use({
-      "rcarriga/nvim-dap-ui",
-      after = "dap-buddy.nvim",
-      config = function()
-        require("plugins/dapui")
-      end,
-      disable = disable_plugins.nvim_dap_ui,
-    })
-
-    -- Terminal.
-    use({
-      "akinsho/toggleterm.nvim",
-      keys = "<C-t>",
-      module = { "toggleterm", "toggleterm.terminal" },
-      config = function()
-        require("plugins/toggleterm")
-      end,
-      disable = disable_plugins.toggleterm,
-    })
-
-    -- Git support for nvim.
-    use({
-      "tpope/vim-fugitive",
-      cmd = "Git",
-      disable = disable_plugins.fugitive,
-    })
-
-    -- Git signs.
-    use({
-      "lewis6991/gitsigns.nvim",
-      event = { "BufRead", "BufNewFile" },
-      config = function()
-        require("plugins/gitsigns")
-      end,
-      disable = disable_plugins.gitsigns,
-    })
-
-    -- Auto closes.
-    use({
-      "windwp/nvim-autopairs",
-      keys = {
-        { "i", "(" },
-        { "i", "[" },
-        { "i", "{" },
-        { "i", "'" },
-        { "i", '"' },
-        { "i", "<BS>" },
-      },
-      config = function()
-        require("nvim-autopairs").setup()
-      end,
-      disable = disable_plugins.autopairs,
-    })
-    -- This is for html and it can autorename too!
-    use({
-      "windwp/nvim-ts-autotag",
-      ft = {
-        "html",
-        "javascript",
-        "typescript",
-        "javascriptreact",
-        "typescriptreact",
-        "svelte",
-        "vue",
-        "tsx",
-        "jsx",
-        "rescript",
-        "xml",
-        "php",
-        "markdown",
-        "glimmer",
-        "handlebars",
-        "hbs",
-      },
-      disable = disable_plugins.nvim_ts_autotag,
-    })
-
-    -- Scrollbar.
-    use({
-      "dstein64/nvim-scrollview",
-      event = { "BufRead", "BufNewFile" },
-      config = function()
-        require("plugins/nvim-scroll")
-      end,
-      disable = disable_plugins.scrollview,
-    })
-
-    -- Smooth scroll.
-    use({
-      "karb94/neoscroll.nvim",
-      event = { "BufRead", "BufNewFile" },
-      config = function()
-        require("plugins.neoscroll")
-      end,
-      disable = disable_plugins.neoscroll,
-    })
-    -- todo-comments is a lua plugin for Neovim to highlight and search for
-    -- todo comments like TODO, HACK, BUG in code base.
-    use({
-      "folke/todo-comments.nvim",
-      event = { "BufRead", "BufNewFile" },
-      config = function()
-        require("plugins/todo-comments")
-      end,
-      disable = disable_plugins.todo_comments,
-    })
-    -- WhichKey is a lua plugin that displays a popup with possible
-    -- key bindings of the command you started typing.
-    use({
-      "folke/which-key.nvim",
-      keys = {
-        "<leader>",
-        "g",
-        "d",
-        "y",
-        "!",
-        "z",
-        ">",
-        "<",
-        "]",
-        "[",
-        "v",
-        "c",
-      },
-      config = function()
-        require("plugins/which_key")
-      end,
-      disable = disable_plugins.which_key,
-    })
-
-    -- A plugin for neovim that automatically creates missing directories
-    -- on saving a file.
-    use({
-      "jghauser/mkdir.nvim",
-      event = { "FileWritePre", "BufWritePre" },
-      config = function()
-        require("mkdir")
-      end,
-      disable = disable_plugins.mkdir,
-    })
-
-    -- Neovim plugin to comment in/out text.
-    use({
-      "b3nj5m1n/kommentary",
-      keys = {
-        "<Plug>kommentary_line_default",
-        "<Plug>kommentary_visual_default",
-      },
-      config = function()
-        require("plugins.kommentary")
-      end,
-      disable = disable_plugins.kommentary,
-    })
-    use({
-      "JoosepAlviste/nvim-ts-context-commentstring",
-      after = "nvim-treesitter",
-      disable = disable_plugins.ts_context_commentstring,
-    })
-
-    -- match-up is a plugin that lets you highlight, navigate, and operate on sets of matching text.
-    use({
-      "andymass/vim-matchup",
-      event = { "BufRead", "BufNewFile" },
-      config = function()
-        vim.g.matchup_matchparen_offscreen = {}
-      end,
-      disable = disable_plugins.vim_matchup,
-    })
-
-    -- With this plugin you can resize Neovim buffers easily.
-    use({
-      "artart222/vim-resize",
-      event = {
-        "FuncUndefined ResizeDown",
-        "FuncUndefined ResizeUp",
-        "FuncUndefined ResizeLeft",
-        "FuncUndefined ResizeRight",
-      },
-      disable = disable_plugins.vim_resize,
-    })
-
-    -- Install additional user plugins.
-    for _, plugin in pairs(additional_plugins) do
-      if type(plugin) == "string" then
-        use({ plugin })
-      else
-        use({ unpack(plugin) })
-      end
-    end
-
-    -- Run :PackerSync if packer.nvim was not installed and
-    -- CodeArt installed that.
-    if packer_bootstrap then
-      require("packer").sync()
-    end
-  end,
-  config = {
-    -- Default compile path of packer_compiled file.
-    compile_path = fn.stdpath("config") .. "/plugin/" .. "packer_compiled.lua",
-    git = {
-      clone_timeout = 300,
+  -- TrueZen.nvim is a Neovim plugin that aims to provide a cleaner and less cluttered interface.
+  -- lazy-load if one of it's four different modes (Ataraxis, Minimalist, Narrow and Focus).
+  {
+    "Pocco81/true-zen.nvim",
+    cmd = {
+      "TZFocus",
+      "TZAtaraxis",
+      "TZNarrow",
+      "TZMinimalist",
     },
-    -- Adding single border to packer window.
-    display = {
-      open_fn = function()
-        return require("packer.util").float({ border = "single" })
-      end,
+    config = function()
+      require("plugins/true-zen")
+    end,
+    enabled = not disable_plugins.truezen,
+  },
+
+  -- This plugin adds indentation guides to all lines (including empty lines).
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    event = { "BufAdd", "BufRead" },
+    cmd = {
+      "IndentBlanklineToggle",
+      "IndentBlanklineDisable",
+      "IndentBlanklineEnable",
+      "IndentBlanklineRefreshScroll",
+      "IndentBlanklineRefresh",
+    },
+    config = function()
+      require("plugins/indent-blankline")
+    end,
+    enabled = not disable_plugins.indent_blankline,
+  },
+
+  -- Icons.
+  {
+    "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("plugins.nvim-web-devicons")
+    end,
+    enabled = not disable_plugins.nvim_web_devicons,
+  },
+
+  -- File explorer tree.
+  {
+    "kyazdani42/nvim-tree.lua",
+    cmd = {
+      "NvimTreeOpen",
+      "NvimTreeFocus",
+      "NvimTreeToggle",
+      "NvimTreeClose",
+      "NvimTreeRefresh",
+      "NvimTreeFindFile",
+      "NvimTreeFindFileToggle",
+      "NvimTreeClipboard",
+      "NvimTreeResize",
+      "NvimTreeCollapse",
+      "NvimTreeCollapseKeepBuffers",
+      "NvimTreeGenerateOnAttach",
+    },
+    config = function()
+      require("plugins.nvim-tree")
+    end,
+    enabled = not disable_plugins.nvim_tree,
+  },
+
+  -- Bufferline.
+  {
+    "akinsho/bufferline.nvim",
+    event = { "BufAdd", "BufRead" },
+    cmd = {
+      "BufferLineCloseLeft",
+      "BufferLineCloseRight",
+      "BufferLineCycleNext",
+      "BufferLineCyclePrev",
+      "BufferLineGoToBuffer",
+      "BufferLineGroupClose",
+      "BufferLineGroupToggle",
+      "BufferLineMoveNext",
+      "BufferLineMovePrev",
+      "BufferLinePick",
+      "BufferLinePickClose",
+      "BufferLineSortByDirectory",
+      "BufferLineSortByExtension",
+      "BufferLineSortByRelativeDirectory",
+      "BufferLineTogglePin",
+    },
+    config = function()
+      require("plugins/bufferline")
+    end,
+    enabled = not disable_plugins.nvim_bufferline,
+  },
+
+  -- Statusline.
+  {
+    "nvim-lualine/lualine.nvim",
+    event = { "BufAdd", "BufRead" },
+    config = function()
+      require("plugins/lualine/lualine")
+    end,
+    enabled = not disable_plugins.lualine,
+  },
+
+  -- Better escape --> For escaping easily from insert mode with jk/jj.
+  {
+    "max397574/better-escape.nvim",
+    event = "InsertEnter",
+    config = function()
+      require("plugins.better-escape")
+    end,
+    enabled = not disable_plugins.better_escape,
+  },
+
+  -- TreeSitter.
+  {
+    "nvim-treesitter/nvim-treesitter",
+    -- Load only when file type detected or just after creating a new buffer.
+    event = { "BufAdd", "BufRead" },
+    dependencies = { "vim-matchup" },
+    build = ":TSUpdate",
+    cmd = {
+      "TSBufDisable",
+      "TSBufEnable",
+      "TSBufToggle",
+      "TSConfigInfo",
+      "TSDisable",
+      "TSEditQuery",
+      "TSEditQueryUserAfter",
+      "TSEnable",
+      "TSInstall",
+      "TSInstallFromGrammer",
+      "TSInstallInfo",
+      "TSModuleInfo",
+      "TSToggle",
+      "TSUninstall",
+      "TSUpdate",
+      "TSUpdateSync",
+    },
+    config = function()
+      require("plugins/treesitter")
+    end,
+    enabled = not disable_plugins.treesitter,
+  },
+
+  -- Colorizer (for highlighting color codes).
+  {
+    "NvChad/nvim-colorizer.lua",
+    event = { "BufAdd", "BufRead" },
+    cmd = {
+      "ColorizerAttachToBuffer",
+      "ColorizerDetachFromBuffer",
+      "ColorizerReloadAllBuffers",
+      "ColorizerToggle",
+    },
+    config = function()
+      require("plugins/colorizer")
+    end,
+    enabled = not disable_plugins.nvim_colorizer,
+  },
+
+  -- Startup screen.
+  {
+    "nvimdev/dashboard-nvim",
+    cmd = { "Dashboard" },
+    config = function()
+      require("plugins.dashboard")
+    end,
+    enabled = not disable_plugins.dashboard,
+  },
+
+  {
+    "nvim-telescope/telescope.nvim",
+    cmd = "Telescope",
+    dependencies = {
+      "nvim-telescope/telescope-fzf-native.nvim",
+      "artart222/telescope_find_directories",
+    },
+    config = function()
+      require("plugins/telescope")
+    end,
+    enabled = not disable_plugins.telescope,
+  },
+  {
+    "nvim-telescope/telescope-fzf-native.nvim",
+    build = "make",
+    enabled = not disable_plugins.telescope_fzf_native,
+  },
+  {
+    "artart222/telescope_find_directories",
+    enabled = not disable_plugins.telescope_find_directories,
+  },
+
+  -- LSP, LSP installer and tab completion.
+  {
+    "williamboman/mason.nvim",
+    build = ":MasonUpdate",
+    cmd = { "Mason", "MasonInstall", "MasonLog", "MasonUninstall", "MasonUninstallAll", "MasonUpdate" },
+    config = function()
+      require("plugins.mason")
+    end,
+    enabled = not disable_plugins.mason,
+  },
+
+  {
+    "neovim/nvim-lspconfig",
+    event = { "BufRead", "BufNewFile" },
+    dependencies = {
+      "mason-lspconfig.nvim",
+    },
+    config = function()
+      require("plugins.lsp.lsp")
+    end,
+    enabled = not disable_plugins.nvim_lspconfig,
+  },
+  {
+    "williamboman/mason-lspconfig.nvim",
+    config = function()
+      require("plugins.mason_lspconfig")
+    end,
+    enabled = not disable_plugins.mason_lspconfig,
+  },
+  -- NOTE: Fix under this.
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    event = { "BufRead", "BufNewFile" },
+    config = function()
+      local config = require("user_settings").config
+      if config.null_ls ~= nil then
+        config.null_ls()
+      end
+    end,
+    enabled = not disable_plugins.null_ls,
+  },
+
+  -- Terminal.
+  {
+    "akinsho/toggleterm.nvim",
+    cmd = "ToggleTerm",
+    config = function()
+      require("plugins.toggleterm")
+    end,
+    enabled = not disable_plugins.toggleterm,
+  },
+
+  -- WhichKey is a lua plugin that displays a popup with possible
+  -- key bindings of the command you started typing.
+  {
+    "folke/which-key.nvim",
+    keys = {
+      { "<leader>", mode = { "n", "v" } },
+      { "g", mode = { "n", "v" } },
+      { "d", mode = { "n", "v" } },
+      { "y", mode = { "n", "v" } },
+      { "!", mode = { "n", "v" } },
+      { "z", mode = { "n", "v" } },
+      { ">", mode = { "n", "v" } },
+      { "<", mode = { "n", "v" } },
+      { "]", mode = { "n", "v" } },
+      { "[", mode = { "n", "v" } },
+      { "v", mode = { "n", "v" } },
+      { "c", mode = { "n", "v" } },
+    },
+    config = function()
+      require("plugins.which-key")
+    end,
+    enabled = not disable_plugins.which_key,
+  },
+
+  {
+    "tami5/lspsaga.nvim",
+    cmd = "Lspsaga",
+    config = function()
+      require("plugins.lspsaga")
+    end,
+    enabled = not disable_plugins.lspsaga,
+  },
+  {
+    "simrat39/symbols-outline.nvim",
+    cmd = {
+      "SymbolsOutline",
+      "SymbolsOutlineOpen",
+      "SymbolsOutlineClose",
+    },
+    config = function()
+      require("plugins.symbols-outline")
+    end,
+    enabled = not disable_plugins.symbols_outline,
+  },
+
+  {
+    "L3MON4D3/LuaSnip",
+    dependencies = { "rafamadriz/friendly-snippets" },
+    event = "InsertEnter",
+    config = function()
+      -- TODO: Add setup function and seperate config file.
+      require("luasnip.loaders.from_vscode").lazy_load()
+      require("luasnip.loaders.from_snipmate").lazy_load()
+    end,
+    enabled = not disable_plugins.luasnip,
+  },
+  {
+    "rafamadriz/friendly-snippets",
+    -- AutoLazy load.
+    -- TODO: Add setup function and seperate config file.
+    enabled = not disable_plugins.friendly_snippets,
+  },
+
+  {
+    "hrsh7th/nvim-cmp",
+    event = { "BufAdd", "BufRead" },
+    dependencies = {
+      "cmp-buffer",
+      "cmp-path",
+      "cmp-nvim-lsp",
+      "cmp_luasnip",
+      "cmp-nvim-lua",
+    },
+    config = function()
+      require("plugins/cmp")
+    end,
+    enabled = not disable_plugins.nvim_cmp,
+  },
+
+  {
+    "hrsh7th/cmp-buffer",
+    enabled = not disable_plugins.cmp_buffer,
+  },
+  {
+    "hrsh7th/cmp-path",
+    enabled = not disable_plugins.cmp_path,
+  },
+  {
+    "hrsh7th/cmp-nvim-lsp",
+    enabled = not disable_plugins.cmp_nvim_lsp,
+  },
+  {
+    "saadparwaiz1/cmp_luasnip",
+    enabled = not disable_plugins.cmp_luasnip,
+  },
+  {
+    "hrsh7th/cmp-nvim-lua",
+    ft = "lua",
+    enabled = not disable_plugins.cmp_nvim_lua,
+  },
+
+  -- LSP signature.
+  {
+    "ray-x/lsp_signature.nvim",
+    -- AutoLazy load.
+    -- TODO:
+    -- Config of this plugin is in plugins/lsp/lsp.lua
+    -- Add seperate config file and setup.
+    enabled = not disable_plugins.lsp_signature,
+  },
+
+  -- Git signs.
+  {
+    "lewis6991/gitsigns.nvim",
+    event = { "BufAdd", "BufRead" },
+    cmd = "Gitsigns",
+    config = function()
+      require("plugins/gitsigns")
+    end,
+    enabled = not disable_plugins.gitsigns,
+  },
+  -- Git support for nvim.
+  {
+    "tpope/vim-fugitive",
+    cmd = "Git",
+    enabled = not disable_plugins.fugitive,
+  },
+
+  -- Auto closes.
+  {
+    "windwp/nvim-autopairs",
+    keys = {
+      { "(", mode = "i" },
+      { "[", mode = "i" },
+      { "{", mode = "i" },
+      { "'", mode = "i" },
+      { '"', mode = "i" },
+      { "<BS>", mode = "i" },
+    },
+    -- TODO: Move this file config to seperate file.
+    config = function()
+      require("nvim-autopairs").setup()
+    end,
+    enabled = not disable_plugins.autopairs,
+  },
+
+  -- This is for html and it can autorename too!
+  {
+    "windwp/nvim-ts-autotag",
+    ft = {
+      "html",
+      "javascript",
+      "typescript",
+      "javascriptreact",
+      "typescriptreact",
+      "svelte",
+      "vue",
+      "tsx",
+      "jsx",
+      "rescript",
+      "xml",
+      "php",
+      "markdown",
+      "glimmer",
+      "handlebars",
+      "hbs",
+    },
+    -- TODO: Make lazyload better and if available remove manual lazy loading.
+    -- TODO: move config to seperate file.
+    -- TODO: check https://github.com/windwp/nvim-ts-autotag/issues/19
+    config = function()
+      require("plugins.nvim-ts-autotag")
+    end,
+    enabled = not disable_plugins.nvim_ts_autotag,
+  },
+
+  {
+    "mfussenegger/nvim-dap",
+    dependencies = { "jay-babu/mason-nvim-dap.nvim", "nvim-dap-ui" },
+    -- TODO: Do better lazy loading.
+    config = function()
+      require("plugins.dap")
+    end,
+    enabled = not disable_plugins.nvim_dap,
+  },
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    config = function()
+      require("plugins.mason-nvim-dap")
+    end,
+    enabled = not disable_plugins.mason_nvim_dap,
+  },
+  {
+    "rcarriga/nvim-dap-ui",
+    -- TODO: Find a way to load plugin after user use keymaps for it.
+    -- cmd = {
+    --   "lua require(dapui).open()",
+    --   "lua require(dapui).close()",
+    --   "lua require(dapui).toggle()",
+    -- },
+    config = function()
+      require("plugins.dapui")
+    end,
+    enabled = not disable_plugins.nvim_dap_ui,
+  },
+
+  -- Scrollbar.
+  {
+    "dstein64/nvim-scrollview",
+    event = { "BufAdd", "BufRead" },
+    config = function()
+      require("plugins.nvim-scroll")
+    end,
+    enabled = not disable_plugins.scrollview,
+  },
+  -- Smooth scroll.
+  {
+    "karb94/neoscroll.nvim",
+    event = { "BufAdd", "BufRead" },
+    config = function()
+      require("plugins.neoscroll")
+    end,
+    enabled = not disable_plugins.neoscroll,
+  },
+
+  -- todo-comments is a lua plugin for Neovim to highlight and search for
+  -- todo comments like TODO, HACK, BUG in code base.
+  {
+    "folke/todo-comments.nvim",
+    event = { "BufAdd", "BufRead" },
+    config = function()
+      require("plugins/todo-comments")
+    end,
+    enabled = not disable_plugins.todo_comments,
+  },
+
+  -- A plugin for neovim that automatically creates missing directories
+  -- on saving a file.
+  {
+    "jghauser/mkdir.nvim",
+    event = { "FileWritePre", "BufWritePre" },
+    config = function()
+      require("mkdir")
+    end,
+    enabled = not disable_plugins.mkdir,
+  },
+
+  {
+    "b3nj5m1n/kommentary",
+    dependencies = { "nvim-ts-context-commentstring" },
+    keys = {
+      { "<Plug>kommentary_line_default", mode = { "n", "v" } },
+      { "<Plug>kommentary_visual_default", mode = { "n", "v" } },
+    },
+    config = function()
+      require("plugins.kommentary")
+    end,
+    enabled = not disable_plugins.kommentary,
+  },
+  {
+    "JoosepAlviste/nvim-ts-context-commentstring",
+    enabled = not disable_plugins.ts_context_commentstring,
+  },
+
+  -- match-up is a plugin that lets you highlight, navigate, and operate on sets of matching text.
+  {
+    "andymass/vim-matchup",
+    config = function() end,
+    enabled = not disable_plugins.vim_matchup,
+  },
+
+  -- With this plugin you can resize Neovim buffers easily.
+  {
+    "artart222/vim-resize",
+    event = {
+      "FuncUndefined ResizeDown",
+      "FuncUndefined ResizeUp",
+      "FuncUndefined ResizeLeft",
+      "FuncUndefined ResizeRight",
+    },
+    enabled = not disable_plugins.vim_resize,
+  },
+}
+
+local lazy_config = {
+  root = plugins_path,
+  defaults = {
+    lazy = true,
+  },
+  git = {
+    timeout = 300,
+  },
+  ui = {
+    border = "single",
+  },
+  performance = {
+    cache = {
+      enabled = true,
+    },
+    rtp = {
+      disabled_plugins = {
+        "2html_plugin",
+        "gzip",
+        "matchit",
+        "rrhelper",
+        "netrw",
+        "netrwPlugin",
+        "netrwSettings",
+        "netrwFileHandlers",
+        "zip",
+        "zipPlugin",
+        "tar",
+        "tarPlugin",
+        "getscript",
+        "getscriptPlugin",
+        "vimball",
+        "vimballPlugin",
+        "logipat",
+        "spellfile_plugin",
+      },
     },
   },
-})
+}
+
+for _, plugin in pairs(additional_plugins) do
+  table.insert(plugins, plugin)
+end
+
+require("lazy").setup(plugins, lazy_config)

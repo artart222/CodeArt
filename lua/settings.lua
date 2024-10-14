@@ -1,9 +1,10 @@
--- Defining alias for vim.opt.
+-- Defining alias for vim.opt and vim.api.nvim_exec.
 local opt = vim.opt
 local exec = vim.api.nvim_exec
 
 -- Defining alias for some functions.
 local is_plugin_installed = require("utils").is_plugin_installed
+local disable_plugins = require("user_settings").disable_plugins
 local autocmd = vim.api.nvim_create_autocmd
 
 -- Decrease time of completion menu.
@@ -19,6 +20,9 @@ opt.fileencoding = "utf-8"
 opt.number = true
 opt.numberwidth = 2
 opt.relativenumber = true
+
+-- Hide ~ from end of lines.
+vim.opt.fillchars = { eob = " " }
 
 -- Set signcolumn width to 3.
 vim.opt.signcolumn = "yes:3"
@@ -81,33 +85,36 @@ opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
 opt.foldlevel = 99
 
+-- Enables the experimental Lua module loader.
+vim.loader.enable()
+
 -- Set line number for help files.
-local help_config = vim.api.nvim_create_augroup("help_config", { clear = true })
 autocmd("FileType", {
   pattern = "help",
   callback = function()
     opt.number = true
+    opt.relativenumber = false
   end,
-  group = help_config,
 })
 
--- Trim Whitespace
-autocmd("BufWritePre", {
-  pattern = "*",
-  callback = function()
-    exec(
-      [[
-        function! NoWhitespace()
-          let l:save = winsaveview()
-          keeppatterns %s/\s\+$//e
-          call winrestview(l:save)
-        endfunction
-        call NoWhitespace()
-        ]],
-      true
-    )
-  end,
-})
+-- Set or unset line number, relativenumber and cursorline in different buffers.
+-- If buffer is terminal start in insertmode.
+-- FIX: This doesn't work in ToggleTerm and it works in normal terminals if
+-- only you open terminal go to other buffer and again come back to terminal.
+-- autocmd("BufEnter", {
+--   callback = function()
+--     if vim.o.buftype == "terminal" then
+--       opt.number = false
+--       opt.relativenumber = false
+--       opt.cursorline = false
+--       vim.cmd("startinsert")
+--     else
+--       opt.number = true
+--       opt.relativenumber = true
+--       opt.cursorline = true
+--     end
+--   end,
+-- })
 
 -- Auto open nvim-tree when writing (nvim .) in command line
 -- and auto open Alpha when nothing given as argument.
@@ -115,19 +122,18 @@ if vim.fn.index(vim.fn.argv(), ".") >= 0 then
   autocmd("VimEnter", {
     pattern = "*",
     callback = function()
-      if is_plugin_installed("nvim-tree.lua") == true then
-        vim.cmd("NvimTreeOpen")
+      if is_plugin_installed("nvim-tree.lua") and not disable_plugins.nvim_tree then
+        require("nvim-tree.api").tree.open()
       end
     end,
   })
-  vim.cmd("bd1")
+  vim.api.nvim_buf_delete(0, {})
 elseif vim.fn.len(vim.fn.argv()) == 0 then
   autocmd("VimEnter", {
     pattern = "*",
     callback = function()
-      if is_plugin_installed("alpha-nvim") == true then
-        vim.cmd("Alpha")
-        vim.cmd("bd 1")
+      if is_plugin_installed("dashboard-nvim") and not disable_plugins.alpha then
+        vim.cmd("Dashboard")
       end
     end,
   })
@@ -140,21 +146,24 @@ end, { nargs = 0 })
 
 -- NOTE: Set your shell to powershell because of :CodeArtUpdate command and
 -- other problems with cmd in Windows.
-vim.cmd([[
-if has("win32")
-  set shell=powershell " Set shell to powershell.
-  let &shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
-  let &shellredir = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
-  let &shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
-  set shellquote= shellxquote=
-endif
-]])
+if require("utils").os == "Windows_NT" then
+  vim.opt.shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell"
+  vim.opt.shellcmdflag =
+    "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;"
+  vim.opt.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
+  vim.opt.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
+  vim.opt.shellquote = ""
+  vim.opt.shellxquote = ""
+end
 
 -- Creating CodeArtTransparent command.
-vim.api.nvim_create_user_command("CodeArtTransparent", "lua make_codeart_transparent()", { nargs = 0 })
+vim.api.nvim_create_user_command("CodeArtTransparent", function()
+  require("theme").make_codeart_transparent()
+end, { nargs = 0 })
 
--- Add/Diasable cursorline and statusline in some buffers and filetypes.
-statusline_hide = {
+-- TODO: check if it's better to move these in another file.
+-- TODO: Complete this list.
+local statusline_hide = {
   "alpha",
   "TelescopePrompt",
   "TelescopeResults",
@@ -162,30 +171,42 @@ statusline_hide = {
   "lspinfo",
   "lsp-installer",
 }
-
-function hide_statusline(types)
+local cursorline_hide = {
+  "alpha",
+  "dashboard",
+  "TelescopePrompt",
+  "TelescopeResults",
+  "packer",
+  "lspinfo",
+  "lsp-installer",
+}
+local function toggle_statusline(types)
   for _, type in pairs(types) do
-    if vim.bo.filetype == type or vim.bo.buftype == type then
+    if vim.o.filetype == type then
       opt.laststatus = 0
       opt.ruler = false
-      opt.cursorline = false
       break
     else
       opt.laststatus = 3
       opt.ruler = true
+    end
+  end
+end
+
+local function toggle_cursorline(types)
+  for _, type in pairs(types) do
+    if vim.o.filetype == type then
+      opt.cursorline = false
+      break
+    else
       opt.cursorline = true
     end
   end
 end
 
--- Remove signcolumn and cursorline in toggleterm.
-autocmd({ "BufEnter", "BufRead", "BufWinEnter", "FileType", "WinEnter" }, {
-  pattern = "*",
+autocmd({ "FileType", "BufEnter" }, {
   callback = function()
-    hide_statusline(statusline_hide)
-    if vim.bo.filetype == "toggleterm" then
-      opt.signcolumn = "no"
-      opt.cursorline = false
-    end
+    toggle_statusline(statusline_hide)
+    toggle_cursorline(cursorline_hide)
   end,
 })

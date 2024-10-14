@@ -3,6 +3,7 @@ if not present then
   return
 end
 
+-- TODO: complete this.
 local previewers = require("telescope.previewers")
 local Job = require("plenary.job")
 local new_maker = function(filepath, bufnr, opts)

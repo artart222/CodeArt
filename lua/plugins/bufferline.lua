@@ -1,4 +1,4 @@
-local present, bufferline_setup = pcall(require, "bufferline")
+local present, bufferline = pcall(require, "bufferline")
 if not present then
   return
 end
@@ -37,4 +37,4 @@ if config.bufferline then
   end
 end
 
-bufferline_setup.setup(bufferline_config)
+bufferline.setup(bufferline_config)

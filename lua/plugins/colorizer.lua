@@ -1,4 +1,4 @@
-local present, color = pcall(require, "colorizer")
+local present, colorizer = pcall(require, "colorizer")
 if not present then
   return
 end
@@ -25,8 +25,9 @@ if config.colorizer then
   end
 end
 
-color.setup(colorizer_config)
+colorizer.setup(colorizer_config)
 
+-- TODO: Move autocmd to one file.
 vim.api.nvim_create_autocmd("BufRead", {
   pattern = "*",
   callback = function()

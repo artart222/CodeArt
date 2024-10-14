@@ -1,16 +1,16 @@
--- Hide ~ from end of lines.
-vim.opt.fillchars = { eob = " " }
+local M = {}
 
+-- Add highlight function to make Highlighting easer.
 local highlight = require("utils").highlight
 
--- -- Highlightign line number for lsp diagnostics sings based on colorscheme
+-- Highlighting line number for lsp diagnostics sings based on colorscheme.
 vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
   pattern = "*",
 
   callback = function()
     local fn = vim.fn
 
-    -- Getting diagnostic signs color.
+    -- Getting diagnostic signs background and foreground colors.
     local error_bcolor = fn.synIDattr(fn.synIDtrans(fn.hlID("DiagnosticSignError")), "fg")
     local info_bcolor = fn.synIDattr(fn.synIDtrans(fn.hlID("DiagnosticSignInfo")), "fg")
     local warn_bcolor = fn.synIDattr(fn.synIDtrans(fn.hlID("DiagnosticSignWarn")), "fg")
@@ -35,103 +35,85 @@ vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
   end,
 })
 
-vim.g.tokyonight_style = "night" -- styles: storm, night and day.
-vim.g.enfocado_style = "nature" -- styles: nature and neon.
+-- Removing background and/or foreground from some highlight groups.
+-- TODO: Add new highlight groups to improve this function.
+function M.make_codeart_transparent()
+  highlight("Normal", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("NormalNc", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("LineNr", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("CursorLineNr", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("SignColumn", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("EndOfBuffer", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("NormalFloat", { bg = "NONE", ctermbg = "NONE" })
+  highlight("Float", { bg = "NONE", ctermbg = "NONE" })
 
--- In enfocado colorscheme you can enable highlight some plugins.
--- You can set enabled plugins like this(This is CodeArt supported plugins).
-vim.g.enfocado_plugins = {
-  "cmp",
-  "alpha",
-  "gitsigns",
-  "lsp",
-  "lsp-installer",
-  "matchup",
-  "packer",
-  "scrollview",
-  "telescope",
-  "todo-comments",
-  "tree",
-  "treesitter",
-  "which-key",
-}
+  highlight("AlphaCenter", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("AlphaFooter", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
 
--- Removing background and/or foreground from some highlight groups
-function _G.make_codeart_transparent()
-  highlight("Normal", { bg = "NONE", fg = "NONE" })
-  highlight("NormalNc", { bg = "NONE", fg = "NONE" })
-  highlight("LineNr", { bg = "NONE", fg = "NONE" })
-  highlight("CursorLineNr", { bg = "NONE", fg = "NONE" })
-  highlight("SignColumn", { bg = "NONE", fg = "NONE" })
-  highlight("EndOfBuffer", { bg = "NONE", fg = "NONE" })
-  highlight("NormalFloat", { bg = "NONE" })
-  highlight("Float", { bg = "NONE" })
+  highlight("NvimTreeNormal", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("NvimTreeNormalNc", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("NvimTreeEndOfBuffer", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("NvimTreeFolderIcon", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("NvimTreeOpenedFolderName", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
 
-  highlight("AlphaCenter", { bg = "NONE", fg = "NONE" })
-  highlight("AlphaFooter", { bg = "NONE", fg = "NONE" })
+  highlight("BufferLineFill", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineDiagnostics", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineTab", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineTabSelected", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineTabClose", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineDuplicate", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineDuplicateSelected", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineDuplicateVisible", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
 
-  highlight("NvimTreeNormal", { bg = "NONE", fg = "NONE" })
-  highlight("NvimTreeNormalNc", { bg = "NONE", fg = "NONE" })
-  highlight("NvimTreeEndOfBuffer", { bg = "NONE", fg = "NONE" })
-  highlight("NvimTreeFolderIcon", { bg = "NONE", fg = "NONE" })
-  highlight("NvimTreeOpenedFolderName", { bg = "NONE", fg = "NONE" })
+  highlight("BufferLineBackground", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineCloseButton", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineCloseButtonSelected", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineCloseButtonVisible", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineBufferVisible", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineSeperator", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineSeperatorVisible", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineGroupSeperator", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineSeparator", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineBufferSelected", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineDiagnostic", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
 
-  highlight("BufferLineFill", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineDiagnostics", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineTab", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineTabSelected", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineTabClose", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineDuplicate", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineDuplicateSelected", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineDuplicateVisible", { bg = "NONE", fg = "NONE" })
+  highlight("BufferLinePick", { bg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLinePickSelected", { bg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineSeparatorSelected", { bg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineIndicatorSelected", { bg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineDevIconLuaSelected", { bg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineDevIconDefaultInactive", { bg = "NONE", ctermfg = "NONE" })
 
-  highlight("BufferLineBackground", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineCloseButton", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineCloseButtonSelected", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineCloseButtonVisible", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineBufferVisible", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineSeperator", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineSeperatorVisible", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineGroupSeperator", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineSeparator", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineBufferSelected", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineDiagnostic", { bg = "NONE", fg = "NONE" })
+  highlight("BufferLineError", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineErrorDiagnostic", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineErrorVisible", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineErrorDiagnosticVisible", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineErrorSelected", { bg = "NONE", ctermbg = "NONE" })
+  highlight("BufferLineErrorDiagnosticSelected", { bg = "NONE", ctermbg = "NONE" })
+  highlight("BufferLineErrorDiagnosticSelected", { bg = "NONE", ctermbg = "NONE" })
 
-  highlight("BufferLinePick", { bg = "NONE" })
-  highlight("BufferLinePickSelected", { bg = "NONE" })
-  highlight("BufferLineSeparatorSelected", { bg = "NONE" })
-  highlight("BufferLineIndicatorSelected", { bg = "NONE" })
-  highlight("BufferLineDevIconLuaSelected", { bg = "NONE" })
-  highlight("BufferLineDevIconDefaultInactive", { bg = "NONE" })
+  highlight("BufferLineWarning", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineWarningVisible", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineWarningDiagnosticVisible", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineWarningDiagnostic", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineWarningSelected", { bg = "NONE", ctermbg = "NONE" })
+  highlight("BufferLineWarningDiagnosticSelected", { bg = "NONE", ctermbg = "NONE" })
+  highlight("BufferLineWarningDiagnosticSelected", { bg = "NONE", ctermbg = "NONE" })
 
-  highlight("BufferLineError", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineErrorDiagnostic", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineErrorVisible", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineErrorDiagnosticVisible", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineErrorSelected", { bg = "NONE" })
-  highlight("BufferLineErrorDiagnosticSelected", { bg = "NONE" })
-  highlight("BufferLineErrorDiagnosticSelected", { bg = "NONE" })
+  highlight("BufferLineInfo", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineInfoVisible", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineInfoDiagnosticVisible", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineInfoDiagnostic", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineInfoSelected", { bg = "NONE", ctermbg = "NONE" })
+  highlight("BufferLineInfoDiagnosticSelected", { bg = "NONE", ctermbg = "NONE" })
+  highlight("BufferLineInfoDiagnosticSelected", { bg = "NONE", ctermbg = "NONE" })
 
-  highlight("BufferLineWarning", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineWarningVisible", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineWarningDiagnosticVisible", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineWarningDiagnostic", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineWarningSelected", { bg = "NONE" })
-  highlight("BufferLineWarningDiagnosticSelected", { bg = "NONE" })
-  highlight("BufferLineWarningDiagnosticSelected", { bg = "NONE" })
+  highlight("BufferLineModifiedVisible", { bg = "NONE", fg = "NONE", ctermbg = "NONE", ctermfg = "NONE" })
+  highlight("BufferLineModified", { bg = "NONE", ctermbg = "NONE" })
+  highlight("BufferLineModifiedSelected", { bg = "NONE", ctermbg = "NONE" })
 
-  highlight("BufferLineInfo", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineInfoVisible", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineInfoDiagnosticVisible", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineInfoDiagnostic", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineInfoSelected", { bg = "NONE" })
-  highlight("BufferLineInfoDiagnosticSelected", { bg = "NONE" })
-  highlight("BufferLineInfoDiagnosticSelected", { bg = "NONE" })
-
-  highlight("BufferLineModifiedVisible", { bg = "NONE", fg = "NONE" })
-  highlight("BufferLineModified", { bg = "NONE" })
-  highlight("BufferLineModifiedSelected", { bg = "NONE" })
-
-  highlight("WhichKeyFloat", { bg = "NONE" })
-  highlight("WhichKey", { bg = "NONE" })
+  highlight("WhichKeyFloat", { bg = "NONE", ctermbg = "NONE" })
+  highlight("WhichKey", { bg = "NONE", ctermbg = "NONE" })
 end
+
+return M

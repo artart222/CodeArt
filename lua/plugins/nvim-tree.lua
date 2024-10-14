@@ -2,28 +2,23 @@ local present, nvimtree = pcall(require, "nvim-tree")
 if not present then
   return
 end
-local tree_cb = require("nvim-tree.config").nvim_tree_callback
-
--- Set alias for vim.g.
-local g = vim.g
-
-local function on_attach(bufnr)
-  local api = require("nvim-tree.api")
-  local function opts(desc)
-    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
-  end
-
-  api.config.mappings.default_on_attach(bufnr)
-
-  vim.keymap.del("n", "H", { buffer = bufnr })
-  vim.keymap.set("n", "H", function()
-    vim.cmd("call ResizeLeft(3)")
-  end)
-  vim.keymap.set("n", "<C-h>", api.tree.toggle_hidden_filter, opts("Toggle Dotfiles"))
-end
 
 local nvimtree_config = {
-  on_attach = on_attach,
+  on_attach = function(bufnr)
+    -- Adding default mappings.
+    local api = require("nvim-tree.api")
+    local function opts(desc)
+      return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+    end
+    api.config.mappings.default_on_attach(bufnr)
+    -- Remove default H mappings and set it for resizing.
+    vim.keymap.del("n", "H", { buffer = bufnr })
+    vim.keymap.set("n", "H", function()
+      vim.cmd("call ResizeLeft(3)")
+    end)
+    -- Adding new mapping for toggle dotfiles.
+    vim.keymap.set("n", "<C-h>", api.tree.toggle_hidden_filter, opts("Toggle Dotfiles"))
+  end,
   open_on_tab = false,
   update_cwd = true,
   disable_netrw = true,

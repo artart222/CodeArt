@@ -8,14 +8,16 @@ local toggleterm_config = {
   hide_numbers = true, -- hide the number column in toggleterm buffers
   shade_terminals = false,
   start_in_insert = true,
+  -- FIXME: When opening with Ctrl+t it will be in insert but when
+  -- When changing window it will not start in insert.
   insert_mappings = true, -- whether or not the open mapping applies in insert mode
   persist_size = true,
   direction = "horizontal",
   close_on_exit = true, -- close the terminal window when the process exits
   float_opts = {
     border = "curved",
-    width = 120,
-    height = 40,
+    width = math.floor(vim.fn.winwidth(0) * 0.80),
+    height = math.floor(vim.fn.winheight(0) * 0.90),
     winblend = 3,
   },
 }

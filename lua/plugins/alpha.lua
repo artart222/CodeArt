@@ -1,9 +1,8 @@
-local fn = vim.fn
-
 local present, alpha = pcall(require, "alpha")
 if not present then
   return
 end
+
 local dashboard = require("alpha.themes.dashboard")
 
 local os = require("utils").os
@@ -15,7 +14,7 @@ local function button(sc, txt, keybind)
     position = "center",
     text = txt,
     shortcut = sc,
-    cursor = 5,
+    cursor = -1,
     width = 36,
     align_shortcut = "right",
     hl = "AlphaCenter",
@@ -63,12 +62,8 @@ dashboard.section.buttons.val = {
 dashboard.section.buttons.opts.hl = "AlphaCenter"
 dashboard.section.buttons.opts.hl_shortcut = "AlphaShortcut"
 
-local plugins_count
-if os == "Windows_NT" then
-  plugins_count = fn.len(fn.globpath("~/AppData/Local/nvim-data/site/pack/packer/start", "*", 0, 1))
-else
-  plugins_count = fn.len(fn.globpath("~/.local/share/nvim/site/pack/packer/start", "*", 0, 1))
-end
+local plugins_count = require("lazy").stats().loaded
+
 dashboard.section.footer.val = "CodeArt Loaded " .. plugins_count .. " plugins!  "
 dashboard.section.footer.opts.hl = "AlphaFooter"
 

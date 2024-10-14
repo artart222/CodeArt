@@ -1,4 +1,4 @@
-local present, neoscroll_setup = pcall(require, "neoscroll")
+local present, neoscroll = pcall(require, "neoscroll")
 if not present then
   return
 end
@@ -12,4 +12,4 @@ if config.neoscroll then
   end
 end
 
-neoscroll_setup.setup(neoscroll_config)
+neoscroll.setup(neoscroll_config)
