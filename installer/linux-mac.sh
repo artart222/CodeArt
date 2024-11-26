@@ -34,7 +34,7 @@ pack_manager_install() {
     echo $2 "is not installed."
     echo "Installing" $2
     if [[ "$1" == "pacman" ]]; then
-      sudo pacman -Sy $3 --noconfirm
+      sudo pacman -Syu $3 --noconfirm
     elif [[ "$1" =~ "apt-get" ]]; then
       sudo apt update
       sudo apt install $4 -y
