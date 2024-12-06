@@ -306,6 +306,9 @@ local plugins = {
   -- key bindings of the command you started typing.
   {
     "folke/which-key.nvim",
+    -- TODO: check why by using first space
+    -- this plugin does load but doesn't show
+    -- which key menu.
     keys = {
       { "<leader>", mode = { "n", "v" } },
       { "g", mode = { "n", "v" } },
