@@ -1,15 +1,13 @@
+local M = {}
+
+-- TODO: Improve settings.
 local map = require("utils").map
 local which_key = require("utils").wk_add
 
 -- WARN: Do not touch this table.
-extra_which_keys = {}
+M.extra_which_keys = {}
 
-disable_plugins = {
-  -- NOTE: These two plugins are for better performance
-  -- and fixing one of neovim bugs.
-  impatient = false,
-  fix_cursor_hold = false,
-
+M.disable_plugins = {
   -- NOTE: Many plugins use this plugin as a dependency.
   -- I suggest to not remove this plugins.
   plenary = false,
@@ -29,9 +27,10 @@ disable_plugins = {
   -- Are realy small. You can install debugger by your self and
   -- then configure it by your self so you can use nvim_dap and nvim_dap_ui
   -- without dap_install
-  nvim_dap = true,
-  dap_install = true,
-  nvim_dap_ui = true,
+  nvim_dap = false,
+  dap_install = false,
+  nvim_dap_ui = false,
+  mason_nvim_dap = false,
 
   -- NOTE: these plugins are telescope and telescope extensions. fzf is for
   -- better searching experince and you can fuzzy find directories with
@@ -68,6 +67,8 @@ disable_plugins = {
   nvim_colorizer = false,
   alpha = false,
   nvim_lspconfig = false,
+  mason = false,
+  mason_lspconfig = false,
   lsp_installer = false,
   null_ls = false,
   lspsaga = false,
@@ -81,13 +82,14 @@ disable_plugins = {
   todo_comments = false,
   which_key = false,
   mkdir = false,
+  comment = false,
   kommentary = false,
   ts_context_commentstring = false,
   vim_matchup = false,
   vim_resize = false,
 }
 
-additional_plugins = {
+M.additional_plugins = {
   -- You can put your additional plugins here.
   -- Syntax is like normal packer.nvim Syntax.
   -- If you need to set some settings for your plugins
@@ -117,6 +119,7 @@ additional_plugins = {
   --       blacklist = {}, -- file name, path, or workspace matches
   --     })
   --   end,
+  "Mofiqul/vscode.nvim",
   -- },
 }
 
@@ -124,7 +127,7 @@ additional_plugins = {
 -- Name of functions is exactly like config file in nvim/lua/plugins directory
 -- the only diffrence is if in file name you have hifen(-) here you must
 -- replace it with underline.
-local config = {
+M.config = {
   -- null-ls configuration
   null_ls = function()
     -- Formatting and linting
@@ -142,49 +145,72 @@ local config = {
     -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
     local diagnostics = null_ls.builtins.diagnostics
 
+    -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTINS.md#code-actions
+    local code_actions = null_ls.builtins.code_actions
+
     null_ls.setup({
       debug = false,
       sources = {
-        -- Settings up some linters and code formatters.
-        formatting.black,
-        formatting.stylua,
-        formatting.rustfmt,
-        formatting.clang_format,
-        formatting.prettier,
-        formatting.taplo,
-        formatting.shfmt.with({
-          command = "shfmt",
-          args = {
-            "-i",
-            "2",
-            "-ci",
-            "-bn",
-            "$FILENAME",
-            "-w",
-          },
-        }),
-        diagnostics.zsh,
-        -- diagnostics.luacheck,
-        diagnostics.pylint,
+        -- TODO: Make installation process easer.
+        -- Settings up some linters, code formatters and etc.
+        -- formatting.black,
+        -- diagnostics.flake8,
+        -- formatting.stylua,
+        -- diagnostics.stylelint,
+        -- formatting.prettier,
+        -- formatting.rustfmt,
+        -- formatting.clang_format,
+        -- formatting.taplo,
+        -- diagnostics.shellcheck,
+        -- diagnostics.zsh,
+        -- formatting.shfmt.with({
+        --   filetypes = { "sh", "bash" },
+        --   args = {
+        --     "-i",
+        --     "2",
+        --   },
+        -- }),
       },
       -- This function is for format on save.
-      -- on_attach = function(client)
-      --   if client.resolved_capabilities.document_formatting then
-      --     vim.cmd([[
-      --       augroup LspFormatting
-      --           autocmd! * <buffer>
-      --           autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()
-      --       augroup END
-      --       ]])
-      --   end
-      -- end,
+      on_attach = function(client, bufnr)
+        vim.api.nvim_create_autocmd("BufWritePre", {
+          buffer = bufnr,
+          callback = function()
+            vim.lsp.buf.format({ async = false })
+          end,
+        })
+      end,
     })
   end,
-  treesitter = {
-    highlight = {
-      enable = true,
-    },
-  },
+
+  lsp = function()
+    -- require("lspconfig").pylsp.setup({})
+    -- require("lspconfig").ruff.setup({})
+    -- require("lspconfig").pylyzer.setup({})
+    -- require("lspconfig").bashls.setup({
+    --   filetypes = { "sh", "zsh" },
+    -- })
+    -- require("lspconfig").lua_ls.setup({})
+    -- require("lspconfig").rust_analyzer.setup({})
+    -- require("lspconfig").clangd.setup({})
+  end,
+  -- treesitter = {
+  --   highlight = {
+  --     enable = true,
+  --   },
+  -- },
+
+  -- user_lualine_style = 3, -- You can choose between predefined 1, 2, 3, 4 and 5
+  -- or you can define your custome seperator like this.
+  -- first item is for component seperator and second item is
+  -- for section seperator.
+  -- user_lualine_style = { { left = " ", right = " " }, { left = "", right = "" } },
+  -- Obviously you can configure lualine entierly by your own like other plugins.
+
+  -- user_indent_blankline_style = 3, -- You can choose between predefined 1, 2, 3, 4,5 and 6
+  -- or you can use your favorite character.
+  -- user_indent_blankline_style = "",
+  -- TODO: Find a way to use configs without rerun of function more and more.
   other_configs = function()
     vim.cmd("colorscheme enfocado")
     -- Other settings here
@@ -215,17 +241,8 @@ local config = {
     --   { prefix = "<leader>", mode = "v" } -- mode = "v" means it only works on visual mode.
     --   extra_which_keys
     -- )
-
-    -- user_lualine_style = 1 -- You can choose between predefined 1, 2, 3, 4 and 5
-    -- or you can define your custome seperator like this.
-    -- first item is for component seperator and second item is
-    -- for section seperator.
-    -- user_lualine_style = { { left = " ", right = " " }, { left = "", right = "" } }
-
-    -- user_indent_blankline_style = 1 -- You can choose between predefined 1, 2, 3, 4,5 and 6
-    -- or you can use your favorite character.
-    -- user_indent_blankline_style = ""
   end,
 }
 
-return config
+-- return config
+return M
