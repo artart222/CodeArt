@@ -55,7 +55,9 @@ pack_manager_install() {
 install_font() {
   echo "Downloading font"
   echo "Please wait"
-  wget https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/JetBrainsMono.zip --output-document ~/Downloads/JetBrainsMono.zip
+  LATEST="curl https://github.com/ryanoasis/nerd-fonts/releases/latest"
+  LATEST+="/JetBrainsMono.zip"
+  wget $LATEST JetBrainsMono.zip --output-document ~/Downloads/JetBrainsMono.zip
   unzip ~/Downloads/JetBrainsMono.zip -d ~/Downloads/JetBrainsMono
   if ![ $PACKAGE_MANAGER == "brew" ]; then
     mv ~/Downloads/JetBrainsMono/JetBrains Mono Regular Nerd Font Complete Mono.ttf /Library/Fonts/
@@ -67,15 +69,13 @@ install_font() {
 }
 
 echo "Installing dependencies"
-if ! [ "$(cat /etc/os-release | grep "ID=debian")" == "ID=debian" ]; then
-  if [ $PACKAGE_MANAGER == "apt-get" ]; then
+if [ $PACKAGE_MANAGER == "apt-get" ]; then
     sudo apt install software-properties-common
     sudo add-apt-repository ppa:neovim-ppa/stable -y
     sudo apt update
     pack_manager_install $PACKAGE_MANAGER "nvim" " " "neovim" "" "" "" ""
   else
     pack_manager_install $PACKAGE_MANAGER "nvim" "neovim" "neovim" "neovim" "neovim" "app-editors/neovim" "neovim"
-  fi
 fi
 pack_manager_install $PACKAGE_MANAGER "curl" "curl" "curl" "curl" "curl" "net-misc/curl" "curl"
 pack_manager_install $PACKAGE_MANAGER "git" "git" "git" "git" "git" "dev-vcs/git" "git"
