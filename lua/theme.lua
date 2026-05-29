@@ -27,11 +27,23 @@ vim.api.nvim_create_autocmd({ "ColorScheme", "VimEnter" }, {
     highlight("DiagnosticLineNrInfo", { bg = info_bcolor, fg = info_fcolor }, { bold = true })
     highlight("DiagnosticLineNrHint", { bg = hint_bcolor, fg = hint_fcolor }, { bold = true })
 
-    -- Applying diagnostic line number and remove diagnostic signs
-    fn.sign_define("DiagnosticSignError", { text = "", texthl = "", numhl = "DiagnosticLineNrError" })
-    fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "", numhl = "DiagnosticLineNrWarn" })
-    fn.sign_define("DiagnosticSignInfo", { text = "", texthl = "", numhl = "DiagnosticLineNrInfo" })
-    fn.sign_define("DiagnosticSignHint", { text = "", texthl = "", numhl = "DiagnosticLineNrHint" })
+    -- Empty gutter signs; color line numbers via numhl (Neovim 0.10+ diagnostic.config API).
+    vim.diagnostic.config({
+      signs = {
+        text = {
+          [vim.diagnostic.severity.ERROR] = "",
+          [vim.diagnostic.severity.WARN] = "",
+          [vim.diagnostic.severity.INFO] = "",
+          [vim.diagnostic.severity.HINT] = "",
+        },
+        numhl = {
+          [vim.diagnostic.severity.ERROR] = "DiagnosticLineNrError",
+          [vim.diagnostic.severity.WARN] = "DiagnosticLineNrWarn",
+          [vim.diagnostic.severity.INFO] = "DiagnosticLineNrInfo",
+          [vim.diagnostic.severity.HINT] = "DiagnosticLineNrHint",
+        },
+      },
+    })
   end,
 })
 

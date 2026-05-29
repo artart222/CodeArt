@@ -189,7 +189,7 @@ local lsp_maps = {
     desc = "Remove Workspace Folder",
   },
   { "<leader>ll", group = "List Reference/Diagnostic" },
-  { "<leader>lld", ":lua vim.lsp.diagnostic.set_loclist()<CR>", desc = "List Diagnostic" },
+  { "<leader>lld", ":lua vim.diagnostic.setloclist()<CR>", desc = "List Diagnostic" },
   { "<leader>llr", ":lua vim.lsp.buf.references()<CR>", desc = "Show References" },
 }
 
@@ -203,8 +203,16 @@ if is_plugin_installed("lspsaga.nvim") and not disable_plugins.lspsaga then
 else
   table.insert(lsp_maps, { "<leader>la", ":lua vim.lsp.buf.code_action()<CR>", desc = "Code Action" })
   table.insert(lsp_maps, { "<leader>ld", ":lua vim.diagnostic.open_float()<CR>", desc = "Show Current Line Diagnostics" })
-  table.insert(lsp_maps, { "<leader>lgj", ":lua vim.diagnostic.goto_next()<CR>", desc = "Go To Next Diagnostics" })
-  table.insert(lsp_maps, { "<leader>lgk", ":lua vim.diagnostic.goto_prev()<CR>", desc = "Go To Previous Diagnostics" })
+  table.insert(lsp_maps, {
+    "<leader>lgj",
+    ":lua vim.diagnostic.jump({ count = 1, float = true })<CR>",
+    desc = "Go To Next Diagnostics",
+  })
+  table.insert(lsp_maps, {
+    "<leader>lgk",
+    ":lua vim.diagnostic.jump({ count = -1, float = true })<CR>",
+    desc = "Go To Previous Diagnostics",
+  })
   table.insert(lsp_maps, { "<leader>lh", ":lua vim.lsp.buf.hover()<CR>", desc = "Hover" })
   table.insert(lsp_maps, { "<leader>lr", ":lua vim.lsp.buf.rename()<CR>", desc = "Rename" })
 end

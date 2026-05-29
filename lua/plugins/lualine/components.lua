@@ -14,7 +14,7 @@ function M.lsp_progress(_)
     local spinners = { "", "", "" }
     local success_icon = { "", "", "" }
 
-    local ms = vim.loop.hrtime() / 1000000
+    local ms = vim.uv.hrtime() / 1000000
     local frame = math.floor(ms / 120) % #spinners
 
     if percentage >= 70 then
@@ -29,19 +29,17 @@ end
 
 function M.treesitter_status(_)
   local b = vim.api.nvim_get_current_buf()
-  if type(vim.treesitter.highlighter.active[b]) ~= "nil" then
-    if next(vim.treesitter.highlighter.active[b]) then
-      return " TS"
-    end
-    return " TS"
+  local ok, parser = pcall(vim.treesitter.get_parser, b)
+  if ok and parser then
+    return " TS"
   end
   return " TS"
 end
 
 function M.lsp_name(msg)
   msg = msg or "Inactive"
-  local buf_clients = vim.lsp.buf_get_clients()
-  if next(buf_clients) == nil then
+  local buf_clients = vim.lsp.get_clients({ bufnr = 0 })
+  if vim.tbl_isempty(buf_clients) then
     if type(msg) == "boolean" or #msg == 0 then
       return "Inactive"
     end

@@ -3,7 +3,7 @@ local additional_plugins = require("user_settings").additional_plugins
 local lazy_nvim_path = require("utils").lazy_nvim_path
 local plugins_path = require("utils").plugins_path
 
-if not vim.loop.fs_stat(lazy_nvim_path) then
+if not vim.uv.fs_stat(lazy_nvim_path) then
   vim.fn.system({
     "git",
     "clone",

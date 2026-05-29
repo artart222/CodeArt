@@ -3,7 +3,7 @@ local M = {}
 local fn = vim.fn
 
 -- Finding os name.
-M.os = vim.loop.os_uname().sysname
+M.os = vim.uv.os_uname().sysname
 -- Setting lazy.nvim and plugins instalation path.
 M.plugins_path = fn.stdpath("data") .. "/lazy/"
 M.lazy_nvim_path = M.plugins_path .. "lazy.nvim"
