@@ -4,6 +4,21 @@ if not present then
 end
 
 local treesitter_config = {
+  ensure_installed = {
+    "lua",
+    "vim",
+    "vimdoc",
+    "query",
+    "bash",
+    "python",
+    "javascript",
+    "typescript",
+    "json",
+    "markdown",
+    "rust",
+    "c",
+    "cpp",
+  },
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,

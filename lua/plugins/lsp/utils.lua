@@ -1,28 +1,38 @@
 local M = {}
 
-function M.list_registered_providers_names(filetype)
-  local s = require("null-ls.sources")
-  local available_sources = s.get_available(filetype)
-  local registered = {}
-  for _, source in ipairs(available_sources) do
-    for method in pairs(source.methods) do
-      registered[method] = registered[method] or {}
-      table.insert(registered[method], source.name)
+function M.list_registered_formatters(filetype)
+  local ok, conform = pcall(require, "conform")
+  if not ok then
+    return {}
+  end
+
+  local formatters = conform.formatters_by_ft[filetype] or {}
+  local names = {}
+  for _, formatter in ipairs(formatters) do
+    if type(formatter) == "string" then
+      table.insert(names, formatter)
+    elseif type(formatter) == "table" and formatter.name then
+      table.insert(names, formatter.name)
     end
   end
-  return registered
-end
-
-function M.list_registered_formatters(filetype)
-  local registered_providers = M.list_registered_providers_names(filetype)
-  local method = require("null-ls").methods.FORMATTING
-  return registered_providers[method] or {}
+  return names
 end
 
 function M.list_registered_linters(filetype)
-  local registered_providers = M.list_registered_providers_names(filetype)
-  local method = require("null-ls").methods.DIAGNOSTICS
-  return registered_providers[method] or {}
+  local ok, lint = pcall(require, "lint")
+  if not ok then
+    return {}
+  end
+
+  return lint.linters_by_ft[filetype] or {}
+end
+
+function M.has_conform_formatter(bufnr)
+  local ok, conform = pcall(require, "conform")
+  if not ok then
+    return false
+  end
+  return #conform.list_formatters(bufnr) > 0
 end
 
 return M

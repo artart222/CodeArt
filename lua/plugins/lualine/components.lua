@@ -51,9 +51,7 @@ function M.lsp_name(msg)
   local buf_client_names = {}
 
   for _, client in pairs(buf_clients) do
-    if client.name ~= "null-ls" then
-      table.insert(buf_client_names, client.name)
-    end
+    table.insert(buf_client_names, client.name)
   end
 
   local supported_formatters = lsp_utils.list_registered_formatters(buf_ft)

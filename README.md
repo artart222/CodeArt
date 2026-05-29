@@ -47,7 +47,7 @@ exec ~/.config/nvim/installer/linux-mac.sh
 sudo apt update; sudo apt install neovim
 ```
 
-**_And after that open neovim and run `:PackerSync` and then reopen nevom!_**
+**_Requires Neovim 0.11+. After installation, open Neovim and run `:Lazy sync`, then reopen Neovim._**
 
 🪟 on Windows:
 
@@ -73,10 +73,23 @@ powershell.exe -executionpolicy bypass -file $HOME\AppData\Local\nvim\installer\
 
 #### Very important note: Updating CodeArt will replace this github repo configs directory with ~/.config/nvim so if you don't want to lose any existing modifications you've made you must put your modifications into ~/.config/nvim/lua/user_settings.lua on linux and mac, put your configs in C:\Users\your_user\AppData\Local\nvim\lua\user_settings.lua if you use Windows
 
-- Run `:CodeArtUpdate` inside NeoVim
+- Run `:CodeArtUpdate` inside NeoVim (pulls config and runs `:Lazy sync`)
 - Restart NeoVim
-- Run `:PackerSync`
-- Restart NeoVim!
+- Run `:MasonUpdate` and `:TSUpdate` if needed
+- Restart NeoVim
+
+### Migrating from CodeArt 1.x
+
+If you customized `user_settings.lua`:
+
+- `config.null_ls` → `config.conform` and `config.lint` tables
+- `config.cmp` → `config.blink`
+- `config.nvim_tree` → `config.neo_tree`
+- `disable_plugins.nvim_tree` → `neo_tree`
+- `disable_plugins.null_ls` → `conform` and `lint`
+- `disable_plugins.nvim_cmp` and `cmp_*` → `blink_cmp`
+
+See [CHANGELOG.md](CHANGELOG.md) for the full list of breaking changes.
 
 <a id="screenshots"></a>
 
@@ -130,7 +143,7 @@ powershell.exe -executionpolicy bypass -file $HOME\AppData\Local\nvim\installer\
 - 🌲💺 [Treesitter](https://github.com/nvim-treesitter/nvim-treesitter) based code highlighting
   ![Treesitter](/utils/media/Treesitter.png "Treesitter")
 
-- 🌳:card_file_box: [NvimTree](https://github.com/kyazdani42/nvim-tree.lua) as file tree
+- 🌳:card_file_box: [neo-tree](https://github.com/nvim-neo-tree/neo-tree.nvim) as file tree
   ![FileTree](/utils/media/FileTree.png "FileTree")
 
 - 🚏🚌 [ToggleTerm](https://github.com/akinsho/toggleterm.nvim) as built in terminal
@@ -143,7 +156,7 @@ powershell.exe -executionpolicy bypass -file $HOME\AppData\Local\nvim\installer\
   ![TODO1](/utils/media/TODO.png "TODO")
   ![TODO2](/utils/media/TODO2.png "TODO2")
 
-- :bookmark: [Tag viewer](https://github.com/liuchengxu/vista.vim#commands)
+- :bookmark: [Symbol outline](https://github.com/hedyhli/outline.nvim)
   ![TagViewer](/utils/media/TagViewer.png "TagViewer")
 
 - 🤔🔑 [Whichkey](https://github.com/folke/which-key.nvim)

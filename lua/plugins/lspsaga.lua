@@ -4,20 +4,20 @@ if not present then
 end
 
 local lspsaga_config = {
-  debug = false,
-  use_saga_diagnostic_sign = false,
-  code_action_icon = "󰌵 ",
-  code_action_prompt = {
-    enable = false,
-    sign = true,
-    sign_priority = 40,
-    virtual_text = false,
+  ui = {
+    border = "single",
+    devicon = true,
+    title = true,
   },
-  finder_definition_icon = "  ",
-  finder_reference_icon = "  ",
+  symbol_in_winbar = {
+    enable = false,
+  },
+  beacon = {
+    enable = true,
+  },
 }
 
-local config = require("user_settings")
+local config = require("user_settings").config
 if config.lspsaga then
   for k, v in pairs(config.lspsaga) do
     lspsaga_config[k] = v

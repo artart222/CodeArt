@@ -7,7 +7,7 @@ M.os = vim.loop.os_uname().sysname
 -- Setting lazy.nvim and plugins instalation path.
 M.plugins_path = fn.stdpath("data") .. "/lazy/"
 M.lazy_nvim_path = M.plugins_path .. "lazy.nvim"
-M.minimum_version_needed = "nvim-0.9.0"
+M.minimum_version_needed = "nvim-0.11.0"
 
 -- Check for instalation status of plugin.
 function M.is_plugin_installed(plugin_name)
@@ -206,7 +206,7 @@ function M.update()
 
   -- Show status to user.
   if job_status == 0 then
-    vim.api.nvim_notify("CodeArt Updated!", vim.log.levels.WARN, { title = "CodeArt" })
+    vim.notify("CodeArt config updated. Syncing plugins...", vim.log.levels.INFO, { title = "CodeArt" })
   else
     vim.notify("Update failed! Please try Updating manually.", vim.log.levels.ERROR, { title = "CodeArt" })
     -- If update failed tell user to go to CodeArt wiki at github and update it manually.
@@ -215,6 +215,16 @@ function M.update()
       vim.log.levels.ERROR,
       { title = "CodeArt" }
     )
+    return
+  end
+
+  if pcall(require, "lazy") then
+    require("lazy").sync({ wait = true })
+    vim.notify("CodeArt updated! Restart Neovim, then run :MasonUpdate and :TSUpdate if needed.", vim.log.levels.INFO, {
+      title = "CodeArt",
+    })
+  else
+    vim.notify("CodeArt config updated! Restart Neovim and run :Lazy sync.", vim.log.levels.WARN, { title = "CodeArt" })
   end
 end
 

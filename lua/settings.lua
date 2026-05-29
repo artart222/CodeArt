@@ -2,6 +2,15 @@
 local opt = vim.opt
 local exec = vim.api.nvim_exec
 
+local minimum_version = require("utils").minimum_version_needed
+if vim.fn.has(minimum_version) == 0 then
+  vim.notify(
+    "CodeArt 2.0 requires Neovim 0.11+. You have: " .. vim.version().major .. "." .. vim.version().minor,
+    vim.log.levels.ERROR,
+    { title = "CodeArt" }
+  )
+end
+
 -- Defining alias for some functions.
 local is_plugin_installed = require("utils").is_plugin_installed
 local disable_plugins = require("user_settings").disable_plugins
@@ -82,7 +91,7 @@ opt.completeopt = { "menuone", "noselect" }
 
 -- Seting fold settings.
 opt.foldmethod = "expr"
-opt.foldexpr = "nvim_treesitter#foldexpr()"
+opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 opt.foldlevel = 99
 
 -- Enables the experimental Lua module loader.
@@ -122,8 +131,8 @@ if vim.fn.index(vim.fn.argv(), ".") >= 0 then
   autocmd("VimEnter", {
     pattern = "*",
     callback = function()
-      if is_plugin_installed("nvim-tree.lua") and not disable_plugins.nvim_tree then
-        require("nvim-tree.api").tree.open()
+      if is_plugin_installed("neo-tree.nvim") and not disable_plugins.neo_tree then
+        vim.cmd("Neotree reveal")
       end
     end,
   })
@@ -132,7 +141,7 @@ elseif vim.fn.len(vim.fn.argv()) == 0 then
   autocmd("VimEnter", {
     pattern = "*",
     callback = function()
-      if is_plugin_installed("dashboard-nvim") and not disable_plugins.alpha then
+      if is_plugin_installed("dashboard-nvim") and not disable_plugins.dashboard then
         vim.cmd("Dashboard")
       end
     end,
@@ -167,18 +176,20 @@ local statusline_hide = {
   "alpha",
   "TelescopePrompt",
   "TelescopeResults",
-  "packer",
+  "lazy",
   "lspinfo",
-  "lsp-installer",
+  "mason",
+  "neo-tree",
 }
 local cursorline_hide = {
   "alpha",
   "dashboard",
   "TelescopePrompt",
   "TelescopeResults",
-  "packer",
+  "lazy",
   "lspinfo",
-  "lsp-installer",
+  "mason",
+  "neo-tree",
 }
 local function toggle_statusline(types)
   for _, type in pairs(types) do

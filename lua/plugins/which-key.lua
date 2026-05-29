@@ -21,17 +21,16 @@ local which_key_config = {
       nav = true,
       z = false,
       g = false,
-      windows = false, -- default bindings on <c-w>
+      windows = false,
     },
   },
   win = {
-    border = "single", -- none, single, double, shadow
+    border = "single",
     wo = { winblend = 0 },
   },
 }
 
--- Lazy.nvim: CodeArt Package Manager.
-if is_plugin_installed("lazy.nvim") and not disable_plugins.lazy then
+if is_plugin_installed("lazy.nvim") then
   which_key.add({
     { "<leader>p", group = "Plugin Manager" },
     { "<leader>pc", ":Lazy check<CR>", desc = "Check for updates and show the logs" },
@@ -63,32 +62,20 @@ end
 which_key.add(buffer_maps)
 
 which_key.add({
-  { "<leader>r", ":lua vim.lsp.buf.format({async=true})<CR>", desc = "Format" },
+  { "<leader>r", function()
+    require("conform").format({ async = true })
+  end, desc = "Format" },
 })
 
--- NvimTree
-if is_plugin_installed("nvim-tree.lua") then
-  -- This function is for using Nvimtree as fullscreen explorer
-  local function nt_explorer()
-    local view = require("nvim-tree.view")
-    if view.is_visible() then
-      vim.cmd("NvimTreeClose")
-      vim.cmd("e .")
-    else
-      vim.cmd("e .")
-      vim.cmd("NvimTreeOpen")
-    end
-  end
-
+if is_plugin_installed("neo-tree.nvim") and not disable_plugins.neo_tree then
   which_key.add({
-    { "<leader>n", group = "NvimTree" },
-    { "<leader>ne", nt_explorer, desc = "Fullscreen Explorer" },
-    { "<leader>nf", ":NvimTreeFocus<CR>", desc = "Focus on NvimTree" },
-    { "<leader>nt", ":NvimTreeToggle<CR>", desc = "Toggle NvimTree" },
+    { "<leader>n", group = "Neo-tree" },
+    { "<leader>ne", ":Neotree reveal<CR>", desc = "Reveal filesystem" },
+    { "<leader>nf", ":Neotree focus<CR>", desc = "Focus neo-tree" },
+    { "<leader>nt", ":Neotree toggle<CR>", desc = "Toggle neo-tree" },
   })
 end
 
--- Finding different stuf.
 if is_plugin_installed("telescope.nvim") then
   which_key.add({
     { "<leader>f", group = "Find" },
@@ -102,7 +89,6 @@ if is_plugin_installed("telescope.nvim") then
   })
 end
 
--- Git keybinds.
 if is_plugin_installed("telescope.nvim") or is_plugin_installed("gitsigns.nvim") then
   local git_maps = { { "<leader>g", group = "Git" } }
   if is_plugin_installed("telescope.nvim") then
@@ -125,7 +111,6 @@ if is_plugin_installed("telescope.nvim") or is_plugin_installed("gitsigns.nvim")
   which_key.add(git_maps)
 end
 
--- ColorScheme keybindings.
 if is_plugin_installed("telescope.nvim") or is_plugin_installed("onedark.nvim") then
   local colorscheme_maps = {
     { "<leader>c", group = "ColorScheme" },
@@ -134,7 +119,7 @@ if is_plugin_installed("telescope.nvim") or is_plugin_installed("onedark.nvim") 
     table.insert(colorscheme_maps, { "<leader>cf", ":Telescope colorscheme<CR>", desc = "Find Colorscheme" })
     table.insert(
       colorscheme_maps,
-      { "<leader>cp", ":Telescope colorscheme enable_preview=true<CR>", desc = "Find Colorscheme with previwer " }
+      { "<leader>cp", ":Telescope colorscheme enable_preview=true<CR>", desc = "Find Colorscheme with preview" }
     )
   end
   if is_plugin_installed("onedark.nvim") then
@@ -143,12 +128,13 @@ if is_plugin_installed("telescope.nvim") or is_plugin_installed("onedark.nvim") 
       { "<leader>co", ':lua require("onedark").toggle()<CR>', desc = "Toggle Onedark Style" }
     )
   end
+  if is_plugin_installed("catppuccin") and not disable_plugins.catppuccin then
+    table.insert(colorscheme_maps, { "<leader>cc", ":colorscheme catppuccin<CR>", desc = "Catppuccin" })
+  end
   which_key.add(colorscheme_maps)
 end
 
--- Terminal.
 if is_plugin_installed("toggleterm.nvim") then
-  -- TODO:
   require("toggleterm")
   local terminal_maps = {
     { "<leader>t", group = "Terminal" },
@@ -178,13 +164,12 @@ if is_plugin_installed("toggleterm.nvim") then
   which_key.add(terminal_maps)
 end
 
--- Lsp
 local lsp_maps = {
   { "<leader>l", group = "LSP" },
   { "<leader>ls", ":lua vim.lsp.buf.signature_help()<CR>", desc = "Signature Help" },
   { "<leader>lg", group = "GOTO" },
   { "<leader>lgD", ":lua vim.lsp.buf.declaration()<CR>", desc = "Go To Declaration" },
-  { "<leader>lgd", "::lua vim.lsp.buf.definition()<CR>", desc = "Go to Definition" },
+  { "<leader>lgd", ":lua vim.lsp.buf.definition()<CR>", desc = "Go to Definition" },
   { "<leader>lgi", ":lua vim.lsp.buf.implementation()<CR>", desc = "Go To Implementation" },
   {
     "<leader>lgt",
@@ -207,22 +192,40 @@ local lsp_maps = {
   { "<leader>lld", ":lua vim.lsp.diagnostic.set_loclist()<CR>", desc = "List Diagnostic" },
   { "<leader>llr", ":lua vim.lsp.buf.references()<CR>", desc = "Show References" },
 }
-if is_plugin_installed("lspsaga.nvim") then
-  table.insert(lsp_maps, { "<leader>la", ":Lspsaga range_code_action<cr>", desc = "Code Action" })
+
+if is_plugin_installed("lspsaga.nvim") and not disable_plugins.lspsaga then
+  table.insert(lsp_maps, { "<leader>la", ":Lspsaga code_action<CR>", desc = "Code Action" })
   table.insert(lsp_maps, { "<leader>ld", ":Lspsaga show_line_diagnostics<CR>", desc = "Show Current Line Diagnostics" })
-  table.insert(lsp_maps, { "<leader>lgj", ":Lspsaga diagnostic_jump_next<CR>", desc = "Go To Previous Diagnostics" })
-  table.insert(lsp_maps, { "<leader>lgk", ":Lspsaga diagnostic_jump_prev<CR>", desc = "Go To Next Diagnostics" })
+  table.insert(lsp_maps, { "<leader>lgj", ":Lspsaga diagnostic_jump_next<CR>", desc = "Go To Next Diagnostics" })
+  table.insert(lsp_maps, { "<leader>lgk", ":Lspsaga diagnostic_jump_prev<CR>", desc = "Go To Previous Diagnostics" })
   table.insert(lsp_maps, { "<leader>lh", ":Lspsaga hover_doc<CR>", desc = "Display Information Of Symbol" })
   table.insert(lsp_maps, { "<leader>lr", ":Lspsaga rename<CR>", desc = "Rename" })
-  table.insert(lsp_maps, { "<leader>lI", ":LspInstallInfo<CR>", desc = "Installer Info" })
-  table.insert(lsp_maps, { "<leader>li", ":LspInfo<CR>", desc = "Info" })
+else
+  table.insert(lsp_maps, { "<leader>la", ":lua vim.lsp.buf.code_action()<CR>", desc = "Code Action" })
+  table.insert(lsp_maps, { "<leader>ld", ":lua vim.diagnostic.open_float()<CR>", desc = "Show Current Line Diagnostics" })
+  table.insert(lsp_maps, { "<leader>lgj", ":lua vim.diagnostic.goto_next()<CR>", desc = "Go To Next Diagnostics" })
+  table.insert(lsp_maps, { "<leader>lgk", ":lua vim.diagnostic.goto_prev()<CR>", desc = "Go To Previous Diagnostics" })
+  table.insert(lsp_maps, { "<leader>lh", ":lua vim.lsp.buf.hover()<CR>", desc = "Hover" })
+  table.insert(lsp_maps, { "<leader>lr", ":lua vim.lsp.buf.rename()<CR>", desc = "Rename" })
 end
-if is_plugin_installed("telescope.nvim") then
-  table.insert(lsp_maps, { "<leader>llD", ":Telescope diagnostics<CR>", desc = "Show Diagnostics list via Telescope" })
+
+if is_plugin_installed("Mason") or is_plugin_installed("mason.nvim") then
+  table.insert(lsp_maps, { "<leader>lI", ":Mason<CR>", desc = "Mason" })
 end
+table.insert(lsp_maps, { "<leader>li", ":checkhealth vim.lsp<CR>", desc = "LSP Info" })
+
+if is_plugin_installed("trouble.nvim") and not disable_plugins.trouble then
+  table.insert(lsp_maps, { "<leader>llD", ":Trouble diagnostics<CR>", desc = "Diagnostics (Trouble)" })
+elseif is_plugin_installed("telescope.nvim") then
+  table.insert(lsp_maps, { "<leader>llD", ":Telescope diagnostics<CR>", desc = "Diagnostics (Telescope)" })
+end
+
+if is_plugin_installed("outline.nvim") and not disable_plugins.outline then
+  table.insert(lsp_maps, { "<leader>lo", ":Outline<CR>", desc = "Symbol Outline" })
+end
+
 which_key.add(lsp_maps)
 
--- Debugger
 if is_plugin_installed("nvim-dap") or is_plugin_installed("nvim-dap-ui") then
   local debug_maps = {
     { "<leader>d", group = "Debugging" },
@@ -257,22 +260,20 @@ if is_plugin_installed("nvim-dap") or is_plugin_installed("nvim-dap-ui") then
   which_key.add(debug_maps)
 end
 
--- Comment
-if is_plugin_installed("kommentary") then
+if is_plugin_installed("Comment.nvim") and not disable_plugins.comment then
   which_key.add({
-    { "<leader>/", "<Plug>kommentary_line_default", desc = "Comment", mode = "n" },
-    { "<leader>/", "<Plug>kommentary_visual_default", desc = "Comment", mode = "v" },
+    { "<leader>/", "gcc", desc = "Comment line", mode = "n" },
+    { "<leader>/", "gc", desc = "Comment selection", mode = "v" },
   })
 end
 
--- Adding user mappings
 if require("user_settings").extra_which_keys then
   for _, v in ipairs(require("user_settings").extra_which_keys) do
     which_key.register(v[1], v[2])
   end
 end
 
-local config = require("user_settings")
+local config = require("user_settings").config
 if config.which_key then
   for k, v in pairs(config.which_key) do
     which_key_config[k] = v

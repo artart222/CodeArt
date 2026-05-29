@@ -3,7 +3,13 @@ if not present then
   return
 end
 
-local mason_lspconfig_config = {}
+local mason_lspconfig_config = {
+  handlers = {
+    function(server_name)
+      require("lspconfig")[server_name].setup(require("plugins.lsp.lsp").lsp_config)
+    end,
+  },
+}
 
 local config = require("user_settings")
 if config.mason_lspconfig then

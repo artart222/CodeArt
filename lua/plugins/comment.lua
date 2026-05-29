@@ -36,10 +36,8 @@ local comment_config = {
   ---Enable keybindings
   ---NOTE: If given `false` then the plugin won't create any mappings
   mappings = {
-    ---Operator-pending mapping; `gcc` `gbc` `gc[count]{motion}` `gb[count]{motion}`
-    basic = false,
-    ---Extra mapping; `gco`, `gcO`, `gcA`
-    extra = false,
+    basic = true,
+    extra = true,
   },
   ---Function to call before (un)comment
   pre_hook = function()
