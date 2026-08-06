@@ -1,14 +1,13 @@
+-- Apply vim.lsp.config / LspAttach before enabling Mason-installed servers.
+require("plugins.lsp.lsp")
+
 local present, mason_lspconfig = pcall(require, "mason-lspconfig")
 if not present then
   return
 end
 
 local mason_lspconfig_config = {
-  handlers = {
-    function(server_name)
-      require("lspconfig")[server_name].setup(require("plugins.lsp.lsp").lsp_config)
-    end,
-  },
+  automatic_enable = true,
 }
 
 local config = require("user_settings")

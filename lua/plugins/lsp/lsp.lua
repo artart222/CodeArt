@@ -7,27 +7,36 @@ local function get_capabilities()
   return vim.lsp.protocol.make_client_capabilities()
 end
 
-local M = {}
+vim.lsp.config("*", {
+  capabilities = get_capabilities(),
+})
 
-M.lsp_config = {
-  on_attach = function(client, bufnr)
+vim.lsp.config("clangd", {
+  offset_encoding = "utf-16",
+})
+
+vim.api.nvim_create_autocmd("LspAttach", {
+  group = vim.api.nvim_create_augroup("CodeArtLspAttach", { clear = true }),
+  callback = function(args)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if not client then
+      return
+    end
+
+    local bufnr = args.buf
+
     if require("utils").is_plugin_installed("lsp_signature.nvim") then
       require("lsp_signature").on_attach({
         hint_prefix = "",
-      })
+      }, bufnr)
     end
 
     if lsp_utils.has_conform_formatter(bufnr) then
       client.server_capabilities.documentFormattingProvider = false
       client.server_capabilities.documentRangeFormattingProvider = false
     end
-
-    if client.name == "clangd" then
-      client.offset_encoding = "utf-16"
-    end
   end,
-  capabilities = get_capabilities(),
-}
+})
 
 vim.diagnostic.config({
   virtual_text = false,
@@ -36,5 +45,3 @@ vim.diagnostic.config({
 if require("user_settings").config.lsp ~= nil then
   require("user_settings").config.lsp()
 end
-
-return M

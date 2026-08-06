@@ -3,8 +3,6 @@ if not present then
   return
 end
 
-local icons = require("theme").icons
-
 local todo_comments_config = {
   sign_priority = 10, -- sign priority
   keywords = {

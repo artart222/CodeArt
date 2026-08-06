@@ -1,15 +1,5 @@
--- Defining alias for vim.opt and vim.api.nvim_exec.
+-- Defining alias for vim.opt.
 local opt = vim.opt
-local exec = vim.api.nvim_exec
-
-local minimum_version = require("utils").minimum_version_needed
-if vim.fn.has(minimum_version) == 0 then
-  vim.notify(
-    "CodeArt 2.0 requires Neovim 0.11+. You have: " .. vim.version().major .. "." .. vim.version().minor,
-    vim.log.levels.ERROR,
-    { title = "CodeArt" }
-  )
-end
 
 -- Defining alias for some functions.
 local is_plugin_installed = require("utils").is_plugin_installed

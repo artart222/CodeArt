@@ -9,6 +9,26 @@ M.plugins_path = fn.stdpath("data") .. "/lazy/"
 M.lazy_nvim_path = M.plugins_path .. "lazy.nvim"
 M.minimum_version_needed = "nvim-0.11.0"
 
+---Return true when the running Neovim meets CodeArt's minimum version.
+function M.has_minimum_version()
+  return fn.has(M.minimum_version_needed) == 1
+end
+
+---Notify about a too-old Neovim and how to upgrade (OS package manager only).
+function M.notify_neovim_too_old()
+  local v = vim.version()
+  vim.notify(
+    string.format(
+      "CodeArt 2.1 requires Neovim 0.11+. You have: %d.%d.%d\nUpgrade Neovim with your OS package manager, then reopen Neovim.",
+      v.major,
+      v.minor,
+      v.patch
+    ),
+    vim.log.levels.ERROR,
+    { title = "CodeArt" }
+  )
+end
+
 -- Check for instalation status of plugin.
 function M.is_plugin_installed(plugin_name)
   -- If plugin is installed.
@@ -140,61 +160,26 @@ function M.highlight(highlight_group, colors, opts)
   vim.api.nvim_set_hl(0, highlight_group, options)
 end
 
-function M.update_neovim()
-  vim.notify("Updating NeoVim.", vim.log.levels.WARN, { title = "CodeArt" })
-  -- Check if user has minimum version needed for CodeArt.
-  -- If he/she hasn't minimum version try to update CodeArt with excisting package managers.
-  if fn.has(M.minimum_version_needed) == "0" then
-    if M.os == "Windows_NT" then
-      -- Try Updating NeoVim with excisting package managers.
-      if fn.executable("winget") then
-        fn.executable(
-          "winget install -e --silent --accept-source-agreements --accept-package-agreements --id Neovim.Neovim.Nightly"
-        )
-        vim.notify("NeoVim Updated.", vim.log.levels.WARN, { title = "CodeArt" })
-      elseif fn.executable("choco") then
-        fn.system("choco upgrade neovim -y")
-        vim.notify("NeoVim Updated.", vim.log.levels.WARN, { title = "CodeArt" })
-      end
-    elseif M.os == "Linux" then
-      -- Try Updating NeoVim with excisting package managers.
-      if fn.system("command -v pacman") ~= "" then
-        fn.system("sudo pacman -Sy neovim --noconfirm")
-        vim.notify("NeoVim Updated.", vim.log.levels.WARN, { title = "CodeArt" })
-      elseif fn.system("command -v apt-get") ~= "" then
-        fn.system("sudo apt update; sudo apt install neovim -y")
-        vim.notify("NeoVim Updated.", vim.log.levels.WARN, { title = "CodeArt" })
-      elseif fn.system("command -v dnf") ~= "" then
-        fn.system("sudo dnf update -y; sudo dnf install neovim -y")
-        vim.notify("NeoVim Updated.", vim.log.levels.WARN, { title = "CodeArt" })
-      elseif fn.system("command -v zypper") ~= "" then
-        fn.system("sudo zypper ref; sudo zypper -n neovim")
-        vim.notify("NeoVim Updated.", vim.log.levels.WARN, { title = "CodeArt" })
-      elseif fn.system("command -v emerge") ~= "" then
-        fn.system("emerge --ask=n app-editors/neovim")
-        vim.notify("NeoVim Updated.", vim.log.levels.WARN, { title = "CodeArt" })
-      end
-    else
-      -- Try Updating NeoVim with excisting package manager.
-      if fn.executable("brew") then
-        fn.system("brew install neovim")
-        vim.notify("NeoVim Updated.", vim.log.levels.WARN, { title = "CodeArt" })
-      end
-    end
-  end
-end
-
 function M.update()
-  M.update_neovim()
+  if not M.has_minimum_version() then
+    M.notify_neovim_too_old()
+    return
+  end
 
   -- Update CodeArt config via git pull --ff-only
   -- NOTE: Using plenary.nvim with assumption of it is installed because it's used in many plugins.
   local Job = require("plenary.job")
   local job_status
+  local job_stderr = {}
   Job:new({
     command = "git",
     args = { "pull", "--ff-only" },
     cwd = fn.stdpath("config"),
+    on_stderr = function(_, data)
+      if data then
+        table.insert(job_stderr, data)
+      end
+    end,
     on_exit = function(_, return_val)
       if return_val == 0 then
         job_status = 0
@@ -208,21 +193,27 @@ function M.update()
   if job_status == 0 then
     vim.notify("CodeArt config updated. Syncing plugins...", vim.log.levels.INFO, { title = "CodeArt" })
   else
-    vim.notify("Update failed! Please try Updating manually.", vim.log.levels.ERROR, { title = "CodeArt" })
-    -- If update failed tell user to go to CodeArt wiki at github and update it manually.
     vim.notify(
-      "For more information please go to CodeArt wiki on https://github.com/artart222/CodeArt/wiki.",
+      "Update failed: git pull --ff-only could not update the config.\n"
+        .. "Local changes (often lua/user_settings.lua) usually block this.\n"
+        .. "Stash or commit your changes, or back up user_settings.lua and try again.",
       vim.log.levels.ERROR,
       { title = "CodeArt" }
     )
+    if #job_stderr > 0 then
+      vim.notify(table.concat(job_stderr, "\n"), vim.log.levels.ERROR, { title = "CodeArt" })
+    end
     return
   end
 
   if pcall(require, "lazy") then
     require("lazy").sync({ wait = true })
-    vim.notify("CodeArt updated! Restart Neovim, then run :MasonUpdate and :TSUpdate if needed.", vim.log.levels.INFO, {
-      title = "CodeArt",
-    })
+    vim.notify(
+      "CodeArt updated! Restart Neovim, then run :MasonUpdate and :TSUpdate if needed.\n"
+        .. ":CodeArtUpdate only updates CodeArt and plugins — upgrade Neovim with your OS package manager when required.",
+      vim.log.levels.INFO,
+      { title = "CodeArt" }
+    )
   else
     vim.notify("CodeArt config updated! Restart Neovim and run :Lazy sync.", vim.log.levels.WARN, { title = "CodeArt" })
   end

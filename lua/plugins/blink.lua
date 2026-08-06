@@ -1,31 +1,3 @@
-local blink_kinds = {
-  Text = " ",
-  Method = " ",
-  Function = " ",
-  Constructor = " ",
-  Field = " ",
-  Variable = " ",
-  Class = " ",
-  Interface = " ",
-  Module = " ",
-  Property = " ",
-  Unit = " ",
-  Value = " ",
-  Enum = " ",
-  Keyword = " ",
-  Snippet = " ",
-  Color = " ",
-  File = " ",
-  Reference = " ",
-  Folder = " ",
-  EnumMember = " ",
-  Constant = " ",
-  Struct = " ",
-  Event = " ",
-  Operator = " ",
-  TypeParameter = " ",
-}
-
 local blink_config = {
   keymap = {
     preset = "default",
@@ -39,6 +11,33 @@ local blink_config = {
   },
   appearance = {
     nerd_font_variant = "mono",
+    kind_icons = {
+      Text = "",
+      Method = "",
+      Function = "",
+      Constructor = "",
+      Field = "",
+      Variable = "",
+      Class = "",
+      Interface = "",
+      Module = "",
+      Property = "",
+      Unit = "",
+      Value = "",
+      Enum = "",
+      Keyword = "",
+      Snippet = "",
+      Color = "",
+      File = "",
+      Reference = "",
+      Folder = "",
+      EnumMember = "",
+      Constant = "",
+      Struct = "",
+      Event = "",
+      Operator = "",
+      TypeParameter = "",
+    },
   },
   completion = {
     documentation = {
@@ -55,15 +54,6 @@ local blink_config = {
   },
   snippets = { preset = "luasnip" },
   fuzzy = { implementation = "prefer_rust" },
-  formatting = {
-    fields = { "kind", "label", "detail" },
-    format = function(entry, item)
-      local kind_icon = blink_kinds[item.kind] or ""
-      item.kind_icon = kind_icon
-      item.kind = ("%s %s"):format(kind_icon, item.kind)
-      return item
-    end,
-  },
 }
 
 local config = require("user_settings").config

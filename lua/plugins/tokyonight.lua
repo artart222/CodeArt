@@ -8,8 +8,8 @@ local tokyonight_config = {
 }
 
 local config = require("user_settings")
-if config.tokyonigh then
-  for k, v in pairs(config.tokyonigh) do
+if config.tokyonight then
+  for k, v in pairs(config.tokyonight) do
     tokyonight_config[k] = v
   end
 end

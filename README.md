@@ -47,7 +47,7 @@ exec ~/.config/nvim/installer/linux-mac.sh
 sudo apt update; sudo apt install neovim
 ```
 
-**_Requires Neovim 0.11+. After installation, open Neovim and run `:Lazy sync`, then reopen Neovim._**
+**_Requires Neovim 0.11+. After installation, open Neovim and run `:Lazy sync`, then reopen Neovim. Upgrade Neovim with your OS package manager if needed — CodeArt will refuse to load on older versions._**
 
 🪟 on Windows:
 
@@ -71,12 +71,16 @@ powershell.exe -executionpolicy bypass -file $HOME\AppData\Local\nvim\installer\
 
 ## ⬆️📅 How to update CodeArt:
 
-#### Very important note: Updating CodeArt will replace this github repo configs directory with ~/.config/nvim so if you don't want to lose any existing modifications you've made you must put your modifications into ~/.config/nvim/lua/user_settings.lua on linux and mac, put your configs in C:\Users\your_user\AppData\Local\nvim\lua\user_settings.lua if you use Windows
+`:CodeArtUpdate` updates **CodeArt config and plugins only** (`git pull --ff-only` + `:Lazy sync`). It does **not** upgrade Neovim. Install or upgrade Neovim with your OS package manager (Homebrew, apt, pacman, winget, etc.).
 
-- Run `:CodeArtUpdate` inside NeoVim (pulls config and runs `:Lazy sync`)
+#### Very important note: put customizations in `lua/user_settings.lua`. Local edits outside that file (or an uncommitted dirty tree) can block `git pull --ff-only`. Stash/commit or back up your changes before updating.
+
+- Run `:CodeArtUpdate` inside NeoVim
 - Restart NeoVim
 - Run `:MasonUpdate` and `:TSUpdate` if needed
 - Restart NeoVim
+
+If CodeArt reports that your Neovim is too old after an update, upgrade Neovim first, then reopen the editor.
 
 ### Migrating from CodeArt 1.x
 

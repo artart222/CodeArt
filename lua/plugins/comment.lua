@@ -40,15 +40,11 @@ local comment_config = {
     extra = true,
   },
   ---Function to call before (un)comment
-  pre_hook = function()
+  pre_hook = function(...)
     if require("utils").is_plugin_installed("nvim-ts-context-commentstring") then
-      require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook()
-      -- return require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook()
+      local hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook()
+      return hook(...)
     end
-    -- local loaded, ts_comment = pcall(require, "ts_context_commentstring.integrations.comment_nvim")
-    -- if loaded and ts_comment then
-    --   return ts_comment.create_pre_hook()(...)
-    -- end
   end,
   ---Function to call after (un)comment
   -- post_hook = nil,

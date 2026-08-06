@@ -4,7 +4,7 @@ local lazy_nvim_path = require("utils").lazy_nvim_path
 local plugins_path = require("utils").plugins_path
 
 if not vim.uv.fs_stat(lazy_nvim_path) then
-  vim.fn.system({
+  local out = vim.fn.system({
     "git",
     "clone",
     "--filter=blob:none",
@@ -12,6 +12,14 @@ if not vim.uv.fs_stat(lazy_nvim_path) then
     "--branch=stable",
     lazy_nvim_path,
   })
+  if vim.v.shell_error ~= 0 then
+    vim.notify(
+      "Failed to clone lazy.nvim:\n" .. out,
+      vim.log.levels.ERROR,
+      { title = "CodeArt" }
+    )
+    return
+  end
 end
 vim.opt.rtp:prepend(lazy_nvim_path)
 
@@ -159,27 +167,10 @@ local plugins = {
 
   {
     "nvim-treesitter/nvim-treesitter",
-    event = { "BufAdd", "BufRead" },
+    branch = "master",
+    lazy = false,
     dependencies = { "vim-matchup" },
     build = ":TSUpdate",
-    cmd = {
-      "TSBufDisable",
-      "TSBufEnable",
-      "TSBufToggle",
-      "TSConfigInfo",
-      "TSDisable",
-      "TSEditQuery",
-      "TSEditQueryUserAfter",
-      "TSEnable",
-      "TSInstall",
-      "TSInstallFromGrammer",
-      "TSInstallInfo",
-      "TSModuleInfo",
-      "TSToggle",
-      "TSUninstall",
-      "TSUpdate",
-      "TSUpdateSync",
-    },
     config = function()
       require("plugins/treesitter")
     end,
@@ -442,6 +433,7 @@ local plugins = {
   },
   {
     "rcarriga/nvim-dap-ui",
+    dependencies = { "nvim-neotest/nvim-nio" },
     keys = { { "<leader>du", mode = "n" } },
     config = function()
       require("plugins.dapui")
