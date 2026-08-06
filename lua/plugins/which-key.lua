@@ -30,6 +30,15 @@ local which_key_config = {
   },
 }
 
+local config = require("user_settings").config
+if config.which_key then
+  for k, v in pairs(config.which_key) do
+    which_key_config[k] = v
+  end
+end
+
+which_key.setup(which_key_config)
+
 if is_plugin_installed("lazy.nvim") then
   which_key.add({
     { "<leader>p", group = "Plugin Manager" },
@@ -280,12 +289,3 @@ if require("user_settings").extra_which_keys then
     which_key.register(v[1], v[2])
   end
 end
-
-local config = require("user_settings").config
-if config.which_key then
-  for k, v in pairs(config.which_key) do
-    which_key_config[k] = v
-  end
-end
-
-which_key.setup(which_key_config)

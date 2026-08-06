@@ -277,19 +277,15 @@ local plugins = {
 
   {
     "folke/which-key.nvim",
+    event = "VeryLazy",
     keys = {
-      { "<leader>", mode = { "n", "v" } },
-      { "g", mode = { "n", "v" } },
-      { "d", mode = { "n", "v" } },
-      { "y", mode = { "n", "v" } },
-      { "!", mode = { "n", "v" } },
-      { "z", mode = { "n", "v" } },
-      { ">", mode = { "n", "v" } },
-      { "<", mode = { "n", "v" } },
-      { "]", mode = { "n", "v" } },
-      { "[", mode = { "n", "v" } },
-      { "v", mode = { "n", "v" } },
-      { "c", mode = { "n", "v" } },
+      {
+        "<leader>?",
+        function()
+          require("which-key").show({ global = false })
+        end,
+        desc = "Buffer Local Keymaps (which-key)",
+      },
     },
     config = function()
       require("plugins.which-key")
