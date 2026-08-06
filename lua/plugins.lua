@@ -167,9 +167,8 @@ local plugins = {
 
   {
     "nvim-treesitter/nvim-treesitter",
-    branch = "master",
+    branch = "main",
     lazy = false,
-    dependencies = { "vim-matchup" },
     build = ":TSUpdate",
     config = function()
       require("plugins/treesitter")
@@ -493,12 +492,17 @@ local plugins = {
   },
   {
     "JoosepAlviste/nvim-ts-context-commentstring",
+    config = function()
+      require("plugins.ts_context_commentstring")
+    end,
     enabled = not disable_plugins.ts_context_commentstring,
   },
 
   {
     "andymass/vim-matchup",
-    config = function() end,
+    config = function()
+      require("plugins.matchup")
+    end,
     enabled = not disable_plugins.vim_matchup,
   },
 

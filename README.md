@@ -47,7 +47,7 @@ exec ~/.config/nvim/installer/linux-mac.sh
 sudo apt update; sudo apt install neovim
 ```
 
-**_Requires Neovim 0.11+. After installation, open Neovim and run `:Lazy sync`, then reopen Neovim. Upgrade Neovim with your OS package manager if needed — CodeArt will refuse to load on older versions._**
+**_Requires Neovim 0.12+ and [`tree-sitter-cli`](https://github.com/tree-sitter/tree-sitter/tree/master/crates/cli) ≥ 0.26.1 (install via your OS package manager, e.g. `brew install tree-sitter-cli` — not npm). After installation, open Neovim and run `:Lazy sync`, then reopen Neovim. Upgrade Neovim with your OS package manager if needed — CodeArt will refuse to load on older versions._**
 
 🪟 on Windows:
 
@@ -63,7 +63,7 @@ powershell.exe -executionpolicy bypass -file $HOME\AppData\Local\nvim\installer\
 #### 🌲💺Σ🖥️ Install lsp and treesitter:
 
 - You can install lsp for a language with `:LspInstall <language>`
-- You can install treesitter with `:TSInstall <language>`
+- CodeArt installs a default set of treesitter parsers on startup when `tree-sitter-cli` is on your PATH. Install more with `:TSInstall <language>`, or update with `:TSUpdate`.
 
 #### These NeoVim configurations use many nerd fonts icons. JetBrains Mono will be installed by default. If you have problem for fonts and see weird icons you must change your terminal font.
 

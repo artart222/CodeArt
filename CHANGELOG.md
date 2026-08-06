@@ -2,9 +2,27 @@
 
 ## [2.1.0] - 2026-08-06
 
+### Breaking changes
+
+- **Neovim 0.12+** required (was 0.11+).
+- **nvim-treesitter** uses the **`main`** rewrite (not the frozen `master` branch).
+- **`tree-sitter-cli` ≥ 0.26.1** is required on PATH (OS package manager / cargo — **not** the npm package).
+- `user_settings.config.treesitter` is no longer a merge into `nvim-treesitter.configs.setup`. When set, use `config.treesitter.ensure_installed = { ... }` as a **full replacement** of CodeArt's default parser list.
+
+**Upgrade from an older 2.1 / treesitter `master` install:**
+
+1. Upgrade Neovim to 0.12+
+2. Install `tree-sitter-cli` (e.g. `brew install tree-sitter-cli`)
+3. Pull CodeArt / run `:CodeArtUpdate`
+4. `:Lazy sync`
+5. `:TSUninstall all`
+6. Restart Neovim, then `:TSUpdate`
+7. `:checkhealth nvim-treesitter`
+
 ### Fixed
 
-- Pin **nvim-treesitter** to `master` (`lazy = false`) so fresh installs use the configs API again (default `main` branch broke `ensure_installed` / highlighting setup).
+- Migrate **nvim-treesitter** to `main`: install parsers via the new API, enable highlighting with `vim.treesitter.start()`, and set indent except for Python.
+- Wire **vim-matchup** and **nvim-ts-context-commentstring** as standalone setups (old treesitter modules no longer exist on `main`).
 - Add missing **nvim-neotest/nvim-nio** dependency for **nvim-dap-ui** (DAP UI could not load).
 - Rewrite LSP setup for **mason-lspconfig** v2: remove removed `handlers` API; use `vim.lsp.config()` + `LspAttach` and `automatic_enable`.
 - Fix **nvim-surround** setup (`require("nvim-surround")` instead of `require("surround")`).
@@ -17,12 +35,14 @@
 ### Changed
 
 - **`:CodeArtUpdate`** is config-only: `git pull --ff-only` + `:Lazy sync`. It no longer tries to install/upgrade Neovim via OS package managers.
-- Stronger Neovim **0.11+** startup gate: ERROR notify and abort loading CodeArt if the version is too old (upgrade Neovim with your OS package manager).
+- Stronger Neovim **0.12+** startup gate: ERROR notify and abort loading CodeArt if the version is too old (upgrade Neovim with your OS package manager).
 - Commit **lazy-lock.json** for reproducible plugin versions (removed from `.gitignore`).
+- Installers document/install **tree-sitter-cli** where the package manager supports it.
 
 ### Notes
 
 - `:CodeArtUpdate` updates CodeArt and plugins only. When a release needs a newer Neovim, CodeArt will tell you at startup — upgrade Neovim yourself.
+- Missing `tree-sitter` CLI produces a startup warning; parser installs will fail with ENOENT until the CLI is installed.
 
 ## [2.0.0] - 2026-05-29
 

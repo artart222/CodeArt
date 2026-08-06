@@ -7,7 +7,7 @@ M.os = vim.uv.os_uname().sysname
 -- Setting lazy.nvim and plugins instalation path.
 M.plugins_path = fn.stdpath("data") .. "/lazy/"
 M.lazy_nvim_path = M.plugins_path .. "lazy.nvim"
-M.minimum_version_needed = "nvim-0.11.0"
+M.minimum_version_needed = "nvim-0.12.0"
 
 ---Return true when the running Neovim meets CodeArt's minimum version.
 function M.has_minimum_version()
@@ -19,7 +19,7 @@ function M.notify_neovim_too_old()
   local v = vim.version()
   vim.notify(
     string.format(
-      "CodeArt 2.1 requires Neovim 0.11+. You have: %d.%d.%d\nUpgrade Neovim with your OS package manager, then reopen Neovim.",
+      "CodeArt 2.1 requires Neovim 0.12+. You have: %d.%d.%d\nUpgrade Neovim with your OS package manager, then reopen Neovim.",
       v.major,
       v.minor,
       v.patch
@@ -209,7 +209,7 @@ function M.update()
   if pcall(require, "lazy") then
     require("lazy").sync({ wait = true })
     vim.notify(
-      "CodeArt updated! Restart Neovim, then run :MasonUpdate and :TSUpdate if needed.\n"
+      "CodeArt updated! Restart Neovim, then run :MasonUpdate and :TSUpdate if needed.\nEnsure tree-sitter-cli is on PATH for treesitter installs.\n"
         .. ":CodeArtUpdate only updates CodeArt and plugins — upgrade Neovim with your OS package manager when required.",
       vim.log.levels.INFO,
       { title = "CodeArt" }
