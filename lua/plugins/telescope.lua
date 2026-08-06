@@ -3,7 +3,6 @@ if not present then
   return
 end
 
--- TODO: complete this.
 local previewers = require("telescope.previewers")
 local Job = require("plenary.job")
 local new_maker = function(filepath, bufnr, opts)
@@ -16,7 +15,6 @@ local new_maker = function(filepath, bufnr, opts)
       if mime_type == "text" then
         previewers.buffer_previewer_maker(filepath, bufnr, opts)
       else
-        -- maybe we want to write something to the buffer here
         vim.schedule(function()
           vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, { "BINARY" })
         end)
@@ -25,20 +23,43 @@ local new_maker = function(filepath, bufnr, opts)
   }):sync()
 end
 
-local os = require("utils").os
-local buffer_previewer_maker
-local finder
-if os == "Linux" or os == "Darwin" then
-  -- Find the name of the fd binary file in the operating system.
-  if vim.fn.filereadable("/bin/fdfind") == 1 or vim.fn.filereadable("/usr/bin/fdfind") == 1 then
-    finder = "fdfind"
-  else
-    finder = "fd"
-  end
+local os_name = require("utils").os
+local buffer_previewer_maker = nil
+if os_name == "Linux" or os_name == "Darwin" then
   buffer_previewer_maker = new_maker
+end
+
+local function resolve_fd_finder()
+  if vim.fn.executable("fd") == 1 then
+    return "fd"
+  end
+  if vim.fn.executable("fdfind") == 1 then
+    return "fdfind"
+  end
+  return nil
+end
+
+local finder = resolve_fd_finder()
+local find_files = {}
+if finder then
+  find_files.find_command = { finder, "--type=file", "--follow", "--exclude=.git" }
 else
-  finder = "fd"
-  buffer_previewer_maker = nil
+  vim.notify(
+    "Telescope find_files: `fd` (or `fdfind`) was not found on PATH.\n"
+      .. "Install it with your package manager (e.g. brew install fd, apt install fd-find, choco install fd),\n"
+      .. "then ensure Neovim can see it (:echo exepath('fd')). Falling back to Telescope defaults.",
+    vim.log.levels.WARN,
+    { title = "CodeArt" }
+  )
+end
+
+if vim.fn.executable("rg") == 0 then
+  vim.notify(
+    "Telescope live_grep: `rg` (ripgrep) was not found on PATH.\n"
+      .. "Install ripgrep with your package manager so word search works.",
+    vim.log.levels.WARN,
+    { title = "CodeArt" }
+  )
 end
 
 local telescope_config = {
@@ -59,26 +80,10 @@ local telescope_config = {
     selection_caret = "󰋇 ",
   },
   pickers = {
-    find_files = {
-      find_command = { finder, "--type=file", "--follow", "--exclude=.git" },
-    },
+    find_files = find_files,
   },
   extensions = {},
 }
-
-if require("utils").is_plugin_installed("telescope-fzf-native.nvim") then
-  telescope_config.extensions["fzf"] = {
-    fuzzy = true,
-    override_generic_sorter = true,
-    override_file_sorter = true,
-    case_mode = "smart_case",
-  }
-  telescope_setup.load_extension("fzf")
-end
-
-if require("utils").is_plugin_installed("telescope_find_directories") then
-  telescope_setup.load_extension("find_directories")
-end
 
 local config = require("user_settings")
 if config.telescope then
@@ -87,4 +92,22 @@ if config.telescope then
   end
 end
 
+if require("utils").is_plugin_installed("telescope-fzf-native.nvim") then
+  telescope_config.extensions = telescope_config.extensions or {}
+  telescope_config.extensions["fzf"] = {
+    fuzzy = true,
+    override_generic_sorter = true,
+    override_file_sorter = true,
+    case_mode = "smart_case",
+  }
+end
+
 telescope_setup.setup(telescope_config)
+
+if require("utils").is_plugin_installed("telescope-fzf-native.nvim") then
+  pcall(telescope_setup.load_extension, "fzf")
+end
+
+if require("utils").is_plugin_installed("telescope_find_directories") then
+  pcall(telescope_setup.load_extension, "find_directories")
+end
