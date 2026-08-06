@@ -29,6 +29,34 @@ function M.notify_neovim_too_old()
   )
 end
 
+-- Session-scoped missing-binary warns (one notify per dedupe key).
+M._warned_missing = {}
+
+---Warn once per session if none of the given executables are on PATH.
+---@param names string|string[] binary name, or list of alternatives (any one is enough)
+---@param message string notify body
+---@param dedupe_key? string defaults to first name; use for aliases (e.g. fd/fdfind → "fd")
+---@return boolean missing true when no candidate was found
+function M.warn_missing_executable(names, message, dedupe_key)
+  if type(names) == "string" then
+    names = { names }
+  end
+
+  for _, name in ipairs(names) do
+    if fn.executable(name) == 1 then
+      return false
+    end
+  end
+
+  local key = dedupe_key or names[1]
+  if M._warned_missing[key] then
+    return true
+  end
+  M._warned_missing[key] = true
+  vim.notify(message, vim.log.levels.WARN, { title = "CodeArt" })
+  return true
+end
+
 -- Check for instalation status of plugin.
 function M.is_plugin_installed(plugin_name)
   -- If plugin is installed.

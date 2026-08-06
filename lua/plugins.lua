@@ -360,6 +360,13 @@ local plugins = {
   {
     "tpope/vim-fugitive",
     cmd = "Git",
+    config = function()
+      require("utils").warn_missing_executable(
+        "git",
+        "vim-fugitive: `git` was not found on PATH.\n"
+          .. "Install git so :Git and related commands work."
+      )
+    end,
     enabled = not disable_plugins.fugitive,
   },
 

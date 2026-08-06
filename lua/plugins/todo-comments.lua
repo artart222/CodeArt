@@ -3,6 +3,12 @@ if not present then
   return
 end
 
+require("utils").warn_missing_executable(
+  "rg",
+  "todo-comments: `rg` (ripgrep) was not found on PATH.\n"
+    .. "Install ripgrep with your package manager so TODO search works."
+)
+
 local todo_comments_config = {
   sign_priority = 10, -- sign priority
   keywords = {

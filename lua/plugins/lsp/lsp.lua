@@ -11,10 +11,6 @@ vim.lsp.config("*", {
   capabilities = get_capabilities(),
 })
 
-vim.lsp.config("clangd", {
-  offset_encoding = "utf-16",
-})
-
 vim.api.nvim_create_autocmd("LspAttach", {
   group = vim.api.nvim_create_augroup("CodeArtLspAttach", { clear = true }),
   callback = function(args)

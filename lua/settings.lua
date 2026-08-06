@@ -35,6 +35,17 @@ opt.termguicolors = true
 -- Enable clipboard.
 opt.clipboard = "unnamedplus"
 
+-- Warn when no system clipboard provider is available (Linux).
+if require("utils").os == "Linux" then
+  require("utils").warn_missing_executable(
+    { "xclip", "xsel", "wl-copy" },
+    "Clipboard: no provider found (`xclip`, `xsel`, or `wl-copy`).\n"
+      .. "Install one for your display server so unnamedplus yank/paste works "
+      .. "(X11: xclip/xsel, Wayland: wl-clipboard).",
+    "clipboard"
+  )
+end
+
 -- Enable mouse in all modes.
 opt.mouse = "a"
 

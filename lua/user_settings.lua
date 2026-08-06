@@ -72,7 +72,13 @@ M.additional_plugins = {
 }
 
 M.config = {
-  -- Merge into conform.nvim setup; see lua/plugins/conform.lua
+  -- Merge into conform.nvim setup; opt-in only (no defaults). See lua/plugins/conform.lua
+  -- conform = {
+  --   formatters_by_ft = {
+  --     lua = { "stylua" },
+  --     python = { "black" },
+  --   },
+  -- },
   conform = {},
 
   -- nvim-lint: opt-in only (no defaults). Install linters via Mason, then configure:
@@ -81,6 +87,11 @@ M.config = {
   --     python = { "flake8" },
   --     sh = { "shellcheck" },
   --   },
+  -- },
+
+  -- nvim-treesitter (main): opt-in parsers only (no defaults).
+  -- treesitter = {
+  --   ensure_installed = { "lua", "vim", "python" },
   -- },
 
   lsp = function()

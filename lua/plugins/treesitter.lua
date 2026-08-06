@@ -3,46 +3,29 @@ if not present then
   return
 end
 
-if vim.fn.executable("tree-sitter") == 0 then
-  vim.notify(
-    "tree-sitter CLI not found on PATH. Install tree-sitter-cli ≥ 0.26.1 via your OS package manager (e.g. brew install tree-sitter-cli), then restart Neovim and run :TSUpdate.",
-    vim.log.levels.WARN,
-    { title = "CodeArt" }
-  )
-end
+require("utils").warn_missing_executable(
+  "tree-sitter",
+  "tree-sitter CLI not found on PATH. Install tree-sitter-cli ≥ 0.26.1 via your OS package manager (e.g. brew install tree-sitter-cli), then restart Neovim and run :TSUpdate."
+)
 
 nvim_treesitter.setup({})
 
-local default_ensure_installed = {
-  "lua",
-  "vim",
-  "vimdoc",
-  "query",
-  "bash",
-  "python",
-  "javascript",
-  "typescript",
-  "json",
-  "markdown",
-  "markdown_inline",
-  "rust",
-  "c",
-  "cpp",
-}
-
-local ensure_installed = default_ensure_installed
+-- Opt-in only (no default parsers). Configure via user_settings.config.treesitter.ensure_installed.
+local ensure_installed = {}
 local user_config = require("user_settings").config
 if user_config.treesitter and user_config.treesitter.ensure_installed then
   ensure_installed = user_config.treesitter.ensure_installed
 end
 
-local installed = nvim_treesitter.get_installed()
-local missing = vim.tbl_filter(function(lang)
-  return not vim.tbl_contains(installed, lang)
-end, ensure_installed)
+if #ensure_installed > 0 then
+  local installed = nvim_treesitter.get_installed()
+  local missing = vim.tbl_filter(function(lang)
+    return not vim.tbl_contains(installed, lang)
+  end, ensure_installed)
 
-if #missing > 0 then
-  nvim_treesitter.install(missing)
+  if #missing > 0 then
+    nvim_treesitter.install(missing)
+  end
 end
 
 vim.api.nvim_create_autocmd("FileType", {

@@ -3,6 +3,7 @@ if not present then
   return
 end
 
+local utils = require("utils")
 local previewers = require("telescope.previewers")
 local Job = require("plenary.job")
 local new_maker = function(filepath, bufnr, opts)
@@ -23,10 +24,16 @@ local new_maker = function(filepath, bufnr, opts)
   }):sync()
 end
 
-local os_name = require("utils").os
 local buffer_previewer_maker = nil
-if os_name == "Linux" or os_name == "Darwin" then
-  buffer_previewer_maker = new_maker
+if utils.os == "Linux" or utils.os == "Darwin" then
+  local missing_file = utils.warn_missing_executable(
+    "file",
+    "Telescope previews: `file` was not found on PATH.\n"
+      .. "Install it (usually via your OS coreutils package) for binary-vs-text preview detection."
+  )
+  if not missing_file then
+    buffer_previewer_maker = new_maker
+  end
 end
 
 local function resolve_fd_finder()
@@ -44,23 +51,20 @@ local find_files = {}
 if finder then
   find_files.find_command = { finder, "--type=file", "--follow", "--exclude=.git" }
 else
-  vim.notify(
+  utils.warn_missing_executable(
+    { "fd", "fdfind" },
     "Telescope find_files: `fd` (or `fdfind`) was not found on PATH.\n"
       .. "Install it with your package manager (e.g. brew install fd, apt install fd-find, choco install fd),\n"
       .. "then ensure Neovim can see it (:echo exepath('fd')). Falling back to Telescope defaults.",
-    vim.log.levels.WARN,
-    { title = "CodeArt" }
+    "fd"
   )
 end
 
-if vim.fn.executable("rg") == 0 then
-  vim.notify(
-    "Telescope live_grep: `rg` (ripgrep) was not found on PATH.\n"
-      .. "Install ripgrep with your package manager so word search works.",
-    vim.log.levels.WARN,
-    { title = "CodeArt" }
-  )
-end
+utils.warn_missing_executable(
+  "rg",
+  "Telescope / search: `rg` (ripgrep) was not found on PATH.\n"
+    .. "Install ripgrep with your package manager so live_grep and todo search work."
+)
 
 local telescope_config = {
   defaults = {
@@ -92,7 +96,7 @@ if config.telescope then
   end
 end
 
-if require("utils").is_plugin_installed("telescope-fzf-native.nvim") then
+if utils.is_plugin_installed("telescope-fzf-native.nvim") then
   telescope_config.extensions = telescope_config.extensions or {}
   telescope_config.extensions["fzf"] = {
     fuzzy = true,
@@ -100,14 +104,25 @@ if require("utils").is_plugin_installed("telescope-fzf-native.nvim") then
     override_file_sorter = true,
     case_mode = "smart_case",
   }
+  utils.warn_missing_executable(
+    "make",
+    "telescope-fzf-native: `make` was not found on PATH.\n"
+      .. "Install make so the native fuzzy sorter can build (Lazy build step)."
+  )
+  utils.warn_missing_executable(
+    { "gcc", "clang", "cc" },
+    "telescope-fzf-native: no C compiler (`gcc`/`clang`/`cc`) was found on PATH.\n"
+      .. "Install a C toolchain so the native fuzzy sorter can build.",
+    "c_compiler"
+  )
 end
 
 telescope_setup.setup(telescope_config)
 
-if require("utils").is_plugin_installed("telescope-fzf-native.nvim") then
+if utils.is_plugin_installed("telescope-fzf-native.nvim") then
   pcall(telescope_setup.load_extension, "fzf")
 end
 
-if require("utils").is_plugin_installed("telescope_find_directories") then
+if utils.is_plugin_installed("telescope_find_directories") then
   pcall(telescope_setup.load_extension, "find_directories")
 end

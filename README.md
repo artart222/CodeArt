@@ -63,7 +63,7 @@ powershell.exe -executionpolicy bypass -file $HOME\AppData\Local\nvim\installer\
 #### 🌲💺Σ🖥️ Install lsp and treesitter:
 
 - You can install lsp for a language with `:LspInstall <language>`
-- CodeArt installs a default set of treesitter parsers on startup when `tree-sitter-cli` is on your PATH. Install more with `:TSInstall <language>`, or update with `:TSUpdate`.
+- Install treesitter parsers with `:TSInstall <language>`, or set `config.treesitter.ensure_installed` in `user_settings.lua`. Update with `:TSUpdate`.
 
 #### These NeoVim configurations use many nerd fonts icons. JetBrains Mono will be installed by default. If you have problem for fonts and see weird icons you must change your terminal font.
 
