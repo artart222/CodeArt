@@ -88,7 +88,7 @@ local plugins = {
 
   {
     "lukas-reineke/indent-blankline.nvim",
-    event = { "BufAdd", "BufRead" },
+    event = { "BufAdd", "BufRead", "BufNewFile"},
     cmd = {
       "IndentBlanklineToggle",
       "IndentBlanklineDisable",
@@ -123,7 +123,7 @@ local plugins = {
 
   {
     "akinsho/bufferline.nvim",
-    event = { "BufAdd", "BufRead" },
+    event = { "BufAdd", "BufRead", "BufNewFile" },
     cmd = {
       "BufferLineCloseLeft",
       "BufferLineCloseRight",
@@ -149,7 +149,7 @@ local plugins = {
 
   {
     "nvim-lualine/lualine.nvim",
-    event = { "BufAdd", "BufRead" },
+    event = { "BufAdd", "BufRead", "BufNewFile"},
     config = function()
       require("plugins/lualine/lualine")
     end,
@@ -178,7 +178,7 @@ local plugins = {
 
   {
     "NvChad/nvim-colorizer.lua",
-    event = { "BufAdd", "BufRead" },
+    event = { "BufAdd", "BufRead", "BufNewFile"},
     cmd = {
       "ColorizerAttachToBuffer",
       "ColorizerDetachFromBuffer",
@@ -350,7 +350,7 @@ local plugins = {
 
   {
     "lewis6991/gitsigns.nvim",
-    event = { "BufAdd", "BufRead" },
+    event = { "BufAdd", "BufRead", "BufNewFile" },
     cmd = "Gitsigns",
     config = function()
       require("plugins/gitsigns")
@@ -445,7 +445,7 @@ local plugins = {
 
   {
     "dstein64/nvim-scrollview",
-    event = { "BufAdd", "BufRead" },
+    event = { "BufAdd", "BufRead", "BufNewFile" },
     config = function()
       require("plugins.nvim-scroll")
     end,
@@ -453,7 +453,7 @@ local plugins = {
   },
   {
     "karb94/neoscroll.nvim",
-    event = { "BufAdd", "BufRead" },
+    event = { "BufAdd", "BufRead", "BufNewFile" },
     config = function()
       require("plugins.neoscroll")
     end,
@@ -462,7 +462,7 @@ local plugins = {
 
   {
     "folke/todo-comments.nvim",
-    event = { "BufAdd", "BufRead" },
+    event = { "BufAdd", "BufRead", "BufNewFile" },
     config = function()
       require("plugins/todo-comments")
     end,
