@@ -5,12 +5,8 @@ end
 
 local utils = require("utils")
 
--- Opt-in only (no default formatters). Configure via user_settings.config.conform.
+-- Opt-in only (no default formatters / format_on_save). Configure via user_settings.config.conform.
 local conform_config = {
-  format_on_save = {
-    timeout_ms = 500,
-    lsp_fallback = true,
-  },
   formatters_by_ft = {},
   formatters = {},
 }

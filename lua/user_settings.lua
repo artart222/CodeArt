@@ -72,14 +72,13 @@ M.additional_plugins = {
 }
 
 M.config = {
-  -- Merge into conform.nvim setup; opt-in only (no defaults). See lua/plugins/conform.lua
-  -- conform = {
-  --   formatters_by_ft = {
-  --     lua = { "stylua" },
-  --     python = { "black" },
-  --   },
-  -- },
-  conform = {},
+  -- Merge into conform.nvim setup; opt-in only (no defaults). Example:
+  conform = {
+    format_on_save = {
+      timeout_ms = 500,
+      lsp_fallback = true,
+    },
+  },
 
   -- nvim-lint: opt-in only (no defaults). Install linters via Mason, then configure:
   -- lint = {
