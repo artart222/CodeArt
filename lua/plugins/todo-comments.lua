@@ -1,5 +1,5 @@
-local present, todo_comments = pcall(require, "todo-comments")
-if not present then
+local todo_comments = require("utils").safe_require("todo-comments")
+if not todo_comments then
   return
 end
 

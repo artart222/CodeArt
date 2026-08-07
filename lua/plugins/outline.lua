@@ -1,5 +1,5 @@
-local present, outline = pcall(require, "outline")
-if not present then
+local outline = require("utils").safe_require("outline")
+if not outline then
   return
 end
 

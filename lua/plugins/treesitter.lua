@@ -1,5 +1,5 @@
-local present, nvim_treesitter = pcall(require, "nvim-treesitter")
-if not present then
+local nvim_treesitter = require("utils").safe_require("nvim-treesitter")
+if not nvim_treesitter then
   return
 end
 

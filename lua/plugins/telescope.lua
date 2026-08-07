@@ -1,9 +1,9 @@
-local present, telescope_setup = pcall(require, "telescope")
-if not present then
+local utils = require("utils")
+local telescope_setup = utils.safe_require("telescope")
+if not telescope_setup then
   return
 end
 
-local utils = require("utils")
 local previewers = require("telescope.previewers")
 local Job = require("plenary.job")
 local new_maker = function(filepath, bufnr, opts)

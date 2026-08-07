@@ -1,5 +1,5 @@
-local present, tokyonight = pcall(require, "tokyonight")
-if not present then
+local tokyonight = require("utils").safe_require("tokyonight")
+if not tokyonight then
   return
 end
 

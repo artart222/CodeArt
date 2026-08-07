@@ -1,5 +1,5 @@
-local present, npairs = pcall(require, "nvim-autopairs")
-if not present then
+local npairs = require("utils").safe_require("nvim-autopairs")
+if not npairs then
   return
 end
 

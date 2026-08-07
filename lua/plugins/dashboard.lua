@@ -1,5 +1,5 @@
-local present, dashboard = pcall(require, "dashboard")
-if not present then
+local dashboard = require("utils").safe_require("dashboard")
+if not dashboard then
   return
 end
 

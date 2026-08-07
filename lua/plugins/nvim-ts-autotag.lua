@@ -1,5 +1,5 @@
-local present, autotag = pcall(require, "nvim-ts-autotag")
-if not present then
+local autotag = require("utils").safe_require("nvim-ts-autotag")
+if not autotag then
   return
 end
 

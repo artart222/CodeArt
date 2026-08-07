@@ -1,5 +1,5 @@
-local present, onedark = pcall(require, "onedark")
-if not present then
+local onedark = require("utils").safe_require("onedark")
+if not onedark then
   return
 end
 

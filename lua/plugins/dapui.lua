@@ -1,5 +1,5 @@
-local present, dapui = pcall(require, "dapui")
-if not present then
+local dapui = require("utils").safe_require("dapui")
+if not dapui then
   return
 end
 

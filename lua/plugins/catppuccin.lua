@@ -1,5 +1,5 @@
-local present, catppuccin = pcall(require, "catppuccin")
-if not present then
+local catppuccin = require("utils").safe_require("catppuccin")
+if not catppuccin then
   return
 end
 

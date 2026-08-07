@@ -1,5 +1,5 @@
-local present, better_escape = pcall(require, "better_escape")
-if not present then
+local better_escape = require("utils").safe_require("better_escape")
+if not better_escape then
   return
 end
 

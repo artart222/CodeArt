@@ -1,5 +1,5 @@
-local present, dap = pcall(require, "dap")
-if not present then
+local dap = require("utils").safe_require("dap")
+if not dap then
   return
 end
 

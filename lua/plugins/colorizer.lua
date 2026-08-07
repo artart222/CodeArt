@@ -1,5 +1,5 @@
-local present, colorizer = pcall(require, "colorizer")
-if not present then
+local colorizer = require("utils").safe_require("colorizer")
+if not colorizer then
   return
 end
 

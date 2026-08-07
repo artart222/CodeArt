@@ -1,5 +1,5 @@
-local present, lualine_setup = pcall(require, "lualine")
-if not present then
+local lualine_setup = require("utils").safe_require("lualine")
+if not lualine_setup then
   return
 end
 

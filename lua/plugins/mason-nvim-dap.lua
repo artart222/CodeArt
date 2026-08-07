@@ -1,5 +1,5 @@
-local present, mason_dap = pcall(require, "mason-nvim-dap")
-if not present then
+local mason_dap = require("utils").safe_require("mason-nvim-dap")
+if not mason_dap then
   return
 end
 

@@ -1,5 +1,5 @@
-local present, comment_setup = pcall(require, "Comment")
-if not present then
+local comment_setup = require("utils").safe_require("Comment")
+if not comment_setup then
   return
 end
 -- TODO: Complete this file

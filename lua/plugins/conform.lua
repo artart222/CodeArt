@@ -1,9 +1,8 @@
-local present, conform = pcall(require, "conform")
-if not present then
+local utils = require("utils")
+local conform = utils.safe_require("conform")
+if not conform then
   return
 end
-
-local utils = require("utils")
 
 -- Opt-in only (no default formatters / format_on_save). Configure via user_settings.config.conform.
 local conform_config = {

@@ -57,6 +57,22 @@ function M.warn_missing_executable(names, message, dedupe_key)
   return true
 end
 
+---Require a module; on failure notify and return nil (instead of silent no-op).
+---@param mod string module name passed to require()
+---@return any|nil
+function M.safe_require(mod)
+  local ok, result = pcall(require, mod)
+  if not ok then
+    vim.notify(
+      string.format("Failed to load `%s`:\n%s", mod, result),
+      vim.log.levels.ERROR,
+      { title = "CodeArt" }
+    )
+    return nil
+  end
+  return result
+end
+
 -- Check for instalation status of plugin.
 function M.is_plugin_installed(plugin_name)
   -- If plugin is installed.

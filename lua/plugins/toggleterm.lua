@@ -1,5 +1,5 @@
-local present, toggle_term = pcall(require, "toggleterm")
-if not present then
+local toggle_term = require("utils").safe_require("toggleterm")
+if not toggle_term then
   return
 end
 

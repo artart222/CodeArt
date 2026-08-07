@@ -1,5 +1,5 @@
-local present, blankline = pcall(require, "ibl")
-if not present then
+local blankline = require("utils").safe_require("ibl")
+if not blankline then
   return
 end
 

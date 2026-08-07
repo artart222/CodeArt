@@ -1,5 +1,5 @@
-local present, truezen = pcall(require, "true-zen")
-if not present then
+local truezen = require("utils").safe_require("true-zen")
+if not truezen then
   return
 end
 

@@ -1,5 +1,5 @@
-local present, match_up = pcall(require, "match-up")
-if not present then
+local match_up = require("utils").safe_require("match-up")
+if not match_up then
   return
 end
 

@@ -1,5 +1,5 @@
-local present, devicons = pcall(require, "nvim-web-devicons")
-if not present then
+local devicons = require("utils").safe_require("nvim-web-devicons")
+if not devicons then
   return
 end
 

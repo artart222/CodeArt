@@ -1,5 +1,5 @@
-local present, mason = pcall(require, "mason")
-if not present then
+local mason = require("utils").safe_require("mason")
+if not mason then
   return
 end
 

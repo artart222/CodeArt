@@ -1,5 +1,5 @@
-local present, ts_context_commentstring = pcall(require, "ts_context_commentstring")
-if not present then
+local ts_context_commentstring = require("utils").safe_require("ts_context_commentstring")
+if not ts_context_commentstring then
   return
 end
 

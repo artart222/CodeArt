@@ -1,9 +1,10 @@
-local status_ok, gitsigns = pcall(require, "gitsigns")
-if not status_ok then
+local utils = require("utils")
+local gitsigns = utils.safe_require("gitsigns")
+if not gitsigns then
   return
 end
 
-require("utils").warn_missing_executable(
+utils.warn_missing_executable(
   "git",
   "gitsigns: `git` was not found on PATH.\n"
     .. "Install git so signs, blame, and hunk actions work."

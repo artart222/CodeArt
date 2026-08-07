@@ -1,5 +1,5 @@
-local present, lspsaga = pcall(require, "lspsaga")
-if not present then
+local lspsaga = require("utils").safe_require("lspsaga")
+if not lspsaga then
   return
 end
 

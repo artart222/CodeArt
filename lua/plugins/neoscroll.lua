@@ -1,5 +1,5 @@
-local present, neoscroll = pcall(require, "neoscroll")
-if not present then
+local neoscroll = require("utils").safe_require("neoscroll")
+if not neoscroll then
   return
 end
 

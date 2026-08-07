@@ -1,5 +1,5 @@
-local present, trouble = pcall(require, "trouble")
-if not present then
+local trouble = require("utils").safe_require("trouble")
+if not trouble then
   return
 end
 

@@ -1,5 +1,5 @@
-local present, neo_tree = pcall(require, "neo-tree")
-if not present then
+local neo_tree = require("utils").safe_require("neo-tree")
+if not neo_tree then
   return
 end
 

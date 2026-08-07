@@ -1,5 +1,5 @@
-local present, which_key = pcall(require, "which-key")
-if not present then
+local which_key = require("utils").safe_require("which-key")
+if not which_key then
   return
 end
 

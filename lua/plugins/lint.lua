@@ -1,5 +1,5 @@
-local present, lint = pcall(require, "lint")
-if not present then
+local lint = require("utils").safe_require("lint")
+if not lint then
   return
 end
 

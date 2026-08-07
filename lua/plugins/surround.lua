@@ -1,5 +1,5 @@
-local present, surround = pcall(require, "nvim-surround")
-if not present then
+local surround = require("utils").safe_require("nvim-surround")
+if not surround then
   return
 end
 

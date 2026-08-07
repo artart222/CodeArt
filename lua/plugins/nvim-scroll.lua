@@ -1,5 +1,5 @@
-local status_ok, scrollview = pcall(require, "scrollview")
-if not status_ok then
+local scrollview = require("utils").safe_require("scrollview")
+if not scrollview then
   return
 end
 
