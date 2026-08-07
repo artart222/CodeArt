@@ -38,7 +38,7 @@
 - Stronger Neovim **0.12+** startup gate: ERROR notify and abort loading CodeArt if the version is too old (upgrade Neovim with your OS package manager).
 - Commit **lazy-lock.json** for reproducible plugin versions (removed from `.gitignore`).
 - Installers document/install **tree-sitter-cli** where the package manager supports it.
-- **conform.nvim** formatters and `format_on_save` are opt-in via `user_settings.config.conform` (no default format-on-save / LSP fallback).
+- **conform.nvim** ships with an example `format_on_save` (`lsp_fallback = true`) in `user_settings.config.conform`. Formatters stay opt-in via `formatters_by_ft` (no default formatters). Remove or edit `config.conform` to disable format-on-save.
 - Plugin user overrides read `require("user_settings").config` consistently.
 - **vim-matchup** loads on `BufReadPost` / `BufNewFile` (was never loading under `defaults.lazy = true`).
 - **mason-lspconfig** exposes `:LspInstall` / `:LspUninstall` as lazy `cmd` triggers so they work from Dashboard.

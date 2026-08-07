@@ -79,7 +79,8 @@ M.additional_plugins = {
 }
 
 M.config = {
-  -- Merge into conform.nvim setup; opt-in only (no defaults). Example:
+  -- Merge into conform.nvim setup. Shipped example enables format-on-save with LSP
+  -- fallback; add formatters_by_ft when you want non-LSP formatters (still opt-in).
   conform = {
     format_on_save = {
       timeout_ms = 500,
