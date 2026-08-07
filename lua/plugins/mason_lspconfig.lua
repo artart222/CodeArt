@@ -10,7 +10,7 @@ local mason_lspconfig_config = {
   automatic_enable = true,
 }
 
-local config = require("user_settings")
+local config = require("user_settings").config
 if config.mason_lspconfig then
   for k, v in pairs(config.mason_lspconfig) do
     mason_lspconfig_config[k] = v

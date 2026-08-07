@@ -24,7 +24,7 @@ local onedark_config = {
 }
 
 -- TODO: make better user settings file.
-local config = require("user_settings")
+local config = require("user_settings").config
 if config.onedark then
   for k, v in pairs(config.onedark) do
     onedark_config[k] = v

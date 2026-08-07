@@ -85,7 +85,7 @@ local dapui_config = {
   },
 }
 
-local config = require("user_settings")
+local config = require("user_settings").config
 if config.dapui then
   for k, v in pairs(config.dapui) do
     dapui_config[k] = v

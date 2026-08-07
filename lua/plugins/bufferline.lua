@@ -30,7 +30,7 @@ local bufferline_config = {
   },
 }
 
-local config = require("user_settings")
+local config = require("user_settings").config
 if config.bufferline then
   for k, v in pairs(config.bufferline) do
     bufferline_config[k] = v

@@ -7,7 +7,7 @@ local tokyonight_config = {
   style = "night", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
 }
 
-local config = require("user_settings")
+local config = require("user_settings").config
 if config.tokyonight then
   for k, v in pairs(config.tokyonight) do
     tokyonight_config[k] = v

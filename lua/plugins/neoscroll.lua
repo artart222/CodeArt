@@ -5,7 +5,7 @@ end
 
 local neoscroll_config = {}
 
-local config = require("user_settings")
+local config = require("user_settings").config
 if config.neoscroll then
   for k, v in pairs(config.neoscroll) do
     neoscroll_config[k] = v

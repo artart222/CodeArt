@@ -36,7 +36,7 @@ local todo_comments_config = {
   },
 }
 
-local config = require("user_settings")
+local config = require("user_settings").config
 if config.todo_comments then
   for k, v in pairs(config.todo_comments) do
     todo_comments_config[k] = v

@@ -72,7 +72,7 @@ if exec("ranger") == 1 then
   end
 end
 
-local config = require("user_settings")
+local config = require("user_settings").config
 if config.toggleterm then
   for k, v in pairs(config.toggleterm) do
     toggleterm_config[k] = v

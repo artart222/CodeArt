@@ -18,7 +18,7 @@ local colorizer_config = {
   },
 }
 
-local config = require("user_settings")
+local config = require("user_settings").config
 if config.colorizer then
   for k, v in pairs(config.colorizer) do
     colorizer_config[k] = v

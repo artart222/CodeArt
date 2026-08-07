@@ -50,7 +50,7 @@ local comment_config = {
   -- post_hook = nil,
 }
 
-local config = require("user_settings")
+local config = require("user_settings").config
 if config.comment then
   for k, v in pairs(config.comment) do
     comment_config[k] = v

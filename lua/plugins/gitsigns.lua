@@ -29,7 +29,7 @@ local gitsigns_config = {
 }
 
 -- TODO: make better user settings file.
-local config = require("user_settings")
+local config = require("user_settings").config
 if config.gitsigns then
   for k, v in pairs(config.gitsigns) do
     gitsigns_config[k] = v

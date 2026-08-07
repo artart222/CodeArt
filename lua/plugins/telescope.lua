@@ -89,7 +89,7 @@ local telescope_config = {
   extensions = {},
 }
 
-local config = require("user_settings")
+local config = require("user_settings").config
 if config.telescope then
   for k, v in pairs(config.telescope) do
     telescope_config[k] = v

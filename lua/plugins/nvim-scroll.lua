@@ -10,7 +10,7 @@ local scrollview_config = {
   diagnostics_severities = { vim.diagnostic.severity.ERROR },
 }
 
-local config = require("user_settings")
+local config = require("user_settings").config
 if config.scrollview then
   for k, v in pairs(config.scrollview) do
     scrollview_config[k] = v

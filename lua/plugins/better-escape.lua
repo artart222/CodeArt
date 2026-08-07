@@ -5,7 +5,7 @@ end
 
 local better_escape_config = { clear_empty_lines = true }
 
-local config = require("user_settings")
+local config = require("user_settings").config
 if config.better_escape then
   for k, v in pairs(config.better_escape) do
     better_escape_config[k] = v

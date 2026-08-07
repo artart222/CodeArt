@@ -5,7 +5,7 @@ end
 
 local devicons_config = {}
 
-local config = require("user_settings")
+local config = require("user_settings").config
 if config.nvim_web_devicons then
   for k, v in pairs(config.nvim_web_devicons) do
     devicons_config[k] = v

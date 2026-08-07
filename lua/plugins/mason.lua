@@ -9,7 +9,7 @@ local mason_config = {
   },
 }
 
-local config = require("user_settings")
+local config = require("user_settings").config
 if config.mason then
   for k, v in pairs(config.mason) do
     mason_config[k] = v
