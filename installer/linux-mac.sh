@@ -157,7 +157,8 @@ if [[ "$(uname)" == "Darwin" ]]; then
   pack_manager_install "$PACKAGE_MANAGER" "nvim" "neovim" "neovim" "neovim" "neovim" "app-editors/neovim" "neovim"
 elif [[ "$(uname)" == "Linux" ]]; then
   if grep -q '^ID=debian$' /etc/os-release 2>/dev/null; then
-    echo "Debian detected: install Neovim yourself (see README), then continue."
+    # Red so Debian users notice they must install Neovim 0.12+ themselves.
+    echo -e "\033[1;31mDebian detected: install Neovim 0.12+ yourself (see README), then continue.\033[0m"
   elif [[ "$PACKAGE_MANAGER" == "apt-get" ]]; then
     sudo apt install software-properties-common -y
     sudo add-apt-repository ppa:neovim-ppa/stable -y
