@@ -1,0 +1,28 @@
+name: Sync wiki
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - "scripts/sync-wiki.sh"
+      - ".github/workflows/sync-wiki.yml"
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Sync docs/ to GitHub wiki
+        env:
+          # Prefer a PAT with wiki write access if GITHUB_TOKEN cannot push to *.wiki.git
+          GH_TOKEN: ${{ secrets.WIKI_TOKEN || secrets.GITHUB_TOKEN }}
+          GIT_AUTHOR_NAME: github-actions[bot]
+          GIT_AUTHOR_EMAIL: github-actions[bot]@users.noreply.github.com
+        run: |
+          chmod +x scripts/sync-wiki.sh
+          ./scripts/sync-wiki.sh

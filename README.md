@@ -5,6 +5,7 @@
   <a href="#installation">:construction: Installation</a>
   <a href="#update">⬆️📅 How to update CodeArt</a>
   <a href="#features">:sparkles: Important features</a>
+  <a href="docs/README.md">:book: Docs</a>
 </h3>
 
 <div align="center">
