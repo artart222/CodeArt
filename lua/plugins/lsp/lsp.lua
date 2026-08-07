@@ -1,3 +1,8 @@
+if vim.g.codeart_lsp_loaded then
+  return
+end
+vim.g.codeart_lsp_loaded = true
+
 local lsp_utils = require("plugins.lsp.utils")
 
 local function get_capabilities()
