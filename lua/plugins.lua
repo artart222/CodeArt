@@ -260,7 +260,7 @@ local plugins = {
   },
   {
     "neovim/nvim-lspconfig",
-    event = { "BufRead", "BufNewFile" },
+    event = { "BufAdd", "BufRead", "BufNewFile" },
     dependencies = { "mason-org/mason-lspconfig.nvim", "mason-org/mason.nvim" },
     config = function()
       require("plugins.lsp.lsp")
@@ -270,7 +270,7 @@ local plugins = {
 
   {
     "stevearc/conform.nvim",
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "BufAdd", "BufReadPre", "BufNewFile" },
     config = function()
       require("plugins.conform")
     end,
@@ -278,7 +278,7 @@ local plugins = {
   },
   {
     "mfussenegger/nvim-lint",
-    event = { "BufReadPre", "BufNewFile" },
+    event = { "BufAdd", "BufReadPre", "BufNewFile" },
     config = function()
       require("plugins.lint")
     end,
