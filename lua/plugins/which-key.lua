@@ -65,7 +65,7 @@ if is_plugin_installed("bufferline.nvim") and not disable_plugins.nvim_bufferlin
   table.insert(buffer_maps, { "<leader>bh", ":BufferLineMovePrev<CR>", desc = "Move buffer Left" })
   table.insert(buffer_maps, { "<leader>bl", ":BufferLineMoveNext<CR>", desc = "Move Buffer Right" })
 end
-if is_plugin_installed("TrueZen.nvim") then
+if is_plugin_installed("true-zen.nvim") and not disable_plugins.truezen then
   table.insert(buffer_maps, { "<leader>bm", ":TZFocus<CR>", desc = "Maximize Current Buffer" })
 end
 which_key.add(buffer_maps)
@@ -161,7 +161,7 @@ if is_plugin_installed("toggleterm.nvim") then
   if exec("htop") == 1 then
     table.insert(terminal_maps, { "<leader>tH", ":lua HTOP_TOGGLE()<CR>", desc = "Htop" })
   end
-  if exec("python") == 1 then
+  if exec("python3") == 1 or exec("python") == 1 then
     table.insert(terminal_maps, { "<leader>tp", ":lua PYTHON_TOGGLE()<CR>", desc = "Python" })
   end
   if exec("ranger") == 1 then

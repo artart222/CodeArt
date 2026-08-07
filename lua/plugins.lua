@@ -90,11 +90,12 @@ local plugins = {
     "lukas-reineke/indent-blankline.nvim",
     event = { "BufAdd", "BufRead", "BufNewFile"},
     cmd = {
-      "IndentBlanklineToggle",
-      "IndentBlanklineDisable",
-      "IndentBlanklineEnable",
-      "IndentBlanklineRefreshScroll",
-      "IndentBlanklineRefresh",
+      "IBLEnable",
+      "IBLDisable",
+      "IBLToggle",
+      "IBLEnableScope",
+      "IBLDisableScope",
+      "IBLToggleScope",
     },
     config = function()
       require("plugins/indent-blankline")
@@ -312,7 +313,7 @@ local plugins = {
   },
   {
     "folke/trouble.nvim",
-    cmd = { "Trouble", "TroubleToggle", "TroubleRefresh" },
+    cmd = "Trouble",
     config = function()
       require("plugins.trouble")
     end,

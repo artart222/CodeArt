@@ -56,10 +56,11 @@ if exec("htop") == 1 then
   end
 end
 
-if exec("python") == 1 then
+if exec("python3") == 1 or exec("python") == 1 then
   function _G.PYTHON_TOGGLE()
     local Terminal = require("toggleterm.terminal").Terminal
-    local python = Terminal:new({ cmd = "python", hidden = true, direction = "float" })
+    local python_cmd = exec("python3") == 1 and "python3" or "python"
+    local python = Terminal:new({ cmd = python_cmd, hidden = true, direction = "float" })
     python:toggle()
   end
 end

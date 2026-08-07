@@ -49,12 +49,12 @@ local dashboard_config = {
       },
       {
         icon = " ",
-        desc = "New File                     SPC f n",
-        action = "ene",
+        desc = "New File                     SPC b n",
+        action = "ene | startinsert",
       },
       {
         icon = " ",
-        desc = "Bookmarks                    SPC f m",
+        desc = "Bookmarks                    SPC f B",
         action = "Telescope marks",
       },
     },
