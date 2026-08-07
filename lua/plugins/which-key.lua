@@ -69,9 +69,18 @@ end
 which_key.add(buffer_maps)
 
 which_key.add({
-  { "<leader>r", function()
-    require("conform").format({ async = true })
-  end, desc = "Format" },
+  {
+    "<leader>r",
+    function()
+      local use_conform = is_plugin_installed("conform.nvim") and not disable_plugins.conform
+      if use_conform then
+        require("conform").format({ async = true, lsp_fallback = true })
+      else
+        vim.lsp.buf.format({ async = true })
+      end
+    end,
+    desc = "Format",
+  },
 })
 
 if is_plugin_installed("neo-tree.nvim") and not disable_plugins.neo_tree then
