@@ -234,6 +234,7 @@ local plugins = {
   {
     "mason-org/mason-lspconfig.nvim",
     dependencies = { "mason-org/mason.nvim", "neovim/nvim-lspconfig" },
+    cmd = { "LspInstall", "LspUninstall" },
     config = function()
       require("plugins.mason_lspconfig")
     end,
@@ -503,6 +504,7 @@ local plugins = {
 
   {
     "andymass/vim-matchup",
+    event = { "BufAdd", "BufRead", "BufNewFile" },
     config = function()
       require("plugins.matchup")
     end,

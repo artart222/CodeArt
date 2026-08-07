@@ -11,9 +11,7 @@ local matchup_config = {
 
 local config = require("user_settings").config
 if config.vim_matchup then
-  for k, v in pairs(config.vim_matchup) do
-    matchup_config[k] = v
-  end
+  matchup_config = vim.tbl_deep_extend("force", matchup_config, config.vim_matchup)
 end
 
 match_up.setup(matchup_config)
