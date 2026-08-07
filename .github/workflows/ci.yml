@@ -14,6 +14,7 @@ jobs:
       - uses: JohnnyMorganz/stylua-action@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+          version: latest
           args: --check .
 
   neovim:
@@ -38,7 +39,11 @@ jobs:
           sudo apt-get install -y ripgrep fd-find build-essential
           sudo ln -sf "$(command -v fdfind)" /usr/local/bin/fd
           # Pin tree-sitter CLI (≥ 0.26.1) for nvim-treesitter main builds.
-          npm install -g tree-sitter-cli@0.26.1
+          curl -fsSL -o /tmp/tree-sitter.gz \
+            https://github.com/tree-sitter/tree-sitter/releases/download/v0.26.1/tree-sitter-linux-x64.gz
+          gunzip -c /tmp/tree-sitter.gz > /tmp/tree-sitter
+          chmod +x /tmp/tree-sitter
+          sudo mv /tmp/tree-sitter /usr/local/bin/tree-sitter
           command -v nvim
           command -v rg
           command -v fd
