@@ -68,7 +68,10 @@ M.disable_plugins = {
 }
 
 M.additional_plugins = {
-  "Mofiqul/vscode.nvim",
+  {
+    "Mofiqul/vscode.nvim",
+    colorscheme = "vscode",
+  },
 }
 
 M.config = {

@@ -32,6 +32,13 @@ local plugins = {
   -- Color schemes
   {
     "folke/tokyonight.nvim",
+    colorscheme = {
+      "tokyonight",
+      "tokyonight-night",
+      "tokyonight-storm",
+      "tokyonight-moon",
+      "tokyonight-day",
+    },
     config = function()
       require("plugins.tokyonight")
     end,
@@ -39,18 +46,22 @@ local plugins = {
   },
   {
     "bluz71/vim-nightfly-guicolors",
+    colorscheme = "nightfly",
     enabled = not disable_plugins.nightfly,
   },
   {
     "bluz71/vim-moonfly-colors",
+    colorscheme = "moonfly",
     enabled = not disable_plugins.moonfly,
   },
   {
     "shaunsingh/nord.nvim",
+    colorscheme = "nord",
     enabled = not disable_plugins.nord,
   },
   {
     "navarasu/onedark.nvim",
+    colorscheme = "onedark",
     config = function()
       require("plugins/onedark")
     end,
@@ -59,6 +70,13 @@ local plugins = {
   {
     "catppuccin/nvim",
     name = "catppuccin",
+    colorscheme = {
+      "catppuccin",
+      "catppuccin-latte",
+      "catppuccin-frappe",
+      "catppuccin-macchiato",
+      "catppuccin-mocha",
+    },
     config = function()
       require("plugins.catppuccin")
     end,
@@ -66,6 +84,9 @@ local plugins = {
   },
   {
     "artart222/nvim-enfocado",
+    lazy = false,
+    priority = 1000,
+    colorscheme = "enfocado",
     config = function()
       require("plugins.enfocado")
     end,
