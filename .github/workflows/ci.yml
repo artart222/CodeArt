@@ -20,10 +20,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       CODEART_ROOT: ${{ github.workspace }}
-      XDG_CONFIG_HOME: ${{ runner.temp }}/codeart-xdg/config
-      XDG_DATA_HOME: ${{ runner.temp }}/codeart-xdg/data
-      XDG_STATE_HOME: ${{ runner.temp }}/codeart-xdg/state
-      XDG_CACHE_HOME: ${{ runner.temp }}/codeart-xdg/cache
+      XDG_CONFIG_HOME: ${{ github.workspace }}/.ci-xdg/config
+      XDG_DATA_HOME: ${{ github.workspace }}/.ci-xdg/data
+      XDG_STATE_HOME: ${{ github.workspace }}/.ci-xdg/state
+      XDG_CACHE_HOME: ${{ github.workspace }}/.ci-xdg/cache
     steps:
       - uses: actions/checkout@v4
 
