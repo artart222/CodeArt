@@ -91,8 +91,10 @@ function M.map(mode, lhs, rhs, opts)
   vim.keymap.set(mode, lhs, rhs, options)
 end
 
--- This will add which-key mapping to given maps_list table.
--- This is for user.
+-- Append which-key v3 mapping specs for user_settings.extra_which_keys.
+-- mappings: list of specs, e.g. { { "<leader>ff", ":Telescope find_files<CR>", desc = "Find File" } }
+-- options: optional parse opts (mode, etc.)
+-- maps_list: usually require("user_settings").extra_which_keys
 function M.wk_add(mappings, options, maps_list)
   table.insert(maps_list, { mappings, options })
 end

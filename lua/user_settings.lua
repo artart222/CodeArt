@@ -1,8 +1,12 @@
 local M = {}
 
 local map = require("utils").map
-local which_key = require("utils").wk_add
+local wk_add = require("utils").wk_add
 
+-- Extra which-key mappings (which-key v3 specs via wk_add):
+-- wk_add({
+--   { "<leader>ff", ":Telescope find_files<CR>", desc = "Find File" },
+-- }, { mode = "n" }, M.extra_which_keys)
 M.extra_which_keys = {}
 
 M.disable_plugins = {

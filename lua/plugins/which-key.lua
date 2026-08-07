@@ -286,6 +286,6 @@ end
 
 if require("user_settings").extra_which_keys then
   for _, v in ipairs(require("user_settings").extra_which_keys) do
-    which_key.register(v[1], v[2])
+    which_key.add(v[1], v[2])
   end
 end
