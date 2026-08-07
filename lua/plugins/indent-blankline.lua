@@ -55,9 +55,7 @@ local blankline_config = {
 }
 
 if config.indent_blankline then
-  for k, v in pairs(config.indent_blankline) do
-    blankline_config[k] = v
-  end
+  blankline_config = vim.tbl_deep_extend("force", blankline_config, config.indent_blankline)
 end
 
 -- Disable indent-blankline on these pages.

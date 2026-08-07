@@ -67,9 +67,7 @@ local dashboard_config = {
 
 local config = require("user_settings").config
 if config.dashboard then
-  for k, v in pairs(config.dashboard) do
-    dashboard_config[k] = v
-  end
+  dashboard_config = vim.tbl_deep_extend("force", dashboard_config, config.dashboard)
 end
 
 dashboard.setup(dashboard_config)

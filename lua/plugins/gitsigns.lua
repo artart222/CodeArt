@@ -31,9 +31,7 @@ local gitsigns_config = {
 -- TODO: make better user settings file.
 local config = require("user_settings").config
 if config.gitsigns then
-  for k, v in pairs(config.gitsigns) do
-    gitsigns_config[k] = v
-  end
+  gitsigns_config = vim.tbl_deep_extend("force", gitsigns_config, config.gitsigns)
 end
 
 gitsigns.setup(gitsigns_config)

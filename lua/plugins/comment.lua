@@ -52,9 +52,7 @@ local comment_config = {
 
 local config = require("user_settings").config
 if config.comment then
-  for k, v in pairs(config.comment) do
-    comment_config[k] = v
-  end
+  comment_config = vim.tbl_deep_extend("force", comment_config, config.comment)
 end
 
 comment_setup.setup(comment_config)

@@ -75,9 +75,7 @@ end
 
 local config = require("user_settings").config
 if config.toggleterm then
-  for k, v in pairs(config.toggleterm) do
-    toggleterm_config[k] = v
-  end
+  toggleterm_config = vim.tbl_deep_extend("force", toggleterm_config, config.toggleterm)
 end
 
 toggle_term.setup(toggleterm_config)

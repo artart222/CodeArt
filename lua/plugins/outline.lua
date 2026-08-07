@@ -12,9 +12,7 @@ local outline_config = {
 
 local config = require("user_settings").config
 if config.outline then
-  for k, v in pairs(config.outline) do
-    outline_config[k] = v
-  end
+  outline_config = vim.tbl_deep_extend("force", outline_config, config.outline)
 end
 
 outline.setup(outline_config)

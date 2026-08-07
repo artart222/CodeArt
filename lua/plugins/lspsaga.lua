@@ -19,9 +19,7 @@ local lspsaga_config = {
 
 local config = require("user_settings").config
 if config.lspsaga then
-  for k, v in pairs(config.lspsaga) do
-    lspsaga_config[k] = v
-  end
+  lspsaga_config = vim.tbl_deep_extend("force", lspsaga_config, config.lspsaga)
 end
 
 lspsaga.setup(lspsaga_config)

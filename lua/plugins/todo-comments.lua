@@ -38,9 +38,7 @@ local todo_comments_config = {
 
 local config = require("user_settings").config
 if config.todo_comments then
-  for k, v in pairs(config.todo_comments) do
-    todo_comments_config[k] = v
-  end
+  todo_comments_config = vim.tbl_deep_extend("force", todo_comments_config, config.todo_comments)
 end
 
 todo_comments.setup(todo_comments_config)

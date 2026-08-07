@@ -72,9 +72,7 @@ local truezen_config = {
 
 local config = require("user_settings").config
 if config.true_zen then
-  for k, v in pairs(config.true_zen) do
-    truezen_config[k] = v
-  end
+  truezen_config = vim.tbl_deep_extend("force", truezen_config, config.true_zen)
 end
 
 truezen.setup(truezen_config)

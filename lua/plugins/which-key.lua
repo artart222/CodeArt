@@ -32,9 +32,7 @@ local which_key_config = {
 
 local config = require("user_settings").config
 if config.which_key then
-  for k, v in pairs(config.which_key) do
-    which_key_config[k] = v
-  end
+  which_key_config = vim.tbl_deep_extend("force", which_key_config, config.which_key)
 end
 
 which_key.setup(which_key_config)

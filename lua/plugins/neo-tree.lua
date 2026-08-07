@@ -72,9 +72,7 @@ local neo_tree_config = {
 
 local config = require("user_settings").config
 if config.neo_tree then
-  for k, v in pairs(config.neo_tree) do
-    neo_tree_config[k] = v
-  end
+  neo_tree_config = vim.tbl_deep_extend("force", neo_tree_config, config.neo_tree)
 end
 
 require("neo-tree").setup(neo_tree_config)

@@ -26,9 +26,7 @@ local onedark_config = {
 -- TODO: make better user settings file.
 local config = require("user_settings").config
 if config.onedark then
-  for k, v in pairs(config.onedark) do
-    onedark_config[k] = v
-  end
+  onedark_config = vim.tbl_deep_extend("force", onedark_config, config.onedark)
 end
 
 onedark.setup(onedark_config)

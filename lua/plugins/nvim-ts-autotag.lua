@@ -7,9 +7,7 @@ local autotag_config = {}
 
 local config = require("user_settings").config
 if config.nvim_ts_autotag then
-  for k, v in pairs(config.nvim_ts_autotag) do
-    autotag_config[k] = v
-  end
+  autotag_config = vim.tbl_deep_extend("force", autotag_config, config.nvim_ts_autotag)
 end
 
 autotag.setup(autotag_config)

@@ -12,9 +12,7 @@ local mason_lspconfig_config = {
 
 local config = require("user_settings").config
 if config.mason_lspconfig then
-  for k, v in pairs(config.mason_lspconfig) do
-    mason_lspconfig_config[k] = v
-  end
+  mason_lspconfig_config = vim.tbl_deep_extend("force", mason_lspconfig_config, config.mason_lspconfig)
 end
 
 mason_lspconfig.setup(mason_lspconfig_config)

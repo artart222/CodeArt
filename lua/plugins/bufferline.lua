@@ -32,9 +32,7 @@ local bufferline_config = {
 
 local config = require("user_settings").config
 if config.bufferline then
-  for k, v in pairs(config.bufferline) do
-    bufferline_config[k] = v
-  end
+  bufferline_config = vim.tbl_deep_extend("force", bufferline_config, config.bufferline)
 end
 
 bufferline.setup(bufferline_config)

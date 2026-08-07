@@ -9,9 +9,8 @@ local ts_context_commentstring_config = {
 
 local config = require("user_settings").config
 if config.ts_context_commentstring then
-  for k, v in pairs(config.ts_context_commentstring) do
-    ts_context_commentstring_config[k] = v
-  end
+  ts_context_commentstring_config =
+    vim.tbl_deep_extend("force", ts_context_commentstring_config, config.ts_context_commentstring)
 end
 
 ts_context_commentstring.setup(ts_context_commentstring_config)

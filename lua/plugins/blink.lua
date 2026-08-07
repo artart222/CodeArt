@@ -58,9 +58,7 @@ local blink_config = {
 
 local config = require("user_settings").config
 if config.blink then
-  for k, v in pairs(config.blink) do
-    blink_config[k] = v
-  end
+  blink_config = vim.tbl_deep_extend("force", blink_config, config.blink)
 end
 
 return blink_config

@@ -13,9 +13,7 @@ local conform_config = {
 
 local config = require("user_settings").config
 if config.conform then
-  for k, v in pairs(config.conform) do
-    conform_config[k] = v
-  end
+  conform_config = vim.tbl_deep_extend("force", conform_config, config.conform)
 end
 
 conform.setup(conform_config)

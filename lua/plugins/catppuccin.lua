@@ -23,9 +23,7 @@ local catppuccin_config = {
 
 local config = require("user_settings").config
 if config.catppuccin then
-  for k, v in pairs(config.catppuccin) do
-    catppuccin_config[k] = v
-  end
+  catppuccin_config = vim.tbl_deep_extend("force", catppuccin_config, config.catppuccin)
 end
 
 catppuccin.setup(catppuccin_config)

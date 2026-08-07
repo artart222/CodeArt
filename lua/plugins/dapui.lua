@@ -87,9 +87,7 @@ local dapui_config = {
 
 local config = require("user_settings").config
 if config.dapui then
-  for k, v in pairs(config.dapui) do
-    dapui_config[k] = v
-  end
+  dapui_config = vim.tbl_deep_extend("force", dapui_config, config.dapui)
 end
 
 dapui.setup(dapui_config)

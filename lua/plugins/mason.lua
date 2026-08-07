@@ -11,9 +11,7 @@ local mason_config = {
 
 local config = require("user_settings").config
 if config.mason then
-  for k, v in pairs(config.mason) do
-    mason_config[k] = v
-  end
+  mason_config = vim.tbl_deep_extend("force", mason_config, config.mason)
 end
 
 mason.setup(mason_config)

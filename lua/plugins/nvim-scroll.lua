@@ -12,9 +12,7 @@ local scrollview_config = {
 
 local config = require("user_settings").config
 if config.scrollview then
-  for k, v in pairs(config.scrollview) do
-    scrollview_config[k] = v
-  end
+  scrollview_config = vim.tbl_deep_extend("force", scrollview_config, config.scrollview)
 end
 
 scrollview.setup(scrollview_config)

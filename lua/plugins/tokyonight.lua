@@ -9,9 +9,7 @@ local tokyonight_config = {
 
 local config = require("user_settings").config
 if config.tokyonight then
-  for k, v in pairs(config.tokyonight) do
-    tokyonight_config[k] = v
-  end
+  tokyonight_config = vim.tbl_deep_extend("force", tokyonight_config, config.tokyonight)
 end
 
 tokyonight.setup(tokyonight_config)

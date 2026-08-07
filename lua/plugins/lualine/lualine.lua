@@ -106,9 +106,7 @@ local lualine_config = {
 
 -- TODO: make better user settings file.
 if config.lualine then
-  for k, v in pairs(config.lualine) do
-    lualine_config[k] = v
-  end
+  lualine_config = vim.tbl_deep_extend("force", lualine_config, config.lualine)
 end
 
 lualine_setup.setup(lualine_config)
