@@ -18,15 +18,56 @@ jobs:
 
   neovim:
     runs-on: ubuntu-latest
+    env:
+      CODEART_ROOT: ${{ github.workspace }}
+      XDG_CONFIG_HOME: ${{ runner.temp }}/codeart-xdg/config
+      XDG_DATA_HOME: ${{ runner.temp }}/codeart-xdg/data
+      XDG_STATE_HOME: ${{ runner.temp }}/codeart-xdg/state
+      XDG_CACHE_HOME: ${{ runner.temp }}/codeart-xdg/cache
     steps:
       - uses: actions/checkout@v4
+
       - uses: rhysd/action-setup-vim@v1
         with:
           neovim: true
-          version: stable
-      - name: Verify Neovim version
-        run: nvim --version
+          version: v0.12.0
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ripgrep fd-find build-essential
+          sudo ln -sf "$(command -v fdfind)" /usr/local/bin/fd
+          # Pin tree-sitter CLI (≥ 0.26.1) for nvim-treesitter main builds.
+          npm install -g tree-sitter-cli@0.26.1
+          command -v nvim
+          command -v rg
+          command -v fd
+          command -v tree-sitter
+          tree-sitter --version
+          nvim --version
+
+      - name: Point XDG config at this checkout
+        run: |
+          mkdir -p "$XDG_CONFIG_HOME" "$XDG_DATA_HOME" "$XDG_STATE_HOME" "$XDG_CACHE_HOME"
+          ln -sfn "$CODEART_ROOT" "$XDG_CONFIG_HOME/nvim"
+          test -f "$XDG_CONFIG_HOME/nvim/init.lua"
+
       - name: Sync plugins
         run: |
-          nvim --headless "+Lazy! sync" +qa
-        timeout-minutes: 10
+          nvim --headless \
+            -c "lua assert(vim.fn.has('nvim-0.12') == 1, 'Neovim 0.12+ required')" \
+            -c "lua assert(vim.fn.resolve(vim.fn.stdpath('config')) == vim.fn.resolve(vim.env.CODEART_ROOT), 'XDG config is not this checkout')" \
+            -c "Lazy! sync" \
+            -c qa
+        timeout-minutes: 15
+
+      - name: Smoke open a file
+        run: |
+          nvim --headless README.md \
+            -c "lua vim.wait(3000)" \
+            -c "lua assert(vim.fn.has('nvim-0.12') == 1)" \
+            -c "lua assert(vim.fn.resolve(vim.fn.stdpath('config')) == vim.fn.resolve(vim.env.CODEART_ROOT))" \
+            -c "lua local p = require('lazy.core.config').plugins['nvim-treesitter']; assert(p ~= nil, 'nvim-treesitter missing'); assert(p.branch == 'main', 'nvim-treesitter must use branch main')" \
+            -c "lua assert(vim.bo.filetype ~= '', 'expected a filetype after opening README.md')" \
+            -c qa
+        timeout-minutes: 5
