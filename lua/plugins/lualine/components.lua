@@ -2,12 +2,37 @@ local M = {}
 
 local lsp_utils = require("plugins.lsp.utils")
 
-function M.lsp_progress(_)
-  local status = vim.lsp.status()
-  if type(status) == "string" and status ~= "" then
-    return " " .. status
+local icons = {
+  lsp = " ",
+  formatter = "󰉿 ",
+  linter = "󰁨 ",
+}
+
+---@param names string[]
+---@param icon string
+---@return string|nil
+local function format_category(names, icon)
+  if #names == 0 then
+    return nil
   end
-  return ""
+  if #names == 1 then
+    return icon .. names[1]
+  end
+  return icon .. names[1] .. string.format(" +%d", #names - 1)
+end
+
+---@param names string[]
+---@return string[]
+local function unique_names(names)
+  local seen = {}
+  local out = {}
+  for _, name in ipairs(names) do
+    if type(name) == "string" and name ~= "" and not seen[name] then
+      seen[name] = true
+      table.insert(out, name)
+    end
+  end
+  return out
 end
 
 function M.treesitter_status(_)
@@ -21,27 +46,38 @@ end
 
 function M.lsp_name(msg)
   msg = msg or "Inactive"
-  local buf_clients = vim.lsp.get_clients({ bufnr = 0 })
-  if vim.tbl_isempty(buf_clients) then
+
+  local lsp_names = {}
+  for _, client in ipairs(vim.lsp.get_clients({ bufnr = 0 })) do
+    table.insert(lsp_names, client.name)
+  end
+  lsp_names = unique_names(lsp_names)
+
+  local formatters = unique_names(lsp_utils.list_available_formatters(0))
+  local linters = unique_names(lsp_utils.list_available_linters(0))
+
+  local parts = {}
+  local lsp_part = format_category(lsp_names, icons.lsp)
+  local fmt_part = format_category(formatters, icons.formatter)
+  local lint_part = format_category(linters, icons.linter)
+  if lsp_part then
+    table.insert(parts, lsp_part)
+  end
+  if fmt_part then
+    table.insert(parts, fmt_part)
+  end
+  if lint_part then
+    table.insert(parts, lint_part)
+  end
+
+  if #parts == 0 then
     if type(msg) == "boolean" or #msg == 0 then
       return "Inactive"
     end
     return msg
   end
-  local buf_ft = vim.bo.filetype
-  local buf_client_names = {}
 
-  for _, client in pairs(buf_clients) do
-    table.insert(buf_client_names, client.name)
-  end
-
-  local supported_formatters = lsp_utils.list_registered_formatters(buf_ft)
-  vim.list_extend(buf_client_names, supported_formatters)
-
-  local supported_linters = lsp_utils.list_registered_linters(buf_ft)
-  vim.list_extend(buf_client_names, supported_linters)
-
-  return table.concat(buf_client_names, ", ")
+  return table.concat(parts, " · ")
 end
 
 return M

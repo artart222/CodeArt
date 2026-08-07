@@ -87,7 +87,6 @@ local lualine_config = {
     lualine_x = {
       {
         utils.lsp_name,
-        icon = " ",
         color = { gui = "none" },
       },
       {
@@ -99,7 +98,7 @@ local lualine_config = {
       },
       "fileformat",
     },
-    lualine_y = { utils.lsp_progress, "progress" },
+    lualine_y = { "progress" },
     lualine_z = { "location" },
   },
 }
