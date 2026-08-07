@@ -7,7 +7,7 @@
 - **Neovim 0.12+** required (was 0.11+).
 - **nvim-treesitter** uses the **`main`** rewrite (not the frozen `master` branch).
 - **`tree-sitter-cli` ≥ 0.26.1** is required on PATH (OS package manager / cargo — **not** the npm package).
-- `user_settings.config.treesitter` is no longer a merge into `nvim-treesitter.configs.setup`. When set, use `config.treesitter.ensure_installed = { ... }` as a **full replacement** of CodeArt's default parser list.
+- `user_settings.config.treesitter.ensure_installed` is **opt-in only** (CodeArt ships **no** default parsers). Set it to a list of parser names to install on startup, or use `:TSInstall <language>`.
 
 **Upgrade from an older 2.1 / treesitter `master` install:**
 
@@ -38,11 +38,17 @@
 - Stronger Neovim **0.12+** startup gate: ERROR notify and abort loading CodeArt if the version is too old (upgrade Neovim with your OS package manager).
 - Commit **lazy-lock.json** for reproducible plugin versions (removed from `.gitignore`).
 - Installers document/install **tree-sitter-cli** where the package manager supports it.
+- **conform.nvim** formatters and `format_on_save` are opt-in via `user_settings.config.conform` (no default format-on-save / LSP fallback).
+- Plugin user overrides read `require("user_settings").config` consistently.
+- **vim-matchup** loads on `BufReadPost` / `BufNewFile` (was never loading under `defaults.lazy = true`).
+- **mason-lspconfig** exposes `:LspInstall` / `:LspUninstall` as lazy `cmd` triggers so they work from Dashboard.
+- Remove unused leftover `lua/plugins/alpha.lua` (dashboard replaced alpha).
 
 ### Notes
 
 - `:CodeArtUpdate` updates CodeArt and plugins only. When a release needs a newer Neovim, CodeArt will tell you at startup — upgrade Neovim yourself.
 - Missing `tree-sitter` CLI produces a startup warning; parser installs will fail with ENOENT until the CLI is installed.
+- Fresh installs have no treesitter parsers until you `:TSInstall` or set `config.treesitter.ensure_installed`.
 
 ## [2.0.0] - 2026-05-29
 
