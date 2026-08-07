@@ -218,7 +218,10 @@ if is_plugin_installed("lspsaga.nvim") and not disable_plugins.lspsaga then
   table.insert(lsp_maps, { "<leader>lr", ":Lspsaga rename<CR>", desc = "Rename" })
 else
   table.insert(lsp_maps, { "<leader>la", ":lua vim.lsp.buf.code_action()<CR>", desc = "Code Action" })
-  table.insert(lsp_maps, { "<leader>ld", ":lua vim.diagnostic.open_float()<CR>", desc = "Show Current Line Diagnostics" })
+  table.insert(
+    lsp_maps,
+    { "<leader>ld", ":lua vim.diagnostic.open_float()<CR>", desc = "Show Current Line Diagnostics" }
+  )
   table.insert(lsp_maps, {
     "<leader>lgj",
     ":lua vim.diagnostic.jump({ count = 1, float = true })<CR>",

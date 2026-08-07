@@ -63,11 +63,7 @@ end
 function M.safe_require(mod)
   local ok, result = pcall(require, mod)
   if not ok then
-    vim.notify(
-      string.format("Failed to load `%s`:\n%s", mod, result),
-      vim.log.levels.ERROR,
-      { title = "CodeArt" }
-    )
+    vim.notify(string.format("Failed to load `%s`:\n%s", mod, result), vim.log.levels.ERROR, { title = "CodeArt" })
     return nil
   end
   return result

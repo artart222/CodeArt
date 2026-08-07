@@ -13,11 +13,7 @@ if not vim.uv.fs_stat(lazy_nvim_path) then
     lazy_nvim_path,
   })
   if vim.v.shell_error ~= 0 then
-    vim.notify(
-      "Failed to clone lazy.nvim:\n" .. out,
-      vim.log.levels.ERROR,
-      { title = "CodeArt" }
-    )
+    vim.notify("Failed to clone lazy.nvim:\n" .. out, vim.log.levels.ERROR, { title = "CodeArt" })
     return
   end
 end
@@ -109,7 +105,7 @@ local plugins = {
 
   {
     "lukas-reineke/indent-blankline.nvim",
-    event = { "BufAdd", "BufRead", "BufNewFile"},
+    event = { "BufAdd", "BufRead", "BufNewFile" },
     cmd = {
       "IBLEnable",
       "IBLDisable",
@@ -171,7 +167,7 @@ local plugins = {
 
   {
     "nvim-lualine/lualine.nvim",
-    event = { "BufAdd", "BufRead", "BufNewFile"},
+    event = { "BufAdd", "BufRead", "BufNewFile" },
     config = function()
       require("plugins/lualine/lualine")
     end,
@@ -200,7 +196,7 @@ local plugins = {
 
   {
     "NvChad/nvim-colorizer.lua",
-    event = { "BufAdd", "BufRead", "BufNewFile"},
+    event = { "BufAdd", "BufRead", "BufNewFile" },
     cmd = {
       "ColorizerAttachToBuffer",
       "ColorizerDetachFromBuffer",
@@ -386,8 +382,7 @@ local plugins = {
     config = function()
       require("utils").warn_missing_executable(
         "git",
-        "vim-fugitive: `git` was not found on PATH.\n"
-          .. "Install git so :Git and related commands work."
+        "vim-fugitive: `git` was not found on PATH.\n" .. "Install git so :Git and related commands work."
       )
     end,
     enabled = not disable_plugins.fugitive,

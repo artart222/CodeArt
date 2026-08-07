@@ -6,8 +6,7 @@ end
 
 utils.warn_missing_executable(
   "git",
-  "gitsigns: `git` was not found on PATH.\n"
-    .. "Install git so signs, blame, and hunk actions work."
+  "gitsigns: `git` was not found on PATH.\n" .. "Install git so signs, blame, and hunk actions work."
 )
 
 -- TODO: complete setting file.
