@@ -40,7 +40,7 @@
 - Installers document/install **tree-sitter-cli** where the package manager supports it.
 - **conform.nvim** ships with an example `format_on_save` (`lsp_fallback = true`) in `user_settings.config.conform`. Formatters stay opt-in via `formatters_by_ft` (no default formatters). Remove or edit `config.conform` to disable format-on-save.
 - Plugin user overrides read `require("user_settings").config` consistently.
-- **vim-matchup** loads on `BufReadPost` / `BufNewFile` (was never loading under `defaults.lazy = true`).
+- **vim-matchup** loads on `BufAdd` / `BufRead` / `BufNewFile` (was never loading under `defaults.lazy = true`).
 - **mason-lspconfig** exposes `:LspInstall` / `:LspUninstall` as lazy `cmd` triggers so they work from Dashboard.
 - Remove unused leftover `lua/plugins/alpha.lua` (dashboard replaced alpha).
 - CI boots this repo via XDG sandbox, pins Neovim **v0.12.0**, runs `:Lazy sync`, and smokes opening a file (asserts treesitter `main`).
